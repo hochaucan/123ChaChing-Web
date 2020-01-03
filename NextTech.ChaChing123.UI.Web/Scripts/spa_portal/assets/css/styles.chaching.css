@@ -1,0 +1,104 @@
+@media (min-width: 992px) {
+    .app-navbar-fixed {
+        padding-top: 0px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        width: 760px;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        width: 980px;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        width: 1180px;
+    }
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+@media (min-width: 992px) {
+    .main-content {
+        margin-top: 65px;
+        margin-left: 0px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-collapse {
+        margin-left: 0px;
+        height: 80px !important;
+    }
+}
+.navbar {
+    position: relative !important;
+}
+@media (min-width: 992px) {
+    .app-navbar-fixed .navbar .navbar-collapse, .app-navbar-fixed .navbar .navbar-header {
+        position: relative !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        -webkit-transform: translateZ(0);
+    }
+}
+@media (min-width: 768px){
+    .navbar-right {
+        float: left !important;
+        margin-right: -15px;
+    }
+}
+
+.navbar .navbar-header {
+    height: 80px;
+}
+.navbar .navbar-right > li > a {
+    padding: 0px 10px;
+    text-transform: capitalize;
+}
+.navbar .navbar-right > li > a, .item-content {
+    height: 80px;
+    line-height: 80px;
+}
+.item-content {
+    align-items: center;
+    display: table-row;
+}
+@media (min-width: 992px) {
+    .app-aside div {
+        -webkit-transform: translateZ(0);
+    }
+}
+.item-content .item-media {
+    display: table-cell;
+    padding: 10px 15px 10px 15px;
+}
+ul.nav li a i[class*="ti-"] {
+    margin-right: 5px;
+    display: inline-block;
+    font-size: 17px;
+    position: relative;
+    top: 2px;
+}
+.ti-home:before {
+    content: "\e69b";
+}
+.item-content .item-icon {
+    display: table-cell;
+    padding: 0px 10px;
+}
+.item-content .item-text {
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #c8c7cc;
+    display: table-cell;
+    padding: 10px 15px 10px 0;
+}

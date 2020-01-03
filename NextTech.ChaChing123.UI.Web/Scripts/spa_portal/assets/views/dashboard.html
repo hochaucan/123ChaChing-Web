@@ -1,0 +1,207 @@
+﻿<!--<!-- saved from url=(0091)/assets/views/dashboard.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <!-- start: FIRST SECTION -->
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div class="row">
+                    <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                    <div ng-controller="SparklineCtrl">
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h5 class="panel-title text-left">Tạo Trang</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="text-center">
+                                        <span class="text-bold text-uppercase">3 Bước Đơn Giản</span>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-primary btn-block">
+                                            Bắt Đầu Ngay
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-white no-radius">
+                                <div class="panel-heading border-light">
+                                    <h5 class="panel-title text-left">Danh Sách Các Trang</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="text-center">
+                                        <span class="text-bold text-uppercase">Danh Sách Trang</span>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-primary btn-block">
+                                            Xem Thêm
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
+                <div class="panel panel-white no-radius" id="visits">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title"> Visits </h4>
+                        <ul class="panel-heading-tabs border-light">
+                            <li>
+                                <div class="pull-right">
+                                    <div class="btn-group" uib-dropdown="" is-open="status.isopen">
+                                        <a uib-dropdown-toggle="" ng-disabled="disabled" class="padding-10">
+                                            <i class="ti-more-alt "></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-light" role="menu">
+                                            <li>
+                                                <a href="/assets/views/dashboard.html#">
+                                                    Action
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/assets/views/dashboard.html#">
+                                                    Another action
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/assets/views/dashboard.html#">
+                                                    Something else here
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rate">
+                                    <i class="fa fa-caret-up text-primary"></i><span class="value">15</span><span class="percentage">%</span>
+                                </div>
+                            </li>
+                            <li class="panel-tools">
+                                <ct-paneltool tool-refresh="load1"></ct-paneltool>
+                            </li>
+                        </ul>
+                    </div>
+                    <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
+                        <div class="panel-body">
+                            <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                            <div ng-controller="VisitsCtrl" class="height-350">
+                                <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
+                                <div class="margin-top-20">
+                                    <div tc-chartjs-legend="" chart-legend="chart1" class="inline pull-left"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: FIRST SECTION -->
+    <!-- start: SECOND SECTION -->
+    <div class="container-fluid container-fullw bg-white ng-scope">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading border-light">
+                        <h5 class="panel-title text-left">Tháng 9</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-sm-4">
+                                    <div class="panel no-radius text-center">
+                                        <div class="panel-body">
+                                            <h3>Đã Giới Thiệu</h3>
+                                            <h2><span class="text-bold">18</span></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel no-radius text-center">
+                                        <div class="panel-body">
+                                            <h3>Đang Duyệt</h3>
+                                            <h2><span class="text-bold">71,976,000Đ</span></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel no-radius text-center">
+                                        <div class="panel-body">
+                                            <h3>Đã Duyệt</h3>
+                                            <h2><span class="text-bold">8,997,000Đ</span></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: SECOND SECTION -->
+    <!-- start: THIRD SECTION -->
+    <div class="container-fluid container-fullw bg-white ng-scope">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                    <div ng-controller="SparklineCtrl">
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h5 class="panel-title text-left">Kiến Thức Marketing &Aacute; Sales</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="text-center">
+                                        <span class="text-bold text-uppercase">Tài Liệu</span>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-primary btn-block">
+                                            Xem Thêm
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="row">
+                    <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                    <div ng-controller="SparklineCtrl">
+                        <div class="col-md-12">
+                            <div class="panel panel-white">
+                                <div class="panel-heading border-light">
+                                    <h5 class="panel-title text-left">Thống Kê Tiếp Thị Liên Kết</h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="text-center">
+                                        <span class="text-bold text-uppercase">Affiliate</span>
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-primary btn-block">
+                                            Xem Thêm
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: THIRD SECTION -->
+</body>
+</html>

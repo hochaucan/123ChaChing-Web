@@ -1,0 +1,612 @@
+﻿<!DOCTYPE html>
+<div ng-controller="bankMappingController">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget widget-danger">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="pull-left widget-title">
+                            <i class="fa fa-tasks" ng-class="icon"></i> <span class="ng-binding">Matched Bank Code Management</span>
+                        </div>
+                        <div class="pull-right col-xs-6 col-sm-4"></div>
+                        <div class="widget-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" ng-click="widgetShow = !widgetShow" ng-hide="requireWidgetShow">
+                                <i class="fa fa-minus" ng-class="{'fa-plus':  !widgetShow, 'fa-minus':  widgetShow}"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-body" ng-class="classes" ng-show="widgetShow">
+                    <!--loading-->
+                    <rd-loading ng-show="isLoading"></rd-loading>
+                    <div class="widget-content">
+                        <div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="alerts.length">
+                            <div class="col-xs-12">
+                                <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                            </div>
+                        </div>
+                        <hr />
+                        <!-- Search Result List -->
+
+                        <div class="row form-group">
+                            <div class="col-md-12 control-label text-left">Uploaded By : <span class="text-danger">{{uploadedBy}}</span></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 control-label text-left">Uploaded Date : <span class="text-danger">{{uploadedDate}}</span></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 control-label text-left">Checked By : <span class="text-danger">{{checkedBy}}</span></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 control-label text-left">Checked Date : <span class="text-danger">{{checkedDate}}</span></div>
+                        </div>
+                        <hr />
+                        <form class="form-horizontal">
+
+                            <div class="row">
+
+                                <label class="col-md-2 control-label text-left">Cus.Bank Code</label>
+                                <div class="col-md-2 text-left control-group">
+                                    <input type="text" class="form-control" ng-model="matchedBankCodeManagementSearch.CusBankCode" style="width:100%" />
+                                </div>
+
+                                <label class="col-md-2 control-label text-left">Cus.Bank Name</label>
+                                <div class="col-md-2 text-left control-group">
+                                    <input type="text" class="form-control" ng-model="matchedBankCodeManagementSearch.CusBankName" style="width:100%" />
+                                </div>
+
+                                <div class="checkbox col-md-1">
+                                    <label><input type="checkbox" ng-model="matchedBankCodeManagementSearch.InActive">InActive</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <button type="button" class="btn btn-default" ng-click="searchBankMapping()">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                            <span>Search</span>
+                                        </button>
+                                        <button type="button" ng-show="isOfficer || isApprover || isAdmin" class="btn btn-default" ng-click="clearForm()" style="margin-left:5px;">
+                                            <i class="glyphicon"></i>
+                                            <span>Clear</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- 3 buttons Insert, Update, Delete -->
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <button type="button" ng-click="toggleModalAddForm()" ng-show="isApprover || isAdmin" class="btn btn-sm btn-default  m-t-5" title="Registration">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span></span>
+                                </button>
+
+                                <button type="button" ng-click="openModalEditForm()" ng-show="isApprover || isAdmin" class="btn btn-sm btn-default  m-l-5 m-t-5" title="Edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span></span>
+                                </button>
+
+                                <button type="button" ng-click="openModalDelete()" ng-show="isApprover || isAdmin" class="btn btn-sm btn-default  m-l-5 m-t-5" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="SearchResultList" style="display:block">
+                            <table id="data-table" datatable="" dt-options="dtNewOptions" dt-columns="dtColumns" class="table table-striped table-bordered table-hover" width="100%"></table>
+                        </div>
+                        <!-- End Search Result List -->
+                        <div class="row form-group">
+                            <div class="col-sm-12 text-right">
+                                <button type="button" class="btn btn-default" ng-click="openModalImportFile();" ng-show="isApprover || isAdmin">
+                                    <i class="glyphicon"></i>
+                                    <span>Import</span>
+                                </button>
+                                <button type="button" class="btn btn-default" ng-click="checkBankMappings()" ng-show="isApprover || isAdmin" ng-disabled="isCheckDisable">
+                                    <i class="glyphicon"></i>
+                                    <span>Check Mapping</span>
+                                </button>
+                                <button type="button" class="btn btn-default" ng-click="exportBankMappings()" ng-disabled="IsEmptyData">
+                                    <i class="glyphicon"></i>
+                                    <span>Export</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- #modal-dialog - Add New Records -->
+    <div class="modal modal-message fade" id="modal-add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Matched Bank Code Management: Add New</h4>
+                </div>
+                <form name="matchedBankCodeManagementNewForm" id="matchedBankCodeManagementNewForm" class="form-horizontal">
+
+                    <div class="modal-body">
+
+                        <!-- begin row -->
+                        <div class="row">
+                            <!--<div class="col-md-12 underline m-b-5">
+                                <h5>Matched Bank Code Management</h5>
+                            </div>-->
+                            <!-- begin col-12 -->
+                            <div class="col-md-12">
+                                <!-- Start Input Form -->
+                                <!-- ID -->
+                                <input type="hidden" id="newFormID" name="ID" ng-model="matchedBankCodeManagementNew.ID">
+
+                                <!-- CusBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.CusBankCode.$invalid || submitted) && (matchedBankCodeManagementNewForm.CusBankCode.$error.minlength ||matchedBankCodeManagementNewForm.CusBankCode.$error.maxlength ||matchedBankCodeManagementNewForm.CusBankCode.$error.required ||matchedBankCodeManagementNewForm.CusBankCode.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Cus.Bank Code <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormCusBankCodeValue" name="CusBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.CusBankCode" ng-minlength="1" ng-maxlength="20" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankCode.$error.minlength" class="help-block">Cus.Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankCode.$error.maxlength" class="help-block">Cus.Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankCode.$error.required" class="help-block">Cus.Bank Code is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankCode.$error.specialcharacters" class="help-block">
+                                            Cus.Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- CusBankName -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.CusBankName.$invalid || submitted) && (matchedBankCodeManagementNewForm.CusBankName.$error.minlength ||matchedBankCodeManagementNewForm.CusBankName.$error.maxlength ||matchedBankCodeManagementNewForm.CusBankName.$error.required ||matchedBankCodeManagementNewForm.CusBankName.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Cus.Bank Name <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormCusBankNameValue" name="CusBankName" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.CusBankName" ng-minlength="1" ng-maxlength="140" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankName.$error.minlength" class="help-block">Cus.Bank Name is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankName.$error.maxlength" class="help-block">Cus.Bank Name is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankName.$error.required" class="help-block">Cus.Bank Name is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.CusBankName.$error.specialcharacters" class="help-block">
+                                            Cus.Bank Name has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.BTMUBankCode.$invalid || submitted) && (matchedBankCodeManagementNewForm.BTMUBankCode.$error.minlength ||matchedBankCodeManagementNewForm.BTMUBankCode.$error.maxlength ||matchedBankCodeManagementNewForm.BTMUBankCode.$error.required ||matchedBankCodeManagementNewForm.BTMUBankCode.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Code <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormBTMUBankCode" name="BTMUBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.BTMUBankCode" ng-minlength="1" ng-maxlength="20" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankCode.$error.minlength" class="help-block">Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankCode.$error.maxlength" class="help-block">Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankCode.$error.required" class="help-block">Bank Code is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankCode.$error.specialcharacters" class="help-block">
+                                            Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankNameEN -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.BTMUBankNameEN.$invalid || submitted) && (matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.minlength ||matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.maxlength || matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.required ||matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Name (EN) <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormBTMUBankNameEN" name="BTMUBankNameEN" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.BTMUBankNameEN" ng-minlength="1" ng-maxlength="140" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.minlength" class="help-block">Bank Name (EN) is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.maxlength" class="help-block">Bank Name (EN) is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.required" class="help-block">Bank Name (EN) is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementNewForm.BTMUBankNameEN.$error.specialcharacters" class="help-block">
+                                            Bank Name (EN) has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankNameVN -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.BankNameVN.$invalid || submitted) && (matchedBankCodeManagementNewForm.BankNameVN.$error.minlength ||matchedBankCodeManagementNewForm.BankNameVN.$error.maxlength ||matchedBankCodeManagementNewForm.BankNameVN.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Name (VN) <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormBankNameVN" name="BankNameVN" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.BankNameVN" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNameVN.$error.minlength" class="help-block">Bank Name (VN) is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNameVN.$error.maxlength" class="help-block">Bank Name (VN) is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNameVN.$error.specialcharacters" class="help-block">
+                                            Bank Name (VN) has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- IntBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.IntBankCode.$invalid || submitted) && (matchedBankCodeManagementNewForm.IntBankCode.$error.minlength ||matchedBankCodeManagementNewForm.IntBankCode.$error.maxlength ||matchedBankCodeManagementNewForm.IntBankCode.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Int Bank Code <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormIntBankCodeValue" name="IntBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.IntBankCode" ng-minlength="1" ng-maxlength="20" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankCode.$error.minlength" class="help-block">Int Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankCode.$error.maxlength" class="help-block">Int Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankCode.$error.specialcharacters" class="help-block">
+                                            Int Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- IntBankName -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.IntBankName.$invalid || submitted) && (matchedBankCodeManagementNewForm.IntBankName.$error.minlength ||matchedBankCodeManagementNewForm.IntBankName.$error.maxlength ||matchedBankCodeManagementNewForm.IntBankName.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Int Bank Name <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormIntBankNameValue" name="IntBankName" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.IntBankName" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankName.$error.minlength" class="help-block">Int Bank Name is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankName.$error.maxlength" class="help-block">Int Bank Name is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementNewForm.IntBankName.$error.specialcharacters" class="help-block">
+                                            Int Bank Name has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- Province -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.Province.$invalid || submitted) && (matchedBankCodeManagementNewForm.Province.$error.minlength ||matchedBankCodeManagementNewForm.Province.$error.maxlength || matchedBankCodeManagementNewForm.Province.$error.required ||matchedBankCodeManagementNewForm.Province.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Province <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormProvince" name="Province" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.Province" ng-minlength="1" ng-maxlength="50" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.Province.$dirty || submitted) && matchedBankCodeManagementNewForm.Province.$error.minlength" class="help-block">Province is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.Province.$dirty || submitted) && matchedBankCodeManagementNewForm.Province.$error.maxlength" class="help-block">Province is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.Province.$dirty || submitted) && matchedBankCodeManagementNewForm.Province.$error.required" class="help-block">Province is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.Province.$dirty || submitted) && matchedBankCodeManagementNewForm.Province.$error.specialcharacters" class="help-block">
+                                            Province has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BankNote -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementNewForm.BankNote.$invalid || submitted) && (matchedBankCodeManagementNewForm.BankNote.$error.minlength ||matchedBankCodeManagementNewForm.BankNote.$error.maxlength ||matchedBankCodeManagementNewForm.BankNote.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Bank Note <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="newFormBankNote" name="BankNote" specialcharacters class="form-control" ng-model="matchedBankCodeManagementNew.BankNote" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNote.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNote.$error.minlength" class="help-block">Bank Note is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNote.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNote.$error.maxlength" class="help-block">Bank Note is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementNewForm.BankNote.$dirty || submitted) && matchedBankCodeManagementNewForm.BankNote.$error.specialcharacters" class="help-block">
+                                            Bank Note has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- CreatedBy -->
+                                <input type="hidden" id="newFormCreatedBy" name="CreatedBy" ng-model="matchedBankCodeManagementNew.CreatedBy">
+
+                                <!-- CreatedDate -->
+                                <input type="hidden" id="newFormCreatedDate" name="CreatedDate" ng-model="matchedBankCodeManagementNew.CreatedDate">
+
+                                <!-- UpdatedBy -->
+                                <input type="hidden" id="newFormUpdatedBy" name="UpdatedBy" ng-model="matchedBankCodeManagementNew.UpdatedBy">
+
+                                <!-- UpdatedDate -->
+                                <input type="hidden" id="newFormUpdatedDate" name="UpdatedDate" ng-model="matchedBankCodeManagementNew.UpdatedDate">
+
+                                <!-- End Input Form -->
+                            </div>
+
+                            <!-- end col-12 -->
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <div id="alertErrorMessageContainer" class="alert alert-danger fade in m-b-15" style="display:none">
+                        <strong>Error!</strong>
+                        <span id="alertMessage"></span>
+                        <span class="close" data-dismiss="alert">&times;</span>
+                    </div>
+                    <div class="underline">
+                    </div>
+                    <div class="modal-footer">
+                        <!--<label for="submit-form">-->
+                        <!-- <button type="button" class="btn btn-default" ng-click="submitNewForm()" ng-disabled="buttonAddDisabled"> -->
+
+                        <button type="button" class="btn btn-default" ng-click="submitNewForm()" ng-disabled="buttonAddDisabled">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            <span>Save</span>
+                        </button>
+                        <!--</label>-->
+                        <a href="javascript:;" class="btn btn-default" data-dismiss="modal">Close</a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- end <Add> #modal-dialog -->
+    <!-- #modal-dialog - Edit -->
+    <div class="modal modal-message fade" id="modal-edit">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Matched Bank Code Management: Edit</h4>
+                </div>
+                <form name="matchedBankCodeManagementEditForm" novalidate class="form-horizontal">
+                    <div class="modal-body">
+
+                        <!-- begin row -->
+                        <div class="row">
+                            <!--<div class="col-md-12 underline m-b-5">
+                                <h5>Matched Bank Code Management Information</h5>
+                            </div>-->
+                            <!-- begin col-12 -->
+                            <div class="col-md-12">
+
+                                <!-- Start Input Form -->
+                                <!-- ID -->
+                                <input type="hidden" id="editFormID" name="ID" ng-model="matchedBankCodeManagementEdit.ID">
+
+
+
+                                <!-- CusBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.CusBankCode.$invalid || submitted) && (matchedBankCodeManagementEditForm.CusBankCode.$error.minlength ||matchedBankCodeManagementEditForm.CusBankCode.$error.maxlength ||matchedBankCodeManagementEditForm.CusBankCode.$error.required ||matchedBankCodeManagementEditForm.CusBankCode.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Cus.Bank Code <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormCusBankCodeValue" name="CusBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.CusBankCode" ng-minlength="1" ng-maxlength="20" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankCode.$error.minlength" class="help-block">Cus.Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankCode.$error.maxlength" class="help-block">Cus.Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankCode.$error.required" class="help-block">Cus.Bank Code is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankCode.$error.specialcharacters" class="help-block">
+                                            Cus.Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- CusBankName -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.CusBankName.$invalid || submitted) && (matchedBankCodeManagementEditForm.CusBankName.$error.minlength ||matchedBankCodeManagementEditForm.CusBankName.$error.maxlength ||matchedBankCodeManagementEditForm.CusBankName.$error.required ||matchedBankCodeManagementEditForm.CusBankName.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Cus.Bank Name <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormCusBankNameValue" name="CusBankName" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.CusBankName" ng-minlength="1" ng-maxlength="140" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankName.$error.minlength" class="help-block">Cus.Bank Name is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankName.$error.maxlength" class="help-block">Cus.Bank Name is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankName.$error.required" class="help-block">Cus.Bank Name is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.CusBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.CusBankName.$error.specialcharacters" class="help-block">
+                                            Cus.Bank Name has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.BTMUBankCode.$invalid || submitted) && (matchedBankCodeManagementEditForm.BTMUBankCode.$error.minlength ||matchedBankCodeManagementEditForm.BTMUBankCode.$error.maxlength ||matchedBankCodeManagementEditForm.BTMUBankCode.$error.required ||matchedBankCodeManagementEditForm.BTMUBankCode.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Code <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormBTMUBankCode" name="BTMUBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.BTMUBankCode" ng-minlength="1" ng-maxlength="20" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankCode.$error.minlength" class="help-block">Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankCode.$error.maxlength" class="help-block">Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankCode.$error.required" class="help-block">Bank Code is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankCode.$error.specialcharacters" class="help-block">
+                                            Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankNameEN -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.BTMUBankNameEN.$invalid || submitted) && (matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.minlength ||matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.maxlength || matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.required ||matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Name (EN) <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormBTMUBankNameEN" name="BTMUBankNameEN" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.BTMUBankNameEN" ng-minlength="1" ng-maxlength="140" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.minlength" class="help-block">Bank Name (EN) is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.maxlength" class="help-block">Bank Name (EN) is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.required" class="help-block">Bank Name (EN) is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BTMUBankNameEN.$dirty || submitted) && matchedBankCodeManagementEditForm.BTMUBankNameEN.$error.specialcharacters" class="help-block">
+                                            Bank Name (EN) has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BTMUBankNameVN -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.BankNameVN.$invalid || submitted) && (matchedBankCodeManagementEditForm.BankNameVN.$error.minlength ||matchedBankCodeManagementEditForm.BankNameVN.$error.maxlength ||matchedBankCodeManagementEditForm.BankNameVN.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Bank Name (VN) <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormBankNameVN" name="BankNameVN" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.BankNameVN" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNameVN.$error.minlength" class="help-block">Bank Name (VN) is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNameVN.$error.maxlength" class="help-block">Bank Name (VN) is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNameVN.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNameVN.$error.specialcharacters" class="help-block">
+                                            Bank Name (VN) has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- IntBankCode -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.IntBankCode.$invalid || submitted) && (matchedBankCodeManagementEditForm.IntBankCode.$error.minlength ||matchedBankCodeManagementEditForm.IntBankCode.$error.maxlength ||matchedBankCodeManagementEditForm.IntBankCode.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Int Bank Code <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormIntBankCodeValue" name="IntBankCode" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.IntBankCode" ng-minlength="1" ng-maxlength="20" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankCode.$error.minlength" class="help-block">Int Bank Code is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankCode.$error.maxlength" class="help-block">Int Bank Code is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankCode.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankCode.$error.specialcharacters" class="help-block">
+                                            Int Bank Code has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- IntBankName -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.IntBankName.$invalid || submitted) && (matchedBankCodeManagementEditForm.IntBankName.$error.minlength ||matchedBankCodeManagementEditForm.IntBankName.$error.maxlength ||matchedBankCodeManagementEditForm.IntBankName.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Int Bank Name <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormIntBankNameValue" name="IntBankName" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.IntBankName" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankName.$error.minlength" class="help-block">Int Bank Name is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankName.$error.maxlength" class="help-block">Int Bank Name is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.IntBankName.$dirty || submitted) && matchedBankCodeManagementEditForm.IntBankName.$error.specialcharacters" class="help-block">
+                                            Int Bank Name has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- Province -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.Province.$invalid || submitted) && (matchedBankCodeManagementEditForm.Province.$error.minlength ||matchedBankCodeManagementEditForm.Province.$error.maxlength || matchedBankCodeManagementEditForm.Province.$error.required ||matchedBankCodeManagementEditForm.Province.$error.specialcharacters) }">
+                                    <label class="col-md-4 control-label text-left"> Province <span class="text-danger">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormProvince" name="Province" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.Province" ng-minlength="1" ng-maxlength="50" required ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.Province.$dirty || submitted) && matchedBankCodeManagementEditForm.Province.$error.minlength" class="help-block">Province is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.Province.$dirty || submitted) && matchedBankCodeManagementEditForm.Province.$error.maxlength" class="help-block">Province is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.Province.$dirty || submitted) && matchedBankCodeManagementEditForm.Province.$error.required" class="help-block">Province is required.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.Province.$dirty || submitted) && matchedBankCodeManagementEditForm.Province.$error.specialcharacters" class="help-block">
+                                            Province has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+                                <!-- BankNote -->
+                                <div class="form-group m-t-5" ng-class="{ 'has-error' : (matchedBankCodeManagementEditForm.BankNote.$invalid || submitted) && (matchedBankCodeManagementEditForm.BankNote.$error.minlength ||matchedBankCodeManagementEditForm.BankNote.$error.maxlength ||matchedBankCodeManagementEditForm.BankNote.$error.specialcharacters)}">
+                                    <label class="col-md-4 control-label text-left"> Bank Note <span class="text-danger"></span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="EditFormBankNote" name="BankNote" specialcharacters class="form-control" ng-model="matchedBankCodeManagementEdit.BankNote" ng-minlength="1" ng-maxlength="140" ng-keypress="newKeyPress($event)">
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNote.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNote.$error.minlength" class="help-block">Bank Note is too short.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNote.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNote.$error.maxlength" class="help-block">Bank Note is too long.</p>
+                                        <p ng-show="(matchedBankCodeManagementEditForm.BankNote.$dirty || submitted) && matchedBankCodeManagementEditForm.BankNote.$error.specialcharacters" class="help-block">
+                                            Bank Note has invalid characters.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+
+
+                                <!-- CreatedBy -->
+                                <input type="hidden" id="editFormCreatedBy" name="CreatedBy" ng-model="bankCodeManagementEdit.CreatedBy">
+
+                                <!-- CreatedDate -->
+                                <input type="hidden" id="editFormCreatedDate" name="CreatedDate" ng-model="bankCodeManagementEdit.CreatedDate">
+
+                                <!-- UpdatedBy -->
+                                <input type="hidden" id="editFormUpdatedBy" name="UpdatedBy" ng-model="bankCodeManagementEdit.UpdatedBy">
+
+                                <!-- UpdatedDate -->
+                                <input type="hidden" id="editFormUpdatedDate" name="UpdatedDate" ng-model="bankCodeManagementEdit.UpdatedDate">
+
+                                <!-- End Input Form -->
+
+
+                            </div>
+
+                            <!-- end col-12 -->
+                        </div>
+                        <!-- end row -->
+
+
+                    </div>
+                    <div id="alertErrorMessageEditContainer" class="alert alert-danger fade in m-b-15" style="display:none">
+                        <strong>Error!</strong>
+                        <span id="alertMessageEdit"></span>
+                        <span class="close" data-dismiss="alert">&times;</span>
+                    </div>
+                    <div class="underline">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="submitEditForm()" ng-disabled="buttonEditDisabled" class="btn btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            <span>Save</span>
+                        </button>
+                        <a href="javascript:;" class="btn btn-default" ng-click="closeModalEditForm()">Close</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- end <Edit> #modal-dialog -->
+    <!-- #modal-alert - Delete -->
+    <div class="modal fade" id="modal-alert-delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Alert</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-heading m-b-0">
+                        <h4><i class="fa fa-info-circle"></i> Confirm Deletion</h4>
+                        <p>Are you sure you want to delete the selected Matched Bank Code</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" ng-click="submitDeleteForm()" ng-disabled="buttonDeleteDisabled" ng-show="isApprover || isAdmin" class="btn btn-sm btn-default">Ok</a>   <!-- isOfficer <=> isAdmin: Admin/Officer=true -->
+                    <a href="javascript:;" class="btn btn-sm btn-default" ng-click="closeModalDelete()">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end <Delete> #modal-alert -->
+    <!-- #modal-dialog - Import File -->
+    <div class="modal modal-message fade" id="modal-import">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Matched Bank Code: Import File</h4>
+                </div>
+                <div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="importAlerts.length">
+                    <div class="col-xs-12">
+                        <uib-alert data-ng-repeat="alert in importAlerts" type="{{alert.type}}" close="closeImportAlert($index)">{{alert.msg}}</uib-alert>
+                    </div>
+                </div>
+                <form name="stateTreasuryImportFile" class="form-horizontal">
+                    <div class="modal-body">
+                        <div class="row form-group">
+                            <label class="col-md-3 control-label text-left">Choose files: <span class="text-danger"></span></label>
+                            <div class="col-md-6">
+                                <div class="input-group  input-group-sm">
+                                    <input type="text" id="fileName" ng-model="fileName" class="form-control" placeholder="Import File" aria-describedby="sizing-addon1" disabled>
+                                    <span class="input-group-btn">
+                                        <label for="file-upload" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-search" style="margin-right:5px"></span> Browse
+                                        </label>
+                                    </span>
+                                </div>
+                                <input id="file-upload" class="form-control" single type="file" ng-file-model="files"
+                                       method="POST" enctype="multipart/form-data" encoding="multipart/form-data"
+                                       accept=".xls, .xlsx" placeholder="Import File" aria-describedby="sizing-addon1">
+                                <p ng-repeat="file in files">
+                                    {{file.name}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button id="btnImportFile" type="button" class="btn btn-default" ng-click="importFiles()">
+                        <i class="glyphicon"></i>
+                        <span>Import</span>
+                    </button>
+                    <a href="javascript:;" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+                
+        </div>
+    </div>
+</div>
+<!-- end #modal-dialog - Import File -->

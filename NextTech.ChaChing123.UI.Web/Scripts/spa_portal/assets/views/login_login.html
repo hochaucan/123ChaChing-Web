@@ -1,0 +1,111 @@
+﻿<!-- saved from url=(0093)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/login_login.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+                <uib-tabset justified="true" class="tabbable">
+                    <uib-tab heading="ĐĂNG NHẬP">
+                        <!-- start: LOGIN BOX -->
+                        <div class="box-login" ng-controller="UserLoginCtrl">
+                            <form name="FormLogin" id="form1" novalidate="" ng-submit="form.submit(FormLogin)">
+                                <div class="form-group" ng-class="{'has-error':FormLogin.username.$dirty && FormLogin.username.$invalid, 'has-success':FormLogin.username.$valid}">
+                                    <label class="control-label" for="inputUsername">
+                                        Email/Số Điện Thoại <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="inputUsername" name="username" ng-model="user.username" placeholder="Enter Email/Phone" required="">
+                                    <span class="error text-small block" ng-if="FormLogin.username.$dirty && FormLogin.username.$invalid">Email/Số Điện Thoại là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}"}">
+                                    <label class="control-label" for="inputPassword">
+                                        Mật Khẩu <span class="symbol required"></span>
+                                    </label>
+                                    <input type="password" class="form-control" id="inputPassword" name="password" ng-model="user.password" placeholder="Password" required="">
+                                    <span class="error text-small block" ng-if="FormLogin.password.$dirty && FormLogin.password.$invalid">Mật khẩu là bắt buộc.</span>
+                                </div>
+                                <div class="form-group">
+                                    <a href="#/forgotpassword">Quên Mật Khẩu?</a>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                                        Đăng Nhập
+                                    </button>
+                                </div>
+                                <div ng-if="user.error" class="alert alert-danger">{{user.error}}</div>
+                            </form>
+                        </div>
+                        <div id="alertErrorMessageContainer" class="alert alert-danger fade in m-b-15" style="display:none">
+                            <strong>Error!</strong>
+                            <span id="alertMessage"></span>
+                            <span class="close" data-dismiss="alert">&times;</span>
+                        </div>
+                        <!-- end: LOGIN BOX -->
+                    </uib-tab>
+                    <uib-tab heading="ĐĂNG KÝ">
+                        <div class="box-register" ng-controller="UserRegistrationCtrl">
+                            <form class="form-register" name="FormRegistration" id="form1" novalidate="" ng-submit="form.submit(FormRegistration)">
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.fullname.$dirty && FormRegistration.fullname.$invalid, 'has-success':FormRegistration.fullname.$valid}">
+                                    <label class="control-label" for="FullName">
+                                        Họ và tên <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="boxRegisterFullName" name="fullname" ng-model="userReg.fullname" placeholder="Full Name" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.fullname.$dirty && FormRegistration.fullname.$invalid">Họ và tên là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.username.$dirty && FormRegistration.username.$invalid, 'has-success':FormRegistration.username.$valid}">
+                                    <label class="control-label" for="UserName">
+                                        Tên Đăng Nhập <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="boxRegisterUserName" name="username" ng-model="userReg.username" placeholder="UserName" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.username.$dirty && FormRegistration.username.$invalid">Tên Đăng Nhập là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.email.$dirty && FormRegistration.email.$invalid, 'has-success':FormRegistration.email.$valid}">
+                                    <label class="control-label" for="boxRegisterEmail">
+                                        Email <span class="symbol required"></span>
+                                    </label>
+                                    <input type="email" class="form-control" id="boxRegisterEmail" name="email" ng-model="userReg.email" placeholder="Enter email" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.email.$dirty && FormRegistration.email.$invalid">Email là bắt buộc.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="boxRegisterRefCode">
+                                        Mã giới thiệu
+                                    </label>
+                                    <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" ng-model="userReg.refcode" placeholder="Enter Ref Code">
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.phone.$dirty && FormRegistration.phone.$invalid, 'has-success':FormRegistration.phone.$valid}">
+                                    <label class="control-label" for="boxRegisterPhone">
+                                        Số điện thoại <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="boxRegisterPhone" name="phone" ng-model="userReg.phone" placeholder="Enter Mobile Phone" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.phone.$dirty && FormRegistration.phone.$invalid">Số điện thoại là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.password.$dirty && FormRegistration.password.$invalid, 'has-success':FormRegistration.password.$valid}">
+                                    <label class="control-label" for="boxRegisterPassword">
+                                        Mật Khẩu <span class="symbol required"></span>
+</label>
+                                    <input type="password" class="form-control" id="boxRegisterPassword" name="password" ng-model="userReg.password" placeholder="Password" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.password.$dirty && FormRegistration.password.$invalid">Mật Khẩu là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.repassword.$dirty && FormRegistration.repassword.$invalid, 'has-success':FormRegistration.repassword.$valid}">
+                                    <label class="control-label" for="boxRegisterRePassword">
+                                        Nhập Lại Mật Khẩu <span class="symbol required"></span>
+                                    </label>
+                                    <input type="password" class="form-control" id="boxRegisterRePassword" name="repassword" ng-model="userReg.repassword" placeholder="Re-Enter Password" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$invalid">Nhập lại mật Khẩu là bắt buộc.</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                                    Đăng Ký
+                                </button>
+                            </form>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
+    
+    <!-- end: LOGIN -->
+</body>
+</html>

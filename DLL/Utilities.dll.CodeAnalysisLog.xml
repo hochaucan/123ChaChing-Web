@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files\microsoft visual studio 14.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="14.0">
+ <Targets>
+  <Target Name="C:\Projects\Craig-s-Utility-Library-master\Utilities\bin\Release\Utilities.dll">
+   <Modules>
+    <Module Name="utilities.dll">
+     <Namespaces>
+      <Namespace Name="Utilities.DataTypes">
+       <Types>
+        <Type Name="BinaryTree`1" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(Utilities.DataTypes.TreeNode`1&lt;!0&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="40">'BinaryTree&lt;T&gt;.BinaryTree(TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;BinaryTree&lt;T&gt;..ctor(TreeNode&lt;T&gt;)&#xD;&#xA;BinaryTree&lt;T&gt;.Traversal(TreeNode&lt;T&gt;):IEnumerable&lt;TreeNode&lt;T&gt;&gt;</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="40">'BinaryTree&lt;T&gt;.BinaryTree(TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;BinaryTree&lt;T&gt;..ctor(TreeNode&lt;T&gt;)&#xD;&#xA;BinaryTree&lt;T&gt;.get_Root():TreeNode&lt;T&gt;</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="40">'BinaryTree&lt;T&gt;.BinaryTree(TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;BinaryTree&lt;T&gt;..ctor(TreeNode&lt;T&gt;)&#xD;&#xA;BinaryTree&lt;T&gt;.set_NumberOfNodes(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="40">'BinaryTree&lt;T&gt;.BinaryTree(TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;BinaryTree&lt;T&gt;..ctor(TreeNode&lt;T&gt;)&#xD;&#xA;BinaryTree&lt;T&gt;.set_Root(TreeNode&lt;T&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="DateSpan" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.DateTime,System.DateTime)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="DateSpan.cs" Line="37">'DateSpan.DateSpan(DateTime, DateTime)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DateSpan..ctor(DateTime, DateTime)&#xD;&#xA;DateSpan.set_End(DateTime):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="DateSpan.cs" Line="37">'DateSpan.DateSpan(DateTime, DateTime)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DateSpan..ctor(DateTime, DateTime)&#xD;&#xA;DateSpan.set_Start(DateTime):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Dynamo" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Object)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Dynamo.cs" Line="207">'Dynamo.Dynamo(object)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Dynamo..ctor(Object)&#xD;&#xA;Dynamo.SetValue(String, Object):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Dynamo.cs" Line="207">'Dynamo.Dynamo(object)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Dynamo..ctor(Object)&#xD;&#xA;Dynamo.SetValue(String, Object):Void&#xD;&#xA;Dynamo.RaisePropertyChanged(String, Object):Void&#xD;&#xA;Dynamo.get_Item(String):Object&#xD;&#xA;Dynamo.GetValue(String, Type):Object</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#.ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Dynamo.cs" Line="243">'Dynamo.Dynamo(SerializationInfo, StreamingContext)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Dynamo..ctor(SerializationInfo, StreamingContext)&#xD;&#xA;Dynamo.SetValue(String, Object):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Dynamo.cs" Line="243">'Dynamo.Dynamo(SerializationInfo, StreamingContext)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Dynamo..ctor(SerializationInfo, StreamingContext)&#xD;&#xA;Dynamo.SetValue(String, Object):Void&#xD;&#xA;Dynamo.RaisePropertyChanged(String, Object):Void&#xD;&#xA;Dynamo.get_Item(String):Object&#xD;&#xA;Dynamo.GetValue(String, Type):Object</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="PriorityQueue`1" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="PriorityQueue.cs" Line="38">'PriorityQueue&lt;T&gt;.PriorityQueue()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;PriorityQueue&lt;T&gt;..ctor()&#xD;&#xA;PriorityQueue&lt;T&gt;.set_HighestKey(Int32):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="TreeNode`1" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(!0,Utilities.DataTypes.TreeNode`1&lt;!0&gt;,Utilities.DataTypes.TreeNode`1&lt;!0&gt;,Utilities.DataTypes.TreeNode`1&lt;!0&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="351">'TreeNode&lt;T&gt;.TreeNode(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;TreeNode&lt;T&gt;..ctor(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)&#xD;&#xA;TreeNode&lt;T&gt;.set_Left(TreeNode&lt;T&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="351">'TreeNode&lt;T&gt;.TreeNode(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;TreeNode&lt;T&gt;..ctor(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)&#xD;&#xA;TreeNode&lt;T&gt;.set_Parent(TreeNode&lt;T&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="351">'TreeNode&lt;T&gt;.TreeNode(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;TreeNode&lt;T&gt;..ctor(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)&#xD;&#xA;TreeNode&lt;T&gt;.set_Right(TreeNode&lt;T&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="BTree.cs" Line="351">'TreeNode&lt;T&gt;.TreeNode(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;TreeNode&lt;T&gt;..ctor(T, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;, TreeNode&lt;T&gt;)&#xD;&#xA;TreeNode&lt;T&gt;.set_Value(T):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Vector3" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Double,System.Double,System.Double)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Vector3.cs" Line="40">'Vector3.Vector3(double, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Vector3..ctor(Double, Double, Double)&#xD;&#xA;Vector3.set_X(Double):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Vector3.cs" Line="40">'Vector3.Vector3(double, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Vector3..ctor(Double, Double, Double)&#xD;&#xA;Vector3.set_Y(Double):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes" File="Vector3.cs" Line="40">'Vector3.Vector3(double, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Vector3..ctor(Double, Double, Double)&#xD;&#xA;Vector3.set_Z(Double):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.DataTypes.Formatters">
+       <Types>
+        <Type Name="GenericStringFormatter" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes\Formatters" File="GenericStringFormatter.cs" Line="37">'GenericStringFormatter.GenericStringFormatter()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GenericStringFormatter..ctor()&#xD;&#xA;GenericStringFormatter.set_AlphaChar(Char):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes\Formatters" File="GenericStringFormatter.cs" Line="37">'GenericStringFormatter.GenericStringFormatter()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GenericStringFormatter..ctor()&#xD;&#xA;GenericStringFormatter.set_DigitChar(Char):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\DataTypes\Formatters" File="GenericStringFormatter.cs" Line="37">'GenericStringFormatter.GenericStringFormatter()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GenericStringFormatter..ctor()&#xD;&#xA;GenericStringFormatter.set_EscapeChar(Char):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.IO.FileFormats">
+       <Types>
+        <Type Name="INI" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats" File="INI.cs" Line="36">'INI.INI()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;INI..ctor()&#xD;&#xA;FormatBase&lt;FormatType, ContentType&gt;.InternalLoad(String):FormatType</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#.ctor(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats" File="INI.cs" Line="36">'INI.INI(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;INI..ctor(String)&#xD;&#xA;INI.set_FileName(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats" File="INI.cs" Line="36">'INI.INI(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;INI..ctor(String)&#xD;&#xA;INI.set_FileName(String):Void&#xD;&#xA;FormatBase&lt;FormatType, ContentType&gt;.InternalLoad(String):FormatType</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.IO.FileFormats.RSS">
+       <Types>
+        <Type Name="Document" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Document.cs" Line="52">'Document.Document(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Document..ctor(String)&#xD;&#xA;FormatBase&lt;FormatType, ContentType&gt;.InternalLoad(String):FormatType</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Enclosure" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Xml.XPath.IXPathNavigable)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Enclosure.cs" Line="44">'Enclosure.Enclosure(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Enclosure..ctor(IXPathNavigable)&#xD;&#xA;Enclosure.set_Length(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Enclosure.cs" Line="44">'Enclosure.Enclosure(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Enclosure..ctor(IXPathNavigable)&#xD;&#xA;Enclosure.set_Type(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Enclosure.cs" Line="44">'Enclosure.Enclosure(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Enclosure..ctor(IXPathNavigable)&#xD;&#xA;Enclosure.set_Url(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="GUID" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Xml.XPath.IXPathNavigable)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="GUID.cs" Line="44">'GUID.GUID(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GUID..ctor(IXPathNavigable)&#xD;&#xA;GUID.set_GUIDText(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="GUID.cs" Line="44">'GUID.GUID(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GUID..ctor(IXPathNavigable)&#xD;&#xA;GUID.set_PermaLink(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Item" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Xml.XPath.IXPathNavigable)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Item.cs" Line="51">'Item.Item(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Item..ctor(IXPathNavigable)&#xD;&#xA;Item.set_GUID(GUID):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Thumbnail" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Xml.XPath.IXPathNavigable)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Thumbnail.cs" Line="45">'Thumbnail.Thumbnail(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Thumbnail..ctor(IXPathNavigable)&#xD;&#xA;Thumbnail.set_Height(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Thumbnail.cs" Line="45">'Thumbnail.Thumbnail(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Thumbnail..ctor(IXPathNavigable)&#xD;&#xA;Thumbnail.set_Url(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileFormats\RSS" File="Thumbnail.cs" Line="45">'Thumbnail.Thumbnail(IXPathNavigable)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Thumbnail..ctor(IXPathNavigable)&#xD;&#xA;Thumbnail.set_Width(Int32):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.IO.FileSystem.BaseClasses">
+       <Types>
+        <Type Name="FileSystemBase" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\IO\FileSystem\BaseClasses" File="FileSystemBase.cs" Line="36">'FileSystemBase.FileSystemBase()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;FileSystemBase..ctor()&#xD;&#xA;FileSystemBase.get_HandleRegexString():String</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Media">
+       <Types>
+        <Type Name="RGBHistogram" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(Utilities.Media.SwiftBitmap)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.LoadImage(SwiftBitmap):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.LoadImage(SwiftBitmap):Void&#xD;&#xA;RGBHistogram.get_B():Single[]</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.LoadImage(SwiftBitmap):Void&#xD;&#xA;RGBHistogram.get_G():Single[]</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.LoadImage(SwiftBitmap):Void&#xD;&#xA;RGBHistogram.get_R():Single[]</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.set_B(Single[]):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.set_G(Single[]):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media" File="RGBHistogram.cs" Line="44">'RGBHistogram.RGBHistogram(SwiftBitmap)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RGBHistogram..ctor(SwiftBitmap)&#xD;&#xA;RGBHistogram.set_R(Single[]):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Media.Procedural">
+       <Types>
+        <Type Name="CellularMap" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Int32,System.Int32,System.Int32,System.Int32)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.CalculateDistances():Void&#xD;&#xA;CellularMap.FindClosestPoint(Int32, Int32):Void&#xD;&#xA;CellularMap.get_ClosestPoint():Int32[,]</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.CalculateDistances():Void&#xD;&#xA;CellularMap.FindClosestPoint(Int32, Int32):Void&#xD;&#xA;CellularMap.get_Distances():Single[,]</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.CalculateDistances():Void&#xD;&#xA;CellularMap.FindClosestPoint(Int32, Int32):Void&#xD;&#xA;CellularMap.get_MaxDistance():Single</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.CalculateDistances():Void&#xD;&#xA;CellularMap.FindClosestPoint(Int32, Int32):Void&#xD;&#xA;CellularMap.get_MinDistance():Single</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.set_ClosestPoint(Int32[,]):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.set_Distances(Single[,]):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.set_MaxDistance(Single):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Media\Procedural" File="CellularMap.cs" Line="85">'CellularMap.CellularMap(int, int, int, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;CellularMap..ctor(Int32, Int32, Int32, Int32)&#xD;&#xA;CellularMap.set_MinDistance(Single):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.ORM">
+       <Types>
+        <Type Name="ObjectBaseClass`2" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\BaseClasses" File="ObjectBaseClass.cs" Line="47">'ObjectBaseClass&lt;ObjectType, IDType&gt;.ObjectBaseClass()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;..ctor()&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;.set_Active(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\BaseClasses" File="ObjectBaseClass.cs" Line="47">'ObjectBaseClass&lt;ObjectType, IDType&gt;.ObjectBaseClass()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;..ctor()&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;.set_DateCreated(DateTime):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\BaseClasses" File="ObjectBaseClass.cs" Line="47">'ObjectBaseClass&lt;ObjectType, IDType&gt;.ObjectBaseClass()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;..ctor()&#xD;&#xA;ObjectBaseClass&lt;ObjectType, IDType&gt;.set_DateModified(DateTime):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.ORM.Manager.QueryProvider.BaseClasses">
+       <Types>
+        <Type Name="ParameterBase`1" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.String,System.Data.DbType,System.Object,System.Data.ParameterDirection,System.String)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="78">'ParameterBase&lt;DataType&gt;.ParameterBase(string, DbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_BatchID(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="78">'ParameterBase&lt;DataType&gt;.ParameterBase(string, DbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_DatabaseType(DbType):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="78">'ParameterBase&lt;DataType&gt;.ParameterBase(string, DbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_Direction(ParameterDirection):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="78">'ParameterBase&lt;DataType&gt;.ParameterBase(string, DbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_ID(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#.ctor(System.String,System.Data.SqlDbType,System.Object,System.Data.ParameterDirection,System.String)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="63">'ParameterBase&lt;DataType&gt;.ParameterBase(string, SqlDbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, SqlDbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_BatchID(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="63">'ParameterBase&lt;DataType&gt;.ParameterBase(string, SqlDbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, SqlDbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_DatabaseType(DbType):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="63">'ParameterBase&lt;DataType&gt;.ParameterBase(string, SqlDbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, SqlDbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_Direction(ParameterDirection):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\ORM\Manager\QueryProvider\BaseClasses" File="ParameterBase.cs" Line="63">'ParameterBase&lt;DataType&gt;.ParameterBase(string, SqlDbType, object, ParameterDirection, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, SqlDbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;..ctor(String, DbType, Object, ParameterDirection, String)&#xD;&#xA;ParameterBase&lt;DataType&gt;.set_ID(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Profiler.Manager.Default">
+       <Types>
+        <Type Name="StopWatch" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Profiler\Manager\Default" File="StopWatch.cs" Line="32">'StopWatch.StopWatch()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;StopWatch..ctor()&#xD;&#xA;StopWatch.Reset():Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Random.BaseClasses">
+       <Types>
+        <Type Name="GeneratorAttributeBase" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Object,System.Object)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\BaseClasses" File="GeneratorAttributeBase.cs" Line="38">'GeneratorAttributeBase.GeneratorAttributeBase(object, object)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GeneratorAttributeBase..ctor(Object, Object)&#xD;&#xA;GeneratorAttributeBase.set_Max(Object):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\BaseClasses" File="GeneratorAttributeBase.cs" Line="38">'GeneratorAttributeBase.GeneratorAttributeBase(object, object)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;GeneratorAttributeBase..ctor(Object, Object)&#xD;&#xA;GeneratorAttributeBase.set_Min(Object):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Random.ContactInfoGenerators">
+       <Types>
+        <Type Name="PhoneNumberGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\ContactInfoGenerators" File="PhoneNumberGenerator.cs" Line="31">'PhoneNumberGenerator.PhoneNumberGenerator()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;PhoneNumberGenerator..ctor()&#xD;&#xA;PatternGenerator.set_Pattern(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="ZipCodeGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\ContactInfoGenerators" File="ZipCodeGenerator.cs" Line="31">'ZipCodeGenerator.ZipCodeGenerator()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;ZipCodeGenerator..ctor()&#xD;&#xA;PatternGenerator.set_Pattern(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Random.NameGenerators">
+       <Types>
+        <Type Name="FemaleNameGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="FemaleNameGenerator.cs" Line="40">'FemaleNameGenerator.FemaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;FemaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;FemaleNameGenerator.set_LastName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="FemaleNameGenerator.cs" Line="40">'FemaleNameGenerator.FemaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;FemaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;FemaleNameGenerator.set_MiddleName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="FemaleNameGenerator.cs" Line="40">'FemaleNameGenerator.FemaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;FemaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;FemaleNameGenerator.set_Prefix(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="FemaleNameGenerator.cs" Line="40">'FemaleNameGenerator.FemaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;FemaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;FemaleNameGenerator.set_Suffix(Boolean):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="MaleNameGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="MaleNameGenerator.cs" Line="40">'MaleNameGenerator.MaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;MaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;MaleNameGenerator.set_LastName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="MaleNameGenerator.cs" Line="40">'MaleNameGenerator.MaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;MaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;MaleNameGenerator.set_MiddleName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="MaleNameGenerator.cs" Line="40">'MaleNameGenerator.MaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;MaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;MaleNameGenerator.set_Prefix(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="MaleNameGenerator.cs" Line="40">'MaleNameGenerator.MaleNameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;MaleNameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;MaleNameGenerator.set_Suffix(Boolean):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="NameGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="NameGenerator.cs" Line="40">'NameGenerator.NameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;NameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;NameGenerator.set_LastName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="NameGenerator.cs" Line="40">'NameGenerator.NameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;NameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;NameGenerator.set_MiddleName(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="NameGenerator.cs" Line="40">'NameGenerator.NameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;NameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;NameGenerator.set_Prefix(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\NameGenerators" File="NameGenerator.cs" Line="40">'NameGenerator.NameGenerator(bool, bool, bool, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;NameGenerator..ctor(Boolean, Boolean, Boolean, Boolean)&#xD;&#xA;NameGenerator.set_Suffix(Boolean):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Random.StringGenerators">
+       <Types>
+        <Type Name="LoremIpsumGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="LoremIpsumGenerator.cs" Line="80">'LoremIpsumGenerator.LoremIpsumGenerator(int, int, int, int, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;LoremIpsumGenerator..ctor(Int32, Int32, Int32, Int32, Boolean)&#xD;&#xA;LoremIpsumGenerator.set_HTMLFormatting(Boolean):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="LoremIpsumGenerator.cs" Line="80">'LoremIpsumGenerator.LoremIpsumGenerator(int, int, int, int, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;LoremIpsumGenerator..ctor(Int32, Int32, Int32, Int32, Boolean)&#xD;&#xA;LoremIpsumGenerator.set_MaxSentenceLength(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="LoremIpsumGenerator.cs" Line="80">'LoremIpsumGenerator.LoremIpsumGenerator(int, int, int, int, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;LoremIpsumGenerator..ctor(Int32, Int32, Int32, Int32, Boolean)&#xD;&#xA;LoremIpsumGenerator.set_MinSentenceLength(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="LoremIpsumGenerator.cs" Line="80">'LoremIpsumGenerator.LoremIpsumGenerator(int, int, int, int, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;LoremIpsumGenerator..ctor(Int32, Int32, Int32, Int32, Boolean)&#xD;&#xA;LoremIpsumGenerator.set_NumberOfParagraphs(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="LoremIpsumGenerator.cs" Line="80">'LoremIpsumGenerator.LoremIpsumGenerator(int, int, int, int, bool)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;LoremIpsumGenerator..ctor(Int32, Int32, Int32, Int32, Boolean)&#xD;&#xA;LoremIpsumGenerator.set_NumberOfSentences(Int32):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="PatternGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="PatternGenerator.cs" Line="38">'PatternGenerator.PatternGenerator(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;PatternGenerator..ctor(String)&#xD;&#xA;PatternGenerator.set_Pattern(String):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="RegexStringGenerator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#.ctor(System.Int32,System.String,System.Int32)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="RegexStringGenerator.cs" Line="44">'RegexStringGenerator.RegexStringGenerator(int, string, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RegexStringGenerator..ctor(Int32, String, Int32)&#xD;&#xA;RegexStringGenerator.set_AllowedCharacters(String):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="RegexStringGenerator.cs" Line="44">'RegexStringGenerator.RegexStringGenerator(int, string, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RegexStringGenerator..ctor(Int32, String, Int32)&#xD;&#xA;RegexStringGenerator.set_Length(Int32):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Random\StringGenerators" File="RegexStringGenerator.cs" Line="44">'RegexStringGenerator.RegexStringGenerator(int, string, int)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;RegexStringGenerator..ctor(Int32, String, Int32)&#xD;&#xA;RegexStringGenerator.set_NumberOfNonAlphaNumericsAllowed(Int32):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Utilities.Web.Streams">
+       <Types>
+        <Type Name="UglyStream" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Length" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Accessors>
+            <Accessor Name="#get_Length()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+             <Messages>
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="Breaking">
+               <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Web\Streams" File="UglyStream.cs" Line="95">'UglyStream.Length.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#Position" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Accessors>
+            <Accessor Name="#get_Position()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+             <Messages>
+              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2016-12-09 10:02:24Z" FixCategory="Breaking">
+               <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="C:\Projects\Craig-s-Utility-Library-master\Utilities\Web\Streams" File="UglyStream.cs" Line="105">'UglyStream.Position.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Do not call overridable methods in constructors</Name>
+   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
+   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
+   <File Name="usagerules.dll" Version="14.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065">
+   <Name>Do not raise exceptions in unexpected locations</Name>
+   <Description>Do not explicitly raise exceptions from unexpected locations. There are some methods, such as Equals and GetHashCode, which users do not expect to raise exceptions. Therefore calls to these methods are not commonly wrapped in try catch blocks.</Description>
+   <Resolution Name="PropertyGetter">{0} creates an exception of type {1}, an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/bb386039.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="90">Error, Warning</MessageLevel>
+   <File Name="designrules.dll" Version="14.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>

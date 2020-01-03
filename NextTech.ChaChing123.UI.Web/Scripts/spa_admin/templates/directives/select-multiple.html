@@ -1,0 +1,29 @@
+<!--
+###############################################################################
+# Detail  : Select multiple directive
+# Author  : Sunny Kwan
+# Date    : 22-Feb-2016
+#
+# Maintanence History
+#=====+================+=============+=========================================
+# SID | Name           | Date        | Reason
+#=====+================+=============+=========================================
+# SK1 | Sunny Kwan     | 22-Feb-2016 | BONE v1.0 initial release
+###############################################################################
+-->
+<div class="btn-group btn-default" uib-dropdown is-open="isopen" auto-close="outsideClick" style="width:200px">
+  <button id="{{ 'AAA_select-multiple_button_' + id }}" type="button" class="btn btn-default btn-block uib-dropdown-toggle" uib-dropdown-toggle ng-disabled="ngDisabled">
+  	<label ng-bind="dropdownLabel"></label>
+  	<span class="caret"></span>
+  </button>
+  <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+  	<div class="checkbox" style="height : 80px; overflow-y:auto; overflow-x:hidden; width:200px">
+	    <li role="menuitem" ng-repeat="item in distinctItems" ng-style="{ 'margin-left': '10px'}">
+	        <label> 
+	        	<input id="{{ 'AAA_select-multiple_input_' + id + '_' + item.value }}" type="checkbox" ng-model="item.selected" ng-change="selectItems()"/> 
+	        		&nbsp;&nbsp;{{ getI18n(appId, item.value, null) }}
+	        </label>
+	    </li>
+    </div>
+  </ul>
+</div>

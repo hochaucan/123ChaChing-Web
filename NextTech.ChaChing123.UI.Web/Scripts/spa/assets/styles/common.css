@@ -1,0 +1,269 @@
+/**
+###############################################################################
+# Detail  : BONE common css
+# Author  : Sunny Kwan
+# Date    : 22-Feb-2016
+#
+# Maintanence History
+#=====+================+=============+=========================================
+# SID | Name           | Date        | Reason
+#=====+================+=============+=========================================
+# SK1 | Sunny Kwan     | 22-Feb-2016 | BONE v1.0 initial release
+###############################################################################
+*/
+/**
+ * With nested lists it's very important that only the droplist and the
+ * draggable elements react to mouse events. This can be achieved as follows:
+ */
+ul[dnd-list] * {
+	pointer-events: none;
+}
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ul[dnd-list], ul[dnd-list] > li {
+    pointer-events: auto;
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.dragAndDropList ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.dragAndDropList ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.dragAndDropList ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.dragAndDropList ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+
+    /* Disable text selection if item is not draggable */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.dragAndDropList ul[dnd-list] .selected {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+.nav,.pagination,.carousel,.panel-title a {
+	cursor: pointer;
+}
+
+/**
+Loading Icon
+*/
+.loader {
+  font-size: 90px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  margin: 0.8em auto;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load6 1.7s infinite ease;
+  animation: load6 1.7s infinite ease;
+}
+@-webkit-keyframes load6 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.087em -0.825em 0 -0.42em #000000, -0.173em -0.812em 0 -0.44em #000000, -0.256em -0.789em 0 -0.46em #000000, -0.297em -0.775em 0 -0.477em #000000;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.338em -0.758em 0 -0.42em #000000, -0.555em -0.617em 0 -0.44em #000000, -0.671em -0.488em 0 -0.46em #000000, -0.749em -0.34em 0 -0.477em #000000;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.377em -0.74em 0 -0.42em #000000, -0.645em -0.522em 0 -0.44em #000000, -0.775em -0.297em 0 -0.46em #000000, -0.82em -0.09em 0 -0.477em #000000;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+}
+@keyframes load6 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.087em -0.825em 0 -0.42em #000000, -0.173em -0.812em 0 -0.44em #000000, -0.256em -0.789em 0 -0.46em #000000, -0.297em -0.775em 0 -0.477em #000000;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.338em -0.758em 0 -0.42em #000000, -0.555em -0.617em 0 -0.44em #000000, -0.671em -0.488em 0 -0.46em #000000, -0.749em -0.34em 0 -0.477em #000000;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em #000000, -0.377em -0.74em 0 -0.42em #000000, -0.645em -0.522em 0 -0.44em #000000, -0.775em -0.297em 0 -0.46em #000000, -0.82em -0.09em 0 -0.477em #000000;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    box-shadow: 0 -0.83em 0 -0.4em #000000, 0 -0.83em 0 -0.42em #000000, 0 -0.83em 0 -0.44em #000000, 0 -0.83em 0 -0.46em #000000, 0 -0.83em 0 -0.477em #000000;
+  }
+}
+
+
+/*
+Input Number disable spinner
+*/
+
+.num-no-spinner {
+    -moz-appearance:textfield;
+}
+
+/*
+Table Config
+*/
+
+.fix-header-table {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.fix-header-table * {
+    box-sizing: inherit;
+    -moz-box-sizing: inherit;
+}
+
+.fix-header-table > thead {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.fix-header-table > tbody {
+    overflow-y: auto;
+    display: inline-block;
+}
+
+.fix-header-table > thead > tr, .fix-header-table > tbody > tr, .fix-header-table > tfoot > tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.fix-header-table > thead, .fix-header-table > tfoot {
+    flex-shrink: 0;
+}
+
+.fix-header-table > thead > tr > th, .fix-header-table > tbody > tr > td {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.fix-header-table > tfoot {
+    display: inline-block;
+}
+
+.fix-header-table > tfoot > tr > td {
+    width: 100%;
+    display: inline-block;
+}
+
+/**
+Smart Table
+*/
+
+
+.st-sort-ascent:before{
+  content: '\25B2';
+}
+
+.st-sort-descent:before{
+  content: '\25BC';
+}
+
+/**
+Dialog
+**/
+
+.modal-content{
+  border: 0
+}
+
+/*
+* ui-grid customized footer
+*/
+
+.grid-custom-footer {
+  margin-top: -16px;
+  height: 100%;
+  width: 100%;
+}
+
+.grid-custom-footer-content {
+  position: relative;
+  width: 100%;
+}
+
+@media print {
+}
+
+@page {
+	margin: 0.5cm;
+}
