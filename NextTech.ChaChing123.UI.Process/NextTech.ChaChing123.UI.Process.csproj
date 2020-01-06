@@ -88,14 +88,6 @@
       <Project>{542420aa-cedc-439a-b5cf-ca57333f7a20}</Project>
       <Name>BTMU.APF.Utilities.Data.ApplicationContextExtensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Common\NextTech.ChaChing123.Common.csproj">
-      <Project>{97b5fa6e-355a-4a67-989f-40ce08376bde}</Project>
-      <Name>NextTech.ChaChing123.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Entities\NextTech.ChaChing123.Entities.csproj">
-      <Project>{3e8bb046-05bd-4d27-94a7-c13ad4f3e192}</Project>
-      <Name>NextTech.ChaChing123.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

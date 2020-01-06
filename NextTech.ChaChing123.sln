@@ -1,41 +1,22 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{994CCFA3-20A2-4987-A12A-F31F226D01C6}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{405933AB-1997-4D17-AACC-8544E284BC90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{FFED278F-5C17-4745-B865-DA1C3D7A7913}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{71A16E12-01F6-425A-989E-593EC90A4137}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{16C77B32-80A9-429E-802B-DA680BB14CB9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FCFDCC5E-1014-415B-BDE9-874A2E0ABBDF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Common", "NextTech.ChaChing123.Common\NextTech.ChaChing123.Common.csproj", "{97B5FA6E-355A-4A67-989F-40CE08376BDE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Data.Agents", "NextTech.ChaChing123.Data.Agents\NextTech.ChaChing123.Data.Agents.csproj", "{65B772D5-792B-4886-A329-F32754AB5BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Services.Contracts", "NextTech.ChaChing123.Services.Contracts\NextTech.ChaChing123.Services.Contracts.csproj", "{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{4C9ECA5D-26EF-401F-9161-41ECB02C4FA2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Entities", "NextTech.ChaChing123.Entities\NextTech.ChaChing123.Entities.csproj", "{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Data", "NextTech.ChaChing123.Data\NextTech.ChaChing123.Data.csproj", "{FDB8609C-3FA4-425C-BA71-4A71A7C43EC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Business", "NextTech.ChaChing123.Business\NextTech.ChaChing123.Business.csproj", "{2B0131AB-CD43-47FE-8D0E-2C80EE069762}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{1310B25E-44DC-416F-9E7D-9616AA8F0F53}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextTech.ChaChing123.Services.WebApi", "NextTech.ChaChing123.Services.WebApi\NextTech.ChaChing123.Services.WebApi.csproj", "{32415527-525D-490D-8B46-7BA4C3D45F7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "POC", "POC", "{A781C4EA-22A5-4925-BA46-966353B4F2BF}"
 EndProject
@@ -51,22 +32,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{97B5FA6E-355A-4A67-989F-40CE08376BDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97B5FA6E-355A-4A67-989F-40CE08376BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97B5FA6E-355A-4A67-989F-40CE08376BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97B5FA6E-355A-4A67-989F-40CE08376BDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65B772D5-792B-4886-A329-F32754AB5BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65B772D5-792B-4886-A329-F32754AB5BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65B772D5-792B-4886-A329-F32754AB5BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65B772D5-792B-4886-A329-F32754AB5BA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDB8609C-3FA4-425C-BA71-4A71A7C43EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDB8609C-3FA4-425C-BA71-4A71A7C43EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDB8609C-3FA4-425C-BA71-4A71A7C43EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,10 +44,6 @@ Global
 		{2B0131AB-CD43-47FE-8D0E-2C80EE069762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B0131AB-CD43-47FE-8D0E-2C80EE069762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B0131AB-CD43-47FE-8D0E-2C80EE069762}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32415527-525D-490D-8B46-7BA4C3D45F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32415527-525D-490D-8B46-7BA4C3D45F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32415527-525D-490D-8B46-7BA4C3D45F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32415527-525D-490D-8B46-7BA4C3D45F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{363E8166-B0CC-44E3-8F04-A43E7AF15FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{363E8166-B0CC-44E3-8F04-A43E7AF15FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{363E8166-B0CC-44E3-8F04-A43E7AF15FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -96,19 +61,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{97B5FA6E-355A-4A67-989F-40CE08376BDE} = {FCFDCC5E-1014-415B-BDE9-874A2E0ABBDF}
 		{65B772D5-792B-4886-A329-F32754AB5BA1} = {71A16E12-01F6-425A-989E-593EC90A4137}
-		{0ACD630D-B2D9-4520-93A4-C8A98EE9D03A} = {16C77B32-80A9-429E-802B-DA680BB14CB9}
-		{3E8BB046-05BD-4D27-94A7-C13AD4F3E192} = {FCFDCC5E-1014-415B-BDE9-874A2E0ABBDF}
 		{FDB8609C-3FA4-425C-BA71-4A71A7C43EC6} = {71A16E12-01F6-425A-989E-593EC90A4137}
 		{2B0131AB-CD43-47FE-8D0E-2C80EE069762} = {FFED278F-5C17-4745-B865-DA1C3D7A7913}
-		{32415527-525D-490D-8B46-7BA4C3D45F7C} = {16C77B32-80A9-429E-802B-DA680BB14CB9}
 		{363E8166-B0CC-44E3-8F04-A43E7AF15FAA} = {1310B25E-44DC-416F-9E7D-9616AA8F0F53}
 		{EEB94BE3-37C0-45A1-A51B-D9B25E2AC0E0} = {405933AB-1997-4D17-AACC-8544E284BC90}
 		{C2DCA188-A643-4C3F-9C2E-DD782CBBC8F2} = {405933AB-1997-4D17-AACC-8544E284BC90}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 		SolutionGuid = {AD18852C-DA31-437D-8573-DB342BB85CD6}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
