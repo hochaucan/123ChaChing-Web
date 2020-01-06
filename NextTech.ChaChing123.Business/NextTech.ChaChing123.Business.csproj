@@ -74,16 +74,6 @@
     <Compile Include="Utilities\MembeshipContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NextTech.ChaChing123.Core\NextTech.ChaChing123.Core.csproj">
-      <Project>{363e8166-b0cc-44e3-8f04-a43e7af15faa}</Project>
-      <Name>NextTech.ChaChing123.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Data\NextTech.ChaChing123.Data.csproj">
-      <Project>{fdb8609c-3fa4-425c-ba71-4a71a7c43ec6}</Project>
-      <Name>NextTech.ChaChing123.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />

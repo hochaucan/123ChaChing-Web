@@ -74,12 +74,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NextTech.ChaChing123.Core\NextTech.ChaChing123.Core.csproj">
-      <Project>{363e8166-b0cc-44e3-8f04-a43e7af15faa}</Project>
-      <Name>NextTech.ChaChing123.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
