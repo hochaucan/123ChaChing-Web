@@ -67,7 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAccountService.cs" />
+    <Compile Include="Abstract\IAffiliateService.cs" />
     <Compile Include="ChaChing123\AccountComponent.cs" />
+    <Compile Include="ChaChing123\AffiliateComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Common.cs" />
     <Compile Include="Utilities\LogInfo.cs" />

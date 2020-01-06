@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using NextTech.ChaChing123.Services.WebApi.ActionFilters;
-using NextTech.ChaChing123.Services.WebApi.MessageHandlers;
 
 namespace NextTech.ChaChing123.Services.WebApi
 {
@@ -16,7 +15,7 @@ namespace NextTech.ChaChing123.Services.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.MessageHandlers.Add(new ChaChing123AuthHandler());
+            // config.MessageHandlers.Add(new HomeCinemaAuthHandler());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
