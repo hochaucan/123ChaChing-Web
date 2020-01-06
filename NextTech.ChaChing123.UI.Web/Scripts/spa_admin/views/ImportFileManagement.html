@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<div ng-controller="importFileManagementController">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget widget-danger">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="pull-left widget-title">
+                            <i class="fa fa-tasks" ng-class="icon"></i> <span class="ng-binding">Import File Management</span>
+                        </div>
+                        <div class="pull-right col-xs-6 col-sm-4"></div>
+                        <div class="widget-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" ng-click="widgetShow = !widgetShow" ng-hide="requireWidgetShow">
+                                <i class="fa fa-minus" ng-class="{'fa-plus':  !widgetShow, 'fa-minus':  widgetShow}"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-body" ng-class="classes" ng-show="widgetShow">
+                    <rd-loading ng-show="isLoading"></rd-loading>
+                    <div ng-hide="isLoading" class="widget-content">
+
+                        <div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="alerts.length">
+                            <div class="col-xs-12">
+                                <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                            </div>
+                        </div>
+                        <form class="form-horizontal">
+
+                            <div class="row">
+                                <label class="col-md-2 control-label text-left">File Name:</label>
+                                <div class="col-md-4 text-left control-group">
+                                    <input type="text" class="form-control" ng-model="searchFileName" style="width:100%" />
+                                </div>
+                                <label class="col-md-2 control-label text-left">File Type:</label>
+                                <div class="col-md-4 text-left control-group">
+                                    <select class="btn btn-default btn-select" ng-model="searchFileType" ng-options="fileType as fileType for fileType in fileTypeList" style="width:100%">
+                                        <option value="">-- Select File Type --</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-md-2 control-label text-left">From Date:</label>
+                                <div class="col-md-4">
+                                    <div class="input-append control-group">                                        
+                                        <div class='input-group date datetimepicker'>   <!-- datetimepicker: with this attribute: calendar auto show-->
+                                            <input type='text' class="form-control" id='searchFromDate' ng-model="searchFromDate"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 control-label text-left">To Date:</label>
+                                <div class="col-md-4">
+                                    <div class="input-append control-group">
+                                        <div class='input-group date datetimepicker'>
+                                            <input type='text' class="form-control" id='searchToDate' ng-model="searchToDate" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+
+                            <div class="row">
+                                <!--<label class="col-md-2 control-label text-left">Status:</label>
+                                <div class="col-md-4 text-left control-group">
+                                    <select class="btn btn-default btn-select" ng-model="searchFileStatus" ng-options="fileStatus as fileStatus for fileStatus in fileStatusList" style="width:100%">
+                                        <option value="">-- Select Status --</option>
+                                    </select>
+                                </div>-->
+
+                                <label class="col-md-2 control-label text-left">Status:</label>
+                                <div class="col-md-4 text-left control-group">
+                                    <select class="btn btn-default btn-select" ng-model="searchFileStatus" ng-options="fileStatus as fileStatus for fileStatus in fileStatusList" style="width:100%">
+                                        <option value="">-- Select Status --</option>
+                                    </select>
+                                </div>
+
+                                <label class="col-md-2 control-label text-left">Total Amount:</label>
+                                <div class="col-md-4 text-left control-group">
+                                    <input type="number" class="form-control" ng-model="searchTotalAmount" maxlength="13" style="width:100%" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-md-2 control-label text-left"></label>
+                                <div class="col-md-2 text-center">
+                                    <button type="button" class="btn btn-default" ng-click="searchimportfilelist()" style="width:100%">
+                                        <i class="glyphicon"></i>
+                                        <span>Search</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button type="button" class="btn btn-default" ng-click="clearForm()" style="width:100%">
+                                        <i class="glyphicon"></i>
+                                        <span>Clear</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="row">
+                            <label class="col-md-3"><b>Total files: </b>{{TotalImportFile}}</label>
+                            <label class="col-md-3"><b>Imported: </b>{{Imported}}</label>
+                            <label class="col-md-3"><b>Imported Fail: </b>{{ImportedFailed}}</label>
+                            <label class="col-md-3"><b>Exported: </b>{{Exported}}</label>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3"><b>Approved: </b>{{Approved}}</label>
+                            <label class="col-md-3"><b>Rejected: </b>{{Rejected}}</label>
+                            <label class="col-md-3"><b>Send To ARH Failed: </b>{{SendToARHFailed}}</label>                            
+                            <label class="col-md-3"><b>Send To ARH successed: </b>{{SendToARHSucceed}}</label>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3"><b>Partially Export: </b>{{PartiallyExport}}</label>
+                            <label class="col-md-3"><b>Fully Export: </b>{{FullyExport}}</label>
+                        </div>
+
+                        <div id="SearchResultList" style="display:block">
+                            <table id="data-table-fileimport" datatable="" dt-options="dtNewOptions" dt-columns="dtColumns" class="table table-striped table-bordered table-hover" width="100%" style="table-layout:auto !important"></table>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12 text-right">
+                                <button type="button" class="btn btn-default" ng-click="download()" ng-disabled="isDisabled" >
+                                    <i class="glyphicon"></i>
+                                    <span>Download</span>
+                                </button>
+
+                                <button type="button" class="btn btn-default" ng-click="desryptAndDownload()" ng-disabled="isDisabled">
+                                    <i class="glyphicon"></i>
+                                    <span>Decrypt & Download</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #modal-dialog - View Log File -->
+    <div class="modal modal-message fade" id="modal-ViewLog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Log File List</h4>
+                </div>
+                <form name="accountpaymentNewForm" class="form-horizontal">
+
+                    <div class="modal-body">
+
+                        <!-- begin row -->
+                        <div class="row">
+                            <!-- begin col-12 -->
+                            <div class="col-md-12">
+
+                                <div id="logFileList" style="display:block">
+                                    <table id="data-table" datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>File Name</th>
+                                                <th>Timestamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="odd gradeA" ng-repeat="logFile in logFileLists" ng-click="setSelectedRow(logFile.ID)">
+                                                <td>{{logFile.ID}}</td>
+                                                <td>{{logFile.NameFileLog}}</td>
+                                                <td>{{logFile.CreatedDate  | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <!-- end col-12 -->
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <div class="underline">
+                    </div>
+                    <div class="modal-footer">
+                        <!--<label for="submit-form">-->
+                        <button type="button" class="btn btn-default" ng-click="selectedLogFile()" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            <span>Choose</span>
+                        </button>
+                        <!--</label>-->
+                        <a href="javascript:;" class="btn btn-default" data-dismiss="modal">Close</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- end #modal-dialog -->
+    <!-- #modal-dialog - View Detail Log File -->
+    <div class="modal modal-message fade" id="modal-ViewLogDetail">
+        <div class="modal-dialog modal-log-detail">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                    <h4 class="modal-title">Log File Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea readonly="readonly" id="FileContents" style="width:100%; height : 500px" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end #modal-dialog -->
+</div>
+

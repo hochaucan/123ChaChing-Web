@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<div ng-controller="transactionController">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="widget widget-danger" >
+          <div class="widget-header">
+          <div class="row">
+            <div class="pull-left widget-title">
+              <i class="fa fa-tasks" ng-class="icon"></i> <span class="ng-binding">Detail Transaction</span>
+            </div>
+            <div class="pull-right col-xs-6 col-sm-4"></div>
+            <div class="widget-tools pull-right">
+              <button type="button" class="btn btn-box-tool" ng-click="widgetShow = !widgetShow" ng-hide="requireWidgetShow">
+                <i class="fa fa-minus" ng-class="{'fa-plus':  !widgetShow, 'fa-minus':  widgetShow}"></i>
+              </button>
+            </div>
+          </div>
+          </div>
+            <div class="widget-body" ng-class="classes" ng-show="widgetShow">
+                <!--loading-->
+                <rd-loading ng-show="isLoading"></rd-loading>
+                <!-- VIBA-->
+                <div ng-if="TransactionDetail.FileType == 'CTD'" ng-hide="isLoading" class="widget-content">
+                    <div class="row alerts-container" data-ng-controller="AlertsCtrl"  data-ng-show="alerts.length">
+                        <div class="col-xs-12">
+                            <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">ID : <span class="text-danger">{{TransactionDetail.ID}}</span></div>
+                    </div>
+
+
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Transaction Original ID : <span class="text-danger">{{TransactionDetail.TransactionOriginalID}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Entry No : <span class="text-danger">{{TransactionDetail.EntryNo}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Transaction Classification Code : <span class="text-danger">{{TransactionDetail.TransClsSiCode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">O- Proxy CI Code : <span class="text-danger">{{TransactionDetail.OProxyCICode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Value Date : <span class="text-danger">{{TransactionDetail.ValueDate | date:'dd/MM/yyyy' }}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">R- Proxy CI Code : <span class="text-danger">{{TransactionDetail.RProxyCICode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">O- CI Code : <span class="text-danger">{{TransactionDetail.OCICode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">R- CI Code : <span class="text-danger">{{TransactionDetail.RCICode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Service Fee : <span class="text-danger">{{TransactionDetail.ServiceFee}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Currency Code : <span class="text-danger">{{TransactionDetail.CurrCode}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Transfer Amount : <span class="text-danger">{{TransactionDetail.AmountAmount}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Name of Sending Customer : <span class="text-danger">{{TransactionDetail.SendingCusName}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Address of Sending Customer : <span class="text-danger">{{TransactionDetail.SendingCusAddress}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Account of Sending Customer : <span class="text-danger">{{TransactionDetail.SendingCusAccount}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Name of Receiving Customer : <span class="text-danger">{{TransactionDetail.ReceivingCusName}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Address of Receiving Customer : <span class="text-danger">{{TransactionDetail.ReceivingCusAddress}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Account of Receiving Customer : <span class="text-danger">{{TransactionDetail.ReceivingCusAccount}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Content of Payment Instruction : <span class="text-danger">{{TransactionDetail.PaymentInstructionContent}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Operation 1 : <span class="text-danger">{{TransactionDetail.Operation1}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Operation 2 : <span class="text-danger">{{TransactionDetail.Operation2}}</span></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">Beneficiary Bank Name : <span class="text-danger">{{TransactionDetail.BeneBankName}}</span></div>
+                    </div>
+
+                </div>
+
+                <!-- Vietinbank, Salary, Group-->
+                <div ng-if="TransactionDetail.FileType == 'VTB' || TransactionDetail.FileType == 'SLR' || TransactionDetail.FileType == 'GRP'" ng-hide="isLoading" class="widget-content">
+                    <div class="row alerts-container" data-ng-controller="AlertsCtrl"  data-ng-show="alerts.length">
+                        <div class="col-xs-12">
+                            <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 control-label text-left">ID : <span class="text-danger">{{TransactionDetail.ID}}</span></div>
+                    </div>
+
+                    <div class="row form-group" ng-if="TransactionDetail.FileType == 'SLR' || TransactionDetail.FileType == 'GRP'" >
+                      <div class=" col-md-12 control-label text-left">Office Code :<span class="text-danger">{{TransactionDetail.OfficeCode}}</span></div>
+                    </div>
+
+                   <div class="row form-group" ng-if="TransactionDetail.FileType == 'VTB'" >
+                      <div class=" col-md-12 control-label text-left">OCICode :<span class="text-danger">{{TransactionDetail.OCICode}}</span></div>
+                   </div>
+
+
+
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction Original ID : <span class="text-danger">{{TransactionDetail.TransactionOriginalID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Partition ID : <span class="text-danger">{{TransactionDetail.PartitionID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction ID : <span class="text-danger">{{TransactionDetail.TransactionID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Entry No : <span class="text-danger">{{TransactionDetail.EntryNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-12 control-label text-left">OVS Transaction Type : <span class="text-danger">{{TransactionDetail.OVSTransactionType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Save Type : <span class="text-danger">{{TransactionDetail.SaveType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Record Type : <span class="text-danger">{{TransactionDetail.RecordType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction Type : <span class="text-danger">{{TransactionDetail.TranType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Value Date : <span class="text-danger">{{TransactionDetail.ValueDate | date:'dd/MM/yyyy' }}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount CCY : <span class="text-danger">{{TransactionDetail.ProcAccountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount GL : <span class="text-danger">{{TransactionDetail.ProcAccountGL}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount GLSub : <span class="text-danger">{{TransactionDetail.ProcAccountGLSub}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount Account No : <span class="text-danger">{{TransactionDetail.ProcAccountAccountNo}}</span></div>
+                  </div>
+                  <div class="row form-group" ng-if="TransactionDetail.FileType == 'VTB'">
+                      <div class="col-md-12 control-label text-left">Sending Customter Name : <span class="text-danger">{{TransactionDetail.SendingCusName}}</span></div>
+                  </div>
+                  <div class="row form-group" ng-if="TransactionDetail.FileType == 'VTB'">
+                      <div class="col-md-12 control-label text-left">Sending Customter Address : <span class="text-danger">{{TransactionDetail.SendingCusAddress}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Amount CCY : <span class="text-danger">{{TransactionDetail.AmountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Amount Amount : <span class="text-danger" ng-if ="TransactionDetail.AmountCCY!='VND' && TransactionDetail.AmountCCY!='JPY'">{{TransactionDetail.AmountAmount| currency:"":2}}</span>
+                                                                                      <span class="text-danger" ng-if="TransactionDetail.AmountCCY==='VND' || TransactionDetail.AmountCCY==='JPY'">{{TransactionDetail.AmountAmount| currency:"":0}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Method : <span class="text-danger">{{TransactionDetail.Method}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Note : <span class="text-danger">{{TransactionDetail.Note}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">DuplAllowFlg : <span class="text-danger">{{TransactionDetail.DuplAllowFlg}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ModAllowFlg : <span class="text-danger">{{TransactionDetail.ModAllowFlg}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Option 1 : <span class="text-danger">{{TransactionDetail.Option1}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Option 2 : <span class="text-danger">{{TransactionDetail.Option2}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">A/C : <span class="text-danger">{{TransactionDetail.AC}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Bank Code : <span class="text-danger">{{TransactionDetail.BeneBankCode}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Bank Name : <span class="text-danger">{{TransactionDetail.BeneBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Name : <span class="text-danger">{{TransactionDetail.CusBeneBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Short Name : <span class="text-danger">{{TransactionDetail.CusBeneShortName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Adrress : <span class="text-danger">{{TransactionDetail.CusBeneAdrress}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Remarks : <span class="text-danger">{{TransactionDetail.CusBeneRemarks}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Intermed Bank Code : <span class="text-danger">{{TransactionDetail.IntermedBankCode}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Intermed Bank Name : <span class="text-danger">{{TransactionDetail.IntermedBankName}}</span></div>
+                  </div>
+                   
+                   
+              </div>
+
+              <!-- TAX-->
+              <div  ng-if="TransactionDetail.FileType == 'TAX'  || TransactionDetail.FileType == 'TXM'" ng-hide="isLoading" class="widget-content">
+                  <div class="row alerts-container" data-ng-controller="AlertsCtrl"  data-ng-show="alerts.length">
+                      <div class="col-xs-12">
+                          <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ID : <span class="text-danger">{{TransactionDetail.ID}}</span></div>
+                  </div>
+
+                  <div class="row form-group">
+                      <div class=" col-md-12 control-label text-left">Office Code :<span class="text-danger">{{TransactionDetail.OfficeCode}}</span></div>
+                  </div>
+
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction Original ID : <span class="text-danger">{{TransactionDetail.TransactionOriginalID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Partition ID : <span class="text-danger">{{TransactionDetail.PartitionID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction ID : <span class="text-danger">{{TransactionDetail.TransactionID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Entry No : <span class="text-danger">{{TransactionDetail.EntryNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">OVS Transaction Type : <span class="text-danger">{{TransactionDetail.OVSTransactionType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Save Type : <span class="text-danger">{{TransactionDetail.SaveType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Record Type : <span class="text-danger">{{TransactionDetail.RecordType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction Type : <span class="text-danger">{{TransactionDetail.TranType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Value Date : <span class="text-danger">{{TransactionDetail.ValueDate | date:'dd/MM/yyyy' }}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount CCY : <span class="text-danger">{{TransactionDetail.ProcAccountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount GL : <span class="text-danger">{{TransactionDetail.ProcAccountGL}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount GLSub : <span class="text-danger">{{TransactionDetail.ProcAccountGLSub}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ProcAccount Account No : <span class="text-danger">{{TransactionDetail.ProcAccountAccountNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Amount CCY : <span class="text-danger">{{TransactionDetail.AmountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Amount Amount : <span class="text-danger" ng-if="TransactionDetail.AmountCCY==='VND' || TransactionDetail.AmountCCY==='JPY'">{{TransactionDetail.AmountAmount| currency:"":0}}</span>
+                                                                                     <span class="text-danger" ng-if="TransactionDetail.AmountCCY!='VND' && TransactionDetail.AmountCCY!='JPY'">{{TransactionDetail.AmountAmount| currency:"":2}}</span>
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Method : <span class="text-danger">{{TransactionDetail.Method}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Note : <span class="text-danger">{{TransactionDetail.Note}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">DuplAllowFlg : <span class="text-danger">{{TransactionDetail.DuplAllowFlg}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ModAllowFlg : <span class="text-danger">{{TransactionDetail.ModAllowFlg}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Option 1 : <span class="text-danger">{{TransactionDetail.Option1}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Option 2 : <span class="text-danger">{{TransactionDetail.Option2}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">A/C : <span class="text-danger">{{TransactionDetail.AC}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Bank Code : <span class="text-danger">{{TransactionDetail.BeneBankCode}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Bank Name : <span class="text-danger">{{TransactionDetail.BeneBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Name : <span class="text-danger">{{TransactionDetail.CusBeneBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Short Name : <span class="text-danger">{{TransactionDetail.CusBeneShortName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Adrress : <span class="text-danger">{{TransactionDetail.CusBeneAdrress}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer Beneficiary Remarks : <span class="text-danger">{{TransactionDetail.CusBeneRemarks}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Intermed Bank Code : <span class="text-danger">{{TransactionDetail.IntermedBankCode}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Intermed Bank Name : <span class="text-danger">{{TransactionDetail.IntermedBankName}}</span></div>
+                  </div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OwnerPayer: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OwnerPayer}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OwnerTaxCode: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OwnerTaxCode}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OwnerAddress: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OwnerAddress}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OwnerDistrict: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OwnerDistrict}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OwnerCity: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OwnerCity}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PayerSubstitute: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PayerSubstitute}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PayerTaxCode: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PayerTaxCode}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PayerAddress: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PayerAddress}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PayerDistrict: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PayerDistrict}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PayerCity: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PayerCity}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>StateTreasuryDistrict: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.StateTreasuryDistrict}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ToDepositToNationalBudget: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ToDepositToNationalBudget}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ToCreditToTransientAccountNo: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ToCreditToTransientAccountNo}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ApplyOnAccountPayable: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ApplyOnAccountPayable}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>CustomDeclarationNoDecisionNo: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.CustomDeclarationNoDecisionNo}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>CustomDeclarationNumberRegistrationDate: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.CustomDeclarationNumberRegistrationDate}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TypeOfImportExport: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TypeOfImportExport}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NameOfTypeOfImportExport: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NameOfTypeOfImportExport}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>OrDeclarationNoListOfPayment: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.OrDeclarationNoListOfPayment}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>DateOfReceiptNumber: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.DateOfReceiptNumber}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>AmountInWords: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.AmountInWords}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>CodeOfCollectingAgency: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.CodeOfCollectingAgency}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NameOfCollectingAgency: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NameOfCollectingAgency}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TypeOfTax: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TypeOfTax}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NameOfTaxType: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NameOfTaxType}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChassisNo: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChassisNo}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>EngineNo: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.EngineNo}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>PenaltyImposingAgency: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.PenaltyImposingAgency}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NoticeNo1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NoticeNo1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NDKTCode1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NDKTCode1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChapterCode1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChapterCode1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>Amount1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.Amount1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ContentOfPaymentToStateTreasury1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ContentOfPaymentToTateTreasury1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TaxPeriod1: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TaxPeriod1}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NoticeNo2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NoticeNo2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NDKTCode2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NDKTCode2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChapterCode2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChapterCode2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>Amount2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.Amount2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ContentOfPaymentToStateTreasury2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ContentOfPaymentToTateTreasury2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TaxPeriod2: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TaxPeriod2}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NoticeNo3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NoticeNo3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NDKTCode3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NDKTCode3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChapterCode3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChapterCode3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>Amount3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.Amount3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ContentOfPaymentToStateTreasury3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ContentOfPaymentToTateTreasury3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TaxPeriod3: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TaxPeriod3}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NoticeNo4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NoticeNo4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NDKTCode4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NDKTCode4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChapterCode4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChapterCode4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>Amount4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.Amount4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ContentOfPaymentToStateTreasury4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ContentOfPaymentToTateTreasury4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TaxPeriod4: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TaxPeriod4}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NoticeNo5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NoticeNo5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>NDKTCode5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.NDKTCode5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ChapterCode5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ChapterCode5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>Amount5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.Amount5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ContentOfPaymentToStateTreasury5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ContentOfPaymentToTateTreasury5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TaxPeriod5: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TaxPeriod5}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>StateTreasuryCode: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.StateTreasuryCode}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>StateTreasuryName: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.StateTreasuryName}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TypeOfTaxCharge: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TypeOfTaxCharge}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>BankProvinceCode: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.BankProvinceCode}}</span></div></div>
+
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>BatchNumber: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.BatchNumber}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>ReferenceNumber: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.ReferenceNumber}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TransactionNumber: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TransactionNumber}}</span></div></div>
+                  <div class='row form-group'><div class='col-md-12 control-label text-left'>TransactionCode: <span class='text-danger'>{{TransactionDetail.TaxTransactionDto.TransactionCode}}</span></div></div>
+
+                  <div class="row form-group">
+                      <div class="col-md-12 text-right">
+                          <button type="button" class="btn btn-default" ng-click="printTaxReceipt()">
+                              <i class="glyphicon"></i>
+                              <span>Print Receipt</span>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- EXL-->
+              <div ng-if="TransactionDetail.FileType == 'EXL' || TransactionDetail.FileType == 'EXM'" ng-hide="isLoading" class="widget-content">
+                  <div class="row alerts-container" data-ng-controller="AlertsCtrl"  data-ng-show="alerts.length">
+                      <div class="col-xs-12">
+                          <uib-alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">ID : <span class="text-danger">{{TransactionDetail.ID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Transaction Original ID : <span class="text-danger">{{TransactionDetail.TransactionOriginalID}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Entry No : <span class="text-danger">{{TransactionDetail.EntryNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Customer ID : <span class="text-danger">{{TransactionDetail.CustomerId}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Value Date : <span class="text-danger">{{TransactionDetail.ValueDate | date:'dd/MM/yyyy' }}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Currency Code : <span class="text-danger">{{TransactionDetail.CurrCode}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Applied Amount : <span class="text-danger" ng-if="TransactionDetail.CurrCode==='VND'||TransactionDetail.CurrCode==='JPY'">{{TransactionDetail.AmountAmount| currency:"":0}}</span>
+                                                                                      <span class="text-danger" ng-if="TransactionDetail.CurrCode!='VND' && TransactionDetail.CurrCode!='JPY'">{{TransactionDetail.AmountAmount| currency:"":2}}</span>
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Exchange to : <span class="text-danger">{{TransactionDetail.EquivalentCurrency}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Proc Account CCY : <span class="text-danger">{{TransactionDetail.ProcAccountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Proc Account Transaction Type : <span class="text-danger">{{TransactionDetail.OVSTransactionType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Proc Account No : <span class="text-danger">{{TransactionDetail.ProcAccountAccountNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Name : <span class="text-danger">{{TransactionDetail.ReceivingCusName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Address : <span class="text-danger">{{TransactionDetail.ReceivingCusAddress}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary Account No : <span class="text-danger">{{TransactionDetail.ReceivingCusAccount}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Beneficiary bank : <span class="text-danger">{{TransactionDetail.BeneBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Intermed Bank Name : <span class="text-danger">{{TransactionDetail.IntermedBankName}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Charge Account CCY : <span class="text-danger">{{TransactionDetail.ChargeCusAccountCCY}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Charge Account Transaction Type : <span class="text-danger">{{TransactionDetail.ChargeOVSTransactionType}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Charge Account No : <span class="text-danger">{{TransactionDetail.ChargeCusAccountAccountNo}}</span></div>
+                  </div>
+                  <div class="row form-group">
+                      <div class="col-md-12 control-label text-left">Remark : <span class="text-danger">{{TransactionDetail.PaymentInstrContent}}</span></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

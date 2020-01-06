@@ -1,0 +1,26 @@
+<!--
+###############################################################################
+# Detail  : Section header page
+# Author  : Sunny Kwan
+# Date    : 22-Feb-2016
+#
+# Maintanence History
+#=====+================+=============+=========================================
+# SID | Name           | Date        | Reason
+#=====+================+=============+=========================================
+# SK1 | Sunny Kwan     | 22-Feb-2016 | BONE v1.0 initial release
+###############################################################################
+-->
+<div class="section-header">
+	<div class="row">
+		<div class="pull-left section-title">
+			<i class="fa" ng-class="icon"></i> <span ng-bind="title"></span>
+		</div>
+		<div class="pull-right col-xs-6 col-sm-4" ng-transclude></div>
+		<div class="section-tools pull-right">
+			<button type="button" class="btn btn-box-tool" ng-click='sectionShow = !sectionShow' ng-hide="hide">
+				<i class="fa" ng-class="{'fa-plus':  !sectionShow, 'fa-minus':  sectionShow}"></i>
+			</button>
+		</div>
+	</div>
+</div>

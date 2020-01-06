@@ -1,0 +1,149 @@
+﻿<!doctype html>
+<html lang="en" ng-app="RDash">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>123 ChaChing - Admin Page</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/lib/font-awesome.min.css">
+    <!-- jUI -->
+    <link rel="stylesheet" href="Scripts/spa_admin/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/plugins/bootstrap/dist/css/bootstrap-datetimepicker.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/lib/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/lib/ionicons.min.css" />
+    <!-- Angular UI Tree -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/lib/angular-ui-tree.min.css" />
+
+    <!-- Core Style -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/rdash.css">
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/common.css">
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/styles/commonExt.css">
+
+    <!-- jquery Scripts -->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/DataTables/media/js/jquery.dataTables.min.js"></script>
+
+    <!-- Angular JS -->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular/angular.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular/ocLazyLoad.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/bootstrap/dist/js/moment.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/bootstrap/dist/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- localization i18n -->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/angular/angular-resource.js"></script>
+
+</head>
+<body ng-controller="MasterCtrl" style="overflow-y:hidden;">
+    @Html.AntiForgeryToken()
+    <input id="__virtualDirectory" name="__virtualDirectory" type="hidden" value="@ViewBag.__virtualDirectory" />
+    <input id="__operationUnit" name="__operationUnit" type="hidden" value="@ViewBag.__operationUnit" />
+    <input id="__userProfile" name="__userProfile" type="hidden" value="@ViewBag.__userProfile" />
+    <input id="__localServerDate" name="__localServerDate" type="hidden" value="@ViewBag.__localServerDate" />
+    <input id="__localTimeZoneOffset" name="__localTimeZoneOffset" type="hidden" value="@ViewBag.__localTimeZoneOffset" />
+    <input id="__isCurrentDate" name="__isCurrentDate" type="hidden" value="@ViewBag.__isCurrentDate" />
+    <input id="__lastLoginDate" name="__lastLoginDate" type="hidden" value="@ViewBag.__lastLoginDate" />   <!-- 20170815 - last login date-->
+    <!-- 20170815 - last login date-->
+    @RenderBody()
+    <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+        <!-- Sidebar -->
+        <rd-Sidebar></rd-Sidebar>
+        <!-- End Sidebar -->
+        <div id="content-wrapper">
+            <div class="page-content">
+                <!-- Header Bar -->
+                <rd-Header></rd-Header>
+                <!-- End Header Bar -->
+                <!-- Main Content -->
+                <div id="main-content" ui-view></div>
+                <!-- End Main Conent -->
+                <!-- Footer -->
+                <rd-Section-Footer></rd-Section-Footer>
+                <!-- End Footer -->
+            </div><!-- End Page Content -->
+        </div><!-- End Content Wrapper -->
+    </div><!-- End Page Wrapper -->
+    <!--Datatable-->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.util.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.renderer.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.options.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.instances.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.factory.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Angular-datatables/src/angular-datatables.directive.js"></script>
+
+
+    <!-- app configuration + route -->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/route.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/services/common.services.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/constant.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/services/commonfunction.js"></script>
+
+
+
+    <!-- Begin Custom Scripts -->
+    <!-- Begin add Generated [TableName]Resource.js here -->
+    <!-- Begin <AppTableName>Resource.js-->
+
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/importFileResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/paramSettingResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/reportResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/importedFileResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/settlementAccountNumberResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/bankMappingResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/transactionResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/stateTreasuryResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/bankCodeManagementResource.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/services/newAccountStructureCrossRefResource.js"></script>
+    <!-- End <AppTableName>Resource.js-->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/controllers/home-ctrl.js"></script>
+
+    <!-- Begin <AppTableName>-ctrl.js -->
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/Template/alert-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/importFile-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/importFileApproval-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/paramSetting-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/report-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/importedFile-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/SettlementAccountNumber-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/bankMapping-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/importFileManagement-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/transaction-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/stateTreasury-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/bankCodeManagement-ctrl.js"></script>
+    <script type="text/javascript" src="~/Scripts/spa_admin/assets/js/controllers/newAccountStructureCrossRef-ctrl.js"></script>
+
+    <!-- End <AppTableName>-ctrl.js -->
+    <!-- End add Generated [TableName]-ctrl.js here -->
+    <!-- End Custom Scripts -->
+    <!-- Bone UI components-->
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/controllers/master-ctrl.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/loading.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/focusMe.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/section-footer.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/section-header.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/section-body.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/section.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/sidebar.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/header.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/fileModel.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/currencyFormat.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/js/directives/specialCharacters.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/Blob/Blob.js"></script>
+    <script type="text/javascript" src="Scripts/spa_admin/assets/plugins/SaveAs/FileSaver.min.js"></script>
+    <!-- angular autocomplete - augucomplete-alt plugin -->
+    <script src="Scripts/spa_admin/assets/plugins/angucomplete-alt/angucomplete-alt.js"></script>
+    <link rel="stylesheet" type="text/css" href="Scripts/spa_admin/assets/plugins/angucomplete-alt/angucomplete-alt.css">
+</body>
+</html>

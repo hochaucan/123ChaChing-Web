@@ -1,0 +1,40 @@
+<!--
+###############################################################################
+# Detail  : Table header date range search directive
+# Author  : Sunny Kwan
+# Date    : 22-Feb-2016
+#
+# Maintanence History
+#=====+================+=============+=========================================
+# SID | Name           | Date        | Reason
+#=====+================+=============+=========================================
+# SK1 | Sunny Kwan     | 22-Feb-2016 | BONE v1.0 initial release
+###############################################################################
+-->
+<div class="form-horizontal">
+  	<div class=" input-group">
+  		<div class="input-group-addon" style="width: 40px; padding: 3px" ng-bind="getI18n('FW', 'FWFrom', null)"></div>
+      	<input id="{{ 'FW_st-date-range_input_fromDate_' + id }}" type="text" class="form-control" uib-datepicker-popup="{{ dateFormat }}" ng-model="fromDate" 
+      		is-open="stDateRangeCtrl.isAfterOpen" ng-change="filterDateRange()" min-date="fromMinDate" max-date="fromMaxDate"
+      		current-text="{{ getI18n('FW', 'FWToday', null) }}" clear-text="{{ getI18n('FW', 'FWClear', null) }}" close-text="{{ getI18n('FW', 'FWClose', null) }}" 
+      		placeholder="{{ getI18n(appId, fromPlaceholder, null) }}" />
+    	<span class="input-group-btn"> 
+       	<button id="{{ 'FW_st-date-range_button_fromDate_calendar_' + id }}" type="button" class="btn btn-default" ng-click="stDateRangeCtrl.openDatepicker($event, 'from')">
+       		<i class="glyphicon glyphicon-calendar"></i>
+       	</button>
+    	</span>
+  	</div>
+	
+    <div class=" input-group">
+    	<div class="input-group-addon" style="width: 40px; padding: 3px" ng-bind="getI18n('FW', 'FWTo', null)"></div>
+		<input id="{{ 'FW_st-date-range_input_toDate_' + id }}" type="text" class="form-control" uib-datepicker-popup="{{ dateFormat }}" ng-model="toDate"
+			is-open="stDateRangeCtrl.isBeforeOpen" ng-change="filterDateRange()" min-date="toMinDate" max-date="toMaxDate"
+			current-text="{{ getI18n('FW', 'FWToday', null) }}" clear-text="{{ getI18n('FW', 'FWClear', null) }}" close-text="{{ getI18n('FW', 'FWClose', null) }}"
+			placeholder="{{ getI18n(appId, toPlaceholder, null) }}" />
+		<span class="input-group-btn"> 
+	    <button id="{{ 'FW_st-date-range_button_toDate_calendar_' + id }}" ng-click="stDateRangeCtrl.openDatepicker($event, 'to')" class="btn btn-default" type="button">
+	    	<i class="glyphicon glyphicon-calendar"></i>
+	    </button>
+	    </span>
+    </div>
+</div>

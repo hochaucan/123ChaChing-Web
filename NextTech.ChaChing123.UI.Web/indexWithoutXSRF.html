@@ -1,0 +1,118 @@
+﻿<!doctype html>
+<html lang="en" ng-app="RDash">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>Unified Tool</title>
+    <!-- STYLES -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/lib/font-awesome.min.css">
+    <!-- jUI -->
+    <link rel="stylesheet" href="Scripts/spa/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/lib/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/lib/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/lib/ionicons.min.css" />
+    <!-- Angular UI Tree -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/lib/angular-ui-tree.min.css" />
+
+    <!-- Core Style -->
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/rdash.css">
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/common.css">
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/styles/commonExt.css">
+
+    <!-- jquery Scripts -->
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/DataTables/media/js/jquery.dataTables.min.js"></script>
+
+    <!-- Angular JS -->
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular/angular.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular/ocLazyLoad.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular-cookies/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
+
+    <!-- localization i18n -->
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/angular/angular-resource.js"></script>
+
+</head>
+<body ng-controller="MasterCtrl">
+    <div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+        <!-- Sidebar -->
+        <rd-Sidebar></rd-Sidebar>
+        <!-- End Sidebar -->
+        <div id="content-wrapper">
+            <div class="page-content">
+                <!-- Header Bar -->
+                <rd-Header></rd-Header>
+                <!-- End Header Bar -->
+                <!-- Main Content -->
+                <div id="main-content" ui-view></div>
+                <!-- End Main Conent -->
+                <!-- Footer -->
+                <rd-Section-Footer></rd-Section-Footer>
+                <!-- End Footer -->
+            </div><!-- End Page Content -->
+        </div><!-- End Content Wrapper -->
+    </div><!-- End Page Wrapper -->
+
+    <!--Datatable-->
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.util.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.renderer.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.options.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.instances.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.factory.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/plugins/Angular-datatables/src/angular-datatables.directive.js"></script>
+
+    <!-- app configuration + route -->
+    <script type="text/javascript" src="Scripts/spa/assets/js/routes.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/services/common.services.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/constant.js"></script>
+
+    <!-- Begin Custom Scripts -->
+    <!-- Begin add Generated [TableName]Resource.js here -->
+
+    <!-- Begin <AppTableName>Resource.js-->
+
+    <!-- End <AppTableName>Resource.js-->
+
+    <!-- End add Generated [TableName]Resource.js here -->
+
+    <!-- End add Generated [TableName]-ctrl.js here -->
+    <script type="text/javascript" src="Scripts/spa/assets/js/controllers/home-ctrl.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/controllers/report-ctrl.js"></script>
+    
+    <!-- Begin <AppTableName>-ctrl.js -->
+
+    <!-- End <AppTableName>-ctrl.js -->
+
+    
+    <!-- End add Generated [TableName]-ctrl.js here -->
+    
+
+    <!-- End Custom Scripts -->
+
+    <!-- Bone UI components-->
+    <script type="text/javascript" src="Scripts/spa/assets/js/controllers/master-ctrl.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/loading.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/focusMe.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/section-footer.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/section-header.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/section-body.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/section.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/sidebar.js"></script>
+    <script type="text/javascript" src="Scripts/spa/assets/js/directives/header.js"></script>
+
+    <!-- angular autocomplete - augucomplete-alt plugin -->
+    <script src="Scripts/spa/assets/plugins/angucomplete-alt/angucomplete-alt.js"></script>
+    <link rel="stylesheet" type="text/css" href="Scripts/spa/assets/plugins/angucomplete-alt/angucomplete-alt.css">
+
+
+</body>
+</html>
