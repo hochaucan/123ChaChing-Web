@@ -8,7 +8,7 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserRegistrationCtrl', ['$scope', '$location', 'membershipService', 'notificationService', function ($scope, $location, membershipService, notificationService) {
+        .controller('UserRegistrationCtrl', ['$scope', '$location', '$localStorage', 'membershipService', 'notificationService', function ($scope, $location, $localStorage, membershipService, notificationService) {
             $scope.master = $scope.user;
             $scope.form = {
 
@@ -37,15 +37,19 @@
                     } else {
                         //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         //your code for submit
-                        var userRegistration = {
+
+                        var userRegistration = {};
+
+                        userRegistration = {
                             "fullname": $scope.userReg.fullname,
                             "username": $scope.userReg.username,
                             "email": $scope.userReg.email,
                             "phone": $scope.userReg.phone,
                             "password": $scope.userReg.password,
                             "accounttype": $scope.userReg.accounttype,
-                            "refcode": $scope.userReg.refcode
+                            "refcode": FormRegistration.refcode.placeholder //$scope.userReg.refcode <- before
                         };
+
 
                         membershipService.register(userRegistration, function (result) {
                             if (result.data && result.data.StatusCode == 0) {
@@ -61,5 +65,17 @@
 
                 }
             };
+            $scope.initForm = {
+                init: function () {
+                    $scope.refcodeVal = "";
+                    var refObj = $localStorage.refcodeVal;
+                    if (refObj) {
+                        $scope.refcodeVal = refObj.refcode;
+                        delete $localStorage.refcodeVal;
+                    }
+                }
+            }
+
+            $scope.initForm.init();
         }]);
 })();
