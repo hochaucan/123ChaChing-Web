@@ -8,7 +8,7 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserRegistrationCtrl', ['$scope', '$location', 'membershipService', function ($scope, $location, membershipService) {
+        .controller('UserRegistrationCtrl', ['$scope', '$location', 'membershipService', 'notificationService', function ($scope, $location, membershipService, notificationService) {
             $scope.master = $scope.user;
             $scope.form = {
 
@@ -37,32 +37,24 @@
                     } else {
                         //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         //your code for submit
-                        console.log("logint 1");
-                        var fullname = $scope.userReg.fullname;
-                        var username = $scope.userReg.username;
-                        var email = $scope.userReg.email;
-                        var phone = $scope.userReg.phone;
-                        var password = $scope.userReg.password;
-                        var repassword = $scope.userReg.repassword;
+                        var userRegistration = {
+                            "fullname": $scope.userReg.fullname,
+                            "username": $scope.userReg.username,
+                            "email": $scope.userReg.email,
+                            "phone": $scope.userReg.phone,
+                            "password": $scope.userReg.password,
+                            "accounttype": $scope.userReg.accounttype,
+                            "refcode": $scope.userReg.refcode
+                        };
 
-                        console.log(fullname);
-                        console.log(username);
-                        console.log(email);
-                        console.log(phone);
-                        console.log(password);
-                        console.log(repassword);
-
-                        membershipService.register($scope.userReg, function (result) {
-                            if (result.data.success) {
-                                membershipService.saveCredentials($scope.user);
-                                //notificationService.displaySuccess('Hello ' + $scope.user.username);
-                                console.log('Hello' + $scope.userReg.username);
-                                //$scope.userData.displayUserInfo();
-                                $location.path('/');
+                        membershipService.register(userRegistration, function (result) {
+                            if (result.data && result.data.StatusCode == 0) {
+                                notificationService.displaySuccess('Đăng ký thành công');
+                                $location.path('/app/home');
                             }
                             else {
-                                //notificationService.displayError('Registration failed. Try again.');
-                                console.log('Registration failed. Try again.')
+                                notificationService.displayError('Registration failed. Try again.');
+                                //console.log('Registration failed. Try again.');
                             }
                         });
                     }

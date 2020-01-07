@@ -5,7 +5,10 @@
         .module('ChaChingApp')
         .factory('membershipService', Service);
 
-    function Service(apiService, $http, $rootScope, $localStorage) {
+    function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
+
+        //var baseUrl = 'https://api.123chaching.app';
+        var baseUrl = 'http://localhost:1494/';
 
         var service = {
             login: login,
@@ -16,21 +19,21 @@
         }
 
         function login(user, completed) {
-            apiService.post('/api/account/login', user,
+            apiService.post(baseUrl + '/api/account/login', user,
             completed,
             loginFailed);
         }
 
         function register(user, completed) {
-            apiService.post('http://localhost:1485/api/Account/register', user,
+            apiService.post(baseUrl + '/api/Account/register', user,
             completed,
             registrationFailed);
         }
 
         function saveCredentials(user) {
-            $localStorage.currentUser = { username: user.username, token: user.UpdatedBy };
+            $localStorage.currentUser = { username: user.UserName, token: user.UpdatedBy };
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + response.obj.UpdatedBy;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + user.UpdatedBy;
         }
 
         function removeCredentials() {
@@ -39,17 +42,17 @@
         };
 
         function loginFailed(response) {
-            //notificationService.displayError(response.data);
-            console.log(response.data);
+            if (response.data) {
+                notificationService.displayError(response.data.Message);
+            }
         }
 
         function registrationFailed(response) {
-            //notificationService.displayError('Registration failed. Try again.');
-            console.log("Registration failed.Try again.");
+            notificationService.displayError('Registration failed. Try again.');
         }
 
         function isUserLoggedIn() {
-            return $localStorage.currentUser != null;
+            return $localStorage.currentUser != null;   
         }
 
         return service;

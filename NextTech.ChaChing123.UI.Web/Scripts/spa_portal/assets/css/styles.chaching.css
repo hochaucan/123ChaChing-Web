@@ -102,3 +102,153 @@ ul.nav li a i[class*="ti-"] {
     display: table-cell;
     padding: 10px 15px 10px 0;
 }
+.pricing-3-options-section .charts {
+    margin-top: 20px;
+}
+.pricing-3-options-section .charts .chart {
+    background-color: #fff;
+    border: 1px solid #D8D8D8;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 0px rgba(181, 181, 181, 0.3);
+    padding: 20px 40px;
+    position: relative;
+    text-align: center;
+    width: 97%;
+    min-height: 315px;
+    position: relative;
+    top: 20px;
+}
+.plan-name {
+    font-size: 40px !important;
+}
+.pricing-3-options-section .charts .chart .plan-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    color: #444;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+.plan-desc {
+    font-size: 18px;
+}
+.pricing-3-options-section .charts .chart .quantity {
+    text-align: center;
+    border-bottom: 1px solid #d5d5d5;
+    margin-top: 10px;
+}
+.pricing-3-options-section .charts .chart .quantity .dollar {
+    font-size: 19px;
+    position: relative;
+    top: -18px;
+}
+.pricing-3-options-section .charts .chart .quantity .price {
+    font-size: 49px;
+}
+.pricing-3-options-section .charts .chart .quantity .period {
+    font-size: 17px;
+    position: relative;
+    top: -8px;
+    margin-left: 4px;
+}
+.annual-text {
+    color: gray;
+    display: none;
+}
+.button-orange {
+    background-color: #03c1f4;
+    padding: 10px 15px;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    border: 1px solid #00acd6;
+    color: white !important;
+    height: auto !important;
+    font-weight: bold;
+    text-decoration: none !important;
+    width: 100%;
+}
+.pricing-3-options-section .charts .chart .btn-signup {
+    margin-top: 20px;
+    height: 38px;
+}
+.pricing-3-options-section .charts .chart .specs {
+    margin-top: 20px;
+}
+.pricing-3-options-section .charts .chart .specs .spec {
+    font-size: 15px;
+    color: #474747;
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 13px;
+}
+.button-orange2 {
+    background-color: orange;
+    padding: 10px 15px;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    border: 1px solid darkorange;
+    color: white !important;
+    height: auto !important;
+    font-weight: bold;
+    text-decoration: none !important;
+    width: 100%;
+    font-size: 17px;
+}
+.pricing-3-options-section .charts .chart .quantity .price {
+    font-size: 49px;
+}
+
+#app > footer {
+    margin: 0px;
+    position: relative;
+}
+.footer-section {
+    padding: 48px 0;
+    background-color: #212121;
+    color: #757575;
+    font-size: 1.15rem;
+}
+@media (min-width: 992px) {
+    .footer-section {
+        padding: 32px 0;
+    }
+}
+.text-headline {
+    font-size: 1.84rem;
+    font-weight: 400;
+    line-height: 2.46rem;
+}
+.text-light {
+    color: #757575;
+}
+.footer-section ul > li {
+    margin-bottom: 8px;
+}
+.btn-indigo-500 {
+    color: #ffffff;
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+}
+.btn-circle.btn {
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+}
+.btn-pink-500 {
+    color: #ffffff;
+    background-color: #e91e63;
+    border-color: #e91e63;
+}
+.btn-blue-500 {
+    color: #ffffff;
+    background-color: #2196f3;
+    border-color: #2196f3;
+}

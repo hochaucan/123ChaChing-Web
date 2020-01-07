@@ -177,7 +177,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
        }
 
        [AllowAnonymous]
-       [Route("Register")]
+       [Route("register")]
        [HttpPost]
        public HttpResponseMessage Register(HttpRequestMessage request, RegisterDTO obj)
        {

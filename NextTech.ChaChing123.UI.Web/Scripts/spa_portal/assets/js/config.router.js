@@ -42,6 +42,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             label: 'Home'
         }
         // Login routes
+    }).state('app.aboutus', {
+        url: '/aboutus',
+        templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
     }).state('app.login', {
         url: '/login',
         template: '<div ui-view class="fade-in-right-big smooth"></div>',

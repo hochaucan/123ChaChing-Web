@@ -7,100 +7,90 @@
     <!-- start: FIRST SECTION -->
     <div class="container-fluid container-fullw bg-white">
         <div class="row">
-            <div class="col-xs-12 col-sm-4">
-                <div class="row">
-                    <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                    <div ng-controller="SparklineCtrl">
-                        <div class="col-md-12">
-                            <div class="panel panel-white">
-                                <div class="panel-heading border-light">
-                                    <h5 class="panel-title text-left">Tạo Trang</h5>
-                                </div>
-                                <div class="panel-body">
-                                    <p class="text-center">
-                                        <span class="text-bold text-uppercase">3 Bước Đơn Giản</span>
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-primary btn-block">
-                                            Bắt Đầu Ngay
-                                        </button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="panel panel-white no-radius">
-                                <div class="panel-heading border-light">
-                                    <h5 class="panel-title text-left">Danh Sách Các Trang</h5>
-                                </div>
-                                <div class="panel-body">
-                                    <p class="text-center">
-                                        <span class="text-bold text-uppercase">Danh Sách Trang</span>
-                                    </p>
-                                    <p>
-                                        <button class="btn btn-primary btn-block">
-                                            Xem Thêm
-                                        </button>
-                                    </p>
+            <div class="col-md-8 message">
+                <h3>Contact Us. We'd love to hear from you.</h3>
+                <p>
+                    We are here to answer any questions you may have about Online Sales Pro.
+                    <br> Someone from our support team is available to help Monday through Friday,
+                    <br>9:00AM - 5:00PM Arizona time. LiveChat, call, or fill out the form below.
+                </p>
+
+                <form id="contact-form" method="post" action="/corporate/php/submitEmail.php" role="form" novalidate="true">
+
+                    <div class="messages"></div>
+
+                    <div class="controls">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_name">Your Name*</label>
+                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                                    <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_email">Email*</label>
+                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_phone">Phone</label>
+                                    <input id="form_phone" type="text" name="phone" class="form-control" placeholder="Please enter your phone">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_message">Your message*</label>
+                                    <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="g-recaptcha" data-sitekey="6Lc3GB8UAAAAAAjZKRAD8WTMqB_3Q-ZxFHv18Mfi"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lc3GB8UAAAAAAjZKRAD8WTMqB_3Q-ZxFHv18Mfi&amp;co=aHR0cHM6Ly9vbmxpbmVzYWxlc3Byby5jb206NDQz&amp;hl=en&amp;v=mhgGrlTs_PbFQOW4ejlxlxZn&amp;size=normal&amp;cb=f93we1wqps49" width="304" height="78" role="presentation" name="a-oupobujl9rq6" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div></div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary btn-send disabled" value="Send message" style="cursor:pointer">
+                            </div>
                         </div>
+
                     </div>
-                </div>
+
+                </form>
+
             </div>
-            <div class="col-xs-12 col-sm-8">
-                <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
-                <div class="panel panel-white no-radius" id="visits">
-                    <div class="panel-heading border-light">
-                        <h4 class="panel-title"> Visits </h4>
-                        <ul class="panel-heading-tabs border-light">
-                            <li>
-                                <div class="pull-right">
-                                    <div class="btn-group" uib-dropdown="" is-open="status.isopen">
-                                        <a uib-dropdown-toggle="" ng-disabled="disabled" class="padding-10">
-                                            <i class="ti-more-alt "></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-light" role="menu">
-                                            <li>
-                                                <a href="/assets/views/dashboard.html#">
-                                                    Action
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/assets/views/dashboard.html#">
-                                                    Another action
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/assets/views/dashboard.html#">
-                                                    Something else here
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="rate">
-                                    <i class="fa fa-caret-up text-primary"></i><span class="value">15</span><span class="percentage">%</span>
-                                </div>
-                            </li>
-                            <li class="panel-tools">
-                                <ct-paneltool tool-refresh="load1"></ct-paneltool>
-                            </li>
-                        </ul>
-                    </div>
-                    <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
-                        <div class="panel-body">
-                            <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                            <div ng-controller="VisitsCtrl" class="height-350">
-                                <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
-                                <div class="margin-top-20">
-                                    <div tc-chartjs-legend="" chart-legend="chart1" class="inline pull-left"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-md-4 contact">
+                <div class="address">
+                    <h3>Our Address</h3>
+                    <p>
+                        Online Sales Pro
+                        <br> 2231 N. Indian Ruins Rd. Ste 4
+                        <br> Tucson, AZ 85715
+                    </p>
+                </div>
+                <div class="phone">
+                    <h3>By Phone</h3>
+                    <p>
+                        888-477-3345
+                    </p>
+                </div>
+                <div class="phone">
+                    <h3>Support Center</h3>
+                    <p>
+                        <a target="_blank" href="http://support.onlinesalespro.com">support.onlinesalespro.com</a>
+                    </p>
                 </div>
             </div>
         </div>

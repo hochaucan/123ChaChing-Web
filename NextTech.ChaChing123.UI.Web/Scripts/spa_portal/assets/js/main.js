@@ -37,6 +37,9 @@ app.run(['$rootScope', '$state', '$stateParams',
         job: 'ng-Dev',
         picture: 'app/img/user/02.jpg'
     };
+    $rootScope.baseUrl = {
+        url: 'http://localhost:1495'
+    };
 }]);
 // translate config
 app.config(['$translateProvider',

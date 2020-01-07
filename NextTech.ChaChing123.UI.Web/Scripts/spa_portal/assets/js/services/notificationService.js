@@ -1,7 +1,9 @@
-﻿(function (app) {
+﻿(function () {
     'use strict';
 
-    app.factory('notificationService', notificationService);
+    angular
+        .module('ChaChingApp')
+        .factory('notificationService', notificationService);
 
     function notificationService() {
 
@@ -48,4 +50,4 @@
 
     }
 
-})(angular.module('ChaChingApp'));
+})();

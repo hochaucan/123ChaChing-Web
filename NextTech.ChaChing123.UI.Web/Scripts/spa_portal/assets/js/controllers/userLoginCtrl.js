@@ -8,7 +8,7 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserLoginCtrl', ['$scope', '$location', 'AuthenticationService', function ($scope, $location, AuthenticationService) {
+        .controller('UserLoginCtrl', ['$scope', '$rootScope', '$localStorage', '$location', 'membershipService', 'notificationService', function ($scope, $rootScope, $localStorage, $location, membershipService, notificationService) {
             $scope.master = $scope.user;
             $scope.form = {
                 submit: function (form) {
@@ -36,23 +36,27 @@
                     } else {
                         //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         //your code for submit
-                        console.log("logint 1");
-                        var username = $scope.user.username;
-                        var password = $scope.user.password;
-                        console.log($scope.user.username);
-                        console.log($scope.user.password);
-                        AuthenticationService.Login($scope.user, function (result) {
-                            if (result === true) {
-                                $location.path('/');
-                            } else {
-                                $scope.user.error = 'Email/Số Điện Thoại Không Hợp Lệ';
-                                //vm.loading = false;
+                        membershipService.login($scope.user, loginCompleted);
+                        function loginCompleted(result) {
+                            if (result.data && result.data.obj) {
+                                membershipService.saveCredentials(result.data.obj);
+                                notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + $scope.user.username);
+                                $scope.userData.displayUserInfo();
+                                if ($rootScope.previousState)
+                                    $location.path($rootScope.previousState);
+                                else
+                                    $location.path('/');
                             }
-                        });
+                            else {
+                                notificationService.displayError('Login failed. Try again.');
+                            }
+                        }
                     }
-
+                    if ($localStorage && $localStorage.currentPackage) {
+                        var currentPackage = $localStorage.currentPackage;
+                        $('.nav-tabs > .active').next('li').find('a').trigger('click');
+                    }
                 }
-            };
-
+            };            
         }]);
 })();

@@ -43,16 +43,5 @@ namespace NextTech.ChaChing123.UI.Web.Controllers
                 return response;
             });
         }
-
-        [Route("loginuser")]
-        [HttpGet]
-        public HttpResponseMessage LoginUser(HttpRequestMessage request)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                return response;
-            });
-        }
     }
 }

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
@@ -181,6 +181,9 @@
     <Reference Include="System.Net.Http.WebRequest">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.2\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,6 +193,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.2\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
@@ -3372,6 +3378,7 @@
     <Content Include="Scripts\spa_portal\assets\images\logo.png" />
     <Content Include="Scripts\spa_portal\assets\images\logo_original_log.png" />
     <Content Include="Scripts\spa_portal\assets\images\logo__.png" />
+    <Content Include="Scripts\spa_portal\assets\images\ribbon.png" />
     <Content Include="Scripts\spa_portal\assets\js\app.js" />
     <Content Include="Scripts\spa_portal\assets\js\config.constant.js" />
     <Content Include="Scripts\spa_portal\assets\js\config.router.js" />
@@ -3380,9 +3387,9 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\accountCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\bootstrapCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chatCtrl.js" />
-    <Content Include="Scripts\spa_portal\assets\js\controllers\homeCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\dashboardCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\dynamicTableCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\homeCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\iconsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\inboxCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\laddaCtrl.js" />
@@ -3393,9 +3400,11 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\selectCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\sweetAlertCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\toasterCtrl.js" />
-    <Content Include="Scripts\spa_portal\assets\js\controllers\userRegistrationCtrl.js" />
-    <Content Include="Scripts\spa_portal\assets\js\controllers\vAccordionCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userLoginCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\userRegistrationCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\userSignUpPackageCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\vAccordionCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\validationCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\xeditableCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\char-limit.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\chat.js" />
@@ -3428,11 +3437,8 @@
     <Content Include="Scripts\spa_portal\assets\js\services\fileUploadService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\membershipService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\notificationService.js" />
-    <Content Include="Scripts\spa_portal\assets\views\app_public.html" />
     <Content Include="Scripts\spa_portal\assets\views\app.html" />
-    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar_public.html" />
-    <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
-    <Content Include="Scripts\spa_portal\assets\views\home.html" />
+    <Content Include="Scripts\spa_portal\assets\views\app_public.html" />
     <Content Include="Scripts\spa_portal\assets\views\dashboard.html" />
     <Content Include="Scripts\spa_portal\assets\views\form_elements.html" />
     <Content Include="Scripts\spa_portal\assets\views\form_file_upload.html" />
@@ -3441,6 +3447,7 @@
     <Content Include="Scripts\spa_portal\assets\views\form_validation.html" />
     <Content Include="Scripts\spa_portal\assets\views\form_wizard.html" />
     <Content Include="Scripts\spa_portal\assets\views\form_xeditable.html" />
+    <Content Include="Scripts\spa_portal\assets\views\home.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_forgot.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_lock_screen.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_login.html" />
@@ -3455,6 +3462,8 @@
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-learning.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbarbk.html" />
+    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar_public.html" />
+    <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_basic.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_data.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_dynamic.html" />
@@ -3546,6 +3555,27 @@
     <Content Include="Scripts\spa_portal\bower_components\themify-icons\css\themify-icons.css" />
     <Content Include="Scripts\spa_portal\bower_components\v-accordion\dist\v-accordion.min.css" />
     <Content Include="Scripts\spa_portal\bower_components\v-accordion\dist\v-accordion.min.js" />
+    <Content Include="Scripts\spa_portal\vendors\css\toastr.css" />
+    <Content Include="Scripts\spa_portal\vendors\js\angucomplete-alt.min.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular-base64.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular-cookies.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular-file-upload.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular-route.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular-validator.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\angular.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\bootstrap.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\jquery.fancybox-media.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\jquery.fancybox.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\jquery.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\jquery.raty.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\loading-bar.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\modernizr.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\morris.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\raphael.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\respond.src.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\toastr.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\ui-bootstrap-tpls-0.13.1.js" />
+    <Content Include="Scripts\spa_portal\vendors\js\underscore.js" />
     <Content Include="Unauthorized.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -4314,7 +4344,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1487</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1485/</IISUrl>
+          <IISUrl>http://localhost:1484/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

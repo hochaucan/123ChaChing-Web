@@ -28,7 +28,10 @@
       "DOCUMENT": "Tài Liệu",
       "AFFILIATE": "Affiliate",
       "LOGIN": "Đăng Nhập",
-      "REGISTRATION": "Đăng Ký"
+      "REGISTRATION": "Đăng Ký",
+      "SIGNUP": "Sign Up",
+      "LOGOUT": "Đăng Xuất",
+      "ABOUTUS": "Giới Thiệu"
     }
   },
   "offsidebar": {
@@ -121,7 +124,7 @@
         "SEARCHRESULT": "Search Results",
         "ERROR404": "Error 404",
         "ERROR500": "Error 500",
-        "PRICING": "Pricing Table"
+        "PRICING": "Đăng Ký Dịch Vụ Sử Dụng"
       },
       "3level": {
         "MAIN": "3 Level Menu",

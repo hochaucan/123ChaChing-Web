@@ -14,7 +14,7 @@
         return service;
 
         function Login(user, callback) {
-            $http.post('/api/Account/login', user)
+            $http.post('http://localhost:1495/api/Account/login', { username: user.username, password: user.password })
                 .success(function (response) {
                     // login successful if there's a token in the response
                     if (response && response.obj) {

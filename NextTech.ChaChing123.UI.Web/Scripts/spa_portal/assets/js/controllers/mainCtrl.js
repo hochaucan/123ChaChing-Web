@@ -2,8 +2,8 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$location', '$http', 'cfpLoadingBar',
-    function ($rootScope, $scope, $state, $translate, $localStorage, $window, $document, $timeout, $location, $http, cfpLoadingBar) {
+app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', '$location', '$http', 'cfpLoadingBar', 'membershipService',
+    function ($rootScope, $scope, $state, $translate, $localStorage, $window, $document, $timeout, $location, $http, cfpLoadingBar, membershipService) {
 
 	// Loading bar transition
 	// -----------------------------------
@@ -164,39 +164,44 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
 		}
     });
 
-    //$scope.userData = {};
+    $scope.userAuthentication = {
+        init: function () {
+            $scope.userData = {};
 
-    //$scope.userData.displayUserInfo = displayUserInfo;
-    //$scope.logout = logout;
+            $scope.userData.displayUserInfo = displayUserInfo;
+            $scope.logout = logout;
 
 
-    //function displayUserInfo() {
-    //    $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
+            function displayUserInfo() {
+                $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
+                if ($scope.userData.isUserLoggedIn) {
+                    $scope.username = $localStorage.currentUser.username;
+                }
+            }
 
-    //    if ($scope.userData.isUserLoggedIn) {
-    //        $scope.username = $rootScope.repository.loggedUser.username;
-    //    }
-    //}
+            function logout() {
+                membershipService.removeCredentials();
+                $location.path('#/');
+                $scope.userData.displayUserInfo();
+            }
 
-    //function logout() {
-    //    membershipService.removeCredentials();
-    //    $location.path('#/');
-    //    $scope.userData.displayUserInfo();
-    //}
+            $scope.userData.displayUserInfo();
 
-    //$scope.userData.displayUserInfo();
+            // keep user logged in after page refresh
+            if ($localStorage.currentUser) {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+            }
 
-    // keep user logged in after page refresh
-    if ($localStorage.currentUser) {
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    }
-
-    // redirect to login page if not logged in and trying to access a restricted page
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        var publicPages = ['/login'];
-        var restrictedPage = publicPages.indexOf($location.path()) === -1;
-        if (restrictedPage && !$localStorage.currentUser) {
-            //$location.path('/login');
+            // redirect to login page if not logged in and trying to access a restricted page
+            //$rootScope.$on('$locationChangeStart', function (event, next, current) {
+            //    var publicPages = ['/login'];
+            //    var restrictedPage = publicPages.indexOf($location.path()) === -1;
+            //    if (restrictedPage && !$localStorage.currentUser) {
+            //        //$location.path('/login');
+            //    }
+            //});
         }
-    });
+    };
+
+    $scope.userAuthentication.init();
 }]);
