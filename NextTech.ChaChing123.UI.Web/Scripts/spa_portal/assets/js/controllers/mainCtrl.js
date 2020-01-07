@@ -204,4 +204,13 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
     };
 
     $scope.userAuthentication.init();
+
+    $scope.userRegistration = {
+        init: function () {
+            var search = $location.search();
+            $localStorage.refcodeVal = search;
+        }
+    };
+
+    $scope.userRegistration.init();
 }]);
