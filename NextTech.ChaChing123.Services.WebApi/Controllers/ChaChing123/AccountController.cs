@@ -50,19 +50,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             if (string.IsNullOrEmpty(obj.UserName))
             {
                 resul.StatusCode= Common.ConvertErrorCodeToInt(RetCode.ECS0001);
-                resul.StatusMsg = RetCodeMsg.ECS001;
+                resul.SetContentMsg();
             }
 
             else if (string.IsNullOrEmpty(obj.FullName))
             {
                 resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0002);
-                resul.StatusMsg = RetCodeMsg.ECS002;
+                resul.SetContentMsg();
             }
 
             else if(string.IsNullOrEmpty(obj.Email))
             {
                 resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0003);
-                resul.StatusMsg = RetCodeMsg.ECS003;
+                resul.SetContentMsg();
             }
             /*[Start] TODO xu ly trong store
             else if(Common.IsValidEmail(obj.Email))
@@ -79,7 +79,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             else if (string.IsNullOrEmpty(obj.RefCode))
             {
                 resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0006);
-                resul.StatusMsg = RetCodeMsg.ECS006;
+                resul.SetContentMsg();
             }
             /*xu ly trong store
             else if (IsExitsEmail(obj.RefCode))
@@ -91,7 +91,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             else if (string.IsNullOrEmpty(obj.Phone))
             {
                 resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0008);
-                resul.StatusMsg = RetCodeMsg.ECS008;
+                resul.SetContentMsg();
             }
             /*xu ly trong store
             else if (IsExitsPhone(obj.Phone))
@@ -103,19 +103,37 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             /*xu ly them truong hop ko hop le*/
            else if (string.IsNullOrEmpty(obj.Password))
            {
-               resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0008);
-               resul.StatusMsg = RetCodeMsg.ECS008;
-           }
+               resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0010);
+                resul.SetContentMsg();
+            }
 
            return resul;
        }
 
-       /// <summary>
-       /// Checks the login.
-       /// </summary>
-       /// <param name="obj">The object.</param>
-       /// <returns>true: next/ else:stop</returns>
-       private bool VerifykAccessWithRoot(Account obj)
+        private ResultDTO ValidateLoginData(LoginModel obj)
+        {
+            ResultDTO resul = new ResultDTO();
+            resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0000);
+
+            if (string.IsNullOrEmpty(obj.UserName))
+            {
+                resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                resul.SetContentMsg();
+            }
+            else if (string.IsNullOrEmpty(obj.Password))
+            {
+                resul.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0010);
+                resul.SetContentMsg();
+            }
+            return resul;
+        }
+
+        /// <summary>
+        /// Checks the login.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>true: next/ else:stop</returns>
+        private bool VerifykAccessWithRoot(Account obj)
        {
            if (string.IsNullOrEmpty(obj.CreatedBy) || string.IsNullOrEmpty(obj.UpdatedBy))
                return false;
@@ -132,6 +150,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            return true;
        }
 
+
        [AllowAnonymous]
        [Route("Login")]
        [HttpPost]
@@ -142,25 +161,17 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
 
                HttpResponseMessage response;
 
-               RetCode fag = RetCode.ECS0000;
-
-               if (string.IsNullOrEmpty(obj.UserName) || (!string.IsNullOrEmpty(obj.UserName) && obj.LoginType == 1 && string.IsNullOrEmpty(obj.Password)))
-                   fag = RetCode.ECS0001;
-
-
-
-               if (fag == RetCode.ECS0000)
+               ResultDTO result = ValidateLoginData(obj);
+               if (result.StatusCode == Common.ConvertErrorCodeToInt(RetCode.ECS0000))
                {
-                   Account result = _service.Login(obj);
-
-                   response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = Common.ConvertErrorCodeToInt(RetCode.ECS0000), obj = result });
+                   result = _service.Login(obj);
+                   response = request.CreateResponse(HttpStatusCode.OK, result);
                }
                else
                {
                    //TODO: alert error code
-                   response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = Common.ConvertErrorCodeToInt(fag) });
+                   response = request.CreateResponse(HttpStatusCode.OK, result);
                }
-
                return response;
            });
        }
@@ -196,13 +207,6 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            return CreateHttpResponse(request, () =>
            {
                HttpResponseMessage response;
-
-               //RetCode fag = RetCode.ECS0000;
-               var accInfo = new Account()
-               {
-                   CreatedBy = obj.UserId.ToString(),
-                   UpdatedBy = obj.SessionKey
-               };
                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.ChangePassword(obj) });
                return response;
            });
@@ -211,7 +215,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
        [AllowAnonymous]
        [HttpGet]
        [Route("GetAccountInfo/{id:int}")]
-       public HttpResponseMessage FO_Account_Get(HttpRequestMessage request, Account obj)
+       public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
        {
            return CreateHttpResponse(request, () =>
            {
@@ -224,7 +228,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
        [AllowAnonymous]
        [Route("GetAllData")]
        [HttpPost]
-       public HttpResponseMessage FO_Account_GetAllData(HttpRequestMessage request, Paging obj)
+       public HttpResponseMessage GetAllData(HttpRequestMessage request, Paging obj)
        {
            return CreateHttpResponse(request, () =>
            {
@@ -300,7 +304,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [Route("LockAffilate")]
         [HttpPost]
         public HttpResponseMessage LockAffilate(HttpRequestMessage request, LockAffilateDTO obj)
-        {
+        {   
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
@@ -308,6 +312,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+
+        [AllowAnonymous]
+        [Route("LogOut")]
+        [HttpPost]
+        public HttpResponseMessage LogOut(HttpRequestMessage request, LogoutDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.Logout(obj) });
+                return response;
+            });
+        }   
     }
 }
 

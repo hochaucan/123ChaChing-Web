@@ -7,6 +7,7 @@ using NextTech.ChaChing123.Services.WebApi.ActionFilters;
 using NextTech.ChaChing123.Services.WebApi.MessageHandlers;
 using System.Web.Http.Cors;
 
+
 namespace NextTech.ChaChing123.Services.WebApi
 {
     /// <summary>
@@ -17,7 +18,7 @@ namespace NextTech.ChaChing123.Services.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.MessageHandlers.Add(new ChaChing123AuthHandler());
+            // config.MessageHandlers.Add(new HomeCinemaAuthHandler());
 
             var corsAttr = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(corsAttr);

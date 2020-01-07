@@ -46,15 +46,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
+    <Compile Include="DTO\ChaChing123\ActiveAccountDto.cs" />
+    <Compile Include="DTO\ChaChing123\AffiliateSearchResponseDTO.cs" />
     <Compile Include="DTO\ChaChing123\AccountDto.cs" />
     <Compile Include="DTO\ChaChing123\ChangePasswordModel.cs" />
+    <Compile Include="DTO\ChaChing123\OrderListSearchDto.cs" />
     <Compile Include="DTO\ChaChing123\LogoutDto.cs" />
     <Compile Include="DTO\ChaChing123\DeleteAccountDto.cs" />
     <Compile Include="DTO\ChaChing123\LockAffilateDto.cs" />
     <Compile Include="DTO\ChaChing123\LockAccountDto.cs" />
     <Compile Include="DTO\ChaChing123\ChangeAccountTypeDto.cs" />
     <Compile Include="DTO\ChaChing123\CheckLoginDto.cs" />
-    <Compile Include="DTO\ChaChing123\ActiveAccountDto.cs" />
+    <Compile Include="DTO\ChaChing123\WalletInfoOfAccDto.cs" />
+    <Compile Include="DTO\ChaChing123\PaymentAffiliateDto.cs" />
+    <Compile Include="DTO\ChaChing123\PaymentContractDto.cs" />
     <Compile Include="DTO\ChaChing123\Paging.cs" />
     <Compile Include="DTO\ChaChing123\RegisterDto.cs" />
     <Compile Include="DTO\ChaChing123\ResourceModel.cs" />

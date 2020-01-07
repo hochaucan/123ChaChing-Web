@@ -1,5 +1,4 @@
 
-using NextTech.ChaChing123.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace NextTech.ChaChing123.Business.Utilities
     public class MembershipContext
     {
         public IPrincipal Principal { get; set; }
-        public Account Account { get; set; }
+        //public User User { get; set; }
         public bool IsValid()
         {
             return Principal != null;

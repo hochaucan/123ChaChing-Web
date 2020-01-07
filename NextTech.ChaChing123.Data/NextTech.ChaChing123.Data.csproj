@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Configurations\ChaChing123\AccountConfigurations.cs" />
+    <Compile Include="Configurations\ChaChing123\AffiliateConfiguration.cs" />
     <Compile Include="Extensions\ChaChing123\AccountExtensions.cs" />
+    <Compile Include="Extensions\ChaChing123\AffiliateExtensions.cs" />
     <Compile Include="Extensions\ChaChing123\CommonExtensions.cs" />
     <Compile Include="Extensions\ChaChing123\LogInfoExtensions.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />

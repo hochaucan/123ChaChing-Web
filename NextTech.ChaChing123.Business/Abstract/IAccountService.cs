@@ -1,11 +1,15 @@
-using NextTech.ChaChing123.Common.Models;
-using NextTech.ChaChing123.Core.Models;
+/// <summary>
+/// <author>Ngo tan  Phuc</author>
+/// <description>Created date: </description>
+/// <revision history>Version: 1.0.1</revision history>
+/// </summary>
 
 namespace NextTech.ChaChing123.Business
 {
-    using NextTech.ChaChing123.Business.Utilities;
     using NextTech.ChaChing123.Entities;
     using System.Linq;
+    using NextTech.ChaChing123.Common.Models;
+    using NextTech.ChaChing123.Core.Models;
 
     /// <summary>
     /// Interface IAccountService
@@ -14,7 +18,7 @@ namespace NextTech.ChaChing123.Business
     {
         ResultDTO CheckLogin(CheckLoginDTO obj);
 
-        Account Login(LoginModel obj);
+        ResultDTO Login(LoginModel obj);
 
         ResultDTO Register(RegisterDTO obj);
 
@@ -37,6 +41,5 @@ namespace NextTech.ChaChing123.Business
         ResultDTO GetAccountInfo(int id);
 
         IQueryable<Account> GetAllData(Paging obj);
-        MembershipContext ValidateUser(string username, string password);
     }
 }

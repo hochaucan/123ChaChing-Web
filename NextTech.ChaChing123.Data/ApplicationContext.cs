@@ -76,8 +76,7 @@ namespace NextTech.ChaChing123.Data
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new AccountConfiguration());
-
-
+            modelBuilder.Configurations.Add(new AffiliateConfiguration());
         }
     }
 }
