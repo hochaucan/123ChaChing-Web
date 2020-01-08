@@ -82,11 +82,12 @@
                                     <input type="email" class="form-control" id="boxRegisterEmail" name="email" ng-model="userReg.email" placeholder="Địa chỉ email" required="">
                                     <span class="error text-small block" ng-if="FormRegistration.email.$dirty && FormRegistration.email.$invalid">Email là bắt buộc.</span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="boxRegisterRefCode">
+                                <div class="form-group" ng-class="{'has-error':FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid, 'has-success':FormRegistration.refcode.$valid}">
+                                    <label class="control-label" for="boxRegisterRefCode">
                                         Mã giới thiệu
                                     </label>
-                                    <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" value="{{refcodeVal}}" placeholder="{{refcodeVal}}" readonly>
+                                    <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" ng-model="userReg.refcode" placeholder="Mã giới thiệu" readonly required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid">Mã giới thiệu là bắt buộc.</span>
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.phone.$dirty && FormRegistration.phone.$invalid, 'has-success':FormRegistration.phone.$valid}">
                                     <label class="control-label" for="boxRegisterPhone">

@@ -11,8 +11,8 @@
             </div>
         </div>
     </section>
-    <!-- start: FIRST SECTION -->
     <div ng-if="userData.isUserLoggedIn">
+        <!-- start: FIRST SECTION -->
         <div class="container-fluid container-fullw bg-white">
             <div class="row">
                 <div class="col-xs-12 col-sm-4">
@@ -115,7 +115,7 @@
         </div>
         <!-- end: FIRST SECTION -->
         <!-- start: SECOND SECTION -->
-        <div class="container-fluid container-fullw bg-white ng-scope" ng-if="!userData.isUserLoggedIn">
+        <div class="container-fluid container-fullw bg-white ng-scope">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-white">
@@ -158,7 +158,7 @@
         </div>
         <!-- end: SECOND SECTION -->
         <!-- start: THIRD SECTION -->
-        <div class="container-fluid container-fullw bg-white ng-scope" ng-if="!userData.isUserLoggedIn">
+        <div class="container-fluid container-fullw bg-white ng-scope">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <div class="row">
@@ -219,7 +219,7 @@
                     <div class="col-md-5 col-md-offset-1">
                         <div class="chart ">
                             <div class="plan-name">Cơ Bản</div>
-                            <div class="plan-desc">Get Started Now With 123ChaChing's Essential Plan</div>
+                            <div class="plan-desc text-capitalize">Bắt đầu ngay với gói cơ bản của 123ChaChing</div>
                             <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
 
                             <div class="quantity">
@@ -229,7 +229,7 @@
                                 <div class="annual-text">Billed Annually</div>
 
                                 <a id="signupEssential" class="btn-signup button-orange" ng-click="registerBasicPackage()">
-                                    <span>Đăng ký gói cơ bản</span>
+                                    <span>Mua Gới Cơ Bản</span>
                                 </a>
                                 <br>
 
@@ -237,40 +237,34 @@
                             <div class="specs">
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variable">Unlimited</span>
-                                    simple-to-use landing pages
+                                    <span class="variable">Không Giới Hạn</span>
+                                    landing pages
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
 
-                                    OSP <span class="variable">Mobile App</span>
-                                    for iPhone and Android
+                                    123ChaChing <span class="variable">Mobile App</span>
+                                    cho iPhone and Android
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
 
-                                    Get leads in <span class="variable">real-time</span>
+                                    Nhận thông báo <span class="variable">thời gian thực</span>
                                     24/7
                                 </div>
                                 <div class="spec aff">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Earn <span class="variable">30%</span>
-                                    Affiliate Commissions
+                                    Chiết khấu <span class="variable">50%</span>
+                                    Hoa Hồng Đại Sứ (tính trên giá gói cơ bản)
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Full <span class="variable">Online Training</span>
-                                    and Support
+                                    Được <span class="variable">Huấn Luyện Online</span>
+                                    và Hỗ Trợ
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variable">Facebook</span>
-                                    Community
-                                </div>
-                                <div class="spec">
-                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variable">Autoresponder</span>
-                                    Integration
+                                    Truy cập cộng đồng <span class="variable">Facebook Group</span>
                                 </div>
                             </div>
 
@@ -280,7 +274,7 @@
                         <div class="chart featured">
                             <img src="/Scripts/spa_portal/assets/images/ribbon.png" class="popular" alt="ribbon">
                             <div class="plan-name">Nâng Cao</div>
-                            <div class="plan-desc">Get Started Now With 123ChaChing's Complete Plan</div>
+                            <div class="plan-desc text-capitalize">Bắt đầu ngay với gói nâng cao của 123ChaChing</div>
                             <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
                             <div class="quantity">
                                 <span class="dollar">VND</span>
@@ -288,58 +282,102 @@
                                 <span class="period">/tháng</span>
                                 <div class="annual-text">Billed Annually</div>
                                 <a id="signupComplete" class="btn-signup button-orange2" ng-click="registerAdvacedPackage()">
-                                    <span>Đăng ký gói nâng cao</span>
+                                    <span>Mua Gói Nâng Cao</span>
                                 </a>
                                 <br>
                             </div>
                             <div class="specs">
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Access to <span class="variable">OSP</span>
+                                    Được truy cập <span class="variable">123ChaChing</span>
                                     Facebook Groups
                                 </div>
                                 <div class="spec aff">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Qualify For Our <span class="variable">2-Tier</span>
-                                    Commission
+                                    Chiết khấu <span class="variable">50%</span>
+                                    Hoa Hồng Đại Sứ
                                 </div>
-                                <div class="spec aff">
+                                <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variableB" style="font-weight: 500;">Earn 40% on Direct Referrals</span>
+                                    <span class="variable">Không Giới Hạn</span>
+                                    landing pages
                                 </div>
-                                <div class="spec aff">
+                                <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variableB" style="font-weight: 500;">Earn 10% on Your 2nd-Tier Referrals</span>
 
+                                    123ChaChing <span class="variable">Mobile App</span>
+                                    cho iPhone and Android
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variable">Unlimited</span> Simple-To-Use Landing Pages
+                                    Được <span class="variable">Huấn Luyện Online</span>
+                                    và Hỗ Trợ
                                 </div>
                                 <div class="spec">
                                     <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    OSP <span class="variable">Mobile App</span>
-                                    for iPhone and Android
-                                </div>
-                                <div class="spec">
-                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Full <span class="variable">Online Training</span>
-                                    and Support
-                                </div>
-                                <div class="spec">
-                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    <span class="variable">Priority</span>
-                                    Live Chat Support
-                                </div>
-                                <div class="spec">
-                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    Beta Access To <span class="variable">New Features</span>
 
+                                    Nhận thông báo <span class="variable">thời gian thực</span>
+                                    24/7
                                 </div>
                                 <a id="signupComplete" class="btn-signup button-orange2" ng-click="registerAdvacedPackage()">
                                     <span>Đăng ký gói nâng cao</span>
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row message">
+                        <p>
+                            <!-- Online Sales Pro has a 30-Day Money-Back Guarantee. -->
+                            <img class="guarantee-img" style="max-width:200px; margin-top:20px" src="/Scripts/spa_portal/assets/images/moneyback14.png">
+
+                        </p>
+                    </div>
+                    <div class="testimonials-section" style="margin-top: 10px;">
+
+
+
+                        <div class="row faq" style="padding-left: 20px; padding-right: 20px">
+                            <div class="col-md-12">
+                                <div class="row header">
+                                    <div class="col-md-12">
+                                        <h3 style="margin-bottom: 15px;"><span class="text-capitalize">Câu hỏi thường gặp</span></h3>
+                                    </div>
+                                </div>
+                                <div class="row questions">
+                                    <div class="col-md-6">
+                                        <div class="question">
+                                            <strong>123ChaChing là gì?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                            </p>
+                                        </div>
+                                        <div class="question">
+                                            <strong>123ChaChing có giá bao nhiêu?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="question">
+                                            <strong>123ChaChing có đảm bảo gì không?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                            </p>
+                                        </div>
+                                        <div class="question">
+                                            <strong>123ChaChing có chương trình tiếp thị không?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                                            </p>
+                                        </div>
+                                        <!--                 <div class="question">
+                            <img class="guarantee-img" src="/corporate/images/icons/moneyback.png">
+                          </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

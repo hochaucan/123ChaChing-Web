@@ -3400,6 +3400,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\selectCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\sweetAlertCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\toasterCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\affiliateCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userLoginCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userRegistrationCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userSignUpPackageCtrl.js" />
@@ -3435,6 +3436,7 @@
     <Content Include="Scripts\spa_portal\assets\js\services\common.services.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\commonfunction.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\fileUploadService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\affiliateService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\membershipService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\notificationService.js" />
     <Content Include="Scripts\spa_portal\assets\views\app.html" />
@@ -3453,6 +3455,7 @@
     <Content Include="Scripts\spa_portal\assets\views\login_login.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_registration.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_signin.html" />
+    <Content Include="Scripts\spa_portal\assets\views\affiliate.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\footer.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\main-content.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\nav.html" />
@@ -4340,7 +4343,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1487</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

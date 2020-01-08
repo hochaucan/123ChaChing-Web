@@ -58,20 +58,54 @@
                             }
                             else {
                                 notificationService.displayError('Registration failed. Try again.');
-                                //console.log('Registration failed. Try again.');
                             }
                         });
                     }
 
                 }
             };
+
             $scope.initForm = {
                 init: function () {
-                    $scope.refcodeVal = "";
                     var refObj = $localStorage.refcodeVal;
+                    var currentPackage = $localStorage.currentPackage;
+                    //Initial the account type for user
+                    var accountType = 1;
+                    //1. Handle register page when user signup via reference code URL
+                    
                     if (refObj) {
-                        $scope.refcodeVal = refObj.refcode;
+                        var userRegistration = {};
+
+                        userRegistration = {
+                            "fullname": "",
+                            "username": "",
+                            "email": "",
+                            "phone": "",
+                            "password": "",
+                            "accounttype": "",
+                            "refcode": refObj.refcode //$scope.userReg.refcode <- before
+                        };
+
+                        $scope.userReg = userRegistration;
                         delete $localStorage.refcodeVal;
+                    }
+
+                    //2. Handle the case when user click on Basic or Advance button on home page
+                    if (currentPackage) {
+                        var userRegistration = {};
+
+                        userRegistration = {
+                            "fullname": "",
+                            "username": "",
+                            "email": "",
+                            "phone": "",
+                            "password": "",
+                            "accounttype": currentPackage,
+                            "refcode": "" //$scope.userReg.refcode <- before
+                        };
+
+                        $scope.userReg = userRegistration;
+                        delete $localStorage.currentPackage;
                     }
                 }
             }
