@@ -64,23 +64,33 @@ namespace NextTech.ChaChing123.Common.Constants
         ECS0027 = 27,
         ECS0028 = 28,
         ECS0029 = 29,
+
+        ECS9999 = 9999,
     }
 
     public class  RetCodeMsg 
     {
-        public const string ECS000 = "Thành công";
-        public const string ECS001 = "Tên đăng nhập không được để trống";
-        public const string ECS002 = "Họ và tên không hợp lệ";
-        public const string ECS003 = "Email không được để trống";
-        public const string ECS004 = "Email không hợp lệ";
-        public const string ECS005 = "Email đã được đăng ký";
-        public const string ECS006 = "Mã giới thiếu không được để trống";
-        public const string ECS007 = "Mã giới thiệu không hợp lệ";
-        public const string ECS008 = "Số điện thoại không được để trống";
-        public const string ECS009 = "Số điện thoại đã được đăng ký";
-        public const string ECS010 = "Mật khẩu không hợp lệ";
-        public const string ECS011 = "Mật khẩu củ không đúng";
-        public const string ECS012 = "Mật khẩu mới không hợp lệ";
+        public const string ECS0000 = "Thành công";
+        public const string ECS0001 = "Tên đăng nhập không được để trống";
+        public const string ECS0002 = "Họ và tên không hợp lệ";
+        public const string ECS0003 = "Email không được để trống";
+        public const string ECS0004 = "Email không hợp lệ";
+        public const string ECS0005 = "Email đã được đăng ký";
+        public const string ECS0006 = "Mã giới thiếu không được để trống";
+        public const string ECS0007 = "Mã giới thiệu không hợp lệ";
+        public const string ECS0008 = "Số điện thoại không được để trống";
+        public const string ECS0009 = "Số điện thoại đã được đăng ký";
+        public const string ECS0010 = "Mật khẩu không hợp lệ";
+        public const string ECS0011 = "Mật khẩu củ không đúng";
+        public const string ECS0012 = "Mật khẩu mới không hợp lệ";
+        public const string ECS0013 = "Tài khoản đăng nhập không tồn tại hoặc mặt khẩu không đúng";
+        public const string ECS0014 = "Tài khoản đăng nhập không tồn tại";
+        public const string ECS0015 = "Tài khoản đang bị khóa";
+        public const string ECS0016 = "Tài khoản không hoạt động";
+        public const string ECS0017 = "Tài khoản chưa đăng nhập.";// Không có session key
+
+        public const string ECS9999 = "Lỗi không xác định";
+
     }
 
 }

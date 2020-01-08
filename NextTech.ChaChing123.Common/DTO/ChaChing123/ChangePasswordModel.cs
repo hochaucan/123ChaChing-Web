@@ -4,7 +4,7 @@ namespace NextTech.ChaChing123.Common.Models
 {
    public class ChangePasswordModel
     {
-        public int UserId { get; set; }
+        public string AccountName { get; set; }
 
         public string NewPassword { get; set; }
 

@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChaChing123\AccountController.cs" />
+    <Compile Include="Controllers\ChaChing123\AffiliateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -183,7 +184,6 @@
     <Compile Include="Infrastructure\Core\UploadMultipartFormProvider.cs" />
     <Compile Include="Infrastructure\Extensions\EntitiesExtensions.cs" />
     <Compile Include="Infrastructure\Extensions\RequestMessageExtensions.cs" />
-    <Compile Include="Infrastructure\MessageHandlers\ChaChing123AuthHandler.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
@@ -233,6 +233,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\" />
     <Folder Include="Controllers\Sys\" />
+    <Folder Include="Infrastructure\MessageHandlers\" />
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
@@ -256,7 +257,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1487</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1494/</IISUrl>
+
+          <IISUrl>http://localhost:1489/</IISUrl>
+
+      
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

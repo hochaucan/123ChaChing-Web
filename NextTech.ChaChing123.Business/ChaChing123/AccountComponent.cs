@@ -1,4 +1,4 @@
-﻿using MigraDoc.Rendering;
+﻿
 using NextTech.ChaChing123.Common.Models;
 using NextTech.ChaChing123.Common.Utilities;
 using NextTech.ChaChing123.Core.Models;
@@ -12,10 +12,6 @@ namespace NextTech.ChaChing123.Business
     using NextTech.ChaChing123.Entities;
     using Common.Constants;
     using Data.Extensions;
-    using NextTech.ChaChing123.Business.Utilities;
-    using NextTech.ChaChing123.Entities.ChaChing123;
-    using System.Collections.Generic;
-    using System.Security.Principal;
 
     /// <summary>
     /// Class AccountComponent.
@@ -57,35 +53,6 @@ namespace NextTech.ChaChing123.Business
             return result;
         }
 
-        public MembershipContext ValidateUser(string username, string password)
-        {
-            var membershipCtx = new MembershipContext();
-
-            var user = _repository.GetSingleByUsername(username);
-            if (user != null && isUserValid(user, password))
-            {
-                //var userRoles = GetUserRoles(user.UserName);
-                membershipCtx.Account = user;
-            }
-
-            return membershipCtx;
-        }
-
-        private bool isPasswordValid(Account user, string password)
-        {
-            return string.Equals(NextTech.ChaChing123.Common.Utilities.Common.StringToMD5Hash(password), user.Password);
-        }
-
-        private bool isUserValid(Account user, string password)
-        {
-            if (isPasswordValid(user, password))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public ResultDTO CheckLogin(CheckLoginDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();
@@ -96,26 +63,33 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("CheckLogin", ActionType.Login, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
             }
 
             return accInfo;
         }
 
-        public Account Login(LoginModel obj)
+        public ResultDTO Login(LoginModel obj)
         {
-            Account accInfo = null;
+            ResultDTO accInfo = null;
+            
             try
             {
                 if (!string.IsNullOrEmpty(obj.UserName) && obj.LoginType == 1 && !string.IsNullOrEmpty(obj.Password))
                 {
-                    obj.Password = NextTech.ChaChing123.Common.Utilities.Common.StringToMD5Hash(obj.Password);
+                    obj.Password = Common.Utilities.Common.StringToMD5Hash(obj.Password);
                 }
 
                 accInfo = _repository.Login(obj);
+                
+
             }
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("Login", ActionType.Login, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg= ex.Message.ToString();
             }
 
             return accInfo;
@@ -126,33 +100,17 @@ namespace NextTech.ChaChing123.Business
             ResultDTO errorCode=new ResultDTO();
             try
             {
-                //if (!Utilities.Common.IsValidEmail(obj.Email) || !Utilities.Common.IsValidEmail(obj.UserName))
-                //{
-                //    errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0028);
-                //    return errorCode;
-                //}
-                //else
-                {
-                    try
-                    {
-                        var lengthPass = int.Parse(NextTech.ChaChing123.Common.Utilities.Common.GetConfigValue("LengthPass"));
-                        obj.ContractNo = PasswordGenerator.generatePassword(lengthPass, false, true, false);
-                        obj.Password = NextTech.ChaChing123.Common.Utilities.Common.StringToMD5Hash(obj.Password);
-                        errorCode = _repository.Register(obj);
-
-                    }
-                    catch (Exception e)
-                    {
-                        errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0027);
-                    }
-                    errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0000);
-                }
+                var lengthPass = int.Parse(Common.Utilities.Common.GetConfigValue("LengthPass"));
+                obj.ContractNo = PasswordGenerator.generatePassword(lengthPass, false, true, false);
+                obj.Password = Common.Utilities.Common.StringToMD5Hash(obj.Password);
+                errorCode = _repository.Register(obj);
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Utilities.AppLog.WriteLog("Register", ActionType.Add, ex.Message);
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                Utilities.AppLog.WriteLog("Register", ActionType.Add, e.Message);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = e.Message.ToString();
             }
             return errorCode;
         }
@@ -167,6 +125,8 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("ActiveAccount", ActionType.Login, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
             }
 
             return accInfo;
@@ -182,6 +142,8 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("EditAccount", ActionType.Update, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
             }
 
             return accInfo;
@@ -197,6 +159,8 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("DeleteAccount", ActionType.Update, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.SetContentMsg();
             }
 
             return accInfo;
@@ -210,30 +174,22 @@ namespace NextTech.ChaChing123.Business
 
         public ResultDTO ChangePassword(ChangePasswordModel obj)
         {
-            ResultDTO errorCode = new ResultDTO();
-
-            errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0015);
+            ResultDTO accInfo = new ResultDTO();
             try
             {
-                var accInfo = Get(obj.UserId);
-               
-                if (accInfo.Password == NextTech.ChaChing123.Common.Utilities.Common.StringToMD5Hash(obj.OldPassword))
-                {
-                    accInfo.UpdatedDate = DateTime.Now;
-                    accInfo.Password = NextTech.ChaChing123.Common.Utilities.Common.StringToMD5Hash(obj.NewPassword);
-                    _repository.Edit(accInfo);
-                    _unitOfWork.Commit();
-                    errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0000); //(RetCode.ECS0028);//Cap nhat mat khau thanh cong!
-                }
-               
+                obj.OldPassword = Common.Utilities.Common.StringToMD5Hash(obj.OldPassword);
+                obj.NewPassword = Common.Utilities.Common.StringToMD5Hash(obj.NewPassword);
+                
+                accInfo = _repository.ChangePassword(obj);
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("ChangePassword", ActionType.Update, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                Utilities.AppLog.WriteLog("DeleteAccount", ActionType.Update, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.SetContentMsg();
             }
 
-            return errorCode;
+            return accInfo;
         }
 
         public ResultDTO Logout(LogoutDTO obj)
@@ -242,11 +198,13 @@ namespace NextTech.ChaChing123.Business
             try
             {
                 errorCode.StatusCode = _repository.LogOut(obj);
+                errorCode.SetContentMsg();
             }
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("Logout", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
             }
 
             return errorCode;
@@ -263,7 +221,8 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("ChangeAccountType", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
             }
 
             return errorCode;
@@ -280,7 +239,8 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("LockAccount", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
             }
 
             return errorCode;
@@ -296,8 +256,9 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("LockAccount", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                Utilities.AppLog.WriteLog("LockAffilate", ActionType.Logout, ex.Message.ToString());
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
             }
 
             return errorCode;
@@ -314,8 +275,9 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("LockAccount", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0001);
+                Utilities.AppLog.WriteLog("GetAccountInfo", ActionType.Logout, ex.Message.ToString());
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
             }
 
             return errorCode;

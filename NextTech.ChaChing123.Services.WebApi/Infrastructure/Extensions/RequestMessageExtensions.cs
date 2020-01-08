@@ -12,12 +12,12 @@ namespace NextTech.ChaChing123.Services.WebApi.Infrastructure.Extensions
 {
     public static class RequestMessageExtensions
     {
-
-        internal static IAccountService GetMembershipService(this HttpRequestMessage request)
+        /*
+        internal static IMembershipService GetMembershipService(this HttpRequestMessage request)
         {
-            return request.GetService<IAccountService>();
+            return request.GetService<IMembershipService>();
         }
-
+        */
 
         internal static IEntityBaseRepository<T> GetDataRepository<T>(this HttpRequestMessage request) where T : class, IEntityBase, new()
         {

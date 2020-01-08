@@ -44,9 +44,8 @@
     <Compile Include="Base\Error.cs" />
     <Compile Include="Base\IEntityBase.cs" />
     <Compile Include="ChaChing123\Account.cs" />
+    <Compile Include="ChaChing123\Affiliate.cs" />
     <Compile Include="ChaChing123\LogInfo.cs" />
-    <Compile Include="ChaChing123\Role.cs" />
-    <Compile Include="ChaChing123\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
