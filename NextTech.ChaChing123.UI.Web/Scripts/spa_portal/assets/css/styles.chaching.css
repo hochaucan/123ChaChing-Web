@@ -252,3 +252,67 @@ ul.nav li a i[class*="ti-"] {
     background-color: #2196f3;
     border-color: #2196f3;
 }
+.pricing-3-options-section .charts .chart.featured .popular {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.pricing-3-options-section .charts .chart .specs .spec .variable {
+    color: #1FBEE7;
+    font-weight: 500;
+}
+.spec {
+    text-align: left !important;
+}
+.pricing-3-options-section .message p {
+    text-align: center;
+    font-size: 13px;
+    color: #656565;
+    margin-top: 23px;
+}
+@media (min-width: 992px) {
+    .pricing-3-options-section .charts .chart.featured {
+        margin: 0 auto;
+        top: 0px;
+        min-height: 445px;
+    }
+}
+.pricing-3-options-section .faq {
+    margin-top: 40px;
+}
+.pricing-3-options-section .header {
+    text-align: center;
+}
+.pricing-3-options-section .header h3 {
+    font-size: 24px;
+    color: #444;
+    line-height: 25px;
+    font-weight: 500;
+}
+.pricing-3-options-section .faq .header h3 {
+    font-size: 20px;
+    color: #454545;
+    text-align: left;
+}
+.pricing-3-options-section .faq .questions {
+    margin-top: 25px;
+}
+.pricing-3-options-section .faq .questions .question {
+    margin-bottom: 40px;
+}
+@media (min-width: 992px) {
+    .pricing-3-options-section .faq .questions .question {
+        width: 90%;
+    }
+}
+.pricing-3-options-section .faq .questions .question strong {
+    font-weight: 500;
+    font-size: 16px;
+    color: #454545;
+}
+.pricing-3-options-section .faq .questions .question p {
+    color: #555;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 22px;
+}

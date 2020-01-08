@@ -39,13 +39,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BTMU.APF.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BTMU.APF.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Core.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Core.dll</HintPath>
     </Reference>
     <Reference Include="BTMU.APF.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Entities.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -84,10 +84,6 @@
     <Compile Include="Sys\APF\SysReportProcessComponent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BTMU.APF.Utilities.Data.ApplicationContext\BTMU.APF.Utilities.Data.ApplicationContextExtensions.csproj">
-      <Project>{542420aa-cedc-439a-b5cf-ca57333f7a20}</Project>
-      <Name>BTMU.APF.Utilities.Data.ApplicationContextExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NextTech.ChaChing123.Common\NextTech.ChaChing123.Common.csproj">
       <Project>{97b5fa6e-355a-4a67-989f-40ce08376bde}</Project>
       <Name>NextTech.ChaChing123.Common</Name>
