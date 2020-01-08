@@ -16,14 +16,14 @@
                                     <label class="control-label" for="inputUsername">
                                         Email/Số Điện Thoại <span class="symbol required"></span>
                                     </label>
-                                    <input type="text" class="form-control" id="inputUsername" name="username" ng-model="user.username" placeholder="Enter Email/Phone" required="">
+                                    <input type="text" class="form-control" id="inputUsername" name="username" ng-model="userLogin.username" placeholder="Enter Email/Phone" required="">
                                     <span class="error text-small block" ng-if="FormLogin.username.$dirty && FormLogin.username.$invalid">Email/Số Điện Thoại là bắt buộc.</span>
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}"}">
                                     <label class="control-label" for="inputPassword">
                                         Mật Khẩu <span class="symbol required"></span>
                                     </label>
-                                    <input type="password" class="form-control" id="inputPassword" name="password" ng-model="user.password" placeholder="Password" required="">
+                                    <input type="password" class="form-control" id="inputPassword" name="password" ng-model="userLogin.password" placeholder="Password" required="">
                                     <span class="error text-small block" ng-if="FormLogin.password.$dirty && FormLogin.password.$invalid">Mật khẩu là bắt buộc.</span>
                                 </div>
                                 <div class="form-group">

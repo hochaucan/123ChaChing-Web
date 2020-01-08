@@ -47,7 +47,7 @@
                             "phone": $scope.userReg.phone,
                             "password": $scope.userReg.password,
                             "accounttype": $scope.userReg.accounttype,
-                            "refcode": FormRegistration.refcode.placeholder //$scope.userReg.refcode <- before
+                            "refcode": $scope.userReg.refcode
                         };
 
 
@@ -57,7 +57,7 @@
                                 $location.path('/app/home');
                             }
                             else {
-                                notificationService.displayError('Registration failed. Try again.');
+                                notificationService.displayError(result.data.StatusMsg);
                             }
                         });
                     }

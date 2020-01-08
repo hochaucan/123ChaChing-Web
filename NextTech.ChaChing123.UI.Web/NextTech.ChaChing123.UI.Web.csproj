@@ -2066,7 +2066,6 @@
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\Extensions\RequestMessageExtensions.cs" />
-    <Compile Include="Infrastructure\MessageHandlers\ChaChing123AuthHandler.cs" />
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
@@ -2451,6 +2450,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Infrastructure\MessageHandlers\" />
     <Folder Include="Infrastructure\Validators\" />
     <Folder Include="Scripts\spa_admin\assets\plugins\bootstrap-eonasdan-datetimepicker\test\screen-capture\out\" />
     <Folder Include="Scripts\spa_admin\assets\plugins\bootstrap-eonasdan-datetimepicker\test\screen-capture\pic\" />
@@ -2481,7 +2481,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1487</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
