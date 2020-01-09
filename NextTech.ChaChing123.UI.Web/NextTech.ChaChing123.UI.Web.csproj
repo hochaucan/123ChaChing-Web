@@ -438,7 +438,7 @@
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\colvis\angular-datatables.colvis.js" />
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\fixedcolumns\angular-datatables.fixedcolumns.js" />
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\fixedheader\angular-datatables.fixedheader.js" />
-    <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\light-columnfilter\angular-datatables.light-columnfilter.js" />
+    <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\light-columnfilter\light-columnfilter.js" />
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\scroller\angular-datatables.scroller.js" />
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\select\angular-datatables.select.js" />
     <Content Include="Scripts\spa_admin\assets\plugins\Angular-datatables\src\plugins\tabletools\angular-datatables.tabletools.js" />
@@ -2457,9 +2457,6 @@
     <Folder Include="Scripts\spa_admin\assets\plugins\DataTables\extensions\FixedColumns\examples\integration\" />
     <Folder Include="Scripts\spa_admin\assets\plugins\rdash-ui\fonts\" />
     <Folder Include="Scripts\spa_admin\assets\plugins\rdash-ui\less\" />
-    <Folder Include="Views\Account\" />
-    <Folder Include="Views\BankCodeMangement\" />
-    <Folder Include="Views\UserHistory\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\Report3.rdlc" />

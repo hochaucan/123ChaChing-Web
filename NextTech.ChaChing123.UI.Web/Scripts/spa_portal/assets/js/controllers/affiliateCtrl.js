@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 /** 
   * controller for User Profile Example
 */
@@ -7,12 +7,12 @@ app.controller('AffiliateCtrl', ["$scope", "affiliateService", function ($scope,
         $scope.noImage = true;
     };
 
-    $scope.userInfo = {
-        firstName: 'Peter',
-        lastName: 'Clark',
+    $scope.affiliateInfo = {
+        firstName: 'A',
+        lastName: 'NGUYỄN VĂN',
         url: 'www.example.com',
         email: 'peter@example.com',
-        phone: '(641)-734-4763',
+        phone: '6,686,888Đ',
         gender: 'male',
         zipCode: '12345',
         city: 'London (UK)',
@@ -24,7 +24,7 @@ app.controller('AffiliateCtrl', ["$scope", "affiliateService", function ($scope,
         google: '',
         skype: 'peterclark82'
     };
-    if ($scope.userInfo.avatar == '') {
+    if ($scope.affiliateInfo.avatar == '') {
         $scope.noImage = true;
     }
 }]);
