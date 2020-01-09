@@ -8,7 +8,7 @@
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
         //var baseUrl = 'https://api.123chaching.app';
-        var baseUrl = 'http://localhost:1494/';
+        var baseUrl = 'http://localhost:1494';
 
         var service = {
             login: login,
@@ -31,9 +31,9 @@
         }
 
         function saveCredentials(user) {
-            $localStorage.currentUser = { username: user.UserName, token: user.UpdatedBy };
+            $localStorage.currentUser = { username: user.UserName, token: "" };
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + user.UpdatedBy;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + "";
         }
 
         function removeCredentials() {

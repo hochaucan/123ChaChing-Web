@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using NextTech.ChaChing123.UI.Web.ActionFilters;
-using NextTech.ChaChing123.UI.Web.Infrastructure.MessageHandlers;
 using System.Web.Http.Cors;
 
 namespace NextTech.ChaChing123.UI.Web
@@ -14,7 +13,6 @@ namespace NextTech.ChaChing123.UI.Web
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //config.MessageHandlers.Add(new ChaChing123AuthHandler());
             var corsAttr = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(corsAttr);
 

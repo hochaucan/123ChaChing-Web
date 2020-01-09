@@ -4,9 +4,9 @@
   },
   "topbar": {
     "messages": {
-    	"MAIN": "Messages",
-      	"HEADER": "Unread messages",
-      	"SEEALL": "See All"
+      "MAIN": "Messages",
+      "HEADER": "Unread messages",
+      "SEEALL": "See All"
     },
     "activities": {
       "MAIN": "Activities",
@@ -32,6 +32,10 @@
       "SIGNUP": "Sign Up",
       "LOGOUT": "Đăng Xuất",
       "ABOUTUS": "Giới Thiệu"
+    },
+    "pages": {
+      "MAIN": "Pages",
+      "USERPROFILE": "Affiliate"
     }
   },
   "offsidebar": {
