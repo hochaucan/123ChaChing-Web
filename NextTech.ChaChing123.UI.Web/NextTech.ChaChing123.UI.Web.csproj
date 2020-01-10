@@ -1856,6 +1856,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\laddaCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\loginCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\mainCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\ngTableAffiliateCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\ngTableCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationIconsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\selectCtrl.js" />

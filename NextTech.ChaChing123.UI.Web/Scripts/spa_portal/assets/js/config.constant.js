@@ -35,6 +35,7 @@ app.constant('JS_REQUIRES', {
         'ckeditorCtrl': 'Scripts/spa_portal/assets/js/controllers/ckeditorCtrl.js',
         'laddaCtrl': 'Scripts/spa_portal/assets/js/controllers/laddaCtrl.js',
         'ngTableCtrl': 'Scripts/spa_portal/assets/js/controllers/ngTableCtrl.js',
+        'ngTableAffiliateCtrl': 'Scripts/spa_portal/assets/js/controllers/ngTableAffiliateCtrl.js',
         'cropCtrl': 'Scripts/spa_portal/assets/js/controllers/cropCtrl.js',
         'asideCtrl': 'Scripts/spa_portal/assets/js/controllers/asideCtrl.js',
         'toasterCtrl': 'Scripts/spa_portal/assets/js/controllers/toasterCtrl.js',
