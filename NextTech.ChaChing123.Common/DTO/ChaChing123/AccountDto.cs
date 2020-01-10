@@ -38,7 +38,7 @@ namespace NextTech.ChaChing123.Common.Models
 
        // public string SubDomain { get; set; }
 
-        //public string SessionKey { get; set; }
+        public string SessionKey { get; set; }
 
         
 
@@ -68,7 +68,7 @@ namespace NextTech.ChaChing123.Common.Models
             //this.UpdatedBy = string.Empty;
             //this.UpdatedDate = DateTime.Now;
             //this.XXX = string.Empty;
-            //this.SessionKey = string.Empty;
+            SessionKey = string.Empty;
         }
 
     }

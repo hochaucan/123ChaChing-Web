@@ -127,7 +127,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 accInfo.IsLockAffilate = item.IsLockAffilate;
                 //accInfo.ContractNo = item.ContractNo;
                 //accInfo.RenewalNo = item.RenewalNo;
-                //accInfo.SessionKey = obj.SessionKey;
+                accInfo.SessionKey = obj.SessionKey;
 
             }
 
