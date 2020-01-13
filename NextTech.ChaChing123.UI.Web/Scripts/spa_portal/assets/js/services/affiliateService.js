@@ -7,18 +7,27 @@
 
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
-        //var baseUrl = 'https://api.123chaching.app';
-        var baseUrl = 'http://localhost:1494/';
+        var baseUrl = 'https://api.123chaching.app';
+        //var baseUrl = 'http://localhost:1494';
 
         var service = {
-            getAffiliate: getAffiliate,
+            getAffiliateComissions: getAffiliateComissions,
             getLinkAffiliate: getLinkAffiliate,
             trackIncome: trackIncome,
             getAffiliateCommission: getAffiliateCommission
         }
 
-        function getAffiliate() {
-            console.log("api 1");
+        function getAffiliateComissions(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/getaffiliatecomission/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function affiliateFailed(response) {
+            if (response.data) {
+                notificationService.displayError(response.data.Message);
+            }
         }
 
         function getLinkAffiliate() {

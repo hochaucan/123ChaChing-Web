@@ -3,75 +3,99 @@
  * controllers for ng-table
  * Simple table with sorting and filtering on AngularJS
  */
-var data = [{
+var dataCom = [{
     id: 1,
-    date: "12/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "12/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 2,
-    date: "11/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "11/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 3,
-    date: "10/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "10/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 4,
-    date: "09/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "09/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 5,
-    date: "08/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "08/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 6,
-    date: "07/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "07/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 7,
-    date: "06/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "06/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 8,
-    date: "05/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "05/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 9,
-    date: "04/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "04/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 10,
-    date: "03/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "03/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 11,
-    date: "02/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "02/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }, {
     id: 12,
-    date: "01/2019",
-    commission: "8,997,000",
-    commissionthank: "8,997,000"
+    Date: "01/2019",
+    Comission: "8,997,000",
+    ComissionThank: "8,997,000"
 }];
-app.controller('ngTableAffiliateCtrl', ["$scope", "ngTableParams", function ($scope, ngTableParams) {
+app.controller('ngTableAffiliateCtrl', ["$scope", "$localStorage", "ngTableParams", "affiliateService", function ($scope, $localStorage, ngTableParams, affiliateService) {
     $scope.tableParams = new ngTableParams({
         page: 1, // show first page
         count: 10 // count per page
     }, {
-            total: data.length, // length of data
+            total: dataCom.length, // length of data
             getData: function ($defer, params) {
-                $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                //var comissionData = dataCom
+                //$defer.resolve(comissionData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+
+                var affiliate = {};
+                var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+                var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+                affiliate = {
+                    "username": username,
+                    "sessionkey": sessionkey,
+                    "pageno": params.page(),
+                    "pagesize": params.count()
+                };
+
+                // Load the data from the API
+                affiliateService.getAffiliateComissions(affiliate, function (result) {
+                    var data = result.data.Items;
+                    var totalRecordCount = result.data.TotalRecordCount;
+
+                    // Tell ngTable how many records we have (so it can set up paging)
+                    params.total(totalRecordCount);
+
+                    // Return the customers to ngTable
+                    $defer.resolve(data);
+                });
             }
         });
 }]);
