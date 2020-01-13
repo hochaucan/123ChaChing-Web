@@ -69,6 +69,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         ncyBreadcrumb: {
             label: 'Affiliate'
         },
+        resolve: { isAuthenticated: isAuthenticated },
         resolve: loadSequence('ngTable', 'ngTableAffiliateCtrl')
     }).state('app.ui', {
         url: '/ui',
@@ -428,5 +429,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
 			    }
 			}]
         };
+    }
+
+    isAuthenticated.$inject = ['membershipService', '$rootScope', '$location'];
+
+    function isAuthenticated(membershipService, $rootScope, $location) {
+        if (!membershipService.isUserLoggedIn()) {
+            $rootScope.previousState = $location.path();
+            $location.path('/app/login/signin');
+        }
     }
 }]);

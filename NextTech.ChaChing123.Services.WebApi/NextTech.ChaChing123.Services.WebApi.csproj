@@ -187,6 +187,9 @@
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="Models\AffiliateModel.cs" />
+    <Compile Include="Models\AffiliateOfMonth.cs" />
+    <Compile Include="Models\PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,7 +238,6 @@
     <Folder Include="Controllers\Sys\" />
     <Folder Include="Infrastructure\MessageHandlers\" />
     <Folder Include="Infrastructure\Validators\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>

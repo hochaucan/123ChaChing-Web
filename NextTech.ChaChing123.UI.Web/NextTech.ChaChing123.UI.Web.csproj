@@ -1862,7 +1862,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\selectCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\sweetAlertCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\toasterCtrl.js" />
-    <Content Include="Scripts\spa_portal\assets\js\controllers\affiliateCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\affiliateAccountCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userLoginCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userRegistrationCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userSignUpPackageCtrl.js" />

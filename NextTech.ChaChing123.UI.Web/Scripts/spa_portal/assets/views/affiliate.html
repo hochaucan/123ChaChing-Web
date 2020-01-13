@@ -13,8 +13,8 @@
 <div class="container-fluid container-fullw bg-white">
 	<div class="row">
 		<div class="col-md-12">
-			<!-- /// controller:  'AffiliateCtrl' -  localtion: assets/js/controllers/affiliateCtrl.js /// -->
-			<div ng-controller="AffiliateCtrl">
+			<!-- /// controller:  'AffiliateCtrl' -  localtion: assets/js/controllers/AffiliateAccountCtrl.js /// -->
+			<div ng-controller="AffiliateAccountCtrl">
 				<!-- start: USER TABSET -->
 				<uib-tabset class="tabbable">
 					<!-- start: TAB OVERVIEW -->
@@ -64,10 +64,46 @@
 											</tr>
 										</tbody>
 									</table>
-                                    <div class="panel panel-white">
+                                    <script type="text/ng-template" id="myModalContent.html">
+                                        <form role="form" class="ng-pristine ng-valid">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Rút tiền</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="affiliateName">
+                                                        Tên
+                                                    </label>
+                                                    <input type="text" class="form-control" id="affiliateName" placeholder="Tên">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="affiliateBankName">
+                                                        Tên Ngân Hàng
+                                                    </label>
+                                                    <input type="text" class="form-control" id="affiliateBankName" placeholder="Tên Ngân Hàng">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="affiliateBankAccount">
+                                                        Số Tài Khoản
+                                                    </label>
+                                                    <input type="text" class="form-control" id="affiliateBankAccount" placeholder="Số Tài Khoản">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="affiliateNotes">
+                                                        Notes
+                                                    </label>
+                                                    <input type="text" class="form-control" id="affiliateNotes" placeholder="Nội Dung">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary btn-block" ng-click="ok()">Hoàn Tất</button>
+                                            </div>
+                                        </form>
+                                    </script>
+                                    <div class="panel panel-white" ng-controller="AffiliateGetLinkCtrl">
                                         <div class="panel-body">
                                             <p>
-                                                <button class="btn btn-primary btn-block">
+                                                <button class="btn btn-primary btn-block" ng-click="getLink()">
                                                     Lấy Link Affiliate
                                                 </button>
                                             </p>
@@ -237,10 +273,10 @@
                         <div ng-controller="ngTableAffiliateCtrl">
                             <table ng-table="tableParams" class="table table-striped">
                                 <tbody>
-                                    <tr ng-repeat="user in $data">
-                                        <td data-title="&#39;Ngày&#39;">{{user.date}}</td>
-                                        <td data-title="&#39;Hoa Hồng&#39;">{{user.commission}} Đ</td>
-                                        <td data-title="&#39;Hoa Hồng Cảm Ơn&#39;">{{user.commissionthank}} Đ</td>
+                                    <tr ng-repeat="affiliate in $data">
+                                        <td data-title="&#39;Ngày&#39;">{{affiliate.Date}}</td>
+                                        <td data-title="&#39;Hoa Hồng&#39;">{{affiliate.Comission}} Đ</td>
+                                        <td data-title="&#39;Hoa Hồng Cảm Ơn&#39;">{{affiliate.ComissionThanks}} Đ</td>
                                     </tr>
                                 </tbody>
                             </table>
