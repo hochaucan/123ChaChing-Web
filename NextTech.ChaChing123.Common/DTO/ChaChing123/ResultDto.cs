@@ -117,11 +117,26 @@ namespace NextTech.ChaChing123.Common.Models
             {
                 this.statusMsg = RetCodeMsg.ECS0017;
             }
+            else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS0018))
+            {
+                this.statusMsg = RetCodeMsg.ECS0018;
+            }
+            else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS0019))
+            {
+                this.statusMsg = RetCodeMsg.ECS0019;
+            }
+            else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS0020))
+            {
+                this.statusMsg = RetCodeMsg.ECS0020;
+            }
+            else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS0021))
+            {
+                this.statusMsg = RetCodeMsg.ECS0021;
+            }
             else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS9999))
             {
                 this.statusMsg = RetCodeMsg.ECS9999;
             }
-
         }
 
 

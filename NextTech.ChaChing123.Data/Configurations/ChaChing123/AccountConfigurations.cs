@@ -31,7 +31,7 @@
             Property(r => r.RenewalNo);
             Property(r => r.TrailDate).HasMaxLength(8);
             Property(r => r.MADA).HasMaxLength(8);
-            Property(r => r.SubDomain).HasMaxLength(20);
+            Property(r => r.AvartaPath).HasMaxLength(100);
             Property(r => r.CreatedBy).IsRequired().HasMaxLength(50);
             Property(r => r.CreatedDate).IsRequired();
             Property(r => r.UpdatedBy).HasMaxLength(50);

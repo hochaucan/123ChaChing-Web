@@ -44,7 +44,7 @@
 
         public string MADA { get; set; }
 
-        public string SubDomain { get; set; }
+        public string AvartaPath { get; set; }
 
         [MaxLength(50)]
         public string CreatedBy { get; set; }

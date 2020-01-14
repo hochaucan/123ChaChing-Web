@@ -36,7 +36,7 @@ namespace NextTech.ChaChing123.Common.Models
 
         public string MADA { get; set; }
 
-        public string SubDomain { get; set; }
+        public string AvartaPath { get; set; }
 
         public string SessionKey { get; set; }
 
