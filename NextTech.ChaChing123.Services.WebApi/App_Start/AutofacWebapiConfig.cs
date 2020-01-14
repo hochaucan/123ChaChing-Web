@@ -15,8 +15,6 @@ using NextTech.ChaChing123.Data.Repositories;
 using NextTech.ChaChing123.Business;
 using NextTech.ChaChing123.Services.WebApi.Infrastructure.Core;
 using NextTech.ChaChing123.Data.Infrastructure;
-using NextTech.ChaChing123.Business.ChaChing123;
-using NextTech.ChaChing123.Business.Abstract;
 
 namespace NextTech.ChaChing123.Services.WebApi.App_Start
 {
@@ -90,7 +88,7 @@ namespace NextTech.ChaChing123.Services.WebApi.App_Start
             // ChaChingTest
             builder.RegisterType <AccountComponent> ().As <IAccountService> ().InstancePerRequest();
             builder.RegisterType<AffiliateComponent>().As<IAffiliateService>().InstancePerRequest();
-            builder.RegisterType<WithdrawalRequestComponent>().As<IWithdrawalRequestService>().InstancePerRequest();
+
 
             Container = builder.Build();
 

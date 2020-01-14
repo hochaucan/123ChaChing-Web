@@ -21,7 +21,7 @@ namespace NextTech.ChaChing123.Common.Models
 
         public string ContractNo { get; set; }
 
-        public string SubDomain { get; set; }
+        public string AvartaPath { get; set; }
 
         public string CreatedBy { get; set; }
 
@@ -35,7 +35,7 @@ namespace NextTech.ChaChing123.Common.Models
             AccountType = 0;
             RefCode	=string.Empty;
             ContractNo	=string.Empty;
-            SubDomain	=string.Empty;
+            AvartaPath	=string.Empty;
             CreatedBy = string.Empty;
             
         }

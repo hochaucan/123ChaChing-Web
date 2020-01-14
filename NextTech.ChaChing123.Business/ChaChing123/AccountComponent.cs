@@ -197,8 +197,8 @@ namespace NextTech.ChaChing123.Business
             ResultDTO errorCode = new ResultDTO();
             try
             {
-                errorCode.StatusCode = _repository.LogOut(obj);
-                errorCode.SetContentMsg();
+                errorCode= _repository.LogOut(obj);
+                
             }
             catch (Exception ex)
             {
@@ -266,12 +266,12 @@ namespace NextTech.ChaChing123.Business
         }
 
        
-        public ResultDTO GetAccountInfo(int id)
+        public ResultDTO GetAccountInfo(RequestDTO obj)
         {
             ResultDTO errorCode = new ResultDTO();
             try
             {
-                errorCode = _repository.GetAccountInfo(id);
+                errorCode = _repository.GetAccountInfo(obj);
             }
             catch (Exception ex)
             {
