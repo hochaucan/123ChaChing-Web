@@ -45,9 +45,32 @@ app.controller('AffiliateGetLinkCtrl', ["$scope", "$uibModal", "affiliateService
     }
 }]);
 
-app.controller('ModalInstanceCtrl1', ["$scope", "$uibModalInstance", "items", function ($scope, $uibModalInstance, items) {
+app.controller('ModalInstanceCtrl1', ["$scope", "$uibModalInstance", "items", "affiliateService", "notificationService", function ($scope, $uibModalInstance, items, affiliateService, notificationService) {
     $scope.ok = function () {
-        $uibModalInstance.close($scope.selected.item);
+        
+        var affiliate = {};
+        //var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+        //var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+        affiliate = {
+            "ContractNo": "123456789",
+            "BeneAccountName": $scope.affiliate.BeneAccountName,
+            "BeneBankName": $scope.affiliate.BeneBankName,
+            "BeneAccountNo": $scope.affiliate.BeneAccountNo,
+            "Remarks": $scope.affiliate.Remarks
+        };
+
+        console.log($scope.affiliate);
+
+        // Load the data from the API
+        affiliateService.add(affiliate, function (result) {
+            if (result.data && result.data.StatusCode == 0) {
+                notificationService.displayInfo(result.data.StatusMsg);
+            } else {
+                notificationService.displayError(result.data.StatusMsg);
+            }
+            $uibModalInstance.dismiss('cancel');
+        });
     };
 
     $scope.cancel = function () {

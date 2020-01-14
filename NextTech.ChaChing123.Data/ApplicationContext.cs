@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 using NextTech.ChaChing123.Data.Configurations;
 using NextTech.ChaChing123.Entities;
-
+using NextTech.ChaChing123.Entities.ChaChing123;
+using NextTech.ChaChing123.Data.Configurations.ChaChing123;
 
 namespace NextTech.ChaChing123.Data
 {
@@ -37,8 +38,12 @@ namespace NextTech.ChaChing123.Data
         /// Gets or sets the wallet set.
         /// </summary>
         /// <value>The wallet set.</value>
-       
 
+        public IDbSet<RequestWithdrawalInfo> RequestWithdrawalInfoSet { get; set; }
+        /// <summary>
+        /// Gets or sets the wallet set.
+        /// </summary>
+        /// <value>The wallet set.</value>
 
         #endregion
 
@@ -77,6 +82,7 @@ namespace NextTech.ChaChing123.Data
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new AffiliateConfiguration());
+            modelBuilder.Configurations.Add(new RequestWithdrawalInfoConfiguration());
         }
     }
 }

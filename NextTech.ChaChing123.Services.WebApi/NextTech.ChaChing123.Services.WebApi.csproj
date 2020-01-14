@@ -171,6 +171,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChaChing123\AccountController.cs" />
     <Compile Include="Controllers\ChaChing123\AffiliateController.cs" />
+    <Compile Include="Controllers\ChaChing123\WithdrawaIRequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -190,6 +191,7 @@
     <Compile Include="Models\AffiliateModel.cs" />
     <Compile Include="Models\AffiliateOfMonth.cs" />
     <Compile Include="Models\PagedResult.cs" />
+    <Compile Include="Models\WithdrawalModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

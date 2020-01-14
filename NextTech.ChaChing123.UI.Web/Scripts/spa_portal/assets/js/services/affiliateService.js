@@ -14,11 +14,19 @@
             getAffiliateComissions: getAffiliateComissions,
             getLinkAffiliate: getLinkAffiliate,
             trackIncome: trackIncome,
-            getAffiliateCommission: getAffiliateCommission
+            getAffiliateCommission: getAffiliateCommission,
+            add:add
         }
 
         function getAffiliateComissions(affiliate, completed) {
             apiService.post(baseUrl + '/api/affiliate/getaffiliatecomission/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function add(affiliate, completed) {
+            apiService.post(baseUrl + '/api/withrawalrequest/add/', affiliate,
                 completed,
                 affiliateFailed
             );
