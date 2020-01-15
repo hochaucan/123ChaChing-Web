@@ -13,8 +13,6 @@ namespace NextTech.ChaChing123.UI.Web
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            var corsAttr = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(corsAttr);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
