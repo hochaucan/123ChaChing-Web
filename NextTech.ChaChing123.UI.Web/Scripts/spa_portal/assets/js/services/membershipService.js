@@ -7,8 +7,8 @@
 
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
-        var baseUrl = 'https://api.123chaching.app';
-        //var baseUrl = 'http://localhost:1494';
+        //var baseUrl = 'https://api.123chaching.app';
+        var baseUrl = 'http://localhost:1494';
 
         var service = {
             login: login,
