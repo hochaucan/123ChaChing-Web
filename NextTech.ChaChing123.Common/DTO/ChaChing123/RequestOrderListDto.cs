@@ -4,6 +4,8 @@ namespace NextTech.ChaChing123.Common.Models
 {
    public class RequestOrderListDTO
     {
+        public string UserName { get; set; }
+
         public string SessionKey { get; set; }
 
         public string KeyWord { get; set; }
@@ -18,11 +20,17 @@ namespace NextTech.ChaChing123.Common.Models
 
         public int PageCount { get; set; }
 
-        public int Total { get; set; }
-
         private RequestOrderListDTO()
         {
-            
+            UserName = string.Empty;
+            SessionKey = string.Empty;
+            KeyWord = string.Empty;
+            PaymentState = 0;
+            AffiliateState = 0;
+            AffiliateAccount = string.Empty;
+            PageIndex = 1;
+            PageCount = 10;
+
         }
     }
 }

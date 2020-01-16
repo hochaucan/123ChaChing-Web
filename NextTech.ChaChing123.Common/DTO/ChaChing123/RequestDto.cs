@@ -3,7 +3,7 @@
 namespace NextTech.ChaChing123.Common.Models
 {
    public class RequestDTO
-   {
+    {
         public string UserName { get; set; }
 
         public string SessionKey { get; set; }

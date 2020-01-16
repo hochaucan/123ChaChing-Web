@@ -44,7 +44,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("UpdatePaymentState")]
         [HttpPost]
@@ -57,7 +57,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("UpdatePaymentAffiliateState")]
         [HttpPost]
@@ -70,7 +70,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetWalletInfoByAccount")]
         [HttpPost]
@@ -83,7 +83,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetAffiliateInfoByAccount")]
         [HttpPost]
@@ -96,7 +96,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetAffiliateCodeByAccount")]
         [HttpPost]
@@ -109,7 +109,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetWithDrawallInfoByAccount")]
         [HttpPost]
@@ -122,7 +122,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("RequestWithDrawall")]
         [HttpPost]
@@ -135,11 +135,11 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetSummaryReportByAccount")]
         [HttpPost]
-        public HttpResponseMessage GetSummaryReportByAccount(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetSummaryReportByAccount(HttpRequestMessage request, SummaryRequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -148,7 +148,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        
+
         [AllowAnonymous]
         [Route("GetAfiliateAlertByAccount")]
         [HttpPost]
@@ -158,6 +158,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             {
                 HttpResponseMessage response = null;
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateAlertByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("GetAfiliateListByAccount")]
+        [HttpPost]
+        public HttpResponseMessage GetAfiliateListByAccount(HttpRequestMessage request, RequestOrderListDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateListByAccount(obj));
                 return response;
             });
         }

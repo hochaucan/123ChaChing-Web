@@ -4,21 +4,22 @@ namespace NextTech.ChaChing123.Common.Models
 {
    public class AffiliateOfMonthDTO
     {
-        public string Year { get; set; }
+        public int Month { get; set; }
 
-        public string Month { get; set; }
+        //public string StartDate { get; set; }
 
-        public string Commission { get; set; }
+        //public string EndDate { get; set; }
 
-        public string CommissionThanks { get; set; }                                                                  
+        public decimal Commission { get; set; }
+
+        public decimal CommissionThanks { get; set; }                                                                  
 
 
         private AffiliateOfMonthDTO()
         {
-            Year = string.Empty;
-            Month = string.Empty;
-            Commission = string.Empty;
-            CommissionThanks = string.Empty;
+            Month = -1;
+            //StartDate = string.Empty;
+            //EndDate = string.Empty;
         }
     }
 }
