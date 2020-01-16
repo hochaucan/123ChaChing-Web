@@ -91,7 +91,7 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0018 = "Tài khoản đã được đăng ký.";
         public const string ECS0019 = "Tài khoản không có quyền chức năng này.Vui lòng liên hệ tới quản trị viên để được hỗ trợ.";
         public const string ECS0020 = "Thông tin thanh toán không hợp lệ.";
-        public const string ECS0021 = "Hợp đồng đã xử lý rồi, không được phép thay đổi khác.Vui lòng liên hệ quản trị viên để được hỗ trợ.";
+        public const string ECS0021 = "Cập nhật trạng thái hợp đồng lỗi.Vui lòng liên hệ quản trị viên để được hỗ trợ.";
 
         public const string ECS0022 = "Tài khoản đã thanh toán và đang chờ duyệt. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
         public const string ECS0023 = "Tài khoản đã ngừng hoạt động.";

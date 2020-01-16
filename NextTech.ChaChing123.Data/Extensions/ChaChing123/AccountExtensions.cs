@@ -303,11 +303,12 @@ namespace NextTech.ChaChing123.Data.Extensions
                      new SqlParameter("IsLock", obj.IsLock),
                     errorCode);
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
             }
             catch (Exception ex)
             {
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.StatusMsg = ex.Message;
+                result.SetContentMsg();
             }
 
             return result;
@@ -331,11 +332,12 @@ namespace NextTech.ChaChing123.Data.Extensions
                      new SqlParameter("IsLockAffilate", obj.IsLockAffilate),
                     errorCode);
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
             }
             catch (Exception ex)
             {
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.StatusMsg = ex.Message;
+                result.SetContentMsg();
             }
 
             return result;

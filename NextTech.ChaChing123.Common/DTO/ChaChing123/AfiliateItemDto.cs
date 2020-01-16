@@ -17,6 +17,7 @@ namespace NextTech.ChaChing123.Common.Models
         public string CreatedDate { get; set; }
         public int AccountType { get; set; }
         public int Status { get; set; }
+        public string ContractNo { get; set; }
         private AfiliateItemDTO()
         {
             ID = 0;
@@ -25,7 +26,7 @@ namespace NextTech.ChaChing123.Common.Models
             CreatedDate = string.Empty;
             AccountType = 0;
             Status = 0;
-
+            ContractNo = string.Empty;
         }
     }
 }
