@@ -183,11 +183,13 @@ namespace NextTech.ChaChing123.Business
 
             return accInfo;
         }
-        public  ResultDTO GetSummaryReportByAccount(RequestDTO obj)
+        public  ResultDTO GetSummaryReportByAccount(SummaryRequestDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();
             try
             {
+                obj.StartList = Utilities.Common.GeStartListByYear(obj.YearList);
+                obj.EndList = Utilities.Common.GeEndListByYear(obj.YearList);
                 accInfo = _repository.GetSummaryReportByAccount(obj);
             }
             catch (Exception ex)
@@ -215,5 +217,24 @@ namespace NextTech.ChaChing123.Business
 
             return accInfo;
         }
+
+        public ResultDTO GetAfiliateListByAccount(RequestOrderListDTO obj)
+        {
+            ResultDTO accInfo = new ResultDTO();
+            try
+            {
+                accInfo = _repository.GetAfiliateListByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAfiliateListByAccount", ActionType.Update, ex.Message.ToString());
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+
+            return accInfo;
+        }
+
+        
     }
 }
