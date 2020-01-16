@@ -72,8 +72,10 @@
                                     <label class="control-label" for="boxRegisterRePassword">
                                         Nhập Lại Mật Khẩu <span class="symbol required"></span>
                                     </label>
-                                    <input type="password" class="form-control" id="boxRegisterRePassword" name="repassword" ng-model="userReg.repassword" placeholder="Nhập lại mật khẩu" required="">
-                                    <span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$invalid">Nhập lại mật Khẩu là bắt buộc.</span>
+                                    <input type="password" class="form-control" id="boxRegisterRePassword" name="repassword" ng-model="userReg.repassword" compare-to="userReg.password" placeholder="Nhập lại mật khẩu" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$error.required">Nhập lại mật Khẩu là bắt buộc.</span>
+									<span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$error.compareTo">Mật khẩu nhập lại không đúng!</span>
+									<span class="success text-small block" ng-if="FormRegistration.repassword.$valid">Mật khẩu đúng!</span>
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.email.$dirty && FormRegistration.email.$invalid, 'has-success':FormRegistration.email.$valid}">
                                     <label class="control-label" for="boxRegisterEmail">

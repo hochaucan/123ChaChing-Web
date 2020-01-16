@@ -87,25 +87,18 @@
                         };
 
                         $scope.userReg = userRegistration;
+						
+						//2.1 Trigger Registration Tab
+						var activeTab = 0;
+						activeTab = $('.nav-tabs > .active').length;
+						if(activeTab > 0) { 
+							console.log(activeTab); 
+							//$('.nav-tabs > .active').next('li').find('a').trigger('click'); 
+						} else {
+							console.log("cannot execute"); 
+						}
+						
                         delete $localStorage.refcodeVal;
-                    }
-
-                    //2. Handle the case when user click on Basic or Advance button on home page
-                    if (currentPackage) {
-                        var userRegistration = {};
-
-                        userRegistration = {
-                            "fullname": "",
-                            "username": "",
-                            "email": "",
-                            "phone": "",
-                            "password": "",
-                            "accounttype": currentPackage,
-                            "refcode": "" //$scope.userReg.refcode <- before
-                        };
-
-                        $scope.userReg = userRegistration;
-                        delete $localStorage.currentPackage;
                     }
                 }
             }
