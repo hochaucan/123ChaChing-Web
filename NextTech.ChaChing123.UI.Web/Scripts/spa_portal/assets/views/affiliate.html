@@ -5,7 +5,6 @@
 		<div class="col-sm-8">
 			<h1 class="mainTitle" translate="topbar.pages.USERPROFILE">Affiliate</h1>
 		</div>
-		<div ncy-breadcrumb=""></div>
 	</div>
 </section>
 <!-- end: PAGE TITLE -->
@@ -65,38 +64,51 @@
 										</tbody>
 									</table>
                                     <script type="text/ng-template" id="myModalContent.html">
-                                        <form role="form" class="ng-pristine ng-valid">
+                                        <form class="form-withdrawal-request" name="FormWithdrawallRequest" id="FormWithdrawallRequest" novalidate="" ng-submit="form.submit(FormWithdrawallRequest)">
                                             <div class="modal-header">
                                                 <h3 class="modal-title">Rút tiền</h3>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="form-group">
+                                                <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.BeneAccountName.$dirty && FormWithdrawallRequest.BeneAccountName.$invalid, 'has-success':FormWithdrawallRequest.BeneAccountName.$valid}">
                                                     <label for="affiliateName">
                                                         Tên
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateName" ng-model="affiliate.BeneAccountName" placeholder="Tên">
+                                                    <input type="text" class="form-control" id="affiliateName" name="BeneAccountName" ng-model="affiliate.BeneAccountName" placeholder="Tên" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.BeneAccountName.$dirty && FormWithdrawallRequest.BeneAccountName.$invalid">Tên là bắt buộc.</span>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.BeneBankName.$dirty && FormWithdrawallRequest.BeneBankName.$invalid, 'has-success':FormWithdrawallRequest.BeneBankName.$valid}">
                                                     <label for="affiliateBankName">
                                                         Tên Ngân Hàng
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateBankName" ng-model="affiliate.BeneBankName" placeholder="Tên Ngân Hàng">
+                                                    <input type="text" class="form-control" id="affiliateBankName" name="BeneBankName" ng-model="affiliate.BeneBankName" placeholder="Tên Ngân Hàng" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.BeneBankName.$dirty && FormWithdrawallRequest.BeneBankName.$invalid">Tên Ngân Hàng là bắt buộc.</span>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.BeneAccountNo.$dirty && FormWithdrawallRequest.BeneAccountNo.$invalid, 'has-success':FormWithdrawallRequest.BeneAccountNo.$valid}">
                                                     <label for="affiliateBankAccount">
                                                         Số Tài Khoản
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateBankAccount" ng-model="affiliate.BeneAccountNo" placeholder="Số Tài Khoản">
+                                                    <input type="text" class="form-control" id="affiliateBankAccount" name="BeneAccountNo" ng-model="affiliate.BeneAccountNo" placeholder="Số Tài Khoản" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.BeneAccountNo.$dirty && FormWithdrawallRequest.BeneAccountNo.$invalid">Số Tài Khoản là bắt buộc.</span>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="affiliateBankAccount">
+                                                        Số tiền
+                                                    </label>
+                                                    <input type="text" class="form-control" id="affiliateBankAccount" ng-model="affiliate.Amount" placeholder="Số tiền">
+                                                </div>
+                                                <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.Remarks.$dirty && FormWithdrawallRequest.Remarks.$invalid, 'has-success':FormWithdrawallRequest.Remarks.$valid}">
                                                     <label for="affiliateNotes">
                                                         Notes
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateNotes" ng-model="affiliate.Remarks" placeholder="Nội Dung">
+                                                    <input type="text" class="form-control" id="affiliateNotes" name="Remarks" ng-model="affiliate.Remarks" placeholder="Nội Dung" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.Remarks.$dirty && FormWithdrawallRequest.Remarks.$invalid">Nội Dung là bắt buộc.</span>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-primary btn-block" ng-click="ok()">Hoàn Tất</button>
+                                                <!--<button class="btn btn-primary btn-block" ng-click="ok()">Hoàn Tất</button>-->
+                                                <button type="submit" class="btn btn-primary btn-block"">
+                                                    Hoàn Tất
+                                                </button>
                                             </div>
                                         </form>
                                     </script>

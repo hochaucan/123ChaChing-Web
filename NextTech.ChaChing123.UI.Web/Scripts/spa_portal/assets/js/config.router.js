@@ -69,7 +69,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         ncyBreadcrumb: {
             label: 'Affiliate'
         },
-        resolve: { isAuthenticated: isAuthenticated },
+        //resolve: { isAuthenticated: isAuthenticated },
         resolve: loadSequence('ngTable', 'ngTableAffiliateCtrl')
     }).state('app.ui', {
         url: '/ui',
