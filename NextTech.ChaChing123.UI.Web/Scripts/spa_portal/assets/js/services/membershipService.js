@@ -9,7 +9,6 @@
 
         //var baseUrl = 'https://api.123chaching.app';
         var baseUrl = 'http://localhost:1494';
-        //var baseUrl = 'http://localhost:8001';
 
         var service = {
             login: login,

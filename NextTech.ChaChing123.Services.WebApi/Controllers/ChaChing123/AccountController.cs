@@ -1,13 +1,17 @@
-﻿using NextTech.ChaChing123.Common.Models;
-using NextTech.ChaChing123.Core.Models;
-using NextTech.ChaChing123.Data.Infrastructure;
+﻿/// <summary>
+/// <author>Ngô Tấn Phúc</author>
+/// <description>Created date: </description>
+/// <revision history>Version: 1.0.1</revision history>
+/// </summary>
 
 namespace NextTech.ChaChing123.Services.WebApi.Controllers
 {
+    using NextTech.ChaChing123.Common.Models;
+    using NextTech.ChaChing123.Core.Models;
+    using NextTech.ChaChing123.Data.Infrastructure;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-
     using NextTech.ChaChing123.Entities;
     using NextTech.ChaChing123.Services.WebApi.Infrastructure.Core;
     using NextTech.ChaChing123.Business;
@@ -177,7 +181,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
        }
 
        [AllowAnonymous]
-       [Route("register")]
+       [Route("Register")]
        [HttpPost]
        public HttpResponseMessage Register(HttpRequestMessage request, RegisterDTO obj)
        {
@@ -212,20 +216,33 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            });
        }
 
-       [AllowAnonymous]
-       [HttpGet]
-       [Route("GetAccountInfo/{id:int}")]
-       public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
-       {
-           return CreateHttpResponse(request, () =>
-           {
-               HttpResponseMessage response = null;
-               response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj.ID));
-               return response;
-           });
-       }
+       //[AllowAnonymous]
+       //[HttpGet]
+       //[Route("GetAccountInfo/{id:int}")]
+       //public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
+       //{
+       //    return CreateHttpResponse(request, () =>
+       //    {
+       //        HttpResponseMessage response = null;
+       //        response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj.ID));
+       //        return response;
+       //    });
+       //}
 
-       [AllowAnonymous]
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("GetAccountInfo")]
+        public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
        [Route("GetAllData")]
        [HttpPost]
        public HttpResponseMessage GetAllData(HttpRequestMessage request, Paging obj)

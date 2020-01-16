@@ -62,7 +62,7 @@
     </Reference>
     <Reference Include="BTMU.APF.AspNetIdentity, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.AspNetIdentity.dll</HintPath>
+      <HintPath>bin\BTMU.APF.AspNetIdentity.dll</HintPath>
     </Reference>
     <Reference Include="BTMU.APF.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,17 +76,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\APF\BTMU.APF.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="BTMU.APF.Utilities.Business, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Utilities.Business.dll</HintPath>
-    </Reference>
-    <Reference Include="BTMU.APF.Utilities.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Utilities.Data.dll</HintPath>
-    </Reference>
     <Reference Include="BTMU.APF.Utilities.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Utilities.Entities.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Utilities.Entities.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -2419,10 +2411,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BTMU.APF.Utilities.Data.ApplicationContext\BTMU.APF.Utilities.Data.ApplicationContextExtensions.csproj">
-      <Project>{542420aa-cedc-439a-b5cf-ca57333f7a20}</Project>
-      <Name>BTMU.APF.Utilities.Data.ApplicationContextExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NextTech.ChaChing123.Business\NextTech.ChaChing123.Business.csproj">
       <Project>{2b0131ab-cd43-47fe-8d0e-2c80ee069762}</Project>
       <Name>NextTech.ChaChing123.Business</Name>
@@ -2442,10 +2430,6 @@
     <ProjectReference Include="..\NextTech.ChaChing123.UI.Process\NextTech.ChaChing123.UI.Process.csproj">
       <Project>{c2dca188-a643-4c3f-9c2e-dd782cbbc8f2}</Project>
       <Name>NextTech.ChaChing123.UI.Process</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BTMU.UNF.Utilities.Data\BTMU.UNF.Utilities.Data.csproj">
-      <Project>{12e7664e-b316-4b85-8d99-4841d77ef611}</Project>
-      <Name>BTMU.UNF.Utilities.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

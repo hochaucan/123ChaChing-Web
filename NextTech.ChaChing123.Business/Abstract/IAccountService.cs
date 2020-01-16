@@ -38,7 +38,7 @@ namespace NextTech.ChaChing123.Business
 
         ResultDTO LockAffilate(LockAffilateDTO obj);
 
-        ResultDTO GetAccountInfo(int id);
+        ResultDTO GetAccountInfo(RequestDTO id);
 
         IQueryable<Account> GetAllData(Paging obj);
     }
