@@ -43,7 +43,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers.ChaChing123
 
                         _objResponseModel.Details = result;
                         _objResponseModel.StatusCode = 0;
-                        _objResponseModel.StatusMsg = "Lấy Link Affiliate Thành Công";
+                        _objResponseModel.StatusMsg = "Yêu cầu rút tiền thành công";
 
                         response = request.CreateResponse(HttpStatusCode.OK, _objResponseModel);
                     }

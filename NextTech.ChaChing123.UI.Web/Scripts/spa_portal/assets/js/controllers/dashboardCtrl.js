@@ -2,7 +2,7 @@
 /** 
   * controllers used for the dashboard
 */
-app.controller('SparklineCtrl', ["$scope", function ($scope) {
+app.controller('SparklineCtrl', ["$scope", "$location", function ($scope, $location) {
     $scope.sales = [600, 923, 482, 1211, 490, 1125, 1487];
     $scope.earnings = [400, 650, 886, 443, 502, 412, 353];
     $scope.referrals = [4879, 6567, 5022, 5890, 9234, 7128, 4811];
@@ -301,4 +301,10 @@ app.controller('LastCtrl', ["$scope", function ($scope) {
         legendTemplate: '<ul class="tc-chart-js-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
     };
 
+}]);
+
+app.controller('DashBoardGoToAffiliateCtrl', ["$scope", "$location", function ($scope, $location) {
+    $scope.gotoAffiliate = function () {
+        $location.path('#/app/affiliate');
+    };
 }]);

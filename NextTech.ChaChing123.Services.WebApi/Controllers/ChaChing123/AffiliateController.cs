@@ -15,7 +15,9 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
     using NextTech.ChaChing123.Services.WebApi.Infrastructure.Core;
     using NextTech.ChaChing123.Business;
     using NextTech.ChaChing123.Core.Filters;
-    
+    using NextTech.ChaChing123.Services.WebApi.Models;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [SSLClientCertificateActionWebApiFilter] 
     [RoutePrefix("api/affiliate")]
@@ -158,6 +160,47 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateAlertByAccount(obj));
                 return response;
             });
+        }
+
+        [AllowAnonymous]
+        [Route("getaffiliatecomission")]
+        [HttpPost]
+        public PagedResult<AffiliateOfMonth> GetAffiliateComissions(AffiliateModel affiliateModel)
+        {
+            // Determine the number of records to skip
+            //int skip = (pageNo - 1) * pageSize;
+            int pageNo = affiliateModel.PageNo;
+            int pageSize = affiliateModel.PageSize;
+            int skip = (pageNo - 1) * pageSize;
+
+            // Get the total number of records
+            var commissions = new List<AffiliateOfMonth>
+            {
+                new AffiliateOfMonth{ Date = "01/2020", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "12/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "11/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "10/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "09/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "07/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "06/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "05/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "04/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "03/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "02/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" },
+                new AffiliateOfMonth{ Date = "01/2019", Comission = "8,997,000", ComissionThanks = "8,997,000" }
+            };
+
+            int totalItemCount = commissions.Count();
+
+            // Retrieve the customers for the specified page
+            var affiliates = commissions
+                .OrderBy(c => c.Date)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToList();
+
+            // Return the paged results
+            return new PagedResult<AffiliateOfMonth>(affiliates, pageNo, pageSize, totalItemCount);
         }
     }
 }

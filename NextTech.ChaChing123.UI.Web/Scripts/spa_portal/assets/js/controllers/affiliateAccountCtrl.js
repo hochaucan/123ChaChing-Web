@@ -57,6 +57,7 @@ app.controller('ModalInstanceCtrl1', ["$scope", "$uibModalInstance", "items", "a
             "BeneAccountName": $scope.affiliate.BeneAccountName,
             "BeneBankName": $scope.affiliate.BeneBankName,
             "BeneAccountNo": $scope.affiliate.BeneAccountNo,
+            "Amount": $scope.affiliate.Amount,
             "Remarks": $scope.affiliate.Remarks
         };
 
@@ -65,12 +66,69 @@ app.controller('ModalInstanceCtrl1', ["$scope", "$uibModalInstance", "items", "a
         // Load the data from the API
         affiliateService.add(affiliate, function (result) {
             if (result.data && result.data.StatusCode == 0) {
-                notificationService.displayInfo(result.data.StatusMsg);
+                notificationService.displaySuccess(result.data.StatusMsg);
             } else {
                 notificationService.displayError(result.data.StatusMsg);
             }
             $uibModalInstance.dismiss('cancel');
         });
+    };
+
+    $scope.form = {
+
+        submit: function (form) {
+            var firstError = null;
+            if (form.$invalid) {
+
+                var field = null, firstError = null;
+                for (field in form) {
+                    if (field[0] != '$') {
+                        if (firstError === null && !form[field].$valid) {
+                            firstError = form[field].$name;
+                        }
+
+                        if (form[field].$pristine) {
+                            form[field].$dirty = true;
+                        }
+                    }
+                }
+
+                angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                return;
+
+            } else {
+                //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
+                //your code for submit
+
+                var affiliate = {};
+                //var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+                //var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+                affiliate = {
+                    "ContractNo": "123456789",
+                    "BeneAccountName": $scope.affiliate.BeneAccountName,
+                    "BeneBankName": $scope.affiliate.BeneBankName,
+                    "BeneAccountNo": $scope.affiliate.BeneAccountNo,
+                    "Amount": $scope.affiliate.Amount,
+                    "Remarks": $scope.affiliate.Remarks
+                };
+
+                console.log($scope.affiliate);
+
+                // Load the data from the API
+                affiliateService.add(affiliate, function (result) {
+                    if (result.data && result.data.StatusCode == 0) {
+                        notificationService.displaySuccess(result.data.StatusMsg);
+                    } else {
+                        notificationService.displayError(result.data.StatusMsg);
+                    }
+                    $uibModalInstance.dismiss('cancel');
+                });
+            }
+
+        }
     };
 
     $scope.cancel = function () {
