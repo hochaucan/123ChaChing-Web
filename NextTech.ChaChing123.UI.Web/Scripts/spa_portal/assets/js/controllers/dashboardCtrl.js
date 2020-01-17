@@ -308,3 +308,38 @@ app.controller('DashBoardGoToAffiliateCtrl', ["$scope", "$location", function ($
         $location.path('#/app/affiliate');
     };
 }]);
+
+app.controller('AffiliateDashboardWalletCtrl', ["$scope", "$localStorage", "affiliateService", "notificationService", function ($scope, $localStorage, affiliateService, notificationService) {
+    var affiliate = {};
+    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+    affiliate = {
+        "username": username,
+        "sessionkey": sessionkey
+    };
+
+    $scope.affiliateWalletInfo = {
+        Amount: '0.00',
+        AffiliatePending: '0',
+        AffiliateApproved: '0',
+        AmountPending: '0.00',
+        AmountApproved: '0.00'
+    };
+
+    // Load the data from the API
+    affiliateService.getWalletInfoByAccount(affiliate, function (result) {
+        if (result.data && result.data.StatusCode == 0) {
+            $scope.affiliateWalletInfo = {
+                Amount: result.data.Details.Amount,
+                AffiliatePending: result.data.Details.AffiliatePending,
+                AffiliateApproved: result.data.Details.AffiliateApproved,
+                AmountPending: result.data.Details.AmountPending,
+                AmountApproved: result.data.Details.AmountApproved
+            };
+        } else {
+            notificationService.displayError(result.data.StatusMsg);
+        }
+    });
+
+}]);

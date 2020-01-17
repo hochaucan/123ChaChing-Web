@@ -115,12 +115,12 @@
         </div>
         <!-- end: FIRST SECTION -->
         <!-- start: SECOND SECTION -->
-        <div class="container-fluid container-fullw bg-white ng-scope">
+        <div class="container-fluid container-fullw bg-white ng-scope" ng-controller="AffiliateDashboardWalletCtrl">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-white">
                         <div class="panel-heading border-light">
-                            <h5 class="panel-title text-left">Tháng 9</h5>
+                            <h5 class="panel-title text-left">Tháng 1</h5>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -129,7 +129,7 @@
                                         <div class="panel no-radius text-center">
                                             <div class="panel-body">
                                                 <h3>Đã Giới Thiệu</h3>
-                                                <h2><span class="text-bold">18</span></h2>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AffiliateApproved}}</span></h2>
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                                         <div class="panel no-radius text-center">
                                             <div class="panel-body">
                                                 <h3>Đang Duyệt</h3>
-                                                <h2><span class="text-bold">71,976,000Đ</span></h2>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AmountPending | number}} Đ</span></h2>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@
                                         <div class="panel no-radius text-center">
                                             <div class="panel-body">
                                                 <h3>Đã Duyệt</h3>
-                                                <h2><span class="text-bold">8,997,000Đ</span></h2>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AmountApproved | number}} Đ</span></h2>
                                             </div>
                                         </div>
                                     </div>
