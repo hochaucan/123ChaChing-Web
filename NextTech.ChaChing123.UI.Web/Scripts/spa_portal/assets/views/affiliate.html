@@ -87,14 +87,15 @@
                                                     <label for="affiliateBankAccount">
                                                         Số Tài Khoản
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateBankAccount" name="BeneAccountNo" ng-model="affiliate.BeneAccountNo" placeholder="Số Tài Khoản" required="">
-                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.BeneAccountNo.$dirty && FormWithdrawallRequest.BeneAccountNo.$invalid">Số Tài Khoản là bắt buộc.</span>
+                                                    <input type="text" class="form-control" id="affiliateBankAccount" name="BeneAccountNo" ng-model="affiliate.BeneAccountNo" placeholder="Số Tài Khoản" ng-pattern="/^[0-9]*$/" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.BeneAccountNo.$dirty && FormWithdrawallRequest.BeneAccountNo.$invalid">Số Tài Khoản là bắt buộc và phải là số.</span>
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.Amount.$dirty && FormWithdrawallRequest.Amount.$invalid, 'has-success':FormWithdrawallRequest.Amount.$valid}">
                                                     <label for="affiliateBankAccount">
                                                         Số tiền
                                                     </label>
-                                                    <input type="text" class="form-control" id="affiliateBankAccount" ng-model="affiliate.Amount" placeholder="Số tiền">
+                                                    <input type="text" class="form-control" id="affiliateBankAccount" name="Amount" ng-model="affiliate.Amount" placeholder="Số Tiền" ng-pattern="/^[0-9]*$/" required="">
+                                                    <span class="error text-small block" ng-if="FormWithdrawallRequest.Amount.$dirty && FormWithdrawallRequest.Amount.$invalid">Số Tiền là bắt buộc và phải là số.</span>
                                                 </div>
                                                 <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.Remarks.$dirty && FormWithdrawallRequest.Remarks.$invalid, 'has-success':FormWithdrawallRequest.Remarks.$valid}">
                                                     <label for="affiliateNotes">
