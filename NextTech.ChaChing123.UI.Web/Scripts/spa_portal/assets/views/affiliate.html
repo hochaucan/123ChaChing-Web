@@ -13,56 +13,56 @@
 	<div class="row">
 		<div class="col-md-12">
 			<!-- /// controller:  'AffiliateCtrl' -  localtion: assets/js/controllers/AffiliateAccountCtrl.js /// -->
-			<div ng-controller="AffiliateAccountCtrl">
+			<div>
 				<!-- start: USER TABSET -->
 				<uib-tabset class="tabbable">
 					<!-- start: TAB OVERVIEW -->
 					<uib-tab heading="Tài Khoản">
 						<div class="row">
 							<div class="col-md-6">
-								<div class="user-left">
-									<table class="table table-condensed">
-										<thead>
-											<tr>
-												
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>
+                                <div class="user-left">
+                                    <table class="table table-condensed" ng-controller="AffiliateAccountCtrl">
+                                        <thead>
+                                            <tr></tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
                                                     <p class="bold">{{affiliateInfo.lastName}} {{affiliateInfo.firstName}}</p>
                                                     <p>0985785658</p>
                                                 </td>
-												<td>
-												    <span class="bold">{{affiliateInfo.phone}}</span>
+                                                <td>
+                                                    <span class="bold">{{affiliateInfo.phone}}</span>
                                                 </td>
                                                 <td>
-                                                    <span>Rút Tiền</span>
+                                                    <p ng-controller="RequestWithdrawalCtrl">
+                                                        <a class="btn btn-sm btn-primary" ng-click="requestWithdrawal()">Rút Tiền</a>
+                                                    </p>
                                                 </td>
-											</tr>
-										</tbody>
-									</table>
-									<table class="table table-condensed">
-										<thead>
-											<tr>
-												<th></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-condensed" ng-controller="AffiliateWalletCtrl">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
                                                 <th>Đã Duyệt</th>
                                                 <th>Đang Duyệt</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Khách Hàng</td>
-												<td>8</td>
-                                                <td>6</td>
-											</tr>
-											<tr>
-												<td>Hoa Hồng</td>
-												<td>6,886,886Đ</td>
-                                                <td>6,886,886Đ</td>
-											</tr>
-										</tbody>
-									</table>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Khách Hàng</td>
+                                                <td>{{affiliateWalletInfo.AffiliateApproved}}</td>
+                                                <td>{{affiliateWalletInfo.AffiliatePending}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Hoa Hồng</td>
+                                                <td>{{affiliateWalletInfo.AmountApproved}}Đ</td>
+                                                <td>{{affiliateWalletInfo.AmountPending}}Đ</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <script type="text/ng-template" id="myModalContent.html">
                                         <form class="form-withdrawal-request" name="FormWithdrawallRequest" id="FormWithdrawallRequest" novalidate="" ng-submit="form.submit(FormWithdrawallRequest)">
                                             <div class="modal-header">
@@ -106,11 +106,24 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <!--<button class="btn btn-primary btn-block" ng-click="ok()">Hoàn Tất</button>-->
-                                                <button type="submit" class="btn btn-primary btn-block"">
+                                                <button type="submit" class="btn btn-primary btn-block" ">
                                                     Hoàn Tất
                                                 </button>
                                             </div>
                                         </form>
+                                    </script>
+                                    <script type="text/ng-template" id="myModalGetLinkAffiliate.html">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Lấy Link Affiliate</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="affiliateUrl">
+                                                    Link
+                                                </label>
+                                                <input type="text" class="form-control" id="affiliateUrl" name="affiliateUrl" ng-model="affiliate.affiliateUrl">
+                                            </div>
+                                        </div>
                                     </script>
                                     <div class="panel panel-white" ng-controller="AffiliateGetLinkCtrl">
                                         <div class="panel-body">
@@ -121,7 +134,7 @@
                                             </p>
                                         </div>
                                     </div>
-								</div>
+                                </div>
 							</div>
 							<div class="col-md-6">
 								<div class="panel panel-white" id="activities">

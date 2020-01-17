@@ -1803,7 +1803,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
     <Content Include="Scripts\spa_portal\assets\css\app.css" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\spa_portal\assets\css\plugins.css" />
+    <Content Include="Scripts\spa_portal\assets\css\rdash.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.css" />
     <Content Include="Scripts\spa_portal\assets\css\themes\theme-1.css" />
@@ -1870,6 +1873,7 @@
     <Content Include="Scripts\spa_portal\assets\js\directives\footer.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\full-height.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\header.js" />
+    <Content Include="Scripts\spa_portal\assets\js\directives\loading.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\messages.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\off-click.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\panel-tools.js" />
@@ -2403,6 +2407,29 @@
     <Content Include="Scripts\spa_portal\bower_components\themify-icons\fonts\themify.ttf" />
     <Content Include="Scripts\spa_portal\bower_components\themify-icons\fonts\themify.woff" />
     <Content Include="Scripts\spa_portal\assets\js\directives\maincontent.js" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Bold.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Bold.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-It.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-It.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Light.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Light.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-LightIt.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-LightIt.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Regular.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Regular.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Semibold.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-Semibold.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-SemiboldIt.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\SourceSansPro-SemiboldIt.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

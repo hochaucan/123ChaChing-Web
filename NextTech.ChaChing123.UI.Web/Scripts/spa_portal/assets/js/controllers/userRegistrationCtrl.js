@@ -37,6 +37,7 @@
                     } else {
                         //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         //your code for submit
+                        $scope.isLoading = true;
 
                         var userRegistration = {};
 
@@ -53,10 +54,12 @@
 
                         membershipService.register(userRegistration, function (result) {
                             if (result.data && result.data.StatusCode == 0) {
+                                $scope.isLoading = false;
                                 notificationService.displaySuccess('Đăng ký thành công');
                                 $location.path('/app/home');
                             }
                             else {
+                                $scope.isLoading = false;
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         });

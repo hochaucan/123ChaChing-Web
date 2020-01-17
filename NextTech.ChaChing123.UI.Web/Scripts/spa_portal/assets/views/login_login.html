@@ -7,6 +7,8 @@
     <div class="container-fluid container-fullw">
         <div class="row">
             <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+                <!--loading-->
+                <rd-loading ng-show="isLoading"></rd-loading>
                 <uib-tabset justified="true" class="tabbable">
                     <uib-tab heading="ĐĂNG NHẬP">
                         <!-- start: LOGIN BOX -->
@@ -19,7 +21,7 @@
                                     <input type="text" class="form-control" id="inputUsername" name="username" ng-model="userLogin.username" placeholder="Enter Email/Phone" required="">
                                     <span class="error text-small block" ng-if="FormLogin.username.$dirty && FormLogin.username.$invalid">Email/Số Điện Thoại là bắt buộc.</span>
                                 </div>
-                                <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}"}">
+                                <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}" }">
                                     <label class="control-label" for="inputPassword">
                                         Mật Khẩu <span class="symbol required"></span>
                                     </label>
@@ -30,7 +32,7 @@
                                     <a href="#/forgotpassword">Quên Mật Khẩu?</a>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                                    <button type="submit" class="btn btn-primary btn-block">
                                         Đăng Nhập
                                     </button>
                                 </div>
@@ -74,8 +76,8 @@
                                     </label>
                                     <input type="password" class="form-control" id="boxRegisterRePassword" name="repassword" ng-model="userReg.repassword" compare-to="userReg.password" placeholder="Nhập lại mật khẩu" required="">
                                     <span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$error.required">Nhập lại mật Khẩu là bắt buộc.</span>
-									<span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$error.compareTo">Mật khẩu nhập lại không đúng!</span>
-									<span class="success text-small block" ng-if="FormRegistration.repassword.$valid">Mật khẩu đúng!</span>
+                                    <span class="error text-small block" ng-if="FormRegistration.repassword.$dirty && FormRegistration.repassword.$error.compareTo">Mật khẩu nhập lại không đúng!</span>
+                                    <span class="success text-small block" ng-if="FormRegistration.repassword.$valid">Mật khẩu đúng!</span>
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.email.$dirty && FormRegistration.email.$invalid, 'has-success':FormRegistration.email.$valid}">
                                     <label class="control-label" for="boxRegisterEmail">
@@ -114,7 +116,7 @@
                                     </div>
                                     <span class="error text-small block" ng-if="FormRegistration.accounttype.$dirty && FormRegistration.accounttype.$error.required">Yêu cầu chọn gói đăng ký.</span>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block" ng-click="login()">
+                                <button type="submit" class="btn btn-primary btn-block">
                                     Đăng Ký
                                 </button>
                             </form>
