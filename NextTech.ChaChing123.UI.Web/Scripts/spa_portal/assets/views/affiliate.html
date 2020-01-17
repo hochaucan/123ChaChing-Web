@@ -19,20 +19,20 @@
 					<!-- start: TAB OVERVIEW -->
 					<uib-tab heading="Tài Khoản">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-6" ng-controller="AffiliateWalletCtrl">
                                 <div class="user-left">
-                                    <table class="table table-condensed" ng-controller="AffiliateAccountCtrl">
+                                    <table class="table table-condensed">
                                         <thead>
                                             <tr></tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <p class="bold">{{affiliateInfo.lastName}} {{affiliateInfo.firstName}}</p>
-                                                    <p>0985785658</p>
+                                                    <p class="bold">{{affiliateWalletInfo.FullName}}</p>
+                                                    <p>{{affiliateWalletInfo.Phone}}</p>
                                                 </td>
                                                 <td>
-                                                    <span class="bold">{{affiliateInfo.phone}}</span>
+                                                    <span class="bold">{{affiliateWalletInfo.Amount | number}} Đ</span>
                                                 </td>
                                                 <td>
                                                     <p ng-controller="RequestWithdrawalCtrl">
@@ -42,7 +42,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="table table-condensed" ng-controller="AffiliateWalletCtrl">
+                                    <table class="table table-condensed">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -58,8 +58,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Hoa Hồng</td>
-                                                <td>{{affiliateWalletInfo.AmountApproved}}Đ</td>
-                                                <td>{{affiliateWalletInfo.AmountPending}}Đ</td>
+                                                <td>{{affiliateWalletInfo.AmountApproved | number}} Đ</td>
+                                                <td>{{affiliateWalletInfo.AmountPending | number}} Đ</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -136,23 +136,51 @@
                                     </div>
                                 </div>
 							</div>
-							<div class="col-md-6">
-								<div class="panel panel-white" id="activities">
+							<div class="col-md-6" ng-controller="AffiliateNotificationCtrl">
+                                <div class="panel panel-white" ng-repeat="data in affiliateNotifications">
                                     <div class="panel-body">
-                                        <p class="text-left">NGUYEN PHUOC VINH HUNG số điện thoại 0986868666 đã đăng ký với mã giới thiệu của bạn</p>
-                                        <p>2019-11-19 15:15:39</p>
-                                    </div>
-								</div>
-                                <div class="panel panel-white" id="activities">
-                                    <div class="panel-body">
-                                        <p class="text-left">NGUYEN PHUOC VINH HUNG số điện thoại 0986868666 đã đăng ký với mã giới thiệu của bạn</p>
-                                        <p>2019-11-19 15:15:39</p>
+                                        <p class="text-left">{{data.Fullname}} số điện thoại {{data.Phone}} đã đăng ký với mã giới thiệu của bạn</p>
+                                        <p>{{data.RegisterDate}}</p>
                                     </div>
                                 </div>
 							</div>
 						</div>
-                        <div class="row">
-                            <div class="col-md-12">
+                        <div class="row" ng-controller="SummaryReportByAccountForAffiliateAccountTabCtrl" ng-if="!loadingAffiliateComissionsReportForAffiliateAccountTab">
+                            <h3>Theo Dõi Thu Nhập</h3>
+                            <div class="col-md-2">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed shortMargin">
+                                        <tr>
+                                            Tháng
+                                        </tr>
+                                        <tr>
+                                            <td>Hoa Hồng</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hoa Hồng Cảm Ơn</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="col-md-1" ng-repeat="affiliate in affiliateComissionsReportForAffiliateAccountTab">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed shortMargin">
+                                            <tr>
+                                                <td>{{affiliate.Date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{affiliate.Comission}} Đ</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{affiliate.ComissionThank}} Đ</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--<div class="col-md-12">
                                 <div class="panel panel-white" id="activities">
                                     <div class="panel-body">
                                         <div class="text-left">
@@ -211,7 +239,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
 					</uib-tab>
 					<!-- end: TAB OVERVIEW -->
@@ -295,16 +323,25 @@
 					<!-- end: TAB EDIT ACCOUNT -->
 					<!-- start: TAB PROJECTS -->
 					<uib-tab heading="Hoa Hồng">
-                        <div ng-controller="ngTableAffiliateCtrl">
-                            <table ng-table="tableParams" class="table table-striped">
-                                <tbody>
-                                    <tr ng-repeat="affiliate in $data">
-                                        <td data-title="&#39;Ngày&#39;">{{affiliate.Date}}</td>
-                                        <td data-title="&#39;Hoa Hồng&#39;">{{affiliate.Comission}} Đ</td>
-                                        <td data-title="&#39;Hoa Hồng Cảm Ơn&#39;">{{affiliate.ComissionThanks}} Đ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div>
+                            <div class="table-responsive" ng-controller="SummaryReportByAccountCtrl">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Tháng</th>
+                                            <th>Hoa Hồng</th>
+                                            <th>Hoa Hồng Cảm Ơn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="data in affiliateComissionsReport">
+                                            <td>{{data.Month}}/2020</td>
+                                            <td>{{data.Commission | number}} Đ</td>
+                                            <td>{{data.CommissionThanks | number}} Đ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 					</uib-tab>
 					<!-- end: TAB PROJECTS -->

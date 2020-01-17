@@ -32,7 +32,12 @@
         }
 
         function saveCredentials(user) {
-            $localStorage.currentUser = { username: user.UserName, token: user.SessionKey };
+            $localStorage.currentUser = {
+                username: user.UserName,
+                fullname: user.FullName,
+                phone: user.Phone,
+                token: user.SessionKey
+            };
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
         }

@@ -16,7 +16,10 @@
             trackIncome: trackIncome,
             getAffiliateCommission: getAffiliateCommission,
             add: add,
-            getWalletInfoByAccount: getWalletInfoByAccount
+            getWalletInfoByAccount: getWalletInfoByAccount,
+            GetAfiliateAlertByAccount: GetAfiliateAlertByAccount,
+            GetSummaryReportByAccount: GetSummaryReportByAccount,
+            GetSummaryReportByAccountAccount: GetSummaryReportByAccountAccount
         };
 
         function getAffiliateComissions(affiliate, completed) {
@@ -48,6 +51,27 @@
 
         function getWalletInfoByAccount(affiliate, completed) {
             apiService.post(baseUrl + '/api/affiliate/GetWalletInfoByAccount/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function GetAfiliateAlertByAccount(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/GetAfiliateAlertByAccount/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function GetSummaryReportByAccount(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/GetSummaryReportByAccount/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function GetSummaryReportByAccountAccount(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/GetSummaryReportByAccount/', affiliate,
                 completed,
                 affiliateFailed
             );

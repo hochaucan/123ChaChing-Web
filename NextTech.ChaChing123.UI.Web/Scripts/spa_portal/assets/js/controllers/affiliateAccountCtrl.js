@@ -2,48 +2,38 @@
 /** 
   * controller for User Profile Example
 */
-app.controller('AffiliateAccountCtrl', ["$scope", "affiliateService", function ($scope, affiliateService) {
+app.controller('AffiliateAccountCtrl', ["$scope", "$localStorage", function ($scope, $localStorage) {
     $scope.removeImage = function () {
         $scope.noImage = true;
     };
 
+    var fullname = ($localStorage.currentUser) ? $localStorage.currentUser.fullname : "";
+    var phone = ($localStorage.currentUser) ? $localStorage.currentUser.phone : "";
+
     $scope.affiliateInfo = {
-        firstName: 'Cần',
-        lastName: 'Hồ Chau',
-        url: 'www.example.com',
-        email: 'peter@example.com',
-        phone: '6,686,888Đ',
-        gender: 'male',
-        zipCode: '12345',
-        city: 'London (UK)',
-        avatar: 'assets/images/avatar-1-xl.jpg',
-        twitter: '',
-        github: '',
-        facebook: '',
-        linkedin: '',
-        google: '',
-        skype: 'peterclark82'
+        fullname: fullname,
+        phone: phone
     };
     if ($scope.affiliateInfo.avatar == '') {
         $scope.noImage = true;
     }
 }]);
 
-app.controller('AffiliateWalletCtrl', ["$scope", "$localStorage", "affiliateService", function ($scope, $localStorage, affiliateService) {
-    $scope.removeImage = function () {
-        $scope.noImage = true;
-    };
-
+app.controller('AffiliateWalletCtrl', ["$scope", "$localStorage", "affiliateService", "notificationService", function ($scope, $localStorage, affiliateService, notificationService) {
     var affiliate = {};
     var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+    var fullname = ($localStorage.currentUser) ? $localStorage.currentUser.fullname : "";
+    var phone = ($localStorage.currentUser) ? $localStorage.currentUser.phone : "";
     var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
 
     affiliate = {
         "username": username,
-        "sessionkey": sessionkey,
+        "sessionkey": sessionkey
     };
 
     $scope.affiliateWalletInfo = {
+        FullName: fullname,
+        Phone: phone,
         Amount: '0.00',
         AffiliatePending: '0',
         AffiliateApproved: '0',
@@ -55,6 +45,8 @@ app.controller('AffiliateWalletCtrl', ["$scope", "$localStorage", "affiliateServ
     affiliateService.getWalletInfoByAccount(affiliate, function (result) {
         if (result.data && result.data.StatusCode == 0) {
             $scope.affiliateWalletInfo = {
+                FullName: fullname,
+                Phone: phone,
                 Amount: result.data.Details.Amount,
                 AffiliatePending: result.data.Details.AffiliatePending,
                 AffiliateApproved: result.data.Details.AffiliateApproved,
@@ -64,8 +56,135 @@ app.controller('AffiliateWalletCtrl', ["$scope", "$localStorage", "affiliateServ
         } else {
             notificationService.displayError(result.data.StatusMsg);
         }
-        //$uibModalInstance.dismiss('cancel');
     });
+
+}]);
+
+app.controller('AffiliateNotificationCtrl', ["$scope", "$localStorage", "affiliateService", function ($scope, $localStorage, affiliateService) {
+    var affiliate = {};
+    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+    affiliate = {
+        "username": username,
+        "sessionkey": sessionkey
+    };
+
+    $scope.affiliateNotifications = {};
+
+    // Load the data from the API
+    affiliateService.GetAfiliateAlertByAccount(affiliate, function (result) {
+        if (result.data && result.data.StatusCode == 0) {
+            $scope.affiliateNotifications = result.data.Details;
+        } else {
+            notificationService.displayError(result.data.StatusMsg);
+        }
+    });
+
+}]);
+
+app.controller('SummaryReportByAccountCtrl', ["$scope", "$localStorage", "affiliateService", function ($scope, $localStorage, affiliateService) {
+    var affiliate = {};
+    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+    affiliate = {
+        "username": username,
+        "sessionkey": sessionkey,
+        "yearlist": "2020"
+    };
+
+    $scope.affiliateComissionsReport = {};
+
+    // Load the data from the API
+    affiliateService.GetSummaryReportByAccount(affiliate, function (result) {
+        if (result.data && result.data.StatusCode == 0) {
+            $scope.affiliateComissionsReport = result.data.Details;
+        } else {
+            notificationService.displayError(result.data.StatusMsg);
+        }
+    });
+
+}]);
+
+app.controller('SummaryReportByAccountForAffiliateAccountTabCtrl', ["$scope", "$localStorage", "affiliateService", function ($scope, $localStorage, affiliateService) {
+    $scope.loadingAffiliateComissionsReportForAffiliateAccountTab = true;
+    var affiliate = {};
+    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+    affiliate = {
+        "username": username,
+        "sessionkey": sessionkey,
+        "yearlist": "2020"
+    };
+
+    var dataCom = [{
+        id: 1,
+        Date: "1/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 2,
+        Date: "2/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 3,
+        Date: "3/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 4,
+        Date: "4/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 5,
+        Date: "5/2020",
+        Commission: "0",
+        ComissionThank: "0"
+    },{
+        id: 6,
+        Date: "6/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 7,
+        Date: "7/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 8,
+        Date: "8/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 9,
+        Date: "9/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 10,
+        Date: "10/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 11,
+        Date: "11/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    },{
+        id: 12,
+        Date: "12/2020",
+        Comission: "0",
+        ComissionThank: "0"
+    }];
+
+    $scope.affiliateComissionsReportForAffiliateAccountTab = {};
+
+    $scope.affiliateComissionsReportForAffiliateAccountTab = dataCom;
+    $scope.loadingAffiliateComissionsReportForAffiliateAccountTab = false;
 
 }]);
 
