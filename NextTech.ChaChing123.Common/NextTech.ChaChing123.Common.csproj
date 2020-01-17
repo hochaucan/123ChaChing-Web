@@ -51,6 +51,7 @@
     <Compile Include="DTO\ChaChing123\AffiliateSearchResponseDTO.cs" />
     <Compile Include="DTO\ChaChing123\AccountDto.cs" />
     <Compile Include="DTO\ChaChing123\AfiliateAlertDto.cs" />
+    <Compile Include="DTO\ChaChing123\AfiliateItemDto.cs" />
     <Compile Include="DTO\ChaChing123\ChangePasswordModel.cs" />
     <Compile Include="DTO\ChaChing123\OrderListSearchDto.cs" />
     <Compile Include="DTO\ChaChing123\LogoutDto.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="DTO\ChaChing123\RequestDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestOrderListDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestWithdrawalDto.cs" />
+    <Compile Include="DTO\ChaChing123\SummaryRequestDto .cs" />
     <Compile Include="DTO\ChaChing123\WalletInfoDto.cs" />
     <Compile Include="DTO\ChaChing123\WalletInfoOfAccDto.cs" />
     <Compile Include="DTO\ChaChing123\PaymentAffiliateDto.cs" />

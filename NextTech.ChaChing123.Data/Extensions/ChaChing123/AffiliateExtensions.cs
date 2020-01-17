@@ -3,7 +3,8 @@
 /// <description>Created date: </description>
 /// <revision history>Version: 1.0.1</revision history>
 /// </summary>
-
+using NextTech.ChaChing123.Common.Models;
+using NextTech.ChaChing123.Common.Utilities;
 namespace NextTech.ChaChing123.Data.Extensions
 {
     
@@ -158,7 +159,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode).FirstOrDefault();
-
+            
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
             
@@ -196,7 +197,7 @@ namespace NextTech.ChaChing123.Data.Extensions
             };
 
             var lengthPass = int.Parse(Common.Utilities.Common.GetConfigValue("LengthPass"));
-            string strContractNo = Common.Utilities.PasswordGenerator.generatePassword(lengthPass, false, true, false);
+            string strContractNo = PasswordGenerator.generatePassword(lengthPass, false, true, false);
 
             dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetWithDrawallInfoByAccount] @SessionKey,@UserReceiver,@BeneAccountName,@BeneBankName,@BeneAccountNo,@Amount,@Remarks,@ContractNo,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
@@ -214,7 +215,7 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-        public static ResultDTO GetSummaryReportByAccount(this IEntityBaseRepository<Affiliate> repository, RequestDTO obj)
+        public static ResultDTO GetSummaryReportByAccount(this IEntityBaseRepository<Affiliate> repository, SummaryRequestDTO obj)
         {
             
             var result = new ResultDTO();
@@ -224,13 +225,17 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            result.Details = dbContext.Database.SqlQuery<AffiliateOfMonthDTO>("EXEC [dbo].[sp_GetSummaryReportByAccount] @UserName,@SessionKey,@errorCode out",
+
+            result.Details = dbContext.Database.SqlQuery<AffiliateOfMonthDTO>("EXEC [dbo].[sp_GetSummaryReportByAccount] @StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode).ToList<AffiliateOfMonthDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
             return result;
+
         }
 
         public static ResultDTO GetAfiliateAlertByAccount(this IEntityBaseRepository<Affiliate> repository, RequestDTO obj)
@@ -251,7 +256,24 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
 
         }
+        public static ResultDTO GetAfiliateListByAccount(this IEntityBaseRepository<Affiliate> repository, RequestOrderListDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
 
-        
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            result.Details = dbContext.Database.SqlQuery<AfiliateItemDTO>("EXEC [dbo].[sp_GetAfiliateListByAccount] @UserName,@SessionKey, @errorCode out",
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).ToList<AfiliateItemDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+
+        }
+
     }
 }

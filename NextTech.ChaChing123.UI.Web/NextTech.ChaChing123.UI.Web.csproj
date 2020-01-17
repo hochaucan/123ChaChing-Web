@@ -66,15 +66,15 @@
     </Reference>
     <Reference Include="BTMU.APF.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Core.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Core.dll</HintPath>
     </Reference>
     <Reference Include="BTMU.APF.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Entities.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Entities.dll</HintPath>
     </Reference>
     <Reference Include="BTMU.APF.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\APF\BTMU.APF.Utilities.dll</HintPath>
+      <HintPath>bin\BTMU.APF.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="BTMU.APF.Utilities.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

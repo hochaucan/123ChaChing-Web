@@ -127,5 +127,38 @@ namespace NextTech.ChaChing123.Business.Utilities
             return false;
         }
 
+        public static string GeStartListByYear(string strYear)
+        {
+            if (string.IsNullOrEmpty(strYear))
+            {
+                strYear = DateTime.Now.Year.ToString();
+            }
+            string monthList = "0101,0201,0301,0401,0501,0601,0701,0801,0901,1001,1101,1201";
+            string rs = string.Empty;
+            foreach(string item in monthList.Split(','))
+            {
+                rs += strYear+ item+",";
+            }
+            return rs.Remove(rs.Length-1,1);
+        }
+
+        public static string GeEndListByYear(string strYear)
+        {
+            string nextYear = string.Empty;
+            if (string.IsNullOrEmpty(strYear))
+            {
+                strYear = DateTime.Now.Year.ToString();
+            }
+            nextYear = (int.Parse(strYear) + 1).ToString();
+            string monthList = "0201,0301,0401,0501,0601,0701,0801,0901,1001,1101,1201";
+            string rs = string.Empty;
+            foreach (string item in monthList.Split(','))
+            {
+                rs += strYear+ item + ",";
+            }
+            rs = rs + nextYear + "0101";
+            return rs;
+        }
+
     }
 }

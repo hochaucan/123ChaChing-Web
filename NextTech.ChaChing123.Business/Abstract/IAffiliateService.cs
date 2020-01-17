@@ -21,7 +21,8 @@ namespace NextTech.ChaChing123.Business
 		ResultDTO GetAffiliateCodeByAccount(RequestDTO obj);
 		ResultDTO GetWithDrawallInfoByAccount(RequestDTO obj);
 		ResultDTO RequestWithDrawall(RequestWithdrawalDTO obj);
-		ResultDTO GetSummaryReportByAccount(RequestDTO obj);
+		ResultDTO GetSummaryReportByAccount(SummaryRequestDTO obj);
 		ResultDTO GetAfiliateAlertByAccount(RequestDTO obj);
+		ResultDTO GetAfiliateListByAccount(RequestOrderListDTO obj);
 	}
 }
