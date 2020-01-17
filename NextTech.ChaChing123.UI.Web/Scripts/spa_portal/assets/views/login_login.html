@@ -8,11 +8,12 @@
         <div class="row">
             <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
                 <!--loading-->
-                <rd-loading ng-show="isLoading"></rd-loading>
+                <!--<rd-loading ng-show="isLoading"></rd-loading>-->
                 <uib-tabset justified="true" class="tabbable">
-                    <uib-tab heading="ĐĂNG NHẬP">
+                    <uib-tab heading="ĐĂNG NHẬP" id="loginTabID">
                         <!-- start: LOGIN BOX -->
                         <div class="box-login" ng-controller="UserLoginCtrl">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <form name="FormLogin" id="FormLogin" novalidate="" ng-submit="form.submit(FormLogin)">
                                 <div class="form-group" ng-class="{'has-error':FormLogin.username.$dirty && FormLogin.username.$invalid, 'has-success':FormLogin.username.$valid}">
                                     <label class="control-label" for="inputUsername">
@@ -46,8 +47,9 @@
                         </div>
                         <!-- end: LOGIN BOX -->
                     </uib-tab>
-                    <uib-tab heading="ĐĂNG KÝ">
+                    <uib-tab heading="ĐĂNG KÝ" id="registerTabID">
                         <div class="box-register" ng-controller="UserRegistrationCtrl">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <form class="form-register" name="FormRegistration" id="FormRegistration" novalidate="" ng-submit="form.submit(FormRegistration)">
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.fullname.$dirty && FormRegistration.fullname.$invalid, 'has-success':FormRegistration.fullname.$valid}">
                                     <label class="control-label" for="FullName">

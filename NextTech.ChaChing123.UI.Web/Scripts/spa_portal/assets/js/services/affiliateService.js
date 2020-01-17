@@ -36,12 +36,6 @@
             );
         }
 
-        function affiliateFailed(response) {
-            if (response.data) {
-                notificationService.displayError(response.data.Message);
-            }
-        }
-
         function getLinkAffiliate(affiliate, completed) {
             apiService.post(baseUrl + '/api/affiliate/GetAffiliateCodeByAccount/', affiliate,
                 completed,
@@ -75,6 +69,12 @@
                 completed,
                 affiliateFailed
             );
+        }
+
+        function affiliateFailed(response) {
+            if (response.data) {
+                notificationService.displayError(response.data.Message);
+            }
         }
 
         function trackIncome() {

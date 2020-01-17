@@ -34,7 +34,7 @@
 @media (min-width: 768px) {
     .navbar .navbar-collapse {
         margin-left: 0px;
-        height: 80px !important;
+        height: 110px !important;
     }
 }
 .navbar {
@@ -57,15 +57,26 @@
 }
 
 .navbar .navbar-header {
-    height: 80px;
+    height: 110px;
+}
+@media (min-width: 768px) {
+    .navbar .navbar-header {
+        width: 205px;
+    }
+}
+.navbar .navbar-header a {
+    height: 110px;
+    line-height: 110px;
 }
 .navbar .navbar-right > li > a {
     padding: 0px 10px;
     text-transform: capitalize;
+    font-size: 0.8rem;
+    font-weight: 400;
 }
 .navbar .navbar-right > li > a, .item-content {
-    height: 80px;
-    line-height: 80px;
+    height: 110px;
+    line-height: 110px;
 }
 .item-content {
     align-items: center;
@@ -92,7 +103,7 @@ ul.nav li a i[class*="ti-"] {
 }
 .item-content .item-icon {
     display: table-cell;
-    padding: 0px 10px;
+    padding: 0px 6px;
 }
 .item-content .item-text {
     align-items: center;
@@ -315,4 +326,33 @@ ul.nav li a i[class*="ti-"] {
     margin-top: 10px;
     font-size: 13px;
     line-height: 22px;
+}
+.spinning-dots-spinner {
+    margin: 0px auto;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+.navbar {
+    height: 110px;
+}
+.navbar .navbar-header .navbar-brand img {
+    width: 90%;
+}
+.navbar .navbar-right > li.current-user > a {
+    padding-top: 34px;
+    padding-bottom: 20px;
+}
+@media (max-width: 991px) {
+    .navbar .navbar-right > li > a, .item-content {
+        height: 40px;
+        line-height: 40px;
+    }
+    .navbar .navbar-right > li.current-user > a {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+#navbarFixedTop {
+    height: auto !important;
 }

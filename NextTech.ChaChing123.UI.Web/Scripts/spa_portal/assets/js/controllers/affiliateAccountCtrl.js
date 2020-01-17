@@ -183,6 +183,16 @@ app.controller('SummaryReportByAccountForAffiliateAccountTabCtrl', ["$scope", "$
 
     $scope.affiliateComissionsReportForAffiliateAccountTab = {};
 
+    // Load the data from the API
+    //affiliateService.GetSummaryReportByAccountAccount(affiliate, function (result) {
+    //    if (result.data && result.data.StatusCode == 0) {
+    //        $scope.affiliateComissionsReportForAffiliateAccountTab = result.data.Details;
+    //        $scope.loadingAffiliateComissionsReportForAffiliateAccountTab = false;
+    //    } else {
+    //        notificationService.displayError(result.data.StatusMsg);
+    //    }
+    //});
+
     $scope.affiliateComissionsReportForAffiliateAccountTab = dataCom;
     $scope.loadingAffiliateComissionsReportForAffiliateAccountTab = false;
 

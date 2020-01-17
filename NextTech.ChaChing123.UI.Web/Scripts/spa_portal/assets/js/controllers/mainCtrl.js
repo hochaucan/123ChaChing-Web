@@ -132,7 +132,9 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
 	// Detect when window is resized and set some variables
 	$scope.$watch($scope.getWindowDimensions, function(newValue, oldValue) {
 		$scope.windowHeight = newValue.h;
-		$scope.windowWidth = newValue.w;
+        $scope.windowWidth = newValue.w;
+        console.log(newValue.w);
+        console.log(newValue.h);
 		
 		if (newValue.w >= 992) {
 			$scope.isLargeDevice = true;
