@@ -8,8 +8,10 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserLoginCtrl', ['$scope', '$rootScope', '$localStorage', '$location', 'membershipService', 'notificationService', function ($scope, $rootScope, $localStorage, $location, membershipService, notificationService) {
+        .controller('UserLoginCtrl', ['$scope', '$rootScope', '$localStorage', '$location', '$timeout', 'membershipService', 'notificationService', function ($scope, $rootScope, $localStorage, $location, $timeout, membershipService, notificationService) {
             //$scope.master = $scope.user;
+            //$scope.searchButtonText = "Đăng Nhập";
+            $scope.isLoading = false;
             $scope.form = {
                 submit: function (form) {
                     var firstError = null;
@@ -36,9 +38,17 @@
                     } else {
                         //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
                         //your code for submit
+
+                        //$timeout(function () {
+                        //    membershipService.login($scope.userLogin, loginCompleted);
+                        //}, 5000);
+                        $scope.isLoading = true;
+
                         membershipService.login($scope.userLogin, loginCompleted);
+
                         function loginCompleted(result) {
                             if (result.data && result.data.StatusCode == 0) {
+                                $scope.isLoading = false;
                                 membershipService.saveCredentials(result.data.Details);
                                 notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + $scope.userLogin.username);
                                 $scope.userData.displayUserInfo();
@@ -46,8 +56,8 @@
                                     $location.path($rootScope.previousState);
                                 else
                                     $location.path('/');
-                            }
-                            else {
+                            } else {
+                                $scope.isLoading = false;
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         }
