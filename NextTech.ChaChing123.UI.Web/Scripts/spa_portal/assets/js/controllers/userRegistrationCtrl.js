@@ -8,8 +8,9 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserRegistrationCtrl', ['$scope', '$location', '$localStorage', 'membershipService', 'notificationService', function ($scope, $location, $localStorage, membershipService, notificationService) {
+        .controller('UserRegistrationCtrl', ['$scope', '$location', '$timeout', '$localStorage', 'membershipService', 'notificationService', function ($scope, $location, $timeout, $localStorage, membershipService, notificationService) {
             $scope.master = $scope.user;
+            $scope.showSpinner = false;
             $scope.form = {
 
                 submit: function (form) {
@@ -51,15 +52,21 @@
                             "refcode": $scope.userReg.refcode
                         };
 
-
+                        $scope.showSpinner = true;
                         membershipService.register(userRegistration, function (result) {
                             if (result.data && result.data.StatusCode == 0) {
-                                $scope.isLoading = false;
+                                //$scope.isLoading = false;
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 2000);
                                 notificationService.displaySuccess('Đăng ký thành công');
                                 $location.path('/app/home');
                             }
                             else {
-                                $scope.isLoading = false;
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 2000);
+                                //$scope.isLoading = false;
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         });
@@ -71,12 +78,11 @@
             $scope.initForm = {
                 init: function () {
                     var refObj = $localStorage.refcodeVal;
-                    var currentPackage = $localStorage.currentPackage;
                     //Initial the account type for user
                     var accountType = 1;
                     //1. Handle register page when user signup via reference code URL
-                    
-                    if (refObj) {
+
+                    if (refObj.refcode && refObj.refcode.length > 0) {
                         var userRegistration = {};
 
                         userRegistration = {
@@ -90,21 +96,16 @@
                         };
 
                         $scope.userReg = userRegistration;
-						
-						//2.1 Trigger Registration Tab
-						var activeTab = 0;
-						activeTab = $('.nav-tabs > .active').length;
-						if(activeTab > 0) { 
-							console.log(activeTab); 
-							//$('.nav-tabs > .active').next('li').find('a').trigger('click'); 
-						} else {
-							console.log("cannot execute"); 
-						}
-						
+
+                        //2.1 Trigger Registration Tab
+                        $timeout(function () {
+                            angular.element('#registerTabID a').trigger('click');
+                        }, 1000);
+
                         delete $localStorage.refcodeVal;
                     }
                 }
-            }
+            };
 
             $scope.initForm.init();
         }]);

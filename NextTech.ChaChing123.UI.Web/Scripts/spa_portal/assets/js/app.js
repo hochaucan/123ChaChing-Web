@@ -14,5 +14,6 @@ angular.module("clip-two", [
 	'cfp.loadingBar',
 	'ncy-angular-breadcrumb',
 	'duScroll',
-	'pascalprecht.translate',
+    'pascalprecht.translate',
+    'angular-spinkit'
 ]);

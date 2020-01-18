@@ -1802,11 +1802,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
+    <Content Include="Scripts\spa_portal\assets\css\styles.osp.css" />
+    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-osp.html" />
+    <Content Include="Scripts\spa_portal\vendors\angular-spinkit\css\angular-spinkit.min.css" />
     <Content Include="Scripts\spa_portal\assets\css\app.css" />
     <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.svg" />
     <Content Include="Scripts\spa_portal\assets\css\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\spa_portal\assets\css\plugins.css" />
-    <Content Include="Scripts\spa_portal\assets\css\rdash.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.css" />
     <Content Include="Scripts\spa_portal\assets\css\themes\theme-1.css" />
@@ -1923,7 +1925,6 @@
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-learning.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbarbk.html" />
-    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar_public.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_basic.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_data.html" />
@@ -2016,6 +2017,7 @@
     <Content Include="Scripts\spa_portal\bower_components\themify-icons\css\themify-icons.css" />
     <Content Include="Scripts\spa_portal\bower_components\v-accordion\dist\v-accordion.min.css" />
     <Content Include="Scripts\spa_portal\bower_components\v-accordion\dist\v-accordion.min.js" />
+    <Content Include="Scripts\spa_portal\vendors\angular-spinkit\js\angular-spinkit.min.js" />
     <Content Include="Scripts\spa_portal\vendors\css\toastr.css" />
     <Content Include="Scripts\spa_portal\vendors\js\angucomplete-alt.min.js" />
     <Content Include="Scripts\spa_portal\vendors\js\angular-base64.js" />
