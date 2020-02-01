@@ -42,7 +42,7 @@
                             if (result.data && result.data.StatusCode == 0) {
                                 //$scope.isLoading = false;
                                 membershipService.saveCredentials(result.data.Details);
-                                notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + $scope.userLogin.username);
+                                notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + result.data.Details.FullName);
                                 $scope.userData.displayUserInfo();
 
                                 $timeout(function () {

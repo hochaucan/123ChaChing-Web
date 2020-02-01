@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<!-- /// controller:  'AffiliateCtrl' -  localtion: assets/js/controllers/AffiliateAccountCtrl.js /// -->
-			<div>
+			<div ng-controller="AffiliateCtrl">
 				<!-- start: USER TABSET -->
 				<uib-tabset class="tabbable">
 					<!-- start: TAB OVERVIEW -->
@@ -66,7 +66,10 @@
                                     <script type="text/ng-template" id="myModalContent.html">
                                         <form class="form-withdrawal-request" name="FormWithdrawallRequest" id="FormWithdrawallRequest" novalidate="" ng-submit="form.submit(FormWithdrawallRequest)">
                                             <div class="modal-header">
-                                                <h3 class="modal-title">Rút tiền</h3>
+                                                <span class="modal-title text-bold">Rút tiền</span>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group" ng-class="{'has-error':FormWithdrawallRequest.BeneAccountName.$dirty && FormWithdrawallRequest.BeneAccountName.$invalid, 'has-success':FormWithdrawallRequest.BeneAccountName.$valid}">
@@ -115,7 +118,10 @@
                                     </script>
                                     <script type="text/ng-template" id="myModalGetLinkAffiliate.html">
                                         <div class="modal-header">
-                                            <h3 class="modal-title">Lấy Link Affiliate</h3>
+                                            <span class="modal-title text-bold">Lấy Link Affiliate</span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group">
@@ -123,6 +129,13 @@
                                                     Link
                                                 </label>
                                                 <input type="text" class="form-control" id="affiliateUrl" name="affiliateUrl" ng-model="affiliate.affiliateUrl">
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="input-group-button">
+                                                    <button class="btn btn-primary btn-block" type="button" ngclipboard="" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" data-clipboard-target="#affiliateUrl">
+                                                        Copy Affiliate Link
+                                                    </button>
+                                                </span>
                                             </div>
                                         </div>
                                     </script>
@@ -167,13 +180,13 @@
                                 <div class="col-md-1" ng-repeat="affiliate in affiliateComissionsReportForAffiliateAccountTab">
                                     <table class="table table-hover">
                                         <tr>
-                                            <td>{{affiliate.Date}}</td>
+                                            <td>{{affiliate.Month}}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{affiliate.Comission}} Đ</td>
+                                            <td>{{affiliate.Commission | number}} Đ</td>
                                         </tr>
                                         <tr>
-                                            <td>{{affiliate.ComissionThank}} Đ</td>
+                                            <td>{{affiliate.CommissionThanks | number}} Đ</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -260,28 +273,60 @@
 					</uib-tab>
 					<!-- end: TAB EDIT ACCOUNT -->
 					<!-- start: TAB PROJECTS -->
-					<uib-tab heading="Hoa Hồng">
-                        <div>
-                            <div class="table-responsive" ng-controller="SummaryReportByAccountCtrl">
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Tháng</th>
-                                            <th>Hoa Hồng</th>
-                                            <th>Hoa Hồng Cảm Ơn</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="data in affiliateComissionsReport">
-                                            <td>{{data.Month}}/2020</td>
-                                            <td>{{data.Commission | number}} Đ</td>
-                                            <td>{{data.CommissionThanks | number}} Đ</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <uib-tab heading="Hoa Hồng" id="affiliateComissions" ng-click="getaffiliateComissions()">
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h3>Hoa Hồng</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover" ng-if="!loadingAffiliateSummaryReportByAccount">
+                                        <thead>
+                                            <tr>
+                                                <th>Tháng</th>
+                                                <th>Hoa Hồng</th>
+                                                <th>Hoa Hồng Cảm Ơn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in affiliateComissionsReport">
+                                                <td>{{data.Month}}/2020</td>
+                                                <td>{{data.Commission | number}} Đ</td>
+                                                <td>{{data.CommissionThanks | number}} Đ</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-					</uib-tab>
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h3>Danh Sách Khách Hàng</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover" ng-if="!loadingAffiliateListByAccount">
+                                        <thead>
+                                            <tr>
+                                                <th>Ngày Đăng Ký</th>
+                                                <th>Tên</th>
+                                                <th>Gói</th>
+                                                <th>Tình Trạng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="data in affiliateListByAccount">
+                                                <td>{{data.CreatedDate}}</td>
+                                                <td>{{data.FullName}}</td>
+                                                <td>{{data.AccountType === 1 ? "Cơ bản" : "Nâng cao"}}</td>
+                                                <td>{{data.StatusName}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
 					<!-- end: TAB PROJECTS -->
 				</uib-tabset>
 				<!-- end: USER TABSET -->

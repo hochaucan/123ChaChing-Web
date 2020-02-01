@@ -97,7 +97,14 @@
 
                         $scope.userReg = userRegistration;
 
-                        //2.1 Trigger Registration Tab
+                        //2.1 if user is already logged, kick him out then redirect to register url
+                        //if (membershipService.isUserLoggedIn()) {
+                        //    membershipService.removeCredentials();
+                        //    $location.path('/app/login/signin?refcode=' + refObj.refcode);
+                        //    notificationService.displaySuccess("remove user's credential successfully");
+                        //}
+
+                        //2.2 Trigger Registration Tab
                         $timeout(function () {
                             angular.element('#registerTabID a').trigger('click');
                         }, 1000);

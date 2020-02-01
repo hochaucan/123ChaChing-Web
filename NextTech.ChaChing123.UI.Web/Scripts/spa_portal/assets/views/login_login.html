@@ -87,19 +87,18 @@
                                     <input type="email" class="form-control" id="boxRegisterEmail" name="email" ng-model="userReg.email" placeholder="Địa chỉ email" required="">
                                     <span class="error text-small block" ng-if="FormRegistration.email.$dirty && FormRegistration.email.$invalid">Email là bắt buộc.</span>
                                 </div>
-                                <div class="form-group" ng-class="{'has-error':FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid, 'has-success':FormRegistration.refcode.$valid}">
+                                <div class="form-group">
                                     <label class="control-label" for="boxRegisterRefCode">
                                         Mã giới thiệu
                                     </label>
-                                    <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" ng-model="userReg.refcode" placeholder="Mã giới thiệu" readonly required="">
-                                    <span class="error text-small block" ng-if="FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid">Mã giới thiệu là bắt buộc.</span>
+                                    <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" ng-model="userReg.refcode" readonly required="">
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.phone.$dirty && FormRegistration.phone.$invalid, 'has-success':FormRegistration.phone.$valid}">
                                     <label class="control-label" for="boxRegisterPhone">
                                         Số điện thoại <span class="symbol required"></span>
                                     </label>
-                                    <input type="text" class="form-control" id="boxRegisterPhone" name="phone" ng-model="userReg.phone" placeholder="Số điện thoại" required="">
-                                    <span class="error text-small block" ng-if="FormRegistration.phone.$dirty && FormRegistration.phone.$invalid">Số điện thoại là bắt buộc.</span>
+                                    <input type="text" class="form-control" id="boxRegisterPhone" name="phone" ng-model="userReg.phone" placeholder="Số điện thoại" ng-pattern="/^[0-9]*$/" required="">
+                                    <span class="error text-small block" ng-if="FormRegistration.phone.$dirty && FormRegistration.phone.$invalid">Số điện thoại là bắt buộc và phải là số.</span>
                                 </div>
                                 <div class="form-group" ng-class="{'has-error':FormRegistration.accounttype.$dirty && FormRegistration.accounttype.$invalid, 'has-success':FormRegistration.accounttype.$valid}">
                                     <label class="control-label block">

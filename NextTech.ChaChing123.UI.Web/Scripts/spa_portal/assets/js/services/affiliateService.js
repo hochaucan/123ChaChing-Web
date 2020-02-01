@@ -19,7 +19,8 @@
             getWalletInfoByAccount: getWalletInfoByAccount,
             GetAfiliateAlertByAccount: GetAfiliateAlertByAccount,
             GetSummaryReportByAccount: GetSummaryReportByAccount,
-            GetSummaryReportByAccountAccount: GetSummaryReportByAccountAccount
+            GetSummaryReportByAccountAccount: GetSummaryReportByAccountAccount,
+            GetAfiliateListByAccount: GetAfiliateListByAccount
         };
 
         function getAffiliateComissions(affiliate, completed) {
@@ -66,6 +67,13 @@
 
         function GetSummaryReportByAccountAccount(affiliate, completed) {
             apiService.post(baseUrl + '/api/affiliate/GetSummaryReportByAccount/', affiliate,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function GetAfiliateListByAccount(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/GetAfiliateListByAccount/', affiliate,
                 completed,
                 affiliateFailed
             );

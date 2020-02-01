@@ -1803,7 +1803,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.osp.css" />
+    <Content Include="Scripts\spa_portal\assets\images\clippy.svg" />
+    <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-osp.html" />
+    <Content Include="Scripts\spa_portal\bower_components\ngclipboard\clipboard.min.js" />
     <Content Include="Scripts\spa_portal\vendors\angular-spinkit\css\angular-spinkit.min.css" />
     <Content Include="Scripts\spa_portal\assets\css\app.css" />
     <Content Include="Scripts\spa_portal\assets\css\fonts\fontawesome-webfont.svg" />
