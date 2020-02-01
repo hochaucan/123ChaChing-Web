@@ -15,5 +15,6 @@ angular.module("clip-two", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
     'pascalprecht.translate',
-    'angular-spinkit'
+    'angular-spinkit',
+    'ngclipboard' //Add ngclipboard dependency to your module
 ]);

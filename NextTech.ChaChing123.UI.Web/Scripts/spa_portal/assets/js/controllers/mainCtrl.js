@@ -133,9 +133,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
 	$scope.$watch($scope.getWindowDimensions, function(newValue, oldValue) {
 		$scope.windowHeight = newValue.h;
         $scope.windowWidth = newValue.w;
-        console.log(newValue.w);
-        console.log(newValue.h);
-		
+        
 		if (newValue.w >= 992) {
 			$scope.isLargeDevice = true;
 		} else {
@@ -178,6 +176,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                 $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
                 if ($scope.userData.isUserLoggedIn) {
                     $scope.username = $localStorage.currentUser.username;
+                    $scope.fullname = $localStorage.currentUser.fullname;
                 }
             }
 
