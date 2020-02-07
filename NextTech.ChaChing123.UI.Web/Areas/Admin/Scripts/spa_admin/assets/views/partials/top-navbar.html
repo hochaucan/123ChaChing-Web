@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div class="navbar-header">
+        <a href="assets/views/partials/top-navbar.html#" class="sidebar-mobile-toggler pull-left hidden-md hidden-lg" ng-click="toggle(&#39;sidebar&#39;)"> <i class="ti-align-justify"></i> </a>
+        <a class="navbar-brand" ui-sref="app.dashboard"> <img ng-src="{{app.layout.logo}}" alt="{{app.name}}" width="70"> </a>
+        <a href="assets/views/partials/top-navbar.html#" class="sidebar-toggler pull-right visible-md visible-lg" ng-click="app.layout.isSidebarClosed = !app.layout.isSidebarClosed"> <i class="ti-align-justify"></i> </a>
+        <a class="pull-right menu-toggler visible-xs-block" id="menu-toggler" ng-click="navbarCollapsed = !navbarCollapsed"> <span class="sr-only">Toggle navigation</span> <i class="ti-view-grid"></i> </a>
+    </div>
+    <!-- end: NAVBAR HEADER -->
+    <!-- start: NAVBAR COLLAPSE -->
+    <div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if="!navbarCollapsed" off-click-filter="#menu-toggler">
+        <ul class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
+            <!-- start: MESSAGES DROPDOWN -->
+            <!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/InboxCtrl.js /// -->
+            <!-- start: USER OPTIONS DROPDOWN -->
+            <li class="dropdown current-user" uib-dropdown="" on-toggle="toggled(open)">
+                <a href="assets/views/partials/top-navbar.html" class="dropdown-toggle" uib-dropdown-toggle=""> <img src="{{baseUrl.url}}Areas/Admin/Scripts/spa_admin/assets/images/avatar-1.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> </a>
+                <ul class="dropdown-menu dropdown-dark">
+                    <li>
+                        <a ui-sref="app.pages.user" translate="topbar.user.PROFILE"> My Profile </a>
+                    </li>
+                    <li>
+                        <a ui-sref="login.signin" translate="topbar.user.LOGOUT"> Log Out </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- end: USER OPTIONS DROPDOWN -->
+        </ul>
+        <!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
+        <div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true">
+            <div class="arrow-left"></div>
+            <div class="arrow-right"></div>
+        </div>
+        <!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
+    </div>
+    <!-- end: NAVBAR COLLAPSE -->
+    <!-- start: TOP NAVBAR -->
+</body>
+</html>

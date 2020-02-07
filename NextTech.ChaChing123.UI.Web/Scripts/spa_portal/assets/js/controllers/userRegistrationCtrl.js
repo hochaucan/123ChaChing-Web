@@ -36,10 +36,6 @@
                         return;
 
                     } else {
-                        //SweetAlert.swal("Good job!", "Your form is ready to be submitted!", "success");
-                        //your code for submit
-                        $scope.isLoading = true;
-
                         var userRegistration = {};
 
                         userRegistration = {
@@ -55,7 +51,6 @@
                         $scope.showSpinner = true;
                         membershipService.register(userRegistration, function (result) {
                             if (result.data && result.data.StatusCode == 0) {
-                                //$scope.isLoading = false;
                                 $timeout(function () {
                                     $scope.showSpinner = false;
                                 }, 2000);
@@ -66,7 +61,6 @@
                                 $timeout(function () {
                                     $scope.showSpinner = false;
                                 }, 2000);
-                                //$scope.isLoading = false;
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         });

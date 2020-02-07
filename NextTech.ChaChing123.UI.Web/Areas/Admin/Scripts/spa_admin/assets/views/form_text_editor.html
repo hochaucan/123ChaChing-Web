@@ -1,0 +1,31 @@
+
+<!-- saved from url=(0098)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/form_text_editor.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><section id="page-title">
+	<div class="row">
+		<div class="col-sm-8">
+			<h1 class="mainTitle" translate="sidebar.nav.forms.TEXTEDITOR">TEXT EDITOR</h1>
+			<span class="mainDescription">CKEditor directive for Angular.</span>
+		</div>
+		<div ncy-breadcrumb=""></div>
+	</div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: TEXT EDITOR -->
+<div class="container-fluid container-fullw bg-white">
+	<div class="row">
+		<div class="col-md-12">
+			<h5 class="over-title">WYSIWYG <span class="text-bold">Editor</span></h5>
+			<p class="margin-bottom-30">
+				CKEditor is a ready-for-use HTML text editor designed to simplify web content creation. It's a WYSIWYG editor that brings common word processor features directly to your web pages. Enhance your website experience with our community maintained editor.
+			</p>
+			<!-- /// controller:  'CkeditorCtrl' -  localtion: assets/js/controllers/ckeditorCtrl.js /// -->
+			<div ng-controller="CkeditorCtrl">
+				<div ckeditor="options" ng-model="content" ready="onReady()"></div>
+				<div class="well margin-top-20">
+					{{content}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end: TEXT EDITOR --></body></html>

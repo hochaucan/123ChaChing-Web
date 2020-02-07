@@ -38,7 +38,7 @@ app.run(['$rootScope', '$state', '$stateParams',
         picture: 'app/img/user/02.jpg'
     };
     $rootScope.baseUrl = {
-        url: 'http://localhost:1495'
+        url: 'http://localhost:1484/'
     };
 }]);
 // translate config

@@ -182,13 +182,13 @@ app.controller('AffiliateGetLinkCtrl', ["$scope", "$uibModal", "affiliateService
     }
 }]);
 
-app.controller('ModalInstanceCtrl1', ["$scope", "$localStorage", "$uibModalInstance", "items", "affiliateService", "notificationService", function ($scope, $localStorage, $uibModalInstance, items, affiliateService, notificationService) {
+app.controller('ModalInstanceCtrl1', ["$scope", "$timeout", "$localStorage", "$uibModalInstance", "items", "affiliateService", "notificationService", function ($scope, $timeout, $localStorage, $uibModalInstance, items, affiliateService, notificationService) {
     $scope.ok = function () {
        
     };
 
+    $scope.showSpinner = false;
     $scope.form = {
-
         submit: function (form) {
             var firstError = null;
             if (form.$invalid) {
@@ -228,12 +228,19 @@ app.controller('ModalInstanceCtrl1', ["$scope", "$localStorage", "$uibModalInsta
                     "Remarks": $scope.affiliate.Remarks
                 };
 
+                $scope.showSpinner = true;
                 // Load the data from the API
                 affiliateService.add(affiliate, function (result) {
                     if (result.data && result.data.StatusCode == 0) {
                         notificationService.displaySuccess(result.data.StatusMsg);
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 2000);
                     } else {
                         notificationService.displayError(result.data.StatusMsg);
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 2000);
                     }
                     $uibModalInstance.dismiss('cancel');
                 });
@@ -310,7 +317,6 @@ app.controller('ModalInstanceCtrl2', ["$scope", "$localStorage", "$uibModalInsta
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
-
 
     $scope.initGetLinkAffiliate = {
         init: function () {

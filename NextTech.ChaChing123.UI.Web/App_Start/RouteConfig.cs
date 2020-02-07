@@ -19,13 +19,6 @@ namespace NextTech.ChaChing123.UI.Web
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new string[] { "NextTech.ChaChing123.UI.Web.Controllers" }
             );
-
-            //routes.MapRoute(
-            //    "admin_default",
-            //    "admin/{controller}/{action}/{id}",
-            //    new { controler = "Home", action = "Index", id = UrlParameter.Optional },
-            //    new string[] { "NextTech.ChaChing123.UI.Web.Areas.Admin.Controllers" }
-            //);
         }
     }
 }
