@@ -1,0 +1,24 @@
+<!-- saved from url=(0085)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/app.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><toaster-container toaster-options="{&#39;position-class&#39;: &#39;toast-top-right&#39;, &#39;close-button&#39;:true}"></toaster-container>
+<!-- / toaster directive -->
+<!-- sidebar -->
+<div class="sidebar app-aside hidden-print" id="sidebar" toggleable="" parent-active-class="app-slide-off">
+	<div perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true" class="sidebar-container">
+		<div data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/sidebar.html&#39; "></div>
+	</div>
+</div>
+<!-- / sidebar -->
+<div class="app-content" ng-class="{loading: loading}">
+	<!-- top navbar -->
+	<header data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/top-navbar.html&#39; " class="navbar navbar-default navbar-static-top hidden-print"></header>
+	<!-- / top navbar -->
+	<!-- main content -->
+	<div data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/main-content.html&#39; " class="main-content"></div>
+	<!-- / main content -->
+</div>
+<!-- footer -->
+<footer data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/footer.html&#39; " class="hidden-print"></footer>
+<!-- / footer -->
+<div data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/off-sidebar.html&#39; " id="off-sidebar" class="sidebar hidden-print" toggleable="" parent-active-class="app-offsidebar-open"></div>
+<div data-ng-include=" &#39;../Scripts/spa_admin/assets/views/partials/settings.html&#39; " toggleable="" class="settings panel panel-default hidden-xs hidden-sm hidden-print" id="settings"></div>
+</body></html>

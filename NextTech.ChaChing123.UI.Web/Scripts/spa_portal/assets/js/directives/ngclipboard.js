@@ -16,7 +16,7 @@
       ClipboardJS = window.ClipboardJS;
     }
 
-    angular.module(MODULE_NAME, []).directive('ngclipboard', ['notificationService', function (notificationService) {
+    angular.module(MODULE_NAME, []).directive('ngclipboard', ['$timeout', 'notificationService', function ($timeout, notificationService) {
         return {
             restrict: 'A',
             scope: {
@@ -34,6 +34,10 @@
                         });
                     });
                     notificationService.displaySuccess("Copy Link Affiliate Thành Công");
+
+                    $timeout(function () {
+                        angular.element('#myModalGetLinkAffiliateCloseButton').trigger('click');
+                    }, 1000);
                 });
 
                 clipboard.on('error', function (e) {
@@ -42,6 +46,10 @@
                             e: e
                         });
                         notificationService.displaySuccess("Copy Link Affiliate Không Thành Công");
+
+                        $timeout(function () {
+                            angular.element('#myModalGetLinkAffiliateCloseButton').trigger('click');
+                        }, 1000);
                     });
                 });
 
