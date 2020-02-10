@@ -65,6 +65,9 @@
       "customers": {
         "MAIN": "Khách Hàng"
       },
+      "configurations": {
+        "MAIN":  "Cấu hình"
+      },
       "element": {
         "MAIN": "UI Elements",
         "ELEMENTS": "Elements",
