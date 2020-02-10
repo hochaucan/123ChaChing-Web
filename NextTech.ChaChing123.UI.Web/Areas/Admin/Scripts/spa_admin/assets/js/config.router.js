@@ -156,22 +156,44 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         ncyBreadcrumb: {
             label: 'Typography'
         }
-    }).state('app.table', {
-        url: '/table',
+    }).state('app.member', {
+        url: '/member',
         template: '<div ui-view class="fade-in-up"></div>',
         title: 'Tables',
         ncyBreadcrumb: {
             label: 'Tables'
         }
-    }).state('app.table.basic', {
-        url: '/basic',
+    }).state('app.member.list', {
+        url: '/list',
+        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_data.html",
+        title: 'ngTable',
+        ncyBreadcrumb: {
+            label: 'ngTable'
+        },
+        resolve: loadSequence('ngTable', 'ngTableCtrl')
+    }).state('app.order', {
+        url: '/order',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Tables',
+        ncyBreadcrumb: {
+            label: 'Tables'
+        }
+    }).state('app.order.list', {
+        url: '/list',
         templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_basic.html",
         title: 'Basic Tables',
         ncyBreadcrumb: {
             label: 'Basic'
         }
-    }).state('app.table.responsive', {
-        url: '/responsive',
+    }).state('app.customer', {
+        url: '/customer',
+        template: '<div ui-view class="fade-in-up"></div>',
+        title: 'Tables',
+        ncyBreadcrumb: {
+            label: 'Tables'
+        }
+    }).state('app.customer.list', {
+        url: '/list',
         templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_responsive.html",
         title: 'Responsive Tables',
         ncyBreadcrumb: {
@@ -185,14 +207,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             label: 'Dynamic'
         },
         resolve: loadSequence('dynamicTableCtrl')
-    }).state('app.table.data', {
-        url: '/data',
-        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_data.html",
-        title: 'ngTable',
-        ncyBreadcrumb: {
-            label: 'ngTable'
-        },
-        resolve: loadSequence('ngTable', 'ngTableCtrl')
     }).state('app.table.export', {
         url: '/export',
         templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_export.html",
