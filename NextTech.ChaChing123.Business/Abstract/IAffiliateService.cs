@@ -13,13 +13,10 @@ namespace NextTech.ChaChing123.Business
 
 	public interface IAffiliateService
 	{
-		ResultDTO GetOrderList(RequestOrderListDTO obj);
-		ResultDTO UpdatePaymentState(PaymentContractDTO obj);
-		ResultDTO UpdatePaymentAffiliateState(PaymentAffiliateDTO obj);
 		ResultDTO GetWalletInfoByAccount(RequestDTO obj);
 		ResultDTO GetAffiliateInfoByAccount(RequestAffiliateInfoDTO obj);
 		ResultDTO GetAffiliateCodeByAccount(RequestDTO obj);
-		ResultDTO GetWithDrawallInfoByAccount(RequestDTO obj);
+		ResultDTO GetWithDrawallInfoByAccount(RequestWithdrawalDTO obj);
 		ResultDTO RequestWithDrawall(RequestWithdrawalDTO obj);
 		ResultDTO GetSummaryReportByAccount(SummaryRequestDTO obj);
 		ResultDTO GetAfiliateAlertByAccount(RequestDTO obj);

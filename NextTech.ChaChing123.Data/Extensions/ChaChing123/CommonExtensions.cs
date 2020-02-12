@@ -19,8 +19,9 @@ namespace NextTech.ChaChing123.Data.Extensions
         /// <param name="userName">Name of the user.</param>
         /// <param name="sessionKey">The session key.</param>
         /// <returns>System.Int32.</returns>
-        public int CheckLogin(string userName, string sessionKey)
+        public ResultDTO CheckLogin(string sessionKey)
         {
+            var result = new ResultDTO();
             var dbContext = new ApplicationContext();
 
             var errorCode = new SqlParameter("errorCode", System.Data.SqlDbType.Int)
@@ -28,15 +29,14 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[CheckLogin] @UserName, @SessionKey, @errorCode out",
-                new SqlParameter("UserName", userName),
+            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_CheckLogin] @SessionKey, @errorCode out",
                 new SqlParameter("SessionKey", sessionKey),
                 errorCode);
-            if(int.Parse(errorCode.Value.ToString(), 0) == 0)
-            {
-                return 2;
-            }
-            return 0;
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
         }
 
         /// <summary>

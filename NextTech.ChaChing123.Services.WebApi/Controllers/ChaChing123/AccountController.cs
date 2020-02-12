@@ -278,58 +278,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            });
        }
 
-        [AllowAnonymous]
-        [Route("ActiveAccount")]
-        [HttpPost]
-        public HttpResponseMessage ActiveAccount(HttpRequestMessage request, ActiveAccountDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.ActiveAccount(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("ChangeAccountType")]
-        [HttpPost]
-        public HttpResponseMessage ChangeAccountType(HttpRequestMessage request, ChangeAccountTypeDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.ChangeAccountType(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("LockAccount")]
-        [HttpPost]
-        public HttpResponseMessage LockAccount(HttpRequestMessage request, LockAccountDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.LockAccount(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("LockAffilate")]
-        [HttpPost]
-        public HttpResponseMessage LockAffilate(HttpRequestMessage request, LockAffilateDTO obj)
-        {   
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.LockAffilate(obj));
-                return response;
-            });
-        }
-
+       
         [AllowAnonymous]
         [Route("LogOut")]
         [HttpPost]

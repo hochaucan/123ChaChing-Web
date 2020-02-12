@@ -22,32 +22,26 @@ namespace NextTech.ChaChing123.Business.Utilities
         /// <param name="userName">Name of the user.</param>
         /// <param name="sessionKey">The session key.</param>
         /// <returns>System.Int32.</returns>
-        public static int CheckLogin(string userName, string sessionKey)
+        public static ResultDTO CheckLogin(string sessionKey)
         {
-            if (GetConfigValue("CheckLogin") != "0")
+            var result = new ResultDTO();
+            if (string.IsNullOrEmpty(sessionKey))
             {
-                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(sessionKey))
-                {
-                    return ConvertErrorCodeToInt(RetCode.ECS0002);
-                }
-
-                try
-                {
-                    CommonExtensions common = new CommonExtensions();
-                    return common.CheckLogin(userName, sessionKey);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError("Method WriteLog:" + ex.Message);
-                    return ConvertErrorCodeToInt(RetCode.ECS0001);
-                }
-                //TODO: return ConvertErrorCodeToInt(RetCode.ECS0019);
+                result.StatusCode = ConvertErrorCodeToInt(RetCode.ECS0017);
+                result.SetContentMsg();
             }
-            else
+            try
             {
-                return ConvertErrorCodeToInt(RetCode.ECS0000);
+                CommonExtensions common = new CommonExtensions();
+                return common.CheckLogin(sessionKey);
             }
-            
+            catch (Exception ex)
+            {
+                Logger.LogError("Method WriteLog:" + ex.Message);
+                result.StatusCode = ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.Details = ex.Message;
+            }
+            return result;
         }
 
         /// <summary>
@@ -105,7 +99,7 @@ namespace NextTech.ChaChing123.Business.Utilities
 
         public static bool VerifykAccessWithRoot(string userId,string sessionKey)
         {
-            if(CheckLogin(userId, sessionKey) != 0|| (GetConfigValue("RootId") != userId && GetConfigValue("IsCheckRoleRoot") == "1")) 
+            if(CheckLogin(sessionKey).StatusCode != 0|| (GetConfigValue("RootId") != userId && GetConfigValue("IsCheckRoleRoot") == "1")) 
             {
                 return false;
             }
