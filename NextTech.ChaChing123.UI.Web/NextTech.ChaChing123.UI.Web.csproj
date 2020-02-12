@@ -440,6 +440,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\v-accordion\dist\v-accordion.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Resources\Images\1.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -460,11 +461,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
+    <Content Include="Scripts\spa_portal\assets\css\quickeditor.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.osp.css" />
     <Content Include="Scripts\spa_portal\assets\images\clippy.svg" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\editorCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
-    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-osp.html" />
+    <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
+    <Content Include="Scripts\spa_portal\assets\views\editor.html" />
     <Content Include="Scripts\spa_portal\bower_components\ngclipboard\clipboard.min.js" />
     <Content Include="Scripts\spa_portal\vendors\angular-spinkit\css\angular-spinkit.min.css" />
     <Content Include="Scripts\spa_portal\assets\css\app.css" />
@@ -584,9 +588,7 @@
     <Content Include="Scripts\spa_portal\assets\views\partials\off-sidebar.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\settings.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\sidebar.html" />
-    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar-learning.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar.html" />
-    <Content Include="Scripts\spa_portal\assets\views\partials\top-navbarbk.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_basic.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_data.html" />

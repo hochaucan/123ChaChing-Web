@@ -1,0 +1,65 @@
+.page{
+  background-color: #f7f7f7;
+}
+
+.dot{
+  color: white;
+  position: absolute;
+  background-color: red;
+  border-radius: 25px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+  .simplecolorpicker.icon, .simplecolorpicker span.color {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0px;
+    width: 50px;
+    height: 50px;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+-moz-user-select: none;     /* Firefox all */
+-ms-user-select: none;      /* IE 10+ */
+user-select: none;          /* Likely future */
+outline: none;
+}
+
+.simplecolorpicker.glyphicons span.color[data-selected]:after {
+    position: relative;
+    top: 12px;
+    font-family: 'Glyphicons Halflings';
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    content: '\e013';
+    margin-right: 1px;
+    text-align: center;
+    margin-left: 12px;
+    font-size: 24px;
+    vertical-align: -9px;
+}
+
+.color-select {
+    /*border: 1px solid #95a5a6 !important;*/
+    outline: none;
+}
+
+.color-select:after{
+  content: "\f00c";
+  font-family: FontAwesome;
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  color: white;
+  font-size: 30px;
+  margin-top: 4px;
+}
+
+.collapse-arrow{
+  float: right;
+    margin-top: -22px;
+    font-size: 20px;
+}

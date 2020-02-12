@@ -8,8 +8,6 @@
 <!-- start: NAVBAR COLLAPSE -->
 <div class="navbar-collapse collapse" uib-collapse="navbarCollapsed" ng-init="navbarCollapsed = true" off-click="navbarCollapsed = true" off-click-if="!navbarCollapsed" off-click-filter="#menu-toggler">
     <ul id="navbarFixedTop" class="nav navbar-right" ct-fullheight="window" data-ct-fullheight-exclusion="header" data-ct-fullheight-if="isSmallDevice">
-        <!-- start: MESSAGES DROPDOWN -->
-        <!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/InboxCtrl.js /// -->
         <!-- start: DASHBOARD -->
         <!-- /// controller:  'InboxCtrl' -  localtion: assets/js/controllers/InboxCtrl.js /// -->
         <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-controller="InboxCtrl">
@@ -25,6 +23,20 @@
             </a>
         </li>
         <!-- end: DASHBOARD -->
+        <!-- start: EDITOR -->
+        <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="userData.isUserLoggedIn">
+            <a class="dropdown-toggle" ui-sref="app.editor" uib-dropdown-toggle="">
+                <div class="item-content">
+                    <div class="item-icon">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <div class="item-label">
+                        <span class="title ng-scope" translate="topbar.nav.EDITOR">Trình Soạn Thảo</span>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <!-- end: EDITOR -->
         <!-- start: CUSTOMER -->
         <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="userData.isUserLoggedIn">
             <a href="#/customer" class="dropdown-toggle" uib-dropdown-toggle="">

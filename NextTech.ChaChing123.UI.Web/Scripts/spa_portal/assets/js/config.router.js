@@ -70,7 +70,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             label: 'Affiliate'
         },
         resolve: { isAuthenticated: isAuthenticated }
-        //resolve: loadSequence('ngTable', 'ngTableAffiliateCtrl')
+    }).state('app.editor', {
+        url: '/editor',
+        templateUrl: "Scripts/spa_portal/assets/views/editor.html",
+        title: 'editor',
+        ncyBreadcrumb: {
+            label: 'editor'
+        },
+        resolve: { isAuthenticated: isAuthenticated }
     }).state('app.ui', {
         url: '/ui',
         template: '<div ui-view class="fade-in-up"></div>',
