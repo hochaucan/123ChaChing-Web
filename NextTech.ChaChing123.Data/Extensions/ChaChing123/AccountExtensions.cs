@@ -178,27 +178,6 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-        public static ResultDTO ActiveAccount(this IEntityBaseRepository<Account> repository, ActiveAccountDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_ActiveAccount] @UserName, @SessionKey,@Status, @errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                         new SqlParameter("Status", obj.Status),
-                        errorCode);
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
-
-            return result;
-        }
-
         public static ResultDTO EditAccount(this IEntityBaseRepository<Account> repository, EditAccountDTO obj)
         {
             var result = new ResultDTO();
@@ -258,90 +237,64 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-        public static ResultDTO ChangeAccountType(this IEntityBaseRepository<Account> repository, ChangeAccountTypeDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
+       
+        //public static ResultDTO LockAccount(this IEntityBaseRepository<Account> repository, LockAccountDTO obj)
+        //{
+        //    var result = new ResultDTO();
+        //    var dbContext = new ApplicationContext();
 
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
+        //    var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+        //    {
+        //        Direction = System.Data.ParameterDirection.Output
+        //    };
 
-            if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-            {
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            }
-            else
-            {
-                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_ChangeAccountType] @UserName, @SessionKey,@AccountType, @errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                         new SqlParameter("AccountType", obj.AccountType),
-                        errorCode);
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
-            return result;
-        }
+        //    try
+        //    {
+        //        result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAccount] @UserName, @SessionKey,@IsLock, @errorCode out",
+        //            new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+        //            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+        //             new SqlParameter("IsLock", obj.IsLock),
+        //            errorCode);
+        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+        //        result.SetContentMsg();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+        //        result.SetContentMsg();
+        //    }
 
-        public static ResultDTO LockAccount(this IEntityBaseRepository<Account> repository, LockAccountDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
+        //    return result;
+        //}
 
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
+        //public static ResultDTO LockAffilate(this IEntityBaseRepository<Account> repository, LockAffilateDTO obj)
+        //{
+        //    var result = new ResultDTO();
+        //    var dbContext = new ApplicationContext();
 
-            try
-            {
-                result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAccount] @UserName, @SessionKey,@IsLock, @errorCode out",
-                    new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                     new SqlParameter("IsLock", obj.IsLock),
-                    errorCode);
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
-            catch (Exception ex)
-            {
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
+        //    var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+        //    {
+        //        Direction = System.Data.ParameterDirection.Output
+        //    };
 
-            return result;
-        }
+        //    try
+        //    {
+        //        result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAffilate] @UserName, @SessionKey,@IsLockAffilate, @errorCode out",
+        //             new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+        //            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+        //             new SqlParameter("IsLockAffilate", obj.IsLockAffilate),
+        //            errorCode);
+        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+        //        result.SetContentMsg();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+        //        result.SetContentMsg();
+        //    }
 
-        public static ResultDTO LockAffilate(this IEntityBaseRepository<Account> repository, LockAffilateDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            try
-            {
-                result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAffilate] @UserName, @SessionKey,@IsLockAffilate, @errorCode out",
-                     new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                     new SqlParameter("IsLockAffilate", obj.IsLockAffilate),
-                    errorCode);
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
-            catch (Exception ex)
-            {
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
-
-            return result;
-        }
+        //    return result;
+        //}
 
         public static ResultDTO GetAccountInfo(this IEntityBaseRepository<Account> repository, RequestDTO obj)
         {

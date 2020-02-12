@@ -55,54 +55,7 @@ namespace NextTech.ChaChing123.Business
         //    return accInfo;
         //}
 
-        public  ResultDTO GetOrderList(RequestOrderListDTO obj)
-        {
-            ResultDTO accInfo = new ResultDTO();
-            try
-            {
-                accInfo = _repository.GetOrderList(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("GetOrderList", ActionType.Update, ex.Message.ToString());
-                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                accInfo.StatusMsg = ex.Message.ToString();
-            }
-
-            return accInfo;
-        }
-        public  ResultDTO UpdatePaymentState(PaymentContractDTO obj)
-        {
-            ResultDTO accInfo = new ResultDTO();
-            try
-            {
-                accInfo = _repository.UpdatePaymentState(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("UpdatePaymentState", ActionType.Update, ex.Message.ToString());
-                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                accInfo.StatusMsg = ex.Message.ToString();
-            }
-
-            return accInfo;
-        }
-        public  ResultDTO UpdatePaymentAffiliateState(PaymentAffiliateDTO obj)
-        {
-            ResultDTO accInfo = new ResultDTO();
-            try
-            {
-                accInfo = _repository.UpdatePaymentAffiliateState(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("UpdatePaymentAffiliateState", ActionType.Update, ex.Message.ToString());
-                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                accInfo.StatusMsg = ex.Message.ToString();
-            }
-
-            return accInfo;
-        }
+        
         public  ResultDTO GetWalletInfoByAccount(RequestDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();
@@ -151,12 +104,12 @@ namespace NextTech.ChaChing123.Business
 
             return accInfo;
         }
-        public  ResultDTO GetWithDrawallInfoByAccount(RequestDTO obj)
+        public  ResultDTO GetWithDrawallInfoByAccount(RequestWithdrawalDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();
             try
             {
-                accInfo = _repository.GetWithDrawallInfoByAccount(obj);
+                accInfo = _repository.RequestWithDrawall(obj);
             }
             catch (Exception ex)
             {
@@ -217,7 +170,6 @@ namespace NextTech.ChaChing123.Business
 
             return accInfo;
         }
-
         public ResultDTO GetAfiliateListByAccount(RequestOrderListDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();

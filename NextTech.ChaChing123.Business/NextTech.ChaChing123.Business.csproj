@@ -66,8 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAccountService.cs" />
+    <Compile Include="Abstract\ILandingPageService.cs" />
     <Compile Include="Abstract\IAffiliateService.cs" />
+    <Compile Include="Abstract\IAdminService.cs" />
     <Compile Include="Abstract\IWithdrawalRequestService.cs" />
+    <Compile Include="ChaChing123\LandingPageComponent.cs" />
+    <Compile Include="ChaChing123\AdminComponent.cs" />
     <Compile Include="ChaChing123\AccountComponent.cs" />
     <Compile Include="ChaChing123\AffiliateComponent.cs" />
     <Compile Include="ChaChing123\WithdrawalRequestComponent.cs" />
