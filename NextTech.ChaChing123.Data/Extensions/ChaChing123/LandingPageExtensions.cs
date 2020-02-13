@@ -89,8 +89,8 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddSoloPage] @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@CreatedBy,@SessionKey,@errorCode out",
+            
+            result.Details = dbContext.Database.SqlQuery<RequestDetailByIDDTO>("EXEC [dbo].[sp_AddSoloPage] @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@CreatedBy,@SessionKey,@errorCode out",
                         new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                         new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
                         new SqlParameter("ButtonName", DB.SafeSQL(obj.ButtonName)),
@@ -109,10 +109,9 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("TrackingCode", obj.TrackingCode),
                         new SqlParameter("CreatedBy", DB.SafeSQL(obj.CreatedBy)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+                        errorCode).FirstOrDefault<RequestDetailByIDDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
             return result;
         }
         //
@@ -126,7 +125,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditSoloPage] @ID, @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@UpdatedBy,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<RequestDetailByIDDTO>("EXEC [dbo].[sp_EditSoloPage] @ID, @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@UpdatedBy,@SessionKey,@errorCode out",
                         new SqlParameter("ID", obj.ID),
                         new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                         new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
@@ -146,7 +145,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("TrackingCode", DB.SafeSQL(obj.TrackingCode) ),
                         new SqlParameter("UpdatedBy", DB.SafeSQL(obj.UpdatedBy)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+                         errorCode).FirstOrDefault<RequestDetailByIDDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 
