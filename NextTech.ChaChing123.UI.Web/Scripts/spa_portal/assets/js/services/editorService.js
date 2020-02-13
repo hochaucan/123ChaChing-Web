@@ -15,7 +15,7 @@
         };
 
         function createSoloPage(editor, completed) {
-            apiService.post(baseUrl + '/api/editor/createSoloPage/', editor,
+            apiService.post(baseUrl + '/api/LandingPage/AddSoloPage/', editor,
                 completed,
                 affiliateFailed
             );

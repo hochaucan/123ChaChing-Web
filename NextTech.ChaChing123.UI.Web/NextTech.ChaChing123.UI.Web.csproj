@@ -377,7 +377,6 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-spectrum-colorpicker\dist\angular-spectrum-colorpicker.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-sweetalert-promised\SweetAlert.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-touch\angular-touch.min.js" />
-    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-translate-loader-static-files\angular-translate-loader-static-files.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-translate-loader-url\angular-translate-loader-url.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-translate-storage-cookie\angular-translate-storage-cookie.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\angular-translate-storage-local\angular-translate-storage-local.min.js" />
@@ -469,6 +468,7 @@
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
     <Content Include="Scripts\spa_portal\assets\views\editor.html" />
+    <Content Include="Scripts\spa_portal\bower_components\angular-translate-loader-static-files\angular-translate-loader-static-files.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\ngclipboard\clipboard.min.js" />
     <Content Include="Scripts\spa_portal\vendors\angular-spinkit\css\angular-spinkit.min.css" />
     <Content Include="Scripts\spa_portal\assets\css\app.css" />
@@ -627,7 +627,6 @@
     <Content Include="Scripts\spa_portal\bower_components\angular-spectrum-colorpicker\dist\angular-spectrum-colorpicker.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\angular-sweetalert-promised\SweetAlert.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\angular-touch\angular-touch.min.js" />
-    <Content Include="Scripts\spa_portal\bower_components\angular-translate-loader-static-files\angular-translate-loader-static-files.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\angular-translate-loader-url\angular-translate-loader-url.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\angular-translate-storage-cookie\angular-translate-storage-cookie.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\angular-translate-storage-local\angular-translate-storage-local.min.js" />
