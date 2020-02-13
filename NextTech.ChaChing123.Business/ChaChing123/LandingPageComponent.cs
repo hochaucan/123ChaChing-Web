@@ -96,8 +96,17 @@ namespace NextTech.ChaChing123.Business
             ResultDTO accInfo = null;
             try
             {
-                obj.ShareCode = PasswordGenerator.generatePassword(8, false, true, false);
-                accInfo = _repository.AddSoloPage(obj);
+               if(obj.Status != 1&& obj.Status != 2)
+                {
+                     accInfo = new ResultDTO();
+                    accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS0029);
+                    accInfo.SetContentMsg();
+                }
+                else
+                {
+                    obj.ShareCode = PasswordGenerator.generatePassword(8, false, true, false);
+                    accInfo = _repository.AddSoloPage(obj);
+                }
             }
             catch (Exception ex)
             {

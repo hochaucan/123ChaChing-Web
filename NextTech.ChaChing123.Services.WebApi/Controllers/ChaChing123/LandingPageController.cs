@@ -324,7 +324,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             }
             catch(Exception ex)
             {
-                result.StatusCode = 0;
+                result.StatusCode =9999 ;
                 result.Details = ex.Message;
 
                 return CreateHttpResponse(request, () =>
