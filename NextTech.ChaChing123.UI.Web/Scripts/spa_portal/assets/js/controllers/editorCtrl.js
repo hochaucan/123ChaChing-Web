@@ -150,6 +150,7 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
     $scope.uploadFiles = function () {
 
         //FILL FormData WITH FILE DETAILS.
+        var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
         var data = new FormData();
 
         for (var i in $scope.files) {
@@ -157,18 +158,29 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
             console.log("Upload file " + $scope.files[i].name);
             if ($scope.files[i].name) {
                 backgroundPath = $scope.files[i].name;
+                data.append("SessionKey", SessionKey);
                 break;
             }
         }
 
-        // ADD LISTENERS.
-        var objXhr = new XMLHttpRequest();
-        objXhr.addEventListener("progress", updateProgress, false);
-        objXhr.addEventListener("load", transferComplete, false);
+        
 
-        // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", "http://localhost:1494/api/fileupload/uploadfiles/");
-        objXhr.send(data);
+        // ADD LISTENERS.
+        //var objXhr = new XMLHttpRequest();
+        //objXhr.addEventListener("progress", updateProgress, false);
+        //objXhr.addEventListener("load", transferComplete, false);
+
+        //// SEND FILE DETAILS TO THE API.
+        //objXhr.open("POST", "http://localhost:1494/api/LandingPage/UploadFile/");
+        //objXhr.send(data);
+
+        editorService.uploadFile(data, function (result) {
+            if (result.data && result.data.StatusCode == 0) {
+                notificationService.displaySuccess('Upload file thành công');
+            } else {
+                notificationService.displayError(result.data.StatusMsg);
+            }
+        });
     };
 
     // UPDATE PROGRESS BAR.
