@@ -317,14 +317,14 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                     //File will be saved in application root
                     requestContext.Files[0].SaveAs(pathFolder + tempFileName);
 
-                    result.StatusCode = int.Parse(RetCodeMsg.ECS0000, 0);
+                    result.StatusCode = 0;
                     result.SetContentMsg();
                     result.Details = tempFileName;
                 }
             }
             catch(Exception ex)
             {
-                result.StatusCode = int.Parse(RetCodeMsg.ECS9999, 0); ;
+                result.StatusCode = 0;
                 result.Details = ex.Message;
 
                 return CreateHttpResponse(request, () =>

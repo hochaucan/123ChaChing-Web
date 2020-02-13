@@ -401,6 +401,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
     }).state('error.500', {
         url: '/500',
         templateUrl: "Scripts/spa_portal/assets/views/utility_500.html",
+    }).state('solo', {
+        url: '/solo',
+        template: '<div ui-view class="fade-in-up"></div>'
+    }).state('solo.page', {
+        url: '/page/:id',
+        templateUrl: "Scripts/spa_portal/assets/views/solo_page.html",
     })
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)
