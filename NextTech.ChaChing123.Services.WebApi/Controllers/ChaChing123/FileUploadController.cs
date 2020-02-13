@@ -35,6 +35,8 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers.ChaChing123
             string sPath = "";
             sPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/");
 
+            string sessionKey = System.Web.HttpContext.Current.Request.Form.Get("SessionKey");
+
             System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
 
             // CHECK THE FILE COUNT.
