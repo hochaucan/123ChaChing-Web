@@ -22,8 +22,6 @@ namespace NextTech.ChaChing123.Business
 
         ResultDTO Register(RegisterDTO obj);
 
-        ResultDTO ActiveAccount(ActiveAccountDTO obj);
-
         ResultDTO Edit(EditAccountDTO obj);
 
         ResultDTO Delete(DeleteAccountDTO obj);
@@ -31,12 +29,6 @@ namespace NextTech.ChaChing123.Business
         ResultDTO ChangePassword(ChangePasswordModel obj);
 
         ResultDTO Logout(LogoutDTO obj);
-
-        ResultDTO ChangeAccountType(ChangeAccountTypeDTO obj);
-
-        ResultDTO LockAccount(LockAccountDTO obj);
-
-        ResultDTO LockAffilate(LockAffilateDTO obj);
 
         ResultDTO GetAccountInfo(RequestDTO id);
 

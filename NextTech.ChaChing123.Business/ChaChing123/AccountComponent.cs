@@ -115,23 +115,6 @@ namespace NextTech.ChaChing123.Business
             return errorCode;
         }
 
-        public ResultDTO ActiveAccount(ActiveAccountDTO obj)
-        {
-            ResultDTO accInfo = new ResultDTO();
-            try
-            {
-                accInfo = _repository.ActiveAccount(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("ActiveAccount", ActionType.Login, ex.Message.ToString());
-                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                accInfo.StatusMsg = ex.Message.ToString();
-            }
-
-            return accInfo;
-        }
-        
         public ResultDTO Edit(EditAccountDTO obj)
         {
             ResultDTO accInfo = new ResultDTO();
@@ -211,61 +194,6 @@ namespace NextTech.ChaChing123.Business
 
         }
 
-        public ResultDTO ChangeAccountType(ChangeAccountTypeDTO obj)
-        {
-            ResultDTO errorCode = new ResultDTO();
-            try
-            {
-                errorCode = _repository.ChangeAccountType(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("ChangeAccountType", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                errorCode.StatusMsg = ex.Message.ToString();
-            }
-
-            return errorCode;
-
-        }
-
-        public ResultDTO LockAccount(LockAccountDTO obj)
-        {
-            ResultDTO errorCode = new ResultDTO();
-            try
-            {
-                errorCode = _repository.LockAccount(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("LockAccount", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                errorCode.StatusMsg = ex.Message.ToString();
-            }
-
-            return errorCode;
-
-        }
-
-        public ResultDTO LockAffilate(LockAffilateDTO obj)
-        {
-            ResultDTO errorCode = new ResultDTO();
-            try
-            {
-                errorCode = _repository.LockAffilate(obj);
-            }
-            catch (Exception ex)
-            {
-                Utilities.AppLog.WriteLog("LockAffilate", ActionType.Logout, ex.Message.ToString());
-                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
-                errorCode.StatusMsg = ex.Message.ToString();
-            }
-
-            return errorCode;
-
-        }
-
-       
         public ResultDTO GetAccountInfo(RequestDTO obj)
         {
             ResultDTO errorCode = new ResultDTO();

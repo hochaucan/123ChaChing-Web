@@ -90,7 +90,8 @@ namespace NextTech.ChaChing123.Services.WebApi.App_Start
             // ChaChingTest
             builder.RegisterType <AccountComponent> ().As <IAccountService> ().InstancePerRequest();
             builder.RegisterType<AffiliateComponent>().As<IAffiliateService>().InstancePerRequest();
-            builder.RegisterType<WithdrawalRequestComponent>().As<IWithdrawalRequestService>().InstancePerRequest();
+            builder.RegisterType<AdminComponent>().As<IAdminService>().InstancePerRequest();
+            builder.RegisterType<LandingPageComponent>().As<ILandingPageService>().InstancePerRequest();
 
             Container = builder.Build();
 

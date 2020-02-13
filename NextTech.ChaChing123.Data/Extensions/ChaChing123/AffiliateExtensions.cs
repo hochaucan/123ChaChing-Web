@@ -22,88 +22,7 @@ namespace NextTech.ChaChing123.Data.Extensions
     public static class AffiliateExtensions
     {
         #region 
-        public static ResultDTO GetOrderList(this IEntityBaseRepository<Affiliate> repository, RequestOrderListDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            //if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-            //{
-            //    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            //}
-            //else
-            {
-                try
-                {
-                    var items = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetOrderList] @SessionKey,@KeyWord, @PaymentState,@AffiliateState, @AffiliateAccount, @errorCode out",
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        new SqlParameter("KeyWord", DB.SafeSQL(obj.KeyWord)),
-                        new SqlParameter("PaymentState", obj.PaymentState),
-                        new SqlParameter("AffiliateState", obj.AffiliateState),
-                        new SqlParameter("AffiliateAccount", obj.AffiliateAccount),
-                        errorCode);
-
-                    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                }
-                catch (Exception ex)
-                {
-                    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                    result.StatusMsg = ex.Message;
-                }
-            }
-
-            return result;
-        }
-
-        public static ResultDTO UpdatePaymentState(this IEntityBaseRepository<Affiliate> repository, PaymentContractDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdatePaymentState] @UserName,@ContractNo, @SessionKey,@PaymentState, @errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("ContractNo", DB.SafeSQL(obj.ContractNo)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                         new SqlParameter("PaymentState", obj.PaymentState),
-                        errorCode);
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
-
-            return result;
-        }
-
-        public static ResultDTO UpdatePaymentAffiliateState(this IEntityBaseRepository<Affiliate> repository, PaymentAffiliateDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdatePaymentAffiliateState] @UserName,@ContractNo, @SessionKey,@AffiliateState, @errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("ContractNo", DB.SafeSQL(obj.ContractNo)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                         new SqlParameter("AffiliateState", obj.AffiliateState),
-                        errorCode);
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
-
-            return result;
-        }
-
+        
         public static ResultDTO GetWalletInfoByAccount(this IEntityBaseRepository<Affiliate> repository, RequestDTO obj)
         {
             var result = new ResultDTO();
@@ -166,25 +85,6 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-        public static ResultDTO GetWithDrawallInfoByAccount(this IEntityBaseRepository<Affiliate> repository, RequestDTO obj)
-        {
-            var result = new ResultDTO();
-            var dbContext = new ApplicationContext();
-
-            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetWithDrawallInfoByAccount] @UserName,@SessionKey,@errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
-
-            return result;
-        }
 
         public static ResultDTO RequestWithDrawall(this IEntityBaseRepository<Affiliate> repository, RequestWithdrawalDTO obj)
         {

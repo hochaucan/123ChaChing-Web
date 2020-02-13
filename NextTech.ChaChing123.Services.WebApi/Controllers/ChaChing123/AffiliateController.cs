@@ -32,45 +32,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             _service = interfaceService;
         }
 
-        [AllowAnonymous]
-        [Route("GetOrderList")]
-        [HttpPost]
-        public HttpResponseMessage GetOrderList(HttpRequestMessage request, RequestOrderListDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetOrderList(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("UpdatePaymentState")]
-        [HttpPost]
-        public HttpResponseMessage UpdatePaymentState(HttpRequestMessage request, PaymentContractDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdatePaymentState(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("UpdatePaymentAffiliateState")]
-        [HttpPost]
-        public HttpResponseMessage UpdatePaymentAffiliateState(HttpRequestMessage request, PaymentAffiliateDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdatePaymentAffiliateState(obj));
-                return response;
-            });
-        }
-
+        
         [AllowAnonymous]
         [Route("GetWalletInfoByAccount")]
         [HttpPost]
@@ -83,7 +45,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("GetAffiliateInfoByAccount")]
         [HttpPost]
@@ -96,7 +58,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("GetAffiliateCodeByAccount")]
         [HttpPost]
@@ -109,11 +71,11 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("GetWithDrawallInfoByAccount")]
         [HttpPost]
-        public HttpResponseMessage GetWithDrawallInfoByAccount(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetWithDrawallInfoByAccount(HttpRequestMessage request, RequestWithdrawalDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -122,7 +84,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("RequestWithDrawall")]
         [HttpPost]
@@ -135,7 +97,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("GetSummaryReportByAccount")]
         [HttpPost]
@@ -148,7 +110,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        
         [AllowAnonymous]
         [Route("GetAfiliateAlertByAccount")]
         [HttpPost]
@@ -158,19 +120,6 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             {
                 HttpResponseMessage response = null;
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateAlertByAccount(obj));
-                return response;
-            });
-        }
-
-        [AllowAnonymous]
-        [Route("GetAfiliateListByAccount")]
-        [HttpPost]
-        public HttpResponseMessage GetAfiliateListByAccount(HttpRequestMessage request, RequestOrderListDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateListByAccount(obj));
                 return response;
             });
         }

@@ -96,9 +96,10 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0022 = "Tài khoản đã thanh toán và đang chờ duyệt. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
         public const string ECS0023 = "Tài khoản đã ngừng hoạt động.";
         public const string ECS0024 = "Tài khoản đã hoàn trả.";
-
-
-
+        public const string ECS0025 = "Dữu liệu không tồn tại.";
+        public const string ECS0026 = "Share Code không tồn tại.";
+        public const string ECS0027 = "Khác hàng đang sử dụng gói cơ bản nên không sử dụng được chức năng nâng cao.";
+        public const string ECS0028 = "File upload không hợp lệ.";
         public const string ECS9999 = "Lỗi không xác định.";
     }
 
