@@ -1,37 +1,119 @@
-<html>
+﻿<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="Scripts/spa_portal/assets/css/styles.chaching.solo.page.css">
 </head>
-<body style="padding-top: 50px;background-image: url('https://vvip.onlinesalespro.com/ospk/resources/plugins/jquery-file-upload/server/php/files/pool.jpg');">
-    <div class="container">
-        <div class="row padding-top">
-
-            <div class="col-md-7">
-                <div id="text_1" class="editable-headline t-text-1">Insert your headline text here. Insert your headline text here. Insert your headline text here.</div>
-                <div id="text_2" class="editable-subheadline t-text-2">Insert your subheadline text here.</div>
+<body>
+    <!--<nav id="preview_bar" style="" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=""><b>Xem Thử</b> Trang Của Bạn</a>
             </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="button-editor" href="">
+                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                            Quay Về Trang Trước
+                        </a>
+                    </li>
+                    <li>
+                        <a class="button-save" href="">
+                            <i class="fa fa-check faa-tada animated" aria-hidden="true"></i>
+                            <u>Hoàn Thành</u>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>-->
+    <div id="cp-cover"></div>
+    <div class="container" ng-controller="editorSoloPageCtrl">
+        <div ng-if="soloPageDetails.FromType=='1'">
+            <div class="row padding-top">
 
-            <div class="col-md-5">
-                <form>
-                    <div class="form-group">
-                        <input type="email" class="form-control t-input field-border color-border" id="email" placeholder="Enter Your Email Address" style="border-color: rgb(230, 126, 34);">
+                <div class="col-md-7">
+                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+                </div>
+
+                <div class="col-md-5">
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control t-input field-border color-border" id="email" placeholder="Enter Your Email Address" style="border-color: rgb(230, 126, 34);">
+                        </div>
+                        <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color:{{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}.</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div ng-if="soloPageDetails.FromType=='2'">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-7">
+                    <div class="t-box">
+                        <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                        <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control t-input" id="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control t-input" id="email" placeholder="Email">
+                            </div>
+                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color: {{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}</button>
+                        </form>
                     </div>
-                    <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color: rgb(230, 126, 34);">Insert your button text here.</button>
-                </form>
-                <div class="t-privacy">
-                    <i class="fa fa-lock" aria-hidden="true"></i> Privacy assured.
                 </div>
             </div>
-
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="t-footer">
-                    <a href="https://onlinesalespro.com/privacy" class="footer-link" target="_blank">Privacy Policy</a>
+        <div ng-if="soloPageDetails.FromType=='3'">
+            <div class="row">
+                <div class="col-md-5 col-md-offset-7">
+                    <div class="t-box">
+                        <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                        <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+                        <form>
+                            <div class="form-group">
+                                <input class="form-control t-input" id="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control t-input" id="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control t-input" id="phone" placeholder="Phone Number">
+                            </div>
+                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color: {{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="soloPageDetails.FromType=='4'">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 col-sm-12">
+                    <div class="k-panel" style="background-color: white !important;">
+                        <div class="row">
+                            <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>Cảm Ơn Bạn Đã Đăng Ký!</span></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="k-h1"><span id="relno-1" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(0, 0, 0);"><span><span> </span></span></span></div>
+                            </div>
+                            <div class="col-md-12">
+                                <img id="relno-4" class="imgUp hover maxH imageLeft2" data-imgno="2" src="http://onlinesalespro.com/land/images/lifestyle/lifestyle95.jpg" style="max-width: 708px; box-shadow: none; cursor: initial; left: auto; top: auto;">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end: 404 -->
 </body>
 </html>

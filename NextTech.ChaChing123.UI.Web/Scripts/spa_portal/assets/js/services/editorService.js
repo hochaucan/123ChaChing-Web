@@ -7,16 +7,32 @@
 
     function Service(apiService, notificationService) {
 
-        //var baseUrl = 'https://api.123chaching.app';
-        var baseUrl = 'http://localhost:1494';
+        var baseUrl = 'https://api.123chaching.app';
+        //var baseUrl = 'http://localhost:1494';
 
         var service = {
             createSoloPage: createSoloPage,
+            getMyPages: getMyPages,
+            loadMyPage: loadMyPage,
             uploadFile: uploadFile
         };
 
         function createSoloPage(editor, completed) {
             apiService.post(baseUrl + '/api/LandingPage/AddSoloPage/', editor,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function getMyPages(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetAllSoloPage/', editor,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function loadMyPage(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetDetailSoloPage/', editor,
                 completed,
                 affiliateFailed
             );

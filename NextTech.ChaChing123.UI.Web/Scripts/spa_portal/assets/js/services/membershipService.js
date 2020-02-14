@@ -36,6 +36,7 @@
                 username: user.UserName,
                 fullname: user.FullName,
                 phone: user.Phone,
+                accountType: user.AccountType,
                 token: user.SessionKey
             };
             // add jwt token to auth header for all requests made by the $http service

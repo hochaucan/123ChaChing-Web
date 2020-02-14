@@ -1,0 +1,612 @@
+body{
+/*	background-color:#295078;*/
+	font-family:'Raleway';
+}
+
+.selectableText {
+ -moz-user-select: text;
+ -khtml-user-select: text;
+ -webkit-user-select: text;
+ -ms-user-select: text;
+ user-select: text;
+ }
+
+#container{
+	width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#floatLeft{
+	float:left;
+}
+
+#floatRight{
+	float:right;
+}
+
+#textFloatRight {
+  float: right;
+  text-align: center;
+  color: #4c4c4c;
+  /*margin-top: -30px;*/
+  margin-bottom: 10px;
+}
+
+h1{
+	font-size:28px;
+}
+
+h2{
+	  font-style: italic;
+  font-weight: 100;
+  font-size: 20px;
+  /*margin-top: -10px;*/
+  margin-bottom: 0px;
+}
+#topBar {
+  background-color: #ffffff;
+  border-bottom: 3px solid #ADADAD;
+  height: 70px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline;
+}
+
+#pageContent{
+	position:relative;
+	margin-top:100px;
+}
+
+#pageContent2 {
+  background-color: #f7f7f7;
+  /*height: 100%;*/
+  position: relative;
+  display: inline-block;
+  padding-bottom: 20px;
+  border-color: #f0f0f0;
+  border-style: solid;
+  border-width: 1px;
+  /*width: 992px;*/
+    width: 997px;
+}
+
+#firstArrow{
+  position: absolute;
+  margin-left: -16px;
+  color:rgb(132, 131, 131);
+}
+#firstWords{
+  margin-left: 40px;
+  font-weight: 700;
+}
+#firstSelect{
+  margin-left: 100px;
+  margin-top: -37px;
+  height: 35px;
+  width: 198px;
+  font-size: 16px;
+}
+
+
+#selectorHolder {
+  background-color: white;
+  padding: 10px;
+  width: 310px;
+}
+
+.editButton{
+  position: absolute;
+  margin-top: -200px;
+  margin-left: 330px;
+}
+
+.pageTitle{
+    z-index: 5000000000;
+}
+
+.pageBeta{
+  display:none;
+  color:red;
+}
+.pageTile {
+  float: left;
+  background-color: #ffffff;
+  background-image: url(https://onlinesalespro.com/renew/screenshots/Processing.png);
+  margin-left: 50px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  border-color: #f0f0f0;
+  border-style: solid;
+  border-width: 1px;
+  height: 249px;
+}
+
+.stepHolder {
+  float: left;
+  background-color: #ffffff;
+  margin-left: 50px;
+  margin-top: 10px;
+  font-size: 15px;
+  border-color: #f0f0f0;
+  border-style: solid;
+  border-width: 1px;
+  width: 424px;
+  height: 249.5px;
+  padding: 10px;
+}
+
+.editBtn{
+	padding: 5px;
+  font-size: 18px;
+  width: 60px;
+  color:rgb(0, 0, 170);
+}
+
+
+
+.deleteBtn{
+/* padding: 5px; */
+ font-size: 10px;
+ width: 15px;
+ height: 15px;
+ color: rgb(170, 0, 0);
+ }
+/*top menu*/
+
+/*.topMenu a { OLD VERSION
+  margin-right: -4px;
+  color: black;
+  text-decoration: none;
+  padding-left: 20px;
+  font-size: 14px;
+  background-color: white;
+  position: relative;
+  padding-top: 30px;
+  padding-right: 20px;
+  padding-bottom: 24px;
+  border-right: 1px solid gray;
+  display: inline-block;
+}*/
+
+.topMenu a {
+  margin-right: -4px;
+  color: black;
+  text-decoration: none;
+  /* padding-left: 20px; */
+  font-size: 14px;
+  background-color: white;
+  position: relative;
+  padding-top: 30px;
+  /* padding-right: 20px; */
+  padding-bottom: 24px;
+  border-right: 1px solid rgb(173, 173, 173);
+  /* border-left: 1px solid rgb(173, 173, 173); */
+  display: inline-block;
+  width: 120px;
+  text-align: center;
+}
+
+
+
+.topMenu a:hover{
+  background-color: rgb(118, 117, 117);
+  color:white;
+}
+
+.currentTop {
+  color: #ffffff !important;
+  background-color: rgb(173, 173, 173) !important;
+}
+
+/*body menu*/
+
+.menuButton a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  float: left;
+  text-align: center;
+  width: 198px;
+  text-decoration: none;
+  color: rgb(103, 102, 102);
+  background-color: #ffffff;
+  border-top: 3px solid white;
+  border-bottom: 1px solid rgb(103, 102, 102);
+  font-size: 15px;
+}
+
+.menuButton a:hover {
+  border-bottom:none;
+  border-top: 3px solid rgb(1, 194, 254);
+}
+
+.current {
+  border-top: 3px solid rgb(1, 194, 254) !important;
+  border-bottom: none !important;
+  background-color: #f7f7f7  !important;;
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/*autoresponder page*/
+
+#contentBox1 {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  height: 200px;
+}
+
+#contentBox2 {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  height: 200px;
+}
+
+#boxLeft{
+float:left;
+width:400px;
+}
+
+#boxRight{
+width: 523px;
+}
+
+.boxH1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #232323;
+  padding-bottom: 10px;
+}
+
+.boxH2{
+  font-size:18px;
+}
+
+.boxP{
+  font-size: 15px;
+}
+
+/*resources pages*/
+
+#contentArea{
+padding:20px;
+}
+
+.contentH1{
+font-size:24px;
+font-weight:700;
+padding-bottom:10px;
+  color: #555353;
+}
+
+.contentH2{
+font-size:16px;
+  color: #555353;
+  padding-bottom:10px;
+}
+
+.contentVideo{
+    text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+/*video tiles how to page*/
+.videoTile {
+  width: 450px;
+  float: left;
+  padding-left: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.videoTitle {
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.videoDescription {
+  font-size: 14px;
+  padding-right: 20px;
+  height: 60px;
+}
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  /*width: auto;*/
+  /*max-width: 500px;*/
+  width:610px;
+  margin: 20px auto;
+}
+
+.linkStyle{
+    font-size: 18px;
+  vertical-align: 8px;
+}
+
+.linkHolder a{
+  color:rgb(41, 80, 120);
+}
+
+.linkHolder a:hover{
+  color:gray;
+}
+
+/*.linkHolder a:visited{
+  color:rgb(41, 80, 120);;
+}*/
+
+.nextButton {
+  background-color: rgb(63, 89, 152);
+  display: block;
+  color: white;
+  height: 25px;
+  text-decoration: none;
+  padding-top: 5px;
+  border-bottom: 1px solid black;
+}
+
+.nextButtonIcon{
+  display: inline;
+  background-color: #2C3A5D;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: 1px;
+  padding-top: 5px;
+}
+
+.nextButtonText{
+  display: inline;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+/* All select elements on page */
+select {
+  position: relative;
+}
+
+/* Style by class. Effects the text of the contained options. */
+.blueText {
+  color: #FFFFFF;
+  padding-left: 5px;
+  background-color: #03baed;
+  /* border-left: 3px solid black; */
+}
+
+
+
+
+
+/*Footer Styles*/
+.footer{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+.footer a:hover {
+  color: #bdc3c7;
+}
+
+/*Email support*/
+/*#emailSupportContainer{
+  width:1000px;
+  margin-left:auto;
+  margin-right:auto;
+}*/
+
+#emailSupport{
+position: fixed;
+  bottom: 0;
+  left: 10%;
+  background-color: black;
+  color: white;
+  border-top: 2px solid gray;
+  border-left: 2px solid gray;
+  border-right: 2px solid gray;
+}
+
+.emailText{
+    display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.emailIcon{
+    display: inline-block;
+  background-color: gray;
+  padding: 5px;
+}
+
+.resetButton{
+background-color: #f0f0f0;
+color: rgb(181, 21, 36);
+border: none;
+cursor: pointer;
+height: 40px;
+width: 100px;
+font-size: 14px;
+font-family: 'Raleway';
+border-color: rgb(190, 190, 190);
+border-style: solid;
+border-width: 1px;
+cursor: pointer;
+}
+
+.resetPosition{
+position: absolute;
+  right: 10px;
+  top: 60px;
+  }
+
+
+
+
+/*Autoresponder page*/
+.autoButton {
+  padding: 5px 10px;
+  width: 110px;
+  color: white;
+  background-color: rgb(37, 128, 176);
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  font-family: 'Raleway';
+}
+
+.autoForm {
+  height: 22px;
+  border: 1px solid lightgray;
+  width: 300px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-family: 'Raleway';
+}
+
+#boxRight1 {
+  float: right;
+  width: 529px;
+  border-left: 1px solid rgb(188, 188, 188);
+  padding-left: 10px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  height: 220px;
+  padding-top: 5px;
+}
+
+.line{
+    border-bottom: 1px solid rgb(188, 188, 188);
+  margin-left: -10px;
+  width: 538px;
+  margin-bottom: 5px;
+}
+
+.responderBtn {
+  display: block;
+  padding: 12px;
+  color: white;
+  background-color: rgb(37, 128, 176);
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 4px;
+  width: 250px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  font-size: 15px;
+  /* text-align: left; */
+  /* padding-left: 15px; */
+  margin-left: 80px;
+}
+
+.responderBtn:hover {
+  background-color: rgb(93, 118, 131);
+}
+
+.icon {
+  display: inline;
+  margin-left: -22px;
+  vertical-align: -1px;
+  color: rgb(167, 167, 167);
+}
+
+#boxRight3 {
+  float: right;
+  width: 529px;
+  border-left: 1px solid rgb(188, 188, 188);
+  margin-top: -10px;
+  height: 398px;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.textAreaClass{
+    resize: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 511px;
+  height: 177px;
+  font-family: 'Raleway';
+}
+
+#boxLeft1 {
+  float: left;
+  width: 425px;
+  border-right: 1px solid rgb(188, 188, 188);
+  margin-top: -10px;
+  padding-top: 10px;
+  height: 218px;
+}
+
+.topic{
+    padding-bottom: 10px;
+  font-size: 17px;
+}
+
+
+#contentBox1 {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  height: 220px;
+}
+
+#contentBox2 {
+  margin: 10px;
+  border: 1px solid black;
+  padding: 10px;
+  height: 400px;
+}
+
+#boxLeft{
+float:left;
+width:400px;
+}
+
+#boxRight{
+  float: right;
+  width: 523px;
+}
+
+.boxH1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #232323;
+  padding-bottom: 10px;
+}
+
+.boxH2{
+  font-size:18px;
+}
+
+.boxP{
+  font-size: 15px;
+}

@@ -1,0 +1,232 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="topbar.nav.EDITOREDIT">Chỉnh Sửa</h1>
+                <span class="mainDescription">Chỉnh Sửa Trang Của Tôi</span>
+            </div>
+            <div ncy-breadcrumb=""></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: TABS -->
+    <!-- /// controller:  'TabsEditorCtrl' -  localtion: assets/js/controllers/editorCtrl.js /// -->
+    <div>
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="editor" class="row">
+                        <div class="col-md-12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Chỉnh Sửa Trang</h3>
+                                </div>
+                                <div class="box-body box-createSoloPage" ng-controller="EditMyPageCtrl">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div id="editingImage" style="background-image: url(&quot;/Content/resources/images/1.png?v=2&quot;); height: 224.103px; background-size: contain;">
+                                                <div class="dot" style="top:50%; left:10%">1</div>
+                                                <div class="dot" style="top:65%; left:20%">2</div>
+                                            </div>
+                                            <div id="editingImageB"></div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <form class="form-register" name="FormCreateSoloPage" id="FormCreateSoloPage" novalidate="" ng-submit="form.submit(FormCreateSoloPage)">
+                                                <h3>Bước 1: Chọn Form</h3>
+                                                <!--Select Form Area-->
+                                                <div class="panel panel-transparent">
+                                                    <div class="panel-body">
+                                                        <div class="radio clip-radio radio-primary">
+                                                            <input type="radio" id="radioEmail" name="formTypeVal" ng-model="formTypeVal" value="1" checked="checked">
+                                                            <label for="radioEmail">
+                                                                Lấy Email
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio clip-radio radio-primary">
+                                                            <input type="radio" id="radioEmailName" name="formTypeVal" ng-model="formTypeVal" value="2">
+                                                            <label for="radioEmailName">
+                                                                Lấy Email + Tên
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio clip-radio radio-primary">
+                                                            <input type="radio" id="radioEmailNamePhone" name="formTypeVal" ng-model="formTypeVal" value="3">
+                                                            <label for="radioEmailNamePhone" ">
+                                                                Lấy Email + Tên + Số Điện Thoại
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio clip-radio radio-primary">
+                                                            <input type="radio" id="radioThanks" name="formTypeVal" ng-model="formTypeVal" value="4">
+                                                            <label for="radioThanks">
+                                                                Trang Cảm Ơn
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio clip-radio radio-primary">
+                                                            <input type="radio" id="radioShareCode" name="formTypeVal" ng-model="formTypeVal" value="5">
+                                                            <label for="radioShareCode">
+                                                                Dùng Share Code
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-group" ng-if="!isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.UseShareCode.$dirty && FormCreateSoloPage.UseShareCode.$invalid, 'has-success':FormCreateSoloPage.UseShareCode.$valid}">
+                                                            <input type="text" class="page-element form-control" id="shareCode" name="UseShareCode" ng-model="editor.UseShareCode" required="" placeholder="Điền thông tin share code của bạn ở đây">
+                                                            <span class="error text-small block" ng-if="FormCreateSoloPage.UseShareCode.$dirty && FormCreateSoloPage.UseShareCode.$invalid">Share Code là bắt buộc.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <h3>Bước 2: Điền Thông Tin</h3>
+                                                <!-- loop through and display all page elements -->
+                                                <div id="pageElements">
+                                                    <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid, 'has-success':FormCreateSoloPage.Title.$valid}">
+                                                        <label for="exampleInputEmail1">1. Tiêu Đề <span class="symbol required"></span></label>
+                                                        <textarea class="page-element form-control" id="text_1" name="Title" ng-model="editor.Title" required="" placeholder="Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây."></textarea>
+                                                        <span class="error text-small block" ng-if="FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid">Tiêu đề là bắt buộc.</span>
+                                                    </div>
+                                                    <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid, 'has-success':FormCreateSoloPage.SubTitle.$valid}">
+                                                        <label for="exampleInputEmail1">2. Tiêu Đề Phụ <span class="symbol required"></span></label>
+                                                        <textarea class="page-element form-control" id="text_2" name="SubTitle" ng-model="editor.SubTitle" required="" placeholder="Điền Tiêu Đề Phụ Của Bạn Tại Đây."></textarea>
+                                                        <span class="error text-small block" ng-if="FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid">Tiêu đề phụ là bắt buộc.</span>
+                                                    </div>
+                                                    <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.ButtonName.$dirty && FormCreateSoloPage.ButtonName.$invalid, 'has-success':FormCreateSoloPage.ButtonName.$valid}">
+                                                        <label for="exampleInputEmail1">3. Nút Hành Động <span class="symbol required"></span></label>
+                                                        <input class="page-element form-control" id="text_3" name="ButtonName" ng-model="editor.ButtonName" required="" placeholder="Điền Nội Dung Nút Hành Động Của Bạn Ở Đây.">
+                                                        <span class="error text-small block" ng-if="FormCreateSoloPage.ButtonName.$dirty && FormCreateSoloPage.ButtonName.$invalid">Tiêu đề phụ là bắt buộc.</span>
+                                                    </div>
+                                                    <!-- Color selector -->
+                                                    <div class="form-group" ng-if="isShareCodeHidden">
+                                                        <label for="exampleInputEmail1">Màu Sắc Trang</label>
+                                                        <br>
+                                                        <span class="simplecolorpicker inline">
+                                                            <span class="color color-select" ng-click="getColorBackground($event)" title="Turquoise" style="background-color: #1abc9c;" data-color="#1abc9c" role="button" tabindex="0" data="#1abc9c" id="1abc9c"></span>
+                                                            <span class="color" title="Emerald" ng-click="getColorBackground($event)" style="background-color: #2ecc71;" data-color="#2ecc71" role="button" tabindex="0" data="#2ecc71" id="2ecc71"></span>
+                                                            <span class="color" title="Peter River" ng-click="getColorBackground($event)" style="background-color: #3498db;" data-color="#3498db" role="button" tabindex="0" data="#3498db" id="3498db"></span>
+                                                            <span class="color" title="Amethyst" ng-click="getColorBackground($event)" style="background-color: #9b59b6;" data-color="#9b59b6" role="button" tabindex="0" data="#9b59b6" id="9b59b6"></span>
+                                                            <span class="color" title="Wet Asphalt" ng-click="getColorBackground($event)" style="background-color: #34495e;" data-color="#34495e" role="button" tabindex="0" data="#34495e" id="34495e"></span>
+                                                            <span class="color" title="Sun Flower" ng-click="getColorBackground($event)" style="background-color: #f1c40f;" data-color="#f1c40f" role="button" tabindex="0" data="#f1c40f" id="f1c40f"></span>
+                                                            <span class="color" title="Carrot" ng-click="getColorBackground($event)" style="background-color: #e67e22;" data-color="#e67e22" role="button" tabindex="0" data="#e67e22" id="e67e22"></span>
+                                                            <span class="color" title="Alizarin" ng-click="getColorBackground($event)" style="background-color: #e74c3c;" data-color="#e74c3c" role="button" tabindex="0" data="#e74c3c" id="e74c3c"></span>
+                                                            <span class="color" title="Concrete" ng-click="getColorBackground($event)" style="background-color: #95a5a6;" data-color="#95a5a6" role="button" tabindex="0" data="#95a5a6" id="95a5a6"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Page Name -->
+                                                <div class="form-group" ng-class="{'has-error':FormCreateSoloPage.PageName.$dirty && FormCreateSoloPage.PageName.$invalid, 'has-success':FormCreateSoloPage.PageName.$valid}">
+                                                    <label for="exampleInputEmail1">Tên Trang <span class="symbol required"></span></label>
+                                                    <input type="text" class="page-element form-control" id="PageName" name="PageName" ng-model="editor.PageName" required="" placeholder="Điền tên trang của bạn ở đây">
+                                                    <span class="error text-small block" ng-if="FormCreateSoloPage.PageName.$dirty && FormCreateSoloPage.PageName.$invalid">Tên trang là bắt buộc.</span>
+                                                </div>
+
+                                                <!-- Destination URL -->
+                                                <div class="form-group" id="hideDestinationGroup" ng-class="{'has-error':FormCreateSoloPage.RefLink.$dirty && FormCreateSoloPage.RefLink.$invalid, 'has-success':FormCreateSoloPage.RefLink.$valid}">
+                                                    <label for="exampleInputEmail1">Link Đích <span class="symbol required"></span></label>
+                                                    <input type="text" class="page-element form-control" id="destination" name="RefLink" ng-model="editor.RefLink" required="" placeholder="Điền link đích của bạn ở đây">
+                                                    <span class="error text-small block" ng-if="FormCreateSoloPage.RefLink.$dirty && FormCreateSoloPage.RefLink.$invalid">Link đích là bắt buộc.</span>
+                                                    <small id="small" class="form-text text-muted"><strong>Bắt buộc.</strong> Trang được chuyển đến sau khi điền thông tin.</small>
+                                                </div>
+
+                                                <h3>Bước 3: Upload Hình Ảnh/ Video</h3>
+                                                <!-- background area -->
+                                                <div ng-controller="soloPageUploadFileCtrl">
+                                                    <div id="backgroundArea" style="">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Hình Nền</label>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                        <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <!--ADD A PROGRESS BAR ELEMENT.-->
+                                                            <!--<p><progress id="pro" value="0"></progress></p>-->
+                                                            <br>
+                                                            <!-- The global progress bar -->
+                                                            <!--<div id="progress" class="progress"><div class="progress-bar progress-bar-success"></div></div>-->
+                                                            <!-- The container for the uploaded files -->
+                                                            <!--<div id="files" class="files"><p>UPLOAD COMPLETE!</p></div>-->
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- resource area -->
+                                                    <div ng-controller="soloPageUploadResourceCtrl">
+                                                        <div id="backgroundArea" style="">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Tài Nguyên</label>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                            <span class="glyphicon glyphicon-upload"></span> Upload Hình Ảnh/Video
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                                                <br>
+                                                                <!-- The global progress bar -->
+                                                                <!--<div id="progress" class="progress"><div class="progress-bar progress-bar-success"></div></div>-->
+                                                                <!-- The container for the uploaded files -->
+                                                                <!--<div id="files" class="files"><p>UPLOAD COMPLETE!</p></div>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- Advanced Settings -->
+                                                <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title text-primary">Nâng Cao</h4>
+                                                        <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>
+                                                    </div>
+                                                    <div uib-collapse="panelEditorCreateSoloPageAdvanceArea" ng-init="panelEditorCreateSoloPageAdvanceArea=true" class="panel-wrapper">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Danh Sách Autoresponder</label>
+                                                                <input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">
+                                                                <small class="form-text text-muted"><strong>Chú ý:</strong> Khi sử dụng MailChimp, hãy điền <strong>MailChimp List ID.</strong></small><br>
+                                                                <small id="small" class="form-text text-muted"><strong>Nhắc nhở.</strong> Hãy kết nối API với công cụ Email Marketing của bạn <a href="https://onlinesalespro.com/ARV2" target="_blank">tại đây.</a></small>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Tracking Codes</label>
+                                                                <textarea class="page-element form-control" id="codes" name="TrackingCode" ng-model="editor.TrackingCode" placeholder="Điền mã theo dõi của bạn tại đây"></textarea>
+                                                                <small id="small" class="form-text text-muted"><strong>Chú ý.</strong> Điền mã theo dõi của bên thứ ba vào đây. Đây là một tính năng nâng cao.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()">Lưu và Xem Trước</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()">Xuất Bản</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
