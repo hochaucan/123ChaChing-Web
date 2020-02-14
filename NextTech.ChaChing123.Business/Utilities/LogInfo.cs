@@ -20,25 +20,22 @@ namespace NextTech.ChaChing123.Business.Utilities
         /// <param name="ourReference">Our reference.</param>
         /// <param name="userAction">The user action.</param>
         /// <param name="remarks">The remarks.</param>
-        public static void WriteLog(string ourReference, string userAction, string remarks)
+        public static void WriteLog(string ourReference, string userAction, string remarks,string SessionKey)
         {
             try {
                 // property
                 //-- var userID = NextTech.ChaChing123.Utilities.User.GetUserID();
                 var userID = 1;// For testing
                 //Log info
-                Logger.LogInformation(ourReference + "_" + userID.ToString() + "_" + userAction + "_" + DateTime.Now + " remarks:" + remarks);
+                Logger.LogInformation(ourReference + "_" + SessionKey+ "_" + userAction + "_" + DateTime.Now + " remarks:" + remarks);
 
                 //Log DB
                 NextTech.ChaChing123.Entities.LogInfo obj = new NextTech.ChaChing123.Entities.LogInfo();
                 obj.OurReference = ourReference;
                 obj.Remarks = remarks;
                 obj.UserAction = userAction;
-                obj.UserID = userID;
-                obj.CreatedBy = "system";
+                obj.CreatedBy = SessionKey;
                 obj.CreatedDate = DateTime.Now;
-                obj.UpdatedBy = "system";
-                obj.UpdatedDate = DateTime.Now;
                 AddAudit(obj);
             }
             catch (Exception ex)

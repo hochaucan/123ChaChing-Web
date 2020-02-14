@@ -27,6 +27,8 @@ namespace NextTech.ChaChing123.Common.Constants
 
         public const string Login = "Login";
         public const string Logout = "Logout";
+        public const string GetData = "GetData";
+        
     }
 
     /// <summary>
@@ -64,7 +66,7 @@ namespace NextTech.ChaChing123.Common.Constants
         ECS0027 = 27,
         ECS0028 = 28,
         ECS0029 = 29,
-
+        ECS0030 = 30,
         ECS9999 = 9999,
     }
 
@@ -101,6 +103,7 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0027 = "Khác hàng đang sử dụng gói cơ bản nên không sử dụng được chức năng nâng cao.";
         public const string ECS0028 = "File upload không hợp lệ.";
         public const string ECS0029 = "Trạng thái không hợp lệ. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
+        public const string ECS0030 = "Dữu liệu đang được sử dụng. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
         public const string ECS9999 = "Lỗi không xác định.";
     }
 

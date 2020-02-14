@@ -59,7 +59,6 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
-
         public static ResultDTO GetAllSoloPage(this IEntityBaseRepository<LandingPage> repository, RequestDTO obj)
         {
             var result = new ResultDTO();
@@ -90,7 +89,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
             
-            result.Details = dbContext.Database.SqlQuery<RequestDetailByIDDTO>("EXEC [dbo].[sp_AddSoloPage] @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@CreatedBy,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<ResponeDTO>("EXEC [dbo].[sp_AddSoloPage] @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@CreatedBy,@SessionKey,@errorCode out",
                         new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                         new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
                         new SqlParameter("ButtonName", DB.SafeSQL(obj.ButtonName)),
@@ -109,7 +108,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("TrackingCode", obj.TrackingCode),
                         new SqlParameter("CreatedBy", DB.SafeSQL(obj.CreatedBy)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode).FirstOrDefault<RequestDetailByIDDTO>();
+                        errorCode).FirstOrDefault<ResponeDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
             return result;
@@ -125,7 +124,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<RequestDetailByIDDTO>("EXEC [dbo].[sp_EditSoloPage] @ID, @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@UpdatedBy,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<ResponeDTO>("EXEC [dbo].[sp_EditSoloPage] @ID, @Title,@SubTitle,@ButtonName,@ButtonColor,@PageName,@RefLink,@Link,@BackgroundPath,@ResourcePath,@ShareCode,@UseShareCode,@FromType,@IsAdvance,@Status,@AutoresponderCodes,@TrackingCode,@UpdatedBy,@SessionKey,@errorCode out",
                         new SqlParameter("ID", obj.ID),
                         new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                         new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
@@ -145,7 +144,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("TrackingCode", DB.SafeSQL(obj.TrackingCode) ),
                         new SqlParameter("UpdatedBy", DB.SafeSQL(obj.UpdatedBy)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                         errorCode).FirstOrDefault<RequestDetailByIDDTO>();
+                         errorCode).FirstOrDefault<ResponeDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 
@@ -161,8 +160,9 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteSoloPage] @ID,@SessionKey,@errorCode out",
-                        new SqlParameter("ID", obj.ID),
+            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteSoloPage] @ID,@UserName,@SessionKey,@errorCode out",
+                       new SqlParameter("ID", obj.ID),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode);
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
@@ -173,7 +173,7 @@ namespace NextTech.ChaChing123.Data.Extensions
         #endregion
 
         #region [Funnal]
-        public static ResultDTO GetDetailFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestDTO obj)
+        public static ResultDTO GetDetailFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestViewDetaiDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -182,11 +182,18 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
+            FunnalPageItem1DTO data=dbContext.Database.SqlQuery<FunnalPageItem1DTO>("EXEC [dbo].[sp_GetDetailFunnalPage] @ID,@UserName,@SessionKey,@errorCode out",
+                      new SqlParameter("ID", obj.ID),
+                      new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                      new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                      errorCode).FirstOrDefault<FunnalPageItem1DTO>();
+            if(data!=null && !string.IsNullOrEmpty(data.StepList) && !string.IsNullOrEmpty(data.SoloIDList))
+            {
+                data.StepList = data.StepList.TrimEnd(',');
+                data.SoloIDList = data.SoloIDList.TrimEnd(',');
+            }
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetDetailFunnalPage] @UserName,@SessionKey,@errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+            result.Details = data;
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 
@@ -202,16 +209,17 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetAllFunnalPage] @UserName,@SessionKey,@errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+            result.Details = dbContext.Database.SqlQuery<FunnalPageItemDTO>("EXEC [dbo].[sp_GetAllFunnalPage] @UserName,@SessionKey,@errorCode out",
+                       new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode).ToList<FunnalPageItemDTO>();
+
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 
             return result;
         }
-        public static ResultDTO AddFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestDTO obj)
+        public static ResultDTO AddFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestFunnalPageDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -221,16 +229,22 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddFunnalPage] @UserName,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<ResponeDTO>("EXEC [dbo].[sp_AddFunnalPage] @Title,@SubTitle,@PageName,@Link,@Status,@StepList,@SoloIDList,@UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("Title", DB.SafeSQL(obj.Title)),
+                        new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
+                        new SqlParameter("PageName", DB.SafeSQL(obj.PageName)),
+                        new SqlParameter("Link", DB.SafeSQL(obj.Link)),
+                        new SqlParameter("Status", obj.Status),
+                        new SqlParameter("StepList", DB.SafeSQL(obj.StepList)),
+                        new SqlParameter("SoloIDList", DB.SafeSQL(obj.SoloIDList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+                        errorCode).FirstOrDefault<ResponeDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
             return result;
         }
-        public static ResultDTO EditFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestDTO obj)
+        public static ResultDTO EditFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestFunnalPageDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -240,16 +254,23 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditFunnalPage] @UserName,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<ResponeDTO>("EXEC [dbo].[sp_EditFunnalPage] @ID,@Title,@SubTitle,@PageName,@Link,@Status,@StepList,@SoloIDList,@UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("ID", obj.ID),
+                        new SqlParameter("Title", DB.SafeSQL(obj.Title)),
+                        new SqlParameter("SubTitle", DB.SafeSQL(obj.SubTitle)),
+                        new SqlParameter("PageName", DB.SafeSQL(obj.PageName)),
+                        new SqlParameter("Link", DB.SafeSQL(obj.Link)),
+                        new SqlParameter("Status", obj.Status),
+                        new SqlParameter("StepList", DB.SafeSQL(obj.StepList)),
+                        new SqlParameter("SoloIDList", DB.SafeSQL(obj.SoloIDList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+                        errorCode).FirstOrDefault<ResponeDTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
             return result;
         }
-        public static ResultDTO DeleteFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestDTO obj)
+        public static ResultDTO DeleteFunnalPage(this IEntityBaseRepository<LandingPage> repository, RequestViewDetaiDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -259,7 +280,8 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteFunnalPage] @UserName,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteFunnalPage] @ID,@UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("ID", obj.ID),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode);
@@ -323,6 +345,30 @@ namespace NextTech.ChaChing123.Data.Extensions
             result.Details = dbContext.Database.SqlQuery<SoloPageItemDTO>("EXEC [dbo].[sp_FO_GetDetailSoloPageByID] @ID,@errorCode out",
                         new SqlParameter("ID", obj.ID),
                         errorCode).FirstOrDefault<SoloPageItemDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO GetDetailFunnalPageByID(this IEntityBaseRepository<LandingPage> repository, RequestDetailByIDDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            FunnalPageItem1DTO data = dbContext.Database.SqlQuery<FunnalPageItem1DTO>("EXEC [dbo].[sp_FO_GetDetailFunnalPageByID] @ID,@errorCode out",
+                        new SqlParameter("ID", obj.ID),
+                        errorCode).FirstOrDefault<FunnalPageItem1DTO>();
+            if (data != null && !string.IsNullOrEmpty(data.StepList) && !string.IsNullOrEmpty(data.SoloIDList))
+            {
+                data.StepList = data.StepList.TrimEnd(',');
+                data.SoloIDList = data.SoloIDList.TrimEnd(',');
+            }
+            result.Details = data;
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 

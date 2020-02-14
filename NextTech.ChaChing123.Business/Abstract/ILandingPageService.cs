@@ -22,14 +22,15 @@ namespace NextTech.ChaChing123.Business
         ResultDTO AddSoloPage (SolaPageDTO obj);
         ResultDTO EditSoloPage(SolaPageDTO obj);
         ResultDTO DeleteSoloPage(RequestViewDetaiDTO obj);
-        ResultDTO GetDetailFunnalPage(RequestDTO obj);
+        ResultDTO GetDetailFunnalPage(RequestViewDetaiDTO obj);
         ResultDTO GetAllFunnalPage(RequestDTO obj);
-        ResultDTO AddFunnalPage(RequestDTO obj);
-        ResultDTO EditFunnalPage(RequestDTO obj);
-        ResultDTO DeleteFunnalPage(RequestDTO obj);
+        ResultDTO AddFunnalPage(RequestFunnalPageDTO obj);
+        ResultDTO EditFunnalPage(RequestFunnalPageDTO obj);
+        ResultDTO DeleteFunnalPage(RequestViewDetaiDTO obj);
         ResultDTO GetTitleTemplate(RequestDTO obj);
         ResultDTO GetSubTitleTemplate(RequestDTO obj);
         //FO
         ResultDTO GetDetailSoloPageByID(RequestDetailByIDDTO obj);
+        ResultDTO GetDetailFunnalPageByID(RequestDetailByIDDTO obj);
     }
 }

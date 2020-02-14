@@ -1,7 +1,8 @@
 ﻿namespace NextTech.ChaChing123.Data.Extensions
 {
     using Entities;
-    
+    using NextTech.ChaChing123.Core.Utilities.Security;
+    using System.Data.SqlClient;
 
     public class LogInfoExtensions
     {
@@ -14,19 +15,13 @@
         {
             ApplicationContext dbContext;
             dbContext = new ApplicationContext();
-
-            var sqlSting = "INSERT INTO[dbo].[LogInfo]([UserID],[UserAction],[OurReference],[Remarks],[CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate])VALUES("
-                                + "'" + obj.UserID + "'"
-                                + ",'" + obj.UserAction + "'"
-                                + ",'" + obj.OurReference + "'"
-                                + ",'" + obj.Remarks + "'"
-                                + ",'system'"
-                                + ",'" + obj.CreatedDate + "'"
-                                + ",'system'"
-                                + ",'" + obj.UpdatedDate + "')";
-
-            dbContext.Database.ExecuteSqlCommand(sqlSting);
-
+            
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddLogInfo] @OurReference,@Remarks,@UserAction,@CreatedBy,@CreatedDate",
+                        new SqlParameter("OurReference", DB.SafeSQL(obj.OurReference)),
+                        new SqlParameter("Remarks", DB.SafeSQL(obj.Remarks)),
+                        new SqlParameter("UserAction", DB.SafeSQL(obj.UserAction)),
+                        new SqlParameter("CreatedBy", DB.SafeSQL(obj.CreatedBy) ),
+                        new SqlParameter("CreatedDate", obj.CreatedDate));
             return true;
         }
     }

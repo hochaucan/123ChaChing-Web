@@ -65,7 +65,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetWalletInfoByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetWalletInfoByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -81,7 +81,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAffiliateInfoByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAffiliateInfoByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -97,7 +97,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAffiliateCodeByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAffiliateCodeByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -113,7 +113,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetWithDrawallInfoByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetWithDrawallInfoByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -129,7 +129,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("RequestWithDrawall", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("RequestWithDrawall", ActionType.Add, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -147,7 +147,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetSummaryReportByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetSummaryReportByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -163,7 +163,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAfiliateAlertByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAfiliateAlertByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -179,7 +179,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAfiliateListByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAfiliateListByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }

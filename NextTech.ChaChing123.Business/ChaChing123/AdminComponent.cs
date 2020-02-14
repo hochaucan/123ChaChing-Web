@@ -52,7 +52,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAccountList", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAccountList", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -69,7 +69,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetOrderList", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetOrderList", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -86,7 +86,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAffialateList", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAffialateList", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -103,7 +103,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("UpdatePaymentState", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("UpdatePaymentState", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -120,7 +120,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("UpdatePaymentAffiliateState", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("UpdatePaymentAffiliateState", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -137,7 +137,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAccountInfo", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAccountInfo", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -154,7 +154,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("SetDefautAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("SetDefautAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -171,7 +171,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("SetPasswodForAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("SetPasswodForAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -188,7 +188,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("ChangeAccountType", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("ChangeAccountType", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -206,7 +206,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("LockAccount", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("LockAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -222,7 +222,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("LockAffialate", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("LockAffialate", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -239,7 +239,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAffiliateListByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAffiliateListByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -256,7 +256,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("UpdateAccountInfo", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("UpdateAccountInfo", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -274,7 +274,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetWithDrawallInfoByAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetWithDrawallInfoByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -291,7 +291,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("SummaryRevenueReport", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("SummaryRevenueReport", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -308,7 +308,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("SummaryCommissionReport", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("SummaryCommissionReport", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -326,7 +326,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllWithDrawallInfo", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllWithDrawallInfo", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -343,7 +343,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("SumaryReportChart", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("SumaryReportChart", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -360,7 +360,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllLead", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllLead", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -377,7 +377,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("ActiveAccount", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("ActiveAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 rsInfo.StatusMsg = ex.Message.ToString();
             }
@@ -402,7 +402,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("Login", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("Login", ActionType.Login, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -421,7 +421,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("Logout", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("Logout", ActionType.Logout, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -442,7 +442,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("ChangePassword", ActionType.Update, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("ChangePassword", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.SetContentMsg();
             }
@@ -461,7 +461,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("AddTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("AddTitleTemplate", ActionType.Add, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -477,7 +477,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("EditTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("EditTitleTemplate", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -493,7 +493,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("DeleteTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("DeleteTitleTemplate", ActionType.Delete, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -509,7 +509,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllTitleTemplate", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -529,7 +529,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("AddSubTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("AddSubTitleTemplate", ActionType.Add, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -545,7 +545,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("EditSubTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("EditSubTitleTemplate", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -561,7 +561,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("DeleteSubTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("DeleteSubTitleTemplate", ActionType.Delete, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
@@ -577,7 +577,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllSubTitleTemplate", ActionType.Logout, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllSubTitleTemplate", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }
