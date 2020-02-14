@@ -22,7 +22,7 @@ namespace NextTech.ChaChing123.Business
 
         ResultDTO Register(RegisterDTO obj);
 
-        ResultDTO Edit(EditAccountDTO obj);
+        ResultDTO Edit(RequestEditAccountDTO obj);
 
         ResultDTO Delete(DeleteAccountDTO obj);
 
@@ -33,5 +33,6 @@ namespace NextTech.ChaChing123.Business
         ResultDTO GetAccountInfo(RequestDTO id);
 
         IQueryable<Account> GetAllData(Paging obj);
+        ResultDTO RequestAccountType(RequestAccountTypeDTO obj);
     }
 }

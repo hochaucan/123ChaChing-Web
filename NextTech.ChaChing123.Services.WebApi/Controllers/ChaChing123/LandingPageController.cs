@@ -161,7 +161,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("GetDetailFunnalPage")]
         [HttpPost]
-        public HttpResponseMessage GetDetailFunnalPage(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetDetailFunnalPage(HttpRequestMessage request, RequestViewDetaiDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -191,7 +191,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("AddFunnalPage")]
         [HttpPost]
-        public HttpResponseMessage AddFunnalPage(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage AddFunnalPage(HttpRequestMessage request, RequestFunnalPageDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -207,7 +207,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("EditFunnalPage")]
         [HttpPost]
-        public HttpResponseMessage EditFunnalPage(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage EditFunnalPage(HttpRequestMessage request, RequestFunnalPageDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -223,7 +223,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("DeleteFunnalPage")]
         [HttpPost]
-        public HttpResponseMessage DeleteFunnalPage(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage DeleteFunnalPage(HttpRequestMessage request, RequestViewDetaiDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -231,6 +231,21 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 HttpResponseMessage response;
 
                 ResultDTO result = _service.DeleteFunnalPage(obj);
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("GetDetailFunnalPageByID")]
+        [HttpPost]
+        public HttpResponseMessage GetDetailFunnalPageByID(HttpRequestMessage request, RequestDetailByIDDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+
+                ResultDTO result = _service.GetDetailFunnalPageByID(obj);
                 response = request.CreateResponse(HttpStatusCode.OK, result);
                 return response;
             });

@@ -53,7 +53,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetSoloInfoByShareCode", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetSoloInfoByShareCode", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg= ex.Message.ToString();
             }
@@ -70,7 +70,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetDetailSoloPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetDetailSoloPage", ActionType.Login, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -85,7 +85,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllSoloPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllSoloPage", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -110,7 +110,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("AddSoloPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("AddSoloPage", ActionType.Add, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -125,7 +125,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("EditSoloPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("EditSoloPage", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -140,13 +140,13 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("DeleteSoloPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("DeleteSoloPage", ActionType.Delete, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
             return accInfo;
         }
-        public ResultDTO GetDetailFunnalPage(RequestDTO obj)
+        public ResultDTO GetDetailFunnalPage(RequestViewDetaiDTO obj)
         {
             ResultDTO accInfo = null;
             try
@@ -155,7 +155,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetDetailFunnalPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetDetailFunnalPage", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -170,13 +170,13 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetAllFunnalPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetAllFunnalPage", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
             return accInfo;
         }
-        public ResultDTO AddFunnalPage(RequestDTO obj)
+        public ResultDTO AddFunnalPage(RequestFunnalPageDTO obj)
         {
             ResultDTO accInfo = null;
             try
@@ -185,13 +185,13 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("AddFunnalPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("AddFunnalPage", ActionType.Add, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
             return accInfo;
         }
-        public ResultDTO EditFunnalPage(RequestDTO obj)
+        public ResultDTO EditFunnalPage(RequestFunnalPageDTO obj)
         {
             ResultDTO accInfo = null;
             try
@@ -200,13 +200,13 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("EditFunnalPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("EditFunnalPage", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
             return accInfo;
         }
-        public ResultDTO DeleteFunnalPage(RequestDTO obj)
+        public ResultDTO DeleteFunnalPage(RequestViewDetaiDTO obj)
         {
             ResultDTO accInfo = null;
             try
@@ -215,7 +215,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("DeleteFunnalPage", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("DeleteFunnalPage", ActionType.Delete, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -230,7 +230,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetTitleTemplate", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetTitleTemplate", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -245,7 +245,7 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetSubTitleTemplate", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetSubTitleTemplate", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
@@ -264,12 +264,29 @@ namespace NextTech.ChaChing123.Business
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetDetailSoloPageByID", ActionType.Login, ex.Message.ToString());
+                Utilities.AppLog.WriteLog("GetDetailSoloPageByID", ActionType.GetData, ex.Message.ToString(), "Call FO method");
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }
             return accInfo;
         }
+
+        public ResultDTO GetDetailFunnalPageByID(RequestDetailByIDDTO obj)
+        {
+            ResultDTO accInfo = null;
+            try
+            {
+                accInfo = _repository.GetDetailFunnalPageByID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetDetailFunnalPageByID", ActionType.GetData, ex.Message.ToString(), "Call FO method");
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+            return accInfo;
+        }
+        
         #endregion
     }
 }

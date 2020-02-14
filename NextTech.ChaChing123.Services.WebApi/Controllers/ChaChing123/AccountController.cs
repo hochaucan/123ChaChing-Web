@@ -216,18 +216,30 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            });
        }
 
-       //[AllowAnonymous]
-       //[HttpGet]
-       //[Route("GetAccountInfo/{id:int}")]
-       //public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
-       //{
-       //    return CreateHttpResponse(request, () =>
-       //    {
-       //        HttpResponseMessage response = null;
-       //        response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj.ID));
-       //        return response;
-       //    });
-       //}
+        [AllowAnonymous]
+        [Route("EditAccount")]
+        [HttpPost]
+        public HttpResponseMessage EditAccount(HttpRequestMessage request, RequestEditAccountDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.Edit(obj) });
+                return response;
+            });
+        }
+        //[AllowAnonymous]
+        //[HttpGet]
+        //[Route("GetAccountInfo/{id:int}")]
+        //public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
+        //{
+        //    return CreateHttpResponse(request, () =>
+        //    {
+        //        HttpResponseMessage response = null;
+        //        response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj.ID));
+        //        return response;
+        //    });
+        //}
 
         [AllowAnonymous]
         [HttpPost]
@@ -290,7 +302,20 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.Logout(obj) });
                 return response;
             });
-        }   
+        }
+        [AllowAnonymous]
+        [Route("RequestAccountType")]
+        [HttpPost]
+        public HttpResponseMessage RequestAccountType(HttpRequestMessage request, RequestAccountTypeDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.RequestAccountType(obj) });
+                return response;
+            });
+        }
+        
     }
 }
 

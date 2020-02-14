@@ -127,9 +127,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 accInfo.RegisterDate= item.CreatedDate.ToString("dd/MM/yyyy");
                 accInfo.AvartaPath = item.AvartaPath;
                 accInfo.SessionKey = obj.SessionKey;
-
             }
-
             return accInfo;
         }
 
@@ -178,7 +176,7 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-        public static ResultDTO EditAccount(this IEntityBaseRepository<Account> repository, EditAccountDTO obj)
+        public static ResultDTO EditAccount(this IEntityBaseRepository<Account> repository, RequestEditAccountDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -188,22 +186,15 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-            {
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            }
-            else
-            {
-                result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditAccount] @FullName,@UserName, @Email,@Phone, @SessionKey, @errorCode out",
-                       new SqlParameter("FullName", DB.SafeSQL(obj.UserName)),
-                       new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                       new SqlParameter("Email", DB.SafeSQL(obj.Email)),
-                       new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
-                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                       errorCode);
-                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                result.SetContentMsg();
-            }
+            
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditAccount] @FullName,@UserName, @AvartaPath,@SessionKey, @errorCode out",
+                    new SqlParameter("FullName", DB.SafeSQL(obj.FullName)),
+                    new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                    new SqlParameter("AvartaPath", DB.SafeSQL(obj.AvartaPath)),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
             
             return result;
         }
@@ -224,16 +215,13 @@ namespace NextTech.ChaChing123.Data.Extensions
             }
             else
             {
-                result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteAccount] @UserName, @SessionKey, @errorCode out",
-                       new SqlParameter("FullName", DB.SafeSQL(obj.UserName)),
-                       new SqlParameter("UserName", DB.SafeSQL(obj.SessionKey)),
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteAccount] @UserName, @SessionKey, @errorCode out",
+                       new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                        errorCode);
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
             }
-
-
-
             return result;
         }
 
@@ -306,16 +294,42 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetAccountInfo] @UserName,@SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<AccountInfo1DTO>("EXEC [dbo].[sp_GetAccountInfo1] @UserName,@SessionKey,@errorCode out",
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+                        errorCode).FirstOrDefault<AccountInfo1DTO>();
+           
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 
             return result;
         }
+        public static ResultDTO RequestAccountType(this IEntityBaseRepository<Account> repository, RequestAccountTypeDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
 
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            }
+            else
+            {
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_RequestAccountType] @AccountType,@UserName, @SessionKey, @errorCode out",
+                    new SqlParameter("AccountType", obj.AccountType),
+                    new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            }
+            return result;
+        }
         //public static ResultDTO AddTokenPush.
 
 
