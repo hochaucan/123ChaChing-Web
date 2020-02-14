@@ -106,15 +106,15 @@
                                                                 <label for="exampleInputEmail1">Màu Sắc Trang</label>
                                                                 <br>
                                                                 <span class="simplecolorpicker inline">
-                                                                    <span class="color color-select" ng-click="getColorBackground($event)" title="Turquoise" style="background-color: #1abc9c;" data-color="#1abc9c" role="button" tabindex="0" data="#1abc9c"></span>
-                                                                    <span class="color" title="Emerald" ng-click="getColorBackground($event)" style="background-color: #2ecc71;" data-color="#2ecc71" role="button" tabindex="0" data="#2ecc71"></span>
-                                                                    <span class="color" title="Peter River" ng-click="getColorBackground($event)" style="background-color: #3498db;" data-color="#3498db" role="button" tabindex="0" data="#3498db"></span>
-                                                                    <span class="color" title="Amethyst" ng-click="getColorBackground($event)" style="background-color: #9b59b6;" data-color="#9b59b6" role="button" tabindex="0" data="#9b59b6"></span>
-                                                                    <span class="color" title="Wet Asphalt" ng-click="getColorBackground($event)" style="background-color: #34495e;" data-color="#34495e" role="button" tabindex="0" data="#34495e"></span>
-                                                                    <span class="color" title="Sun Flower" ng-click="getColorBackground($event)" style="background-color: #f1c40f;" data-color="#f1c40f" role="button" tabindex="0" data="#f1c40f"></span>
-                                                                    <span class="color" title="Carrot" ng-click="getColorBackground($event)" style="background-color: #e67e22;" data-color="#e67e22" role="button" tabindex="0" data="#e67e22"></span>
-                                                                    <span class="color" title="Alizarin" ng-click="getColorBackground($event)" style="background-color: #e74c3c;" data-color="#e74c3c" role="button" tabindex="0" data="#e74c3c"></span>
-                                                                    <span class="color" title="Concrete" ng-click="getColorBackground($event)" style="background-color: #95a5a6;" data-color="#95a5a6" role="button" tabindex="0" data="#95a5a6"></span>
+                                                                    <span class="color color-select" ng-click="getColorBackground($event)" title="Turquoise" style="background-color: #1abc9c;" data-color="#1abc9c" role="button" tabindex="0" data="#1abc9c" id="1abc9c"></span>
+                                                                    <span class="color" title="Emerald" ng-click="getColorBackground($event)" style="background-color: #2ecc71;" data-color="#2ecc71" role="button" tabindex="0" data="#2ecc71" id="2ecc71"></span>
+                                                                    <span class="color" title="Peter River" ng-click="getColorBackground($event)" style="background-color: #3498db;" data-color="#3498db" role="button" tabindex="0" data="#3498db" id="3498db"></span>
+                                                                    <span class="color" title="Amethyst" ng-click="getColorBackground($event)" style="background-color: #9b59b6;" data-color="#9b59b6" role="button" tabindex="0" data="#9b59b6" id="9b59b6"></span>
+                                                                    <span class="color" title="Wet Asphalt" ng-click="getColorBackground($event)" style="background-color: #34495e;" data-color="#34495e" role="button" tabindex="0" data="#34495e" id="34495e"></span>
+                                                                    <span class="color" title="Sun Flower" ng-click="getColorBackground($event)" style="background-color: #f1c40f;" data-color="#f1c40f" role="button" tabindex="0" data="#f1c40f" id="f1c40f"></span>
+                                                                    <span class="color" title="Carrot" ng-click="getColorBackground($event)" style="background-color: #e67e22;" data-color="#e67e22" role="button" tabindex="0" data="#e67e22" id="e67e22"></span>
+                                                                    <span class="color" title="Alizarin" ng-click="getColorBackground($event)" style="background-color: #e74c3c;" data-color="#e74c3c" role="button" tabindex="0" data="#e74c3c" id="e74c3c"></span>
+                                                                    <span class="color" title="Concrete" ng-click="getColorBackground($event)" style="background-color: #95a5a6;" data-color="#95a5a6" role="button" tabindex="0" data="#95a5a6" id="95a5a6"></span>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -191,7 +191,7 @@
                                                         
 
                                                         <!-- Advanced Settings -->
-                                                        <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea">
+                                                        <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
                                                             <div class="panel-heading">
                                                                 <h4 class="panel-title text-primary">Nâng Cao</h4>
                                                                 <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>
@@ -216,10 +216,10 @@
 
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()">Lưu Tạm</button>
+                                                                <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()">Lưu và Xem Trước</button>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()">Hoàn Tất</button>
+                                                                <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()">Xuất Bản</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -234,7 +234,23 @@
                             <uib-tab-heading>
                                 <i class="ti-layers-alt"></i> Quản Lý Trang
                             </uib-tab-heading>
-                            Manage page
+                            <div id="pageContent2" ng-controller="TabsEditorMyPageCtrl">
+
+                                <div class="pageTile" ng-repeat="myPage in myPages">
+                                    <a ng-href="#/app/mypages/edit/{{myPage.ID}}">
+                                        <div class="pageThumbnail">
+                                            <img id="ibcform" src="Content/Resources/Images/35013-quick9.png" width="400px" onerror="imgError(&quot;ibcform&quot;)">
+                                        </div>
+                                    </a>
+                                    <div class="pageTitle">
+                                        <span ng-if="myPage.Status == '2'">{{myPage.Link}}</span>
+                                        <div style="float:right">
+                                            <i class="fa fa-share-square shareQuick" data-name="ibcform" data-id="64022" style="color: rgb(76, 138, 23); cursor: pointer;margin-right:5px"></i>
+                                            <i class="fa fa-times-circle deleteQuick" data-name="ibcform" data-id="64022" style="color: rgba(165, 0, 0, 0.74); cursor: pointer;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </uib-tab>
                     </uib-tabset>
                 </div>

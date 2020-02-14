@@ -5,10 +5,13 @@
 
 var backgroundPath = "";
 var resourcePath = "";
+var baseUrl = 'https://api.123chaching.app';
+//var baseUrl = 'http://localhost:1494';
 
-app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editorService", "notificationService", function ($scope, $localStorage, $timeout, editorService, notificationService) {
+app.controller('TabsEditorCtrl', ["$scope", "$window", "$localStorage", "$timeout", "editorService", "notificationService", function ($scope, $window, $localStorage, $timeout, editorService, notificationService) {
     var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
     var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+    var accountType = ($localStorage.currentUser) ? $localStorage.currentUser.accountType : "";
 
     $scope.master = $scope.user;
     $scope.showSpinner = false;
@@ -16,6 +19,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
     $scope.formTypeVal = 1;
     $scope.saveMethod = 1;
     $scope.buttonColor = "";
+    $scope.IsAdvanceAccount = (accountType == 2) ? true : false;
     $scope.editor = {};
 
     $scope.$watch('formTypeVal', function (formTypeVal) {
@@ -38,13 +42,15 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
     };
 
     $scope.getColorBackground = function (obj) {
-        $scope.buttonColor = obj.target.attributes.data.value;
+        var buttonColor = obj.target.attributes.data.value;
+        $scope.buttonColor = buttonColor;
+        var idBuilder = buttonColor.substr(1, buttonColor.length - 1);
+        angular.element('.color').removeClass("color-select");
+        angular.element('#' + idBuilder + '').addClass("color-select");
     };
 
     $scope.form = {
         submit: function (form) {
-            console.log('main form');
-            console.log($scope.saveMethod);
             var firstError = null;
             if (form.$invalid) {
 
@@ -66,7 +72,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
                 return;
 
             } else {
-               var editor = {
+                var editor = {
                     "Title": "",
                     "SubTitle": "",
                     "ButtonName": "",
@@ -97,7 +103,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
                         "ResourcePath": resourcePath,
                         "UseShareCode": $scope.editor.UseShareCode,
                         "FromType": $scope.formTypeVal,
-                        "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature,
+                        "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 2 : 1, // one of those are NOT equal NULL then customer is using advanced feature,
                         "Status": $scope.saveMethod,
                         "AutoresponderCodes": $scope.editor.AutoresponderCodes,
                         "TrackingCode": $scope.editor.TrackingCode,
@@ -109,13 +115,22 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
                 $scope.showSpinner = true;
                 editorService.createSoloPage(editor, function (result) {
                     if (result.data && result.data.StatusCode == 0) {
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 2000);
-                        notificationService.displaySuccess('Tạo Solo Page Thành Công');
                         backgroundPath = "";
                         resourcePath = "";
-                        //$location.path('/app/home');
+                        if ($scope.saveMethod == 1) {
+                            var soloPageUrlBuilder = 'https://123chaching.app/#/solo/page/' + result.data.Details.ID + '/' + username + '/' + sessionKey;
+                            notificationService.displaySuccess('Lưu Solo Page Thành Công');
+                            $scope.showSpinner = false;
+                            $timeout(function () {
+                                if (result.data.Details) {
+                                    soloPageUrlBuilder = result.data.Details.urlPath;
+                                }
+                                $window.open(soloPageUrlBuilder, '_blank');
+                            }, 2000);
+                        }
+                        else {
+                            notificationService.displaySuccess('Xuất Bản Solo Page Thành Công');
+                        }
                     }
                     else {
                         $timeout(function () {
@@ -132,6 +147,39 @@ app.controller('TabsEditorCtrl', ["$scope", "$localStorage", "$timeout", "editor
     };
 
 }]);
+app.controller('TabsEditorMyPageCtrl', ["$scope", "$window", "$localStorage", "$timeout", "editorService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, editorService, notificationService) {
+        $scope.master = $scope.user;
+        $scope.showSpinner = false;
+
+        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+        var accountType = ($localStorage.currentUser) ? $localStorage.currentUser.accountType : "";
+
+        $scope.myPages = {};
+        $scope.isPublicLink = true;
+
+        var userObj = {
+            UserName: username,
+            SessionKey: sessionKey
+        };
+
+        $scope.showSpinner = true;
+        editorService.getMyPages(userObj, function (result) {
+            if (result.data && result.data.StatusCode == 0) {
+                $scope.myPages = result.data.Details;
+                $timeout(function () {
+                    $scope.showSpinner = false;
+                }, 2000);
+            }
+            else {
+                $timeout(function () {
+                    $scope.showSpinner = false;
+                }, 2000);
+                notificationService.displayError(result.data.StatusMsg);
+            }
+        });
+    }]);
 app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
     // GET THE FILE INFORMATION.
     $scope.getFileDetails = function (e) {
@@ -163,7 +211,7 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
             }
         }
 
-        
+
 
         // ADD LISTENERS.
         var objXhr = new XMLHttpRequest();
@@ -172,7 +220,7 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
 
         // SEND FILE DETAILS TO THE API.
         //objXhr.open("POST", "http://localhost:1494/api/fileupload/uploadfiles/");
-        objXhr.open("POST", "/api/LandingPage/UploadFile/");
+        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
         objXhr.send(data);
 
         //editorService.uploadFile(data, function (result) {
@@ -204,7 +252,6 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
         }
     }
 }]);
-
 app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
     // GET THE FILE INFORMATION.
     $scope.getFileDetails = function (e) {
@@ -242,7 +289,7 @@ app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editor
         objXhr.addEventListener("load", transferComplete, false);
 
         // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", "/api/LandingPage/UploadFile/");
+        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
         objXhr.send(data);
     };
 

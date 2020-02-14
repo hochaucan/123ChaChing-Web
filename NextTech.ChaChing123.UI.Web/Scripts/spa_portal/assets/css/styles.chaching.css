@@ -414,3 +414,123 @@ ul.nav li a i[class*="ti-"] {
         height: 100%;
     }
 }
+
+/*SOLO PAGE*/
+html {
+    height: 100%;
+}
+
+#cp-cover {
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.t-box {
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 50px;
+    border-radius: 3px;
+    padding: 15px;
+}
+
+.t-text-1 {
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    /*margin-top:100px;*/
+    /*margin-bottom:30px;*/
+    text-shadow: 1px 1px 15px rgba(0, 0, 0, .51);
+}
+
+.padding-top {
+    margin-top: 250px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .padding-top {
+        margin-top: 50px;
+    }
+}
+
+.t-privacy {
+    text-align: center;
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.t-text-2 {
+    text-align: center;
+    font-size: 22px;
+    margin: 5px 0 10px 0;
+    color: white;
+    /*margin-top:60px;*/
+}
+
+
+
+.t-video {
+    border: 5px solid red;
+    border-radius: 3px;
+    margin-top: 30px;
+}
+
+.t-btn {
+    background-color: red;
+    width: 100%;
+    color: white !important;
+    font-size: 24px;
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 2px;
+    border: none;
+    white-space: initial;
+}
+
+    .t-btn:hover {
+        background-color: blue;
+    }
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    text-align: center;
+    font-size: 28px;
+    padding: 10px 0 5px 0;
+}
+
+.modal-footer {
+    text-align: center;
+}
+
+.t-input {
+    font-size: 20px;
+    padding: 10px;
+    height: initial;
+    border-radius: 0px;
+}
+
+.field-border {
+    border: 1px solid red;
+    margin-top: 20px;
+}
+
+.t-footer {
+    text-align: center;
+    padding: 20px 0px;
+    margin-top: 30px;
+}
+
+.footer-link {
+    /*color:gray !important;*/
+    color: #cccccc !important;
+    font-size: 12px;
+}
+
+.form-group {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+/*END SOLO PAGE*/
