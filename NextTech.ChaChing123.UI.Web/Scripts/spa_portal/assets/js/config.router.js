@@ -42,6 +42,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Home'
             }
             // Login routes
+        }).state('app.solo', {
+            url: "/solo/:id",
+            templateUrl: "Scripts/spa_portal/assets/views/solo_page.html",
+            title: 'Home'
         }).state('app.aboutus', {
             url: '/aboutus',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
@@ -81,7 +85,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.mypages', {
             url: '/mypages/edit/:id',
             templateUrl: "Scripts/spa_portal/assets/views/editor_edit_mypage.html",
-            controller: 'editorEditMyPageCtrl',
             title: 'mypae',
             ncyBreadcrumb: {
                 label: 'mypage'

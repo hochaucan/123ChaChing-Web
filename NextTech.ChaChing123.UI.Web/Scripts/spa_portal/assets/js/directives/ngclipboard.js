@@ -33,11 +33,18 @@
                             e: e
                         });
                     });
-                    notificationService.displaySuccess("Copy Link Affiliate Thành Công");
+                    notificationService.displaySuccess(e.trigger.innerText + " Thành Công");
 
                     $timeout(function () {
                         angular.element('#myModalGetLinkAffiliateCloseButton').trigger('click');
                     }, 1000);
+
+                    if (e.trigger.innerText === "Copy Share Code") {
+                        $timeout(function () {
+                            angular.element('#myModalSoloPageShareCodeCloseButton').trigger('click');
+                        }, 1000);
+                    }
+                    
                 });
 
                 clipboard.on('error', function (e) {
@@ -45,11 +52,17 @@
                         scope.ngclipboardError({
                             e: e
                         });
-                        notificationService.displaySuccess("Copy Link Affiliate Không Thành Công");
+                        notificationService.displaySuccess(e.trigger.innerText + " Không Thành Công");
 
                         $timeout(function () {
                             angular.element('#myModalGetLinkAffiliateCloseButton').trigger('click');
                         }, 1000);
+
+                        if (e.trigger.innerText === "Copy Share Code") {
+                            $timeout(function () {
+                                angular.element('#myModalSoloPageShareCodeCloseButton').trigger('click');
+                            }, 1000);
+                        }
                     });
                 });
 

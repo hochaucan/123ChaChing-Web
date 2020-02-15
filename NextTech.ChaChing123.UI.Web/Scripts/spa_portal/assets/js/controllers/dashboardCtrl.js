@@ -2,6 +2,12 @@
 /** 
   * controllers used for the dashboard
 */
+app.controller('manageMyPagesCtrl', ["$scope", "$location", function ($scope, $location) {
+    $scope.createSoloPage = function () {
+        $location.path('/app/editor');
+    }
+}]);
+
 app.controller('SparklineCtrl', ["$scope", "$location", function ($scope, $location) {
     $scope.sales = [600, 923, 482, 1211, 490, 1125, 1487];
     $scope.earnings = [400, 650, 886, 443, 502, 412, 353];
