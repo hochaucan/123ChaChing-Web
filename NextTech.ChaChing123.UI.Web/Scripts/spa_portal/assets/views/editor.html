@@ -9,7 +9,6 @@
                 <h1 class="mainTitle" translate="topbar.nav.EDITOR">Tạo Trang</h1>
                 <span class="mainDescription">Tạo Trang Và Quản Lý Trang</span>
             </div>
-            <div ncy-breadcrumb=""></div>
         </div>
     </section>
     <!-- end: PAGE TITLE -->
@@ -19,6 +18,7 @@
         <div class="container-fluid container-fullw bg-white">
             <div class="row">
                 <div class="col-md-12">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <uib-tabset class="tabbable">
                         <uib-tab id="createSoloPage">
                             <uib-tab-heading>
@@ -91,10 +91,38 @@
                                                                 <textarea class="page-element form-control" id="text_1" name="Title" ng-model="editor.Title" required="" placeholder="Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây."></textarea>
                                                                 <span class="error text-small block" ng-if="FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid">Tiêu đề là bắt buộc.</span>
                                                             </div>
+                                                            <div class="row">
+                                                                <div class="col-md-8" ng-hide="!isShowTitleTemplate">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title">
+                                                                            <option value="" disabled="">Select</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 pull-right">
+                                                                    <div class="form-group pull-right">
+                                                                        <a class="btn btn-primary btn-o btn-wide" ng-click="showTitleTemplate()">Mẫu Tiêu Đề</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid, 'has-success':FormCreateSoloPage.SubTitle.$valid}">
                                                                 <label for="exampleInputEmail1">2. Tiêu Đề Phụ <span class="symbol required"></span></label>
                                                                 <textarea class="page-element form-control" id="text_2" name="SubTitle" ng-model="editor.SubTitle" required="" placeholder="Điền Tiêu Đề Phụ Của Bạn Tại Đây."></textarea>
                                                                 <span class="error text-small block" ng-if="FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid">Tiêu đề phụ là bắt buộc.</span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-8" ng-hide="!isShowSubTitleTemplate">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle">
+                                                                            <option value="" disabled="">Select</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 pull-right">
+                                                                    <div class="form-group pull-right">
+                                                                        <a class="btn btn-primary btn-o btn-wide" ng-click="showSubTitleTemplate()">Mẫu Tiêu Đề Phụ</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.ButtonName.$dirty && FormCreateSoloPage.ButtonName.$invalid, 'has-success':FormCreateSoloPage.ButtonName.$valid}">
                                                                 <label for="exampleInputEmail1">3. Nút Hành Động <span class="symbol required"></span></label>
@@ -146,7 +174,7 @@
                                                                             <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                            <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
                                                                                 <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
                                                                             </button>
                                                                         </div>
@@ -172,7 +200,7 @@
                                                                                 <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                             </div>
                                                                             <div class="col-md-6">
-                                                                                <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                                <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
                                                                                     <span class="glyphicon glyphicon-upload"></span> Upload Hình Ảnh/Video
                                                                                 </button>
                                                                             </div>
@@ -186,9 +214,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
-                                                        
+
 
                                                         <!-- Advanced Settings -->
                                                         <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
@@ -235,7 +263,6 @@
                                 <i class="ti-layers-alt"></i> Quản Lý Trang
                             </uib-tab-heading>
                             <div id="pageContent2" ng-controller="TabsEditorMyPageCtrl">
-
                                 <div class="pageTile" ng-repeat="myPage in myPages">
                                     <a ng-href="#/app/mypages/edit/{{myPage.ID}}">
                                         <div class="pageThumbnail">
@@ -245,9 +272,50 @@
                                     <div class="pageTitle">
                                         <span ng-if="myPage.Status == '2'">{{myPage.Link}}</span>
                                         <div style="float:right">
-                                            <i class="fa fa-share-square shareQuick" data-name="ibcform" data-id="64022" style="color: rgb(76, 138, 23); cursor: pointer;margin-right:5px"></i>
-                                            <i class="fa fa-times-circle deleteQuick" data-name="ibcform" data-id="64022" style="color: rgba(165, 0, 0, 0.74); cursor: pointer;"></i>
+                                            <i class="fa fa-share-square shareQuick" ng-click="shareSoloPageCode($event)" data-name="ibcform" data-id="{{myPage.ShareCode}}" data="{{myPage.ShareCode}}" style="color: rgb(76, 138, 23); cursor: pointer;margin-right:5px"></i>
+                                            <i class="fa fa-times-circle deleteQuick" ng-click="deleteSoloPage($event)" data-name="ibcform" data-id="{{myPage.ID}}" data="{{myPage.ID}}" style="color: rgba(165, 0, 0, 0.74); cursor: pointer;"></i>
                                         </div>
+                                        <script type="text/ng-template" id="myModalDeleteSoloPage.html">
+                                            <div class="modal-header">
+                                                <span class="modal-title text-bold">Xóa Solo Page</span>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="soloPageID" name="soloPageID" value="">
+                                                    <p>Bạn muốn xóa trang này không?</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" ng-click="ok()">Yes! Tôi muốn xóa</button>
+                                                <button class="btn btn-primary btn-o" ng-click="cancel()">No!. Tôi muốn giữ lại</button>
+                                            </div>
+                                        </script>
+                                        <script type="text/ng-template" id="myModalGenerateSharedCode.html">
+                                            <div class="modal-header">
+                                                <span class="modal-title text-bold">Lấy Share Code</span>
+                                                <button type="button" id="myModalSoloPageShareCodeCloseButton" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="affiliateUrl">
+                                                        Share Code
+                                                    </label>
+                                                    <input type="text" class="form-control" id="soloPageShareCode" name="soloPageShareCode" ng-model="editor.soloPageShareCode">
+                                                </div>
+                                                <div class="form-group">
+                                                    <span class="input-group-button">
+                                                        <button class="btn btn-primary btn-block" type="button" ngclipboard="" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" data-clipboard-target="#soloPageShareCode">
+                                                            Copy Share Code
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </script>
                                     </div>
                                 </div>
                             </div>

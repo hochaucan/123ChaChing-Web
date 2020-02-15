@@ -19,7 +19,7 @@
                     <div class="row">
                         <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
                         <div ng-controller="SparklineCtrl">
-                            <div class="col-md-12">
+                            <div class="col-md-12" ng-controller="manageMyPagesCtrl">
                                 <div class="panel panel-white">
                                     <div class="panel-heading border-light">
                                         <h5 class="panel-title text-left">Tạo Trang</h5>
@@ -29,7 +29,7 @@
                                             <span class="text-bold text-uppercase">3 Bước Đơn Giản</span>
                                         </p>
                                         <p>
-                                            <button class="btn btn-primary btn-block">
+                                            <button class="btn btn-primary btn-block" ng-click="createSoloPage()">
                                                 Bắt Đầu Ngay
                                             </button>
                                         </p>

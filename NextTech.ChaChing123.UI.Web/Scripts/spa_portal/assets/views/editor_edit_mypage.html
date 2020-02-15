@@ -42,31 +42,31 @@
                                                 <div class="panel panel-transparent">
                                                     <div class="panel-body">
                                                         <div class="radio clip-radio radio-primary">
-                                                            <input type="radio" id="radioEmail" name="formTypeVal" ng-model="formTypeVal" value="1" checked="checked">
+                                                            <input type="radio" id="radioEmail" name="formTypeVal" ng-model="editor.FromType" value="1">
                                                             <label for="radioEmail">
                                                                 Lấy Email
                                                             </label>
                                                         </div>
                                                         <div class="radio clip-radio radio-primary">
-                                                            <input type="radio" id="radioEmailName" name="formTypeVal" ng-model="formTypeVal" value="2">
+                                                            <input type="radio" id="radioEmailName" name="formTypeVal" ng-model="editor.FromType" value="2">
                                                             <label for="radioEmailName">
                                                                 Lấy Email + Tên
                                                             </label>
                                                         </div>
                                                         <div class="radio clip-radio radio-primary">
-                                                            <input type="radio" id="radioEmailNamePhone" name="formTypeVal" ng-model="formTypeVal" value="3">
-                                                            <label for="radioEmailNamePhone" ">
+                                                            <input type="radio" id="radioEmailNamePhone" name="formTypeVal" ng-model="editor.FromType" value="3">
+                                                            <label for="radioEmailNamePhone">
                                                                 Lấy Email + Tên + Số Điện Thoại
                                                             </label>
                                                         </div>
                                                         <div class="radio clip-radio radio-primary">
-                                                            <input type="radio" id="radioThanks" name="formTypeVal" ng-model="formTypeVal" value="4">
+                                                            <input type="radio" id="radioThanks" name="formTypeVal" ng-model="editor.FromType" value="4">
                                                             <label for="radioThanks">
                                                                 Trang Cảm Ơn
                                                             </label>
                                                         </div>
                                                         <div class="radio clip-radio radio-primary">
-                                                            <input type="radio" id="radioShareCode" name="formTypeVal" ng-model="formTypeVal" value="5">
+                                                            <input type="radio" id="radioShareCode" name="formTypeVal" ng-model="editor.FromType" value="5">
                                                             <label for="radioShareCode">
                                                                 Dùng Share Code
                                                             </label>
@@ -86,10 +86,38 @@
                                                         <textarea class="page-element form-control" id="text_1" name="Title" ng-model="editor.Title" required="" placeholder="Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây."></textarea>
                                                         <span class="error text-small block" ng-if="FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid">Tiêu đề là bắt buộc.</span>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8" ng-hide="!isShowTitleTemplate">
+                                                            <div class="form-group">
+                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title">
+                                                                    <option value="" disabled="">Select</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 pull-right">
+                                                            <div class="form-group pull-right">
+                                                                <a class="btn btn-primary btn-o btn-wide" ng-click="showTitleTemplate()">Mẫu Tiêu Đề</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid, 'has-success':FormCreateSoloPage.SubTitle.$valid}">
                                                         <label for="exampleInputEmail1">2. Tiêu Đề Phụ <span class="symbol required"></span></label>
                                                         <textarea class="page-element form-control" id="text_2" name="SubTitle" ng-model="editor.SubTitle" required="" placeholder="Điền Tiêu Đề Phụ Của Bạn Tại Đây."></textarea>
                                                         <span class="error text-small block" ng-if="FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid">Tiêu đề phụ là bắt buộc.</span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8" ng-hide="!isShowSubTitleTemplate">
+                                                            <div class="form-group">
+                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle">
+                                                                    <option value="" disabled="">Select</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 pull-right">
+                                                            <div class="form-group pull-right">
+                                                                <a class="btn btn-primary btn-o btn-wide" ng-click="showSubTitleTemplate()">Mẫu Tiêu Đề Phụ</a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.ButtonName.$dirty && FormCreateSoloPage.ButtonName.$invalid, 'has-success':FormCreateSoloPage.ButtonName.$valid}">
                                                         <label for="exampleInputEmail1">3. Nút Hành Động <span class="symbol required"></span></label>
@@ -101,15 +129,15 @@
                                                         <label for="exampleInputEmail1">Màu Sắc Trang</label>
                                                         <br>
                                                         <span class="simplecolorpicker inline">
-                                                            <span class="color color-select" ng-click="getColorBackground($event)" title="Turquoise" style="background-color: #1abc9c;" data-color="#1abc9c" role="button" tabindex="0" data="#1abc9c" id="1abc9c"></span>
-                                                            <span class="color" title="Emerald" ng-click="getColorBackground($event)" style="background-color: #2ecc71;" data-color="#2ecc71" role="button" tabindex="0" data="#2ecc71" id="2ecc71"></span>
-                                                            <span class="color" title="Peter River" ng-click="getColorBackground($event)" style="background-color: #3498db;" data-color="#3498db" role="button" tabindex="0" data="#3498db" id="3498db"></span>
-                                                            <span class="color" title="Amethyst" ng-click="getColorBackground($event)" style="background-color: #9b59b6;" data-color="#9b59b6" role="button" tabindex="0" data="#9b59b6" id="9b59b6"></span>
-                                                            <span class="color" title="Wet Asphalt" ng-click="getColorBackground($event)" style="background-color: #34495e;" data-color="#34495e" role="button" tabindex="0" data="#34495e" id="34495e"></span>
-                                                            <span class="color" title="Sun Flower" ng-click="getColorBackground($event)" style="background-color: #f1c40f;" data-color="#f1c40f" role="button" tabindex="0" data="#f1c40f" id="f1c40f"></span>
-                                                            <span class="color" title="Carrot" ng-click="getColorBackground($event)" style="background-color: #e67e22;" data-color="#e67e22" role="button" tabindex="0" data="#e67e22" id="e67e22"></span>
-                                                            <span class="color" title="Alizarin" ng-click="getColorBackground($event)" style="background-color: #e74c3c;" data-color="#e74c3c" role="button" tabindex="0" data="#e74c3c" id="e74c3c"></span>
-                                                            <span class="color" title="Concrete" ng-click="getColorBackground($event)" style="background-color: #95a5a6;" data-color="#95a5a6" role="button" tabindex="0" data="#95a5a6" id="95a5a6"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color color-select" ng-click="getColorBackground($event)" title="Turquoise" style="background-color: #1abc9c;" data-color="#1abc9c" role="button" tabindex="0" data="#1abc9c" id="1abc9c"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Emerald" ng-click="getColorBackground($event)" style="background-color: #2ecc71;" data-color="#2ecc71" role="button" tabindex="0" data="#2ecc71" id="2ecc71"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Peter River" ng-click="getColorBackground($event)" style="background-color: #3498db;" data-color="#3498db" role="button" tabindex="0" data="#3498db" id="3498db"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Amethyst" ng-click="getColorBackground($event)" style="background-color: #9b59b6;" data-color="#9b59b6" role="button" tabindex="0" data="#9b59b6" id="9b59b6"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Wet Asphalt" ng-click="getColorBackground($event)" style="background-color: #34495e;" data-color="#34495e" role="button" tabindex="0" data="#34495e" id="34495e"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Sun Flower" ng-click="getColorBackground($event)" style="background-color: #f1c40f;" data-color="#f1c40f" role="button" tabindex="0" data="#f1c40f" id="f1c40f"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Carrot" ng-click="getColorBackground($event)" style="background-color: #e67e22;" data-color="#e67e22" role="button" tabindex="0" data="#e67e22" id="e67e22"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Alizarin" ng-click="getColorBackground($event)" style="background-color: #e74c3c;" data-color="#e74c3c" role="button" tabindex="0" data="#e74c3c" id="e74c3c"></span>
+                                                            <span name="pageColour" ng-model="editor.ButtonColor" class="color" title="Concrete" ng-click="getColorBackground($event)" style="background-color: #95a5a6;" data-color="#95a5a6" role="button" tabindex="0" data="#95a5a6" id="95a5a6"></span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -141,7 +169,7 @@
                                                                     <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                    <button type="button" class="btn btn-primary  pull-right" ng-click="uploadFiles()">
                                                                         <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
                                                                     </button>
                                                                 </div>
@@ -167,7 +195,7 @@
                                                                         <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <button type="button" class="btn btn-primary" ng-click="uploadFiles()">
+                                                                        <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
                                                                             <span class="glyphicon glyphicon-upload"></span> Upload Hình Ảnh/Video
                                                                         </button>
                                                                     </div>
@@ -211,10 +239,13 @@
 
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()">Lưu và Xem Trước</button>
+                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()" ng-if="editor.Status=='1'">Lưu và Xem Trước</button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()">Xuất Bản</button>
+                                                        <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()" ng-if="editor.Status=='1'">Xuất Bản</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe3()" ng-if="editor.Status=='2'">Lưu</button>
                                                     </div>
                                                 </div>
                                             </form>
