@@ -8,8 +8,8 @@ var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
-app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "editorService", "notificationService",
-    function ($scope, $window, $location, $localStorage, $timeout, editorService, notificationService) {
+app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
+    function ($scope, $window, $location, $localStorage, $timeout, membershipService, editorService, notificationService) {
         var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
         var accountType = ($localStorage.currentUser) ? $localStorage.currentUser.accountType : "";
@@ -41,6 +41,10 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
             loadTitles: function () {
                 $scope.showSpinner = true;
                 editorService.loadTitles({ SessionKey: sessionKey }, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.titles = result.data.Details;
                     }
@@ -52,6 +56,11 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
             loadSubTitles: function () {
                 $scope.showSpinner = true;
                 editorService.loadSubTitles({ SessionKey: sessionKey }, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.removeCredentials();
+                        $location.path('/app/login/signin');
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.subtitles = result.data.Details;
                         $scope.showSpinner = false;
@@ -72,6 +81,14 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         };
 
         $scope.showSubTitleTemplate = function () {
+            $scope.isShowSubTitleTemplate = !$scope.isShowSubTitleTemplate ? true : false;
+        };
+
+        $scope.hideTitleTemplateBox = function () {
+            $scope.isShowTitleTemplate = !$scope.isShowTitleTemplate ? true : false;
+        };
+
+        $scope.hideSubTitleTemplateBox = function () {
             $scope.isShowSubTitleTemplate = !$scope.isShowSubTitleTemplate ? true : false;
         };
 
@@ -169,6 +186,10 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
 
                     $scope.showSpinner = true;
                     editorService.createSoloPage(editor, function (result) {
+                        if (result.data && result.data.StatusCode == 17) {
+                            membershipService.checkMemberAuthorization();
+                        }
+
                         if (result.data && result.data.StatusCode == 0) {
                             backgroundPath = "";
                             resourcePath = "";
@@ -208,8 +229,8 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         };
 
     }]);
-app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$localStorage", "$timeout", "editorService", "notificationService",
-    function ($scope, $uibModal, $window, $localStorage, $timeout, editorService, notificationService) {
+app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
+    function ($scope, $uibModal, $window, $localStorage, $timeout, membershipService, editorService, notificationService) {
         $scope.soloPageID = 0;
 
         angular.element('#manageSoloPage a').click(function () {
@@ -235,6 +256,10 @@ app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$loca
 
                 $scope.showSpinner = true;
                 editorService.getMyPages(userObj, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.myPages = result.data.Details;
                         $timeout(function () {
@@ -414,8 +439,8 @@ app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editor
         }
     }
 }]);
-app.controller('ModalDeleteSoloPageCtrl', ["$scope", "$window", "$timeout", "$location", "$localStorage", "$uibModalInstance", "items", "editorService", "notificationService",
-    function ($scope, $window, $timeout, $location, $localStorage, $uibModalInstance, items, editorService, notificationService) {
+app.controller('ModalDeleteSoloPageCtrl', ["$scope", "$window", "$timeout", "$location", "$localStorage", "$uibModalInstance", "items", "membershipService", "editorService", "notificationService",
+    function ($scope, $window, $timeout, $location, $localStorage, $uibModalInstance, items, membershipService, editorService, notificationService) {
         var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
 
@@ -429,6 +454,10 @@ app.controller('ModalDeleteSoloPageCtrl', ["$scope", "$window", "$timeout", "$lo
             };
 
             editorService.deleteSoloPage(soloPageObj, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
                 if (result.data && result.data.StatusCode == 0) {
                     notificationService.displaySuccess('Delete Solo Page Thành Công');
                     $uibModalInstance.dismiss('cancel');
@@ -466,6 +495,10 @@ app.controller('ModalDeleteSoloPageCtrl', ["$scope", "$window", "$timeout", "$lo
 
                 $scope.showSpinner = true;
                 editorService.getMyPages(userObj, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.myPages = result.data.Details;
                         $timeout(function () {

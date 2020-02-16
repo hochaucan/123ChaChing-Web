@@ -89,7 +89,7 @@
                                                     <div class="row">
                                                         <div class="col-md-8" ng-hide="!isShowTitleTemplate">
                                                             <div class="form-group">
-                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title">
+                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title" ng-change="hideTitleTemplateBox()">
                                                                     <option value="" disabled="">Select</option>
                                                                 </select>
                                                             </div>
@@ -108,7 +108,7 @@
                                                     <div class="row">
                                                         <div class="col-md-8" ng-hide="!isShowSubTitleTemplate">
                                                             <div class="form-group">
-                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle">
+                                                                <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle" ng-change="hideSubTitleTemplateBox()">
                                                                     <option value="" disabled="">Select</option>
                                                                 </select>
                                                             </div>
@@ -239,13 +239,13 @@
 
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()" ng-if="editor.Status=='1'">Lưu và Xem Trước</button>
+                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()" ng-if="editor.Status == '1'">Lưu và Xem Trước</button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()" ng-if="editor.Status=='1'">Xuất Bản</button>
+                                                        <button id="saveDonePage" type="submit" name="saveMethodDone" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()" ng-if="editor.Status == '1'">Xuất Bản</button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe3()" ng-if="editor.Status=='2'">Lưu</button>
+                                                        <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe2()" ng-if="editor.Status == '2'">Lưu</button>
                                                     </div>
                                                 </div>
                                             </form>

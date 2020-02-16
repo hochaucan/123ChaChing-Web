@@ -19,26 +19,26 @@ app.controller('VisitsCtrl', ["$scope", function ($scope) {
     $scope.data = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
-          {
-              label: 'My First dataset',
-              fillColor: 'rgba(220,220,220,0.2)',
-              strokeColor: 'rgba(220,220,220,1)',
-              pointColor: 'rgba(220,220,220,1)',
-              pointStrokeColor: '#fff',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(220,220,220,1)',
-              data: [65, 59, 80, 81, 56, 55, 40, 84, 64, 120, 132, 87]
-          },
-          {
-              label: 'My Second dataset',
-              fillColor: 'rgba(151,187,205,0.2)',
-              strokeColor: 'rgba(151,187,205,1)',
-              pointColor: 'rgba(151,187,205,1)',
-              pointStrokeColor: '#fff',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(151,187,205,1)',
-              data: [28, 48, 40, 19, 86, 27, 90, 102, 123, 145, 60, 161]
-          }
+            {
+                label: 'My First dataset',
+                fillColor: 'rgba(220,220,220,0.2)',
+                strokeColor: 'rgba(220,220,220,1)',
+                pointColor: 'rgba(220,220,220,1)',
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [65, 59, 80, 81, 56, 55, 40, 84, 64, 120, 132, 87]
+            },
+            {
+                label: 'My Second dataset',
+                fillColor: 'rgba(151,187,205,0.2)',
+                strokeColor: 'rgba(151,187,205,1)',
+                pointColor: 'rgba(151,187,205,1)',
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(151,187,205,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 102, 123, 145, 60, 161]
+            }
         ]
     };
 
@@ -102,22 +102,22 @@ app.controller('SalesCtrl', ["$scope", function ($scope) {
     $scope.data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
-          {
-              label: 'My First dataset',
-              fillColor: 'rgba(220,220,220,0.5)',
-              strokeColor: 'rgba(220,220,220,0.8)',
-              highlightFill: 'rgba(220,220,220,0.75)',
-              highlightStroke: 'rgba(220,220,220,1)',
-              data: [65, 59, 80, 81, 56, 55, 40]
-          },
-          {
-              label: 'My Second dataset',
-              fillColor: 'rgba(151,187,205,0.5)',
-              strokeColor: 'rgba(151,187,205,0.8)',
-              highlightFill: 'rgba(151,187,205,0.75)',
-              highlightStroke: 'rgba(151,187,205,1)',
-              data: [28, 48, 40, 19, 86, 27, 90]
-          }
+            {
+                label: 'My First dataset',
+                fillColor: 'rgba(220,220,220,0.5)',
+                strokeColor: 'rgba(220,220,220,0.8)',
+                highlightFill: 'rgba(220,220,220,0.75)',
+                highlightStroke: 'rgba(220,220,220,1)',
+                data: [65, 59, 80, 81, 56, 55, 40]
+            },
+            {
+                label: 'My Second dataset',
+                fillColor: 'rgba(151,187,205,0.5)',
+                strokeColor: 'rgba(151,187,205,0.8)',
+                highlightFill: 'rgba(151,187,205,0.75)',
+                highlightStroke: 'rgba(151,187,205,1)',
+                data: [28, 48, 40, 19, 86, 27, 90]
+            }
         ]
     };
 
@@ -161,24 +161,24 @@ app.controller('OnotherCtrl', ["$scope", function ($scope) {
 
     // Chart.js Data
     $scope.data = [
-      {
-          value: 300,
-          color: '#F7464A',
-          highlight: '#FF5A5E',
-          label: 'Red'
-      },
-      {
-          value: 50,
-          color: '#46BFBD',
-          highlight: '#5AD3D1',
-          label: 'Green'
-      },
-      {
-          value: 100,
-          color: '#FDB45C',
-          highlight: '#FFC870',
-          label: 'Yellow'
-      }
+        {
+            value: 300,
+            color: '#F7464A',
+            highlight: '#FF5A5E',
+            label: 'Red'
+        },
+        {
+            value: 50,
+            color: '#46BFBD',
+            highlight: '#5AD3D1',
+            label: 'Green'
+        },
+        {
+            value: 100,
+            color: '#FDB45C',
+            highlight: '#FFC870',
+            label: 'Yellow'
+        }
     ];
     $scope.total = 450;
     // Chart.js Options
@@ -223,26 +223,26 @@ app.controller('LastCtrl', ["$scope", function ($scope) {
     $scope.data = {
         labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
         datasets: [
-          {
-              label: 'My First dataset',
-              fillColor: 'rgba(220,220,220,0.2)',
-              strokeColor: 'rgba(220,220,220,1)',
-              pointColor: 'rgba(220,220,220,1)',
-              pointStrokeColor: '#fff',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(220,220,220,1)',
-              data: [65, 59, 90, 81, 56, 55, 40]
-          },
-          {
-              label: 'My Second dataset',
-              fillColor: 'rgba(151,187,205,0.2)',
-              strokeColor: 'rgba(151,187,205,1)',
-              pointColor: 'rgba(151,187,205,1)',
-              pointStrokeColor: '#fff',
-              pointHighlightFill: '#fff',
-              pointHighlightStroke: 'rgba(151,187,205,1)',
-              data: [28, 48, 40, 19, 96, 27, 100]
-          }
+            {
+                label: 'My First dataset',
+                fillColor: 'rgba(220,220,220,0.2)',
+                strokeColor: 'rgba(220,220,220,1)',
+                pointColor: 'rgba(220,220,220,1)',
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [65, 59, 90, 81, 56, 55, 40]
+            },
+            {
+                label: 'My Second dataset',
+                fillColor: 'rgba(151,187,205,0.2)',
+                strokeColor: 'rgba(151,187,205,1)',
+                pointColor: 'rgba(151,187,205,1)',
+                pointStrokeColor: '#fff',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(151,187,205,1)',
+                data: [28, 48, 40, 19, 96, 27, 100]
+            }
         ]
     };
 
@@ -315,37 +315,42 @@ app.controller('DashBoardGoToAffiliateCtrl', ["$scope", "$location", function ($
     };
 }]);
 
-app.controller('AffiliateDashboardWalletCtrl', ["$scope", "$localStorage", "affiliateService", "notificationService", function ($scope, $localStorage, affiliateService, notificationService) {
-    var affiliate = {};
-    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+app.controller('AffiliateDashboardWalletCtrl', ["$scope", "$localStorage", "membershipService", "affiliateService", "notificationService",
+    function ($scope, $localStorage, membershipService, affiliateService, notificationService) {
+        var affiliate = {};
+        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+        var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
 
-    affiliate = {
-        "username": username,
-        "sessionkey": sessionkey
-    };
+        affiliate = {
+            "username": username,
+            "sessionkey": sessionkey
+        };
 
-    $scope.affiliateWalletInfo = {
-        Amount: '0.00',
-        AffiliatePending: '0',
-        AffiliateApproved: '0',
-        AmountPending: '0.00',
-        AmountApproved: '0.00'
-    };
+        $scope.affiliateWalletInfo = {
+            Amount: '0.00',
+            AffiliatePending: '0',
+            AffiliateApproved: '0',
+            AmountPending: '0.00',
+            AmountApproved: '0.00'
+        };
 
-    // Load the data from the API
-    affiliateService.getWalletInfoByAccount(affiliate, function (result) {
-        if (result.data && result.data.StatusCode == 0) {
-            $scope.affiliateWalletInfo = {
-                Amount: result.data.Details.Amount,
-                AffiliatePending: result.data.Details.AffiliatePending,
-                AffiliateApproved: result.data.Details.AffiliateApproved,
-                AmountPending: result.data.Details.AmountPending,
-                AmountApproved: result.data.Details.AmountApproved
-            };
-        } else {
-            notificationService.displayError(result.data.StatusMsg);
-        }
-    });
+        // Load the data from the API
+        affiliateService.getWalletInfoByAccount(affiliate, function (result) {
+            if (result.data && result.data.StatusCode == 17) {
+                membershipService.checkMemberAuthorization();
+            }
 
-}]);
+            if (result.data && result.data.StatusCode == 0) {
+                $scope.affiliateWalletInfo = {
+                    Amount: result.data.Details.Amount,
+                    AffiliatePending: result.data.Details.AffiliatePending,
+                    AffiliateApproved: result.data.Details.AffiliateApproved,
+                    AmountPending: result.data.Details.AmountPending,
+                    AmountApproved: result.data.Details.AmountApproved
+                };
+            } else {
+                notificationService.displayError(result.data.StatusMsg);
+            }
+        });
+
+    }]);

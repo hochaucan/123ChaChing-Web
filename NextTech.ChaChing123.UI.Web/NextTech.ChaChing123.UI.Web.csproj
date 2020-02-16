@@ -461,6 +461,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
+    <Content Include="Scripts\spa_portal\assets\css\landers.css" />
     <Content Include="Scripts\spa_portal\assets\css\quickeditor.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.solo.page.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.solo.page.mypage.css" />

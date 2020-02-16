@@ -1,0 +1,112 @@
+body {
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: none;
+}
+
+.full {
+  background: url('/land/62/images/background_3.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.full2 {
+  background: url('/land/62/images/background_2.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.full3 {
+  background: url('/land/62/images/background_5.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.k-panel {
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid lightgray;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.k-h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    line-height: 34px;
+}
+
+.k-h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #265C8A;
+}
+
+.k-p{
+	    font-size: 16px;
+
+    margin: 0 0 10px;
+    margin-bottom: 20px;
+	
+}
+
+.k-powered {
+    text-align: center;
+    font-size: 14px;
+    margin: 5px;
+    color: black;
+}
+
+.k-notice{
+	margin-top: 10px;
+    font-size: 12px;
+     margin: 10px;
+
+}
+
+.k-input {
+    text-align: left;
+    padding: 10px;
+    font-size: 20px;
+    display: block;
+    width: 100%;
+    color:gray
+}
+
+.k-button{
+	    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 22px;
+    margin-top: 10px;
+    border-radius: 0px;
+}
+
+.imageLeft{
+	    width: 100%;
+    padding: 10px;
+        max-width: 240px;
+}
+
+.imageLeft2{
+	    width: 100%;
+    padding: 10px;
+       /* max-width: 240px; */
+}
+
+.footerLink{
+	color:black;
+	text-decoration: underline;
+}
+
+.footerLink:hover{
+	color:gray;
+}

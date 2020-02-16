@@ -8,8 +8,8 @@ var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
-app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStorage", "$timeout", "editorService", "notificationService",
-    function ($scope, $location, $window, $localStorage, $timeout, editorService, notificationService) {
+app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
+    function ($scope, $rootScope, $location, $window, $localStorage, $timeout, membershipService, editorService, notificationService) {
         // Get current member logged info
         var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
@@ -64,16 +64,20 @@ app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStora
             $scope.isShowSubTitleTemplate = !$scope.isShowSubTitleTemplate ? true : false;
         };
 
+        $scope.hideTitleTemplateBox = function () {
+            $scope.isShowTitleTemplate = !$scope.isShowTitleTemplate ? true : false;
+        };
+
+        $scope.hideSubTitleTemplateBox = function () {
+            $scope.isShowSubTitleTemplate = !$scope.isShowSubTitleTemplate ? true : false;
+        };
+
         $scope.clickMe1 = function () {
             $scope.saveMethod = 1;
         };
 
         $scope.clickMe2 = function () {
             $scope.saveMethod = 2;
-        };
-
-        $scope.clickMe3 = function () {
-            $scope.saveMethod = 3;
         };
 
         $scope.getColorBackground = function (obj) {
@@ -151,6 +155,10 @@ app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStora
 
                     $scope.showSpinner = true;
                     editorService.editSoloPage(editor, function (result) {
+                        if (result.data && result.data.StatusCode == 17) {
+                            membershipService.checkMemberAuthorization();
+                        }
+
                         if (result.data && result.data.StatusCode == 0) {
                             backgroundPath = "";
                             resourcePath = "";
@@ -201,15 +209,17 @@ app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStora
         function loadMyPage() {
             $scope.showSpinner = true;
             editorService.loadMyPage(userObj, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.editor = result.data.Details;
                     $scope.IsAdvanceAccount = (accountType == 2) ? true : false;
-                    console.log($scope.editor.FromType);
                     $timeout(function () {
                         $scope.showSpinner = false;
                     }, 2000);
-                }
-                else {
+                } else {
                     $timeout(function () {
                         $scope.showSpinner = false;
                     }, 2000);
@@ -235,10 +245,13 @@ app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStora
             loadTitles: function () {
                 $scope.showSpinner = true;
                 editorService.loadTitles({ SessionKey: sessionKey }, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.titles = result.data.Details;
-                    }
-                    else {
+                    } else {
                         notificationService.displayError(result.data.StatusMsg);
                     }
                 });
@@ -246,11 +259,14 @@ app.controller('EditMyPageCtrl', ["$scope", "$location", "$window", "$localStora
             loadSubTitles: function () {
                 $scope.showSpinner = true;
                 editorService.loadSubTitles({ SessionKey: sessionKey }, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.subtitles = result.data.Details;
                         $scope.showSpinner = false;
-                    }
-                    else {
+                    } else {
                         notificationService.displayError(result.data.StatusMsg);
                         $scope.showSpinner = false;
                     }

@@ -15,6 +15,7 @@
             editSoloPage: editSoloPage,
             getMyPages: getMyPages,
             loadMyPage: loadMyPage,
+            GetDetailSoloPageByID: GetDetailSoloPageByID,
             deleteSoloPage: deleteSoloPage,
             loadTitles: loadTitles,
             loadSubTitles: loadSubTitles,
@@ -51,6 +52,13 @@
 
         function loadMyPage(editor, completed) {
             apiService.post(baseUrl + '/api/LandingPage/GetDetailSoloPage/', editor,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function GetDetailSoloPageByID(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetDetailSoloPageByID/', editor,
                 completed,
                 affiliateFailed
             );
