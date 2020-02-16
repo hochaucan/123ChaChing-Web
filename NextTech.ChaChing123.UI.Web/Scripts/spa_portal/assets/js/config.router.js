@@ -42,10 +42,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Home'
             }
             // Login routes
-        }).state('app.solo', {
-            url: "/solo/:id",
-            templateUrl: "Scripts/spa_portal/assets/views/solo_page.html",
-            title: 'Home'
         }).state('app.aboutus', {
             url: '/aboutus',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
@@ -418,6 +414,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             template: '<div ui-view class="fade-in-up"></div>'
         }).state('solo.page', {
             url: '/page/:id/:username/:sessionkey',
+            templateUrl: "Scripts/spa_portal/assets/views/solo_page.html"
+        }).state('solo.public', {
+            url: '/public/:id',
             templateUrl: "Scripts/spa_portal/assets/views/solo_page.html"
         });
 

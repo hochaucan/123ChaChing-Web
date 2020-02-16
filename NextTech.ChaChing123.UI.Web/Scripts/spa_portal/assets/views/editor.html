@@ -94,7 +94,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-8" ng-hide="!isShowTitleTemplate">
                                                                     <div class="form-group">
-                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title">
+                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title" ng-change="hideTitleTemplateBox()">
                                                                             <option value="" disabled="">Select</option>
                                                                         </select>
                                                                     </div>
@@ -113,7 +113,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-8" ng-hide="!isShowSubTitleTemplate">
                                                                     <div class="form-group">
-                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle">
+                                                                        <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle" ng-change="hideSubTitleTemplateBox()">
                                                                             <option value="" disabled="">Select</option>
                                                                         </select>
                                                                     </div>

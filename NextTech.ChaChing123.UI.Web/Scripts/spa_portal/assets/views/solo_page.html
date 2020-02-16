@@ -2,6 +2,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <link rel="stylesheet" href="Scripts/spa_portal/assets/css/styles.chaching.solo.page.css">
+    <link rel="stylesheet" href="Scripts/spa_portal/assets/css/landers.css">
 </head>
 <body>
     <div id="cp-cover"></div>
@@ -68,7 +69,11 @@
         </div>
         <div ng-if="soloPageDetails.FromType=='4'">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 col-sm-12">
+                <div class="col-md-6 col-md-offset-6">
+                    <div class="t-box">
+                        <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                        <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+                    </div>
                     <div class="k-panel" style="background-color: white !important;">
                         <div class="row">
                             <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>Cảm Ơn Bạn Đã Đăng Ký!</span></span></div>

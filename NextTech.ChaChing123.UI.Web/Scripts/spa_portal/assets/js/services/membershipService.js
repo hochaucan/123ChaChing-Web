@@ -5,7 +5,7 @@
         .module('ChaChingApp')
         .factory('membershipService', Service);
 
-    function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
+    function Service(apiService, $http, $window, $rootScope, $location, $localStorage, notificationService) {
 
         var baseUrl = 'https://api.123chaching.app';
         //var baseUrl = 'http://localhost:1494';
@@ -16,8 +16,10 @@
             register: register,
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
-            isUserLoggedIn: isUserLoggedIn
-        }
+            isUserLoggedIn: isUserLoggedIn,
+            isAuthenticated: isAuthenticated,
+            checkMemberAuthorization: checkMemberAuthorization
+        };
 
         function login(user, completed) {
             apiService.post(baseUrl + '/api/account/login', user,
@@ -42,11 +44,11 @@
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
         }
-
+        
         function removeCredentials() {
             delete $localStorage.currentUser;
             $http.defaults.headers.common.Authorization = '';
-        };
+        }
 
         function loginFailed(response) {
             if (response.data) {
@@ -60,6 +62,17 @@
 
         function isUserLoggedIn() {
             return $localStorage.currentUser != null;   
+        }
+
+        function isAuthenticated() {
+            if (!isUserLoggedIn()) {
+                $window.location.reload();
+            }
+        }
+
+        function checkMemberAuthorization() {
+            removeCredentials();
+            isAuthenticated();
         }
 
         return service;

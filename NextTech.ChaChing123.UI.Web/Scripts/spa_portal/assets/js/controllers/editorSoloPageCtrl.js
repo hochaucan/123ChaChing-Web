@@ -4,8 +4,8 @@
 */
 
 var baseUrl = 'https://api.123chaching.app';
-app.controller('editorSoloPageCtrl', ["$scope", "$location", "$localStorage", "$timeout", "editorService", "soloPageService", "notificationService",
-    function ($scope, $location, $localStorage, $timeout, editorService, soloPageService, notificationService) {
+app.controller('editorSoloPageCtrl', ["$scope", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "notificationService",
+    function ($scope, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, notificationService) {
         var ID = 0;
         var UserName = "";
         var SessionKey = "";
@@ -39,6 +39,10 @@ app.controller('editorSoloPageCtrl', ["$scope", "$location", "$localStorage", "$
             console.log(SessionKey);
 
             soloPageService.loadSoloPage(soloPageObj, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.soloPageDetails = result.data.Details;
                     $scope.formType = result.data.Details.FromType;
@@ -56,12 +60,14 @@ app.controller('editorSoloPageCtrl', ["$scope", "$location", "$localStorage", "$
             var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
             var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
             soloPageObj = {
-                "ID": ID,
-                "UserName": username,
-                "SessionKey": sessionKey
+                "ID": ID
             };
 
-            editorService.loadMyPage(soloPageObj, function (result) {
+            editorService.GetDetailSoloPageByID(soloPageObj, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.soloPageDetails = result.data.Details;
                     $scope.formType = result.data.Details.FromType;
