@@ -86,6 +86,30 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'mypage'
             },
             resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.funnels', {
+            url: '/funnels',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Funnels'
+        }).state('app.funnels.manage', {
+            url: '/manage',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel.html",
+            title: 'Funnels',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.funnels.add', {
+            url: '/add',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
+            title: 'Add New Funnel',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.funnels.edit', {
+            url: '/edit/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
+            title: 'Edit New Funnel',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.funnels.details', {
+            url: '/details/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_view_details.html",
+            title: 'View Funnel',
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',
