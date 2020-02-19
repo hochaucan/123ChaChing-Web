@@ -76,6 +76,12 @@
                                                                         Dùng Share Code
                                                                     </label>
                                                                 </div>
+                                                                <div class="form-group" ng-if="!isThankYouContentHidden" ng-class="{'has-error':FormCreateSoloPage.ThankYouContent.$dirty && FormCreateSoloPage.ThankYouContent.$invalid, 'has-success':FormCreateSoloPage.ThankYouContent.$valid}">
+                                                                    <textarea class="page-element form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" id="ThankYouContent" name="ThankYouContent" 
+                                                                              ng-model="editor.ThankYouContent" required="" placeholder="Nội Dung Cảm Ơn." style=""></textarea>
+
+                                                                    <span class="error text-small block" ng-if="FormCreateSoloPage.ThankYouContent.$dirty && FormCreateSoloPage.ThankYouContent.$invalid">Nội Dung là bắt buộc.</span>
+                                                                </div>
                                                                 <div class="form-group" ng-if="!isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.UseShareCode.$dirty && FormCreateSoloPage.UseShareCode.$invalid, 'has-success':FormCreateSoloPage.UseShareCode.$valid}">
                                                                     <input type="text" class="page-element form-control" id="shareCode" name="UseShareCode" ng-model="editor.UseShareCode" required="" placeholder="Điền thông tin share code của bạn ở đây">
                                                                     <span class="error text-small block" ng-if="FormCreateSoloPage.UseShareCode.$dirty && FormCreateSoloPage.UseShareCode.$invalid">Share Code là bắt buộc.</span>
@@ -91,7 +97,7 @@
                                                                 <textarea class="page-element form-control" id="text_1" name="Title" ng-model="editor.Title" required="" placeholder="Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây. Điền Tiêu Đề Của Bạn Tại Đây."></textarea>
                                                                 <span class="error text-small block" ng-if="FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid">Tiêu đề là bắt buộc.</span>
                                                             </div>
-                                                            <div class="row">
+                                                            <div class="row" ng-if="isShareCodeHidden">
                                                                 <div class="col-md-8" ng-hide="!isShowTitleTemplate">
                                                                     <div class="form-group">
                                                                         <select class="form-control black" ng-options="option.Title as option.Title for option in titles" ng-model="editor.Title" ng-change="hideTitleTemplateBox()">
@@ -110,7 +116,7 @@
                                                                 <textarea class="page-element form-control" id="text_2" name="SubTitle" ng-model="editor.SubTitle" required="" placeholder="Điền Tiêu Đề Phụ Của Bạn Tại Đây."></textarea>
                                                                 <span class="error text-small block" ng-if="FormCreateSoloPage.SubTitle.$dirty && FormCreateSoloPage.SubTitle.$invalid">Tiêu đề phụ là bắt buộc.</span>
                                                             </div>
-                                                            <div class="row">
+                                                            <div class="row" ng-if="isShareCodeHidden">
                                                                 <div class="col-md-8" ng-hide="!isShowSubTitleTemplate">
                                                                     <div class="form-group">
                                                                         <select class="form-control black" ng-options="option.Title as option.Title for option in subtitles" ng-model="editor.SubTitle" ng-change="hideSubTitleTemplateBox()">
@@ -214,9 +220,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
 
                                                         <!-- Advanced Settings -->
                                                         <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
@@ -241,7 +245,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <button id="savePreviewPage" type="submit" name="saveMethodReview" ng-model="editor.saveMethod" class="btn btn-primary btn-block" ng-click="clickMe1()">Lưu và Xem Trước</button>

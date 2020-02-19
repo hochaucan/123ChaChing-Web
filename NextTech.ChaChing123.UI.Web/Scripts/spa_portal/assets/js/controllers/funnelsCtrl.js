@@ -8,13 +8,27 @@ var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
-app.controller('FunnelsManageCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "funnelsService", "notificationService",
-    function ($scope, $window, $location, $localStorage, $timeout, membershipService, editorService, funnelsService, notificationService) {
+app.controller('FunnelsManageCtrl', ["$scope", "$uibModal", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "funnelsService", "notificationService",
+    function ($scope, $uibModal, $window, $location, $localStorage, $timeout, membershipService, editorService, funnelsService, notificationService) {
         var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
         $scope.showSpinner = false;
         $scope.funnels = {};
         $scope.soloPages = {};
+
+        $scope.shareSoloPageCode = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalGenerateSharedCode.html',
+                controller: 'ModalGenerateSharedCodeCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        $scope.soloPageID = size.target.attributes.data.value;
+                        return $scope.soloPageID;
+                    }
+                }
+            });
+        };
 
         function loadFunnels() {
             $scope.showSpinner = true;
@@ -72,13 +86,23 @@ app.controller('FunnelsManageCtrl', ["$scope", "$window", "$location", "$localSt
         };
 
         $scope.FunnelsManager.init();
+}]);
 
-    }]);
+app.controller('ModalGenerateSharedCodeCtrl', ["$scope", "$window", "$timeout", "$location", "$localStorage", "$uibModalInstance", "items", "editorService", "notificationService",
+    function ($scope, $window, $timeout, $location, $localStorage, $uibModalInstance, items, editorService, notificationService) {
+        $scope.editor = {};
+        $scope.ok = function () {
 
-app.controller('FunnelsLandingPageCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "funnelsService", "notificationService",
-    function ($scope, $window, $location, $localStorage, $timeout, membershipService, editorService, funnelsService, notificationService) {
-        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+        };
 
-        console.log('this is list of solo pages');
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+        $scope.modalSoloPageSharingCode = {
+            init: function () {
+                $scope.editor.soloPageShareCode = items;
+            }
+        };
+
+        $scope.modalSoloPageSharingCode.init();
     }]);

@@ -44,7 +44,7 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
             if ($scope.funnel.PageName != undefined && $scope.soloPage.Title != undefined) {
                 var mySoloPage = [];
                 mySoloPage.ID = $scope.soloPage.ID;
-                mySoloPage.Title = $scope.soloPage.Title;
+                mySoloPage.PageName = $scope.soloPage.PageName;
 
                 $scope.soloPages.push(mySoloPage);
 
@@ -63,15 +63,14 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
         };
 
         // FINALLY SUBMIT THE DATA.
-        $scope.createFunnelPage = function () {
+        $scope.createFunnelPage = function (saveMethod) {
             var orderList = [];
             var idList = [];
             var orderAsc = 0;
 
             if ($scope.soloPages.length > 0) {
                 angular.forEach($scope.soloPages, function (value, index) {
-                    console.log(orderAsc++);
-                    orderList.push(orderAsc);
+                    orderList.push(orderAsc++);
                     idList.push(value.ID);
                 });
 
@@ -83,37 +82,77 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                     $scope.soloIDs = idList.join();
                 }
 
-                $scope.funnel = {
-                    "PageName": $scope.funnel.PageName,
-                    "Status": "1",
-                    "StepList": $scope.soloOrder,
-                    "SoloIDList": $scope.soloIDs,
-                    "UserName": username,
-                    "SessionKey": sessionKey
-                };
+                if (id > 0) {
+                    $scope.funnel = {
+                        "ID": id,
+                        "PageName": $scope.funnel.PageName,
+                        "Status": saveMethod,
+                        "StepList": $scope.soloOrder,
+                        "SoloIDList": $scope.soloIDs,
+                        "UserName": username,
+                        "SessionKey": sessionKey
+                    };
 
-                $scope.showSpinner = true;
+                    $scope.showSpinner = true;
 
-                funnelsService.AddFunnalPage($scope.funnel,
-                    function (result) {
-                        if (result.data && result.data.StatusCode == 17) {
-                            membershipService.checkMemberAuthorization();
-                        }
+                    funnelsService.EditFunnalPage($scope.funnel,
+                        function (result) {
+                            if (result.data && result.data.StatusCode == 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
 
-                        if (result.data && result.data.StatusCode == 0) {
-                            notificationService.displaySuccess("Tạo mới Funnel Thành Công");
-                            $timeout(function () {
-                                $scope.showSpinner = false;
-                                loadFunnels();
-                            }, 2000);
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.showSpinner = false;
-                            }, 2000);
-                            notificationService.displayError(result.data.StatusMsg);
-                        }
-                    });
+                            if (result.data && result.data.StatusCode == 0) {
+                                if (saveMethod == 2) {
+                                    notificationService.displaySuccess("Sửa Funnel Thành Công");
+                                } else {
+                                    notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
+                                }
+                                
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    loadFunnels();
+                                }, 2000);
+                            }
+                            else {
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 2000);
+                                notificationService.displayError(result.data.StatusMsg);
+                            }
+                        });
+                } else {
+                    $scope.funnel = {
+                        "PageName": $scope.funnel.PageName,
+                        "Status": saveMethod,
+                        "StepList": $scope.soloOrder,
+                        "SoloIDList": $scope.soloIDs,
+                        "UserName": username,
+                        "SessionKey": sessionKey
+                    };
+
+                    $scope.showSpinner = true;
+
+                    funnelsService.AddFunnalPage($scope.funnel,
+                        function (result) {
+                            if (result.data && result.data.StatusCode == 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode == 0) {
+                                notificationService.displaySuccess("Tạo mới Funnel Thành Công");
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $location.path('/app/funnels/manage');
+                                }, 2000);
+                            }
+                            else {
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 2000);
+                                notificationService.displayError(result.data.StatusMsg);
+                            }
+                        });
+                }
             }
         };
 
@@ -153,24 +192,28 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                     if (result.data && result.data.StatusCode == 0) {
                         $scope.funnel = result.data.Details;
 
-                        //var listIds = [];
-                        //if (result.data.Details.SoloIDList && result.data.Details.SoloIDList.length > 0) {
-                        //    listIds = result.data.Details.SoloIDList.split(',');
+                        var soloIDsStr = $scope.funnel.SoloIDList;
+                        var soloIDs = [];
 
-                        //    angular.forEach(listIds, function (value, index) {
-                        //        var mySoloPage = [];
-                        //        mySoloPage.ID = value.ID;
-                        //        mySoloPage.Title = $scope.soloPage.Title;
-                        //    });
-
-                        //}
-                        //var mySoloPage = [];
-                        //mySoloPage.ID = $scope.soloPage.ID;
-                        //mySoloPage.Title = $scope.soloPage.Title;
-
-                        
-
-                        //$scope.soloPages.push(mySoloPage);
+                        if (soloIDsStr.length > 0) {
+                            soloIDs = soloIDsStr.split(',');
+                            angular.forEach(soloIDs, function (value, index) {
+                                //1. Initialize mySoloPage array
+                                var mySoloPage = [];
+                                var sID = value;
+                                //2. Assign ID to mySoloPage ID 
+                                mySoloPage.ID = value;
+                                //3. Find solo title based on solo ID
+                                angular.forEach($scope.mySoloPages, function (v, k) {
+                                    if (sID == v.ID) {
+                                        //3.1 Assign Title to mySoloPage Title
+                                        mySoloPage.PageName = v.PageName;
+                                        $scope.soloPages.push(mySoloPage);
+                                        return;
+                                    }
+                                });
+                            });
+                        }
 
                         $timeout(function () {
                             $scope.showSpinner = false;
@@ -193,14 +236,18 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                 SessionKey: sessionKey
             };
 
-            editorService.getMyPages(userObj, function (result) {
+            funnelsService.GetAllPublicSoloPage(userObj, function (result) {
                 if (result.data && result.data.StatusCode == 17) {
                     membershipService.checkMemberAuthorization();
                 }
 
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.mySoloPages = result.data.Details;
+                    console.log($scope.mySoloPages);
 
+                    if (id > 0) {
+                        loadFunnelDetails();
+                    }
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -219,17 +266,8 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
             init: function () {
                 loadMyPages();
                 loadFunnels();
-            },
-            edit: function () {
-                loadMyPages();
-                loadFunnelDetails();
-                loadFunnels();
             }
         };
 
-        if (id > 0) {
-            $scope.soloPageManager.edit();
-        } else {
-            $scope.soloPageManager.init();
-        }
+        $scope.soloPageManager.init();
     }]);

@@ -21,6 +21,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.isShowTitleTemplate = false;
         $scope.isShowSubTitleTemplate = false;
         $scope.isShareCodeHidden = true;
+        $scope.isThankYouContentHidden = true;
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
         $scope.buttonColor = "";
@@ -36,9 +37,14 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         };
 
         $scope.$watch('editor.FromType', function (formTypeVal) {
-            $scope.isShareCodeHidden = true;
             if (formTypeVal == 5) {
+                $scope.isThankYouContentHidden = true;
                 $scope.isShareCodeHidden = $scope.isShareCodeHidden ? false : true;
+            }
+
+            if (formTypeVal == 4) {
+                $scope.isShareCodeHidden = true;
+                $scope.isThankYouContentHidden = $scope.isThankYouContentHidden ? false : true;
             }
         });
 
@@ -122,6 +128,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         "BackgroundPath": "",
                         "ResourcePath": resourcePath,
                         "UseShareCode": $scope.editor.UseShareCode,
+                        "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
                         "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature
                         "Status": $scope.saveMethod,
@@ -143,6 +150,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                             "BackgroundPath": backgroundPath,
                             "ResourcePath": resourcePath,
                             "UseShareCode": "",
+                            "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.editor.FromType,
                             "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 2 : 1, // one of those are NOT equal NULL then customer is using advanced feature,
                             "Status": $scope.saveMethod,

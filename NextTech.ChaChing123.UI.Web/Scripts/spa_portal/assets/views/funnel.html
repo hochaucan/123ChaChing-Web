@@ -40,12 +40,17 @@
                         <div class="panel-body no-padding">
                             <div class="panel-scroll height-200" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
                                 <table class="table no-margin">
+                                    <thead>
+                                        <tr></tr>
+                                        <tr>
+                                    </thead>
                                     <tbody>
                                         <tr ng-repeat="funnel in funnels">
                                             <td><i class="ti-layers-alt"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="{{funnel.Link}}" class="ng-binding">{{funnel.PageName}}</a></td>
+                                            <td>
+                                                <h4>{{funnel.PageName}}</h4>
+                                                <a href="#/app/funnels/edit/{{funnel.ID}}">#/app/funnels/edit/{{funnel.ID}}</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -53,9 +58,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8" ng-controller="FunnelsLandingPageCtrl">
+                <div class="col-md-8">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-transparent">
+                    <div class="panel panel-white no-radius">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-sm-8">
@@ -73,11 +78,14 @@
                                 <tbody>
                                     <tr ng-repeat="page in soloPages">
                                         <td class="center"><i class="ti-layers-alt"></i></td>
-                                        <td>{{page.Title}}</td>
+                                        <td>
+                                            <h4>{{page.PageName}}</h4>
+                                            <a href="{{page.Link}}">{{page.Link}}</a>
+                                        </td>
                                         <td class="center">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Share"><i class="fa fa-share"></i></a>
-                                                <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Remove"><i class="fa fa-circle"></i></a>
+                                                <a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Share"><i class="fa fa-share" ng-click="shareSoloPageCode($event)" data-id="{{page.ShareCode}}" data="{{page.ShareCode}}"></i></a>
+                                                <!--<a href="#" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" tooltip="Remove"><i class="fa fa-circle"></i></a>-->
                                             </div>
                                             <div class="visible-xs visible-sm hidden-md hidden-lg">
                                                 <div class="btn-group" dropdown="">
@@ -90,14 +98,38 @@
                                                                 Share
                                                             </a>
                                                         </li>
-                                                        <li>
+                                                        <!--<li>
                                                             <a href="#">
                                                                 Remove
                                                             </a>
-                                                        </li>
+                                                        </li>-->
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <script type="text/ng-template" id="myModalGenerateSharedCode.html">
+                                                <div class="modal-header">
+                                                    <span class="modal-title text-bold">Lấy Share Code</span>
+                                                    <button type="button" id="myModalSoloPageShareCodeCloseButton" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="affiliateUrl">
+                                                            Share Code
+                                                        </label>
+                                                        <input type="text" class="form-control" id="soloPageShareCode" name="soloPageShareCode" ng-model="editor.soloPageShareCode">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <span class="input-group-button">
+                                                            <button class="btn btn-primary btn-block" type="button" ngclipboard="" ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" data-clipboard-target="#soloPageShareCode">
+                                                                Copy Share Code
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </script>
+
                                         </td>
                                     </tr>
                                 </tbody>
