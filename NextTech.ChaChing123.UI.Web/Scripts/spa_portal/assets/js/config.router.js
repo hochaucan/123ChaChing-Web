@@ -105,11 +105,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
             title: 'Edit New Funnel',
             resolve: { isAuthenticated: isAuthenticated }
-        }).state('app.funnels.details', {
-            url: '/details/:id',
-            templateUrl: "Scripts/spa_portal/assets/views/funnel_view_details.html",
-            title: 'View Funnel',
-            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -442,6 +437,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('solo.public', {
             url: '/public/:id',
             templateUrl: "Scripts/spa_portal/assets/views/solo_page.html"
+        }).state('funnel', {
+            url: '/funnel',
+            template: '<div ui-view class="fade-in-up"></div>'
+        }).state('funnel.public', {
+            url: '/public/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_public_page.html",
+            title: 'View Funnel'
         });
 
     // Generates a resolve object previously configured in constant.JS_REQUIRES (config.constant.js)

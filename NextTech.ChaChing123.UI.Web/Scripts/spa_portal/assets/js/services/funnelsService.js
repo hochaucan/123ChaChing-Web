@@ -16,7 +16,7 @@
             DeleteFunnalPage: DeleteFunnalPage,
             GetAllFunnalPage: GetAllFunnalPage,
             GetDetailFunnalPage: GetDetailFunnalPage,
-            GetAllSoloPage: GetAllSoloPage
+            GetAllPublicSoloPage: GetAllPublicSoloPage
         };
 
         function AddFunnalPage(editor, completed) {
@@ -54,8 +54,8 @@
             );
         }
 
-        function GetAllSoloPage(editor, completed) {
-            apiService.post(baseUrl + '/api/LandingPage/GetAllSoloPage/', editor,
+        function GetAllPublicSoloPage(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetAllPublicSoloPage/', editor,
                 completed,
                 funnelsFailed
             );

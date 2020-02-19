@@ -9,16 +9,15 @@
     <div class="container" ng-controller="editorSoloPageCtrl">
         <div ng-if="soloPageDetails.FromType=='1'">
             <div class="row padding-top">
-
                 <div class="col-md-7">
                     <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                     <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                 </div>
-
                 <div class="col-md-5">
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control t-input field-border color-border" id="email" placeholder="Enter Your Email Address" style="border-color: rgb(230, 126, 34);">
+                    <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
+                        <div class="form-group" ng-class="{'has-error':SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid, 'has-success':SoLoPageForm.email.$valid}">
+                            <input type="email" class="form-control t-input field-border color-border" id="email" name="email" ng-model="lead.email" placeholder="Enter Your Email Address" required="">
+                            <span class="error text-small block" ng-if="SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid">Email là bắt buộc.</span>
                         </div>
                         <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color:{{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}.</button>
                     </form>
@@ -32,14 +31,17 @@
                     <div class="t-box">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control t-input" id="name" placeholder="Name">
+
+                        <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
+                            <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
+                                <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">
+                                <span class="error text-small block" ng-if="SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid">Tên là bắt buộc.</span>
                             </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control t-input" id="email" placeholder="Email">
+                            <div class="form-group" ng-class="{'has-error':SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid, 'has-success':SoLoPageForm.email.$valid}">
+                                <input type="email" class="form-control t-input field-border color-border" id="email" name="email" ng-model="lead.email" placeholder="Enter Your Email Address" required="">
+                                <span class="error text-small block" ng-if="SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid">Email là bắt buộc.</span>
                             </div>
-                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color: {{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}</button>
+                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color:{{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}.</button>
                         </form>
                     </div>
                 </div>
@@ -51,17 +53,21 @@
                     <div class="t-box">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control t-input" id="name" placeholder="Name">
+
+                        <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
+                            <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
+                                <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">
+                                <span class="error text-small block" ng-if="SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid">Tên là bắt buộc.</span>
                             </div>
-                            <div class="form-group">
-                                <input type="email" class="form-control t-input" id="email" placeholder="Email">
+                            <div class="form-group" ng-class="{'has-error':SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid, 'has-success':SoLoPageForm.email.$valid}">
+                                <input type="email" class="form-control t-input field-border color-border" id="email" name="email" ng-model="lead.email" placeholder="Enter Your Email Address" required="">
+                                <span class="error text-small block" ng-if="SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid">Email là bắt buộc.</span>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control t-input" id="phone" placeholder="Phone Number">
+                            <div class="form-group" ng-class="{'has-error':SoLoPageForm.phone.$dirty && SoLoPageForm.phone.$invalid, 'has-success':SoLoPageForm.phone.$valid}">
+                                <input type="text" class="form-control t-input field-border color-border" id="phone" name="phone" ng-model="lead.phone" placeholder="Phone" required="">
+                                <span class="error text-small block" ng-if="SoLoPageForm.phone.$dirty && SoLoPageForm.phone.$invalid">Số điện thoại là bắt buộc.</span>
                             </div>
-                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color: {{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}</button>
+                            <button type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color:{{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}.</button>
                         </form>
                     </div>
                 </div>
@@ -76,7 +82,7 @@
                     </div>
                     <div class="k-panel" style="background-color: white !important;">
                         <div class="row">
-                            <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>Cảm Ơn Bạn Đã Đăng Ký!</span></span></div>
+                            <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>{{soloPageDetails.ThankYouContent}}</span></span></div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">

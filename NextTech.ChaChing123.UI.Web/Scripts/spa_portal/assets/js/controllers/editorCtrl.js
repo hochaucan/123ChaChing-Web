@@ -19,6 +19,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         $scope.isShowTitleTemplate = false;
         $scope.isShowSubTitleTemplate = false;
         $scope.isShareCodeHidden = true;
+        $scope.isThankYouContentHidden = true;
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
         $scope.buttonColor = "";
@@ -94,13 +95,17 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
 
         $scope.$watch('formTypeVal', function (formTypeVal) {
             $scope.isShareCodeHidden = true;
+            $scope.isThankYouContentHidden = true;
+
             if (formTypeVal == 5) {
+                $scope.isThankYouContentHidden = true;
                 $scope.isShareCodeHidden = $scope.isShareCodeHidden ? false : true;
             }
-        });
 
-        $scope.$watch('saveMethod', function (saveMethod) {
-            console.log('save method ' + saveMethod);
+            if (formTypeVal == 4) {
+                $scope.isShareCodeHidden = true;
+                $scope.isThankYouContentHidden = $scope.isThankYouContentHidden ? false : true;
+            }
         });
 
         $scope.clickMe1 = function () {
@@ -154,6 +159,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         "BackgroundPath": "",
                         "ResourcePath": resourcePath,
                         "UseShareCode": $scope.editor.UseShareCode,
+                        "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
                         "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature
                         "Status": $scope.saveMethod,
@@ -174,6 +180,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                             "BackgroundPath": backgroundPath,
                             "ResourcePath": resourcePath,
                             "UseShareCode": "",
+                            "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.formTypeVal,
                             "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 2 : 1, // one of those are NOT equal NULL then customer is using advanced feature,
                             "Status": $scope.saveMethod,

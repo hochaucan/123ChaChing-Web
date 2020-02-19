@@ -19,6 +19,7 @@
             deleteSoloPage: deleteSoloPage,
             loadTitles: loadTitles,
             loadSubTitles: loadSubTitles,
+            RegisterLeadBySoloPage: RegisterLeadBySoloPage,
             uploadFile: uploadFile
         };
 
@@ -73,6 +74,13 @@
 
         function loadSubTitles(editor, completed) {
             apiService.post(baseUrl + '/api/Admin/GetAllSubTitleTemplate/', editor,
+                completed,
+                affiliateFailed
+            );
+        }
+
+        function RegisterLeadBySoloPage(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/RegisterLeadBySoloPage/', editor,
                 completed,
                 affiliateFailed
             );

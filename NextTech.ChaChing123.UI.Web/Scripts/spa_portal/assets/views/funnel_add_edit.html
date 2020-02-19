@@ -53,46 +53,60 @@
                 </div>
                 <div class="col-md-8">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-transparent">
+                    <div class="panel panel-white no-radius">
                         <div class="panel-body">
-                            <fieldset class="scheduler-border">
-                                <legend class="scheduler-border">Add Funnel</legend>
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <label for="exampleInputName">Title</label>
-                                        <input type="text" class="form-control" id="funnelTitle" ng-model="funnel.PageName" placeholder="Vui lòng điền thông tin tên Funnel">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputage">Solo Page</label>
-                                        <select class="form-control black" ng-options="option as option.Title for option in mySoloPages" ng-model="soloPage">
-                                            <option value="" disabled="">Chọn Solo Page</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary" ng-click="addRow()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add Funnel Row</button>
-                                    </div>
-                                </form>
-                            </fieldset>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="exampleInputName">Title</label>
+                                    <input type="text" class="form-control" id="funnelTitle" ng-model="funnel.PageName" placeholder="Funnel Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputage">Solo Page</label>
+                                    <select class="form-control black" ng-options="option as option.PageName for option in mySoloPages" ng-model="soloPage">
+                                        <option value="" disabled="">Chọn Solo Page</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" ng-click="addRow()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add Funnel</button>
+                                </div>
+                            </form>
                             <div class="container" style="padding:10px 10px;">
                                 <table class="table table-bordered" id="tbl_employees">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Solo Page</th>
-                                            <th></th>
+                                            <th>Số Thứ Tự</th>
+                                            <th>Solo Page Name</th>
+                                            <th>Nút Hành Động</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbl_posts_body">
                                         <tr ng-repeat="soloPage in soloPages">
                                             <td><label>{{$index + 1}}</label></td>
-                                            <td>{{soloPage.Title}}</td>
+                                            <td>{{soloPage.PageName}}</td>
                                             <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button class="btn btn-primary btn-block" ng-click="createFunnelPage()">
-                                    Hoàn Tất
-                                </button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(1)" ng-if="funnel.Status == '1'">
+                                            <i class="fa fa-save" data-id="1" data="1"></i>
+                                            Lưu và Xem Trước
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-if="funnel.Status == '1'">
+                                            <i class="fa  fa-rocket" data-id="2" data="2"></i>
+                                            Xuất Bản
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-if="funnel.Status == '2'">
+                                            <i class="fa fa-save" data-id="1" data="1"></i>
+                                            Lưu
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
