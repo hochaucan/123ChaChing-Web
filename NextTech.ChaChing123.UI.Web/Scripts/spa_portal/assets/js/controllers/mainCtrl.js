@@ -177,6 +177,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                 if ($scope.userData.isUserLoggedIn) {
                     $scope.username = $localStorage.currentUser.username;
                     $scope.fullname = $localStorage.currentUser.fullname;
+                    $scope.myavatar = $localStorage.currentUser.myavatar;
                 }
             }
 

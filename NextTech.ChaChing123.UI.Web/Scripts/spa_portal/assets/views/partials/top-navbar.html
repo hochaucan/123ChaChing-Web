@@ -111,13 +111,13 @@
         <!-- start: USER OPTIONS DROPDOWN -->
         <li class="dropdown current-user" uib-dropdown="" on-toggle="toggled(open)" ng-if="userData.isUserLoggedIn">
             <a href="/assets/views/partials/top-navbar.html" class="dropdown-toggle" uib-dropdown-toggle="">
-                <img src="Scripts/spa_portal/assets/images/avatar-1.jpg" alt="{{fullname}}">
+                <img ng-src="{{myavatar}}" alt="{{fullname}}">
             </a>
             <ul class="dropdown-menu dropdown-dark">
                 <li>
-                    <a ui-sref="app.pages.user" id="affiliateFullName" class="affiliateFullName"> <span class="text-bold">{{fullname}}</span> </a>
+                    <a ui-sref="app.profile" id="affiliateFullName" class="affiliateFullName"> <span class="text-bold">{{fullname}}</span> </a>
                 </li>
-                <li><a ui-sref="app.pages.user"> Tài khoản của tôi </a></li>
+                <li><a ui-sref="app.profile"> Tài khoản của tôi </a></li>
                 <li><a ui-sref="login.signin" translate="topbar.user.LOGOUT" ng-click="logout();"> Đăng xuất </a></li>
             </ul>
         </li>

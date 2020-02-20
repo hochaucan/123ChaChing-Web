@@ -35,7 +35,7 @@ app.run(['$rootScope', '$state', '$stateParams',
     $rootScope.user = {
         name: 'Peter',
         job: 'ng-Dev',
-        picture: 'app/img/user/02.jpg'
+        picture: '/Scripts/spa_portal/assets/images/default-user.png'
     };
     $rootScope.baseUrl = {
         url: 'http://localhost:1484/'

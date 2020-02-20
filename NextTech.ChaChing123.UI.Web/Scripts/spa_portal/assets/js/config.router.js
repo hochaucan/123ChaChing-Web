@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 /**
  * Config for the router
@@ -62,6 +62,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.login.lockscreen', {
             url: '/lock',
             templateUrl: "Scripts/spa_portal/assets/views/login_lock_screen.html"
+        }).state('app.profile', {
+            url: '/profile',
+            templateUrl: "Scripts/spa_portal/assets/views/pages_user_profile.html",
+            title: 'My Profile',
+            ncyBreadcrumb: {
+                label: 'Thông tin tài khoản'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.affiliate', {
             url: '/affiliate',
             templateUrl: "Scripts/spa_portal/assets/views/affiliate.html",
