@@ -38,7 +38,8 @@
     },
     "pages": {
       "MAIN": "Pages",
-      "USERPROFILE": "Affiliate"
+      "USERPROFILE": "Affiliate",
+      "MYPROFILE": "Tài Khoản Của Tôi"
     }
   },
   "offsidebar": {

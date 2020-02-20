@@ -18,11 +18,13 @@
             removeCredentials: removeCredentials,
             isUserLoggedIn: isUserLoggedIn,
             isAuthenticated: isAuthenticated,
-            checkMemberAuthorization: checkMemberAuthorization
+            checkMemberAuthorization: checkMemberAuthorization,
+            EditAccount: EditAccount,
+            GetAccountInfo: GetAccountInfo
         };
 
         function login(user, completed) {
-            apiService.post(baseUrl + '/api/account/login', user,
+            apiService.post(baseUrl + '/api/Account/login', user,
             completed,
             loginFailed);
         }
@@ -33,13 +35,26 @@
             registrationFailed);
         }
 
+        function GetAccountInfo(user, completed) {
+            apiService.post(baseUrl + '/api/Account/GetAccountInfo/', user,
+                completed,
+                loginFailed);
+        }
+
+        function EditAccount(user, completed) {
+            apiService.post(baseUrl + '/api/Account/EditAccount/', user,
+                completed,
+                loginFailed);
+        }
+
         function saveCredentials(user) {
             $localStorage.currentUser = {
                 username: user.UserName,
                 fullname: user.FullName,
                 phone: user.Phone,
                 accountType: user.AccountType,
-                token: user.SessionKey
+                token: user.SessionKey,
+                myavatar: (user.AvatarPath) ? user.AvatarPath : '/Scripts/spa_portal/assets/images/default-user.png'
             };
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;

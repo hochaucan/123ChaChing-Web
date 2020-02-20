@@ -1,0 +1,164 @@
+﻿<!-- saved from url=(0075)http://www.cliptheme.com/demo/clip-two/assets/views/pages_user_profile.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="topbar.pages.MYPROFILE">{{ mainTitle }}</h1>
+            </div>
+            <div ncy-breadcrumb=""></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: USER PROFILE -->
+    <div class="container-fluid container-fullw bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'UserCtrl' -  localtion: assets/js/controllers/userCtrl.js /// -->
+                <div ng-controller="UserCtrl">
+                    <!-- start: USER TABSET -->
+                    <uib-tabset class="tabbable">
+                        <!-- start: TAB OVERVIEW -->
+                        <uib-tab heading="Tổng Quát">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="user-left">
+                                        <div class="center">
+                                            <h4>{{userInfo.FullName}}</h4>
+                                            <div flow-init="{singleFile:true}" flow-name="obj.flow" flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+                                                <div class="user-image">
+                                                    <div class="thumbnail">
+                                                        <img src="/Scripts/spa_portal/assets/images/default-user.png" alt="" ng-if="!obj.flow.files.length &amp;&amp; noImage">
+                                                        <img ng-src="{{userInfo.AvatarPath}}" alt="" ng-if="!obj.flow.files.length &amp;&amp; !noImage">
+                                                        <img flow-img="obj.flow.files[0]" ng-if="obj.flow.files.length">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="3">Thông tin tài khoản</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Họ Tên</td>
+                                                    <td>
+                                                        <a href="#">
+                                                            {{userInfo.FullName}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tên Đăng Nhập</td>
+                                                    <td>
+                                                        <a href="#">
+                                                            {{userInfo.UserName}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td>
+                                                        <a href="">
+                                                            {{userInfo.Email}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Số Điện Thoại:</td>
+                                                    <td>{{userInfo.Phone}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ngày Đăng Ký:</td>
+                                                    <td>{{userInfo.RegisterDate}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <!-- end: TAB OVERVIEW -->
+                        <!-- start: TAB EDIT ACCOUNT -->
+                        <uib-tab heading="Cập nhật tài khoản" active="editActive">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form role="form" name="MyProfileForm" id="MyProfileForm" novalidate="" ng-submit="form.submit(MyProfileForm)">
+                                <fieldset>
+                                    <legend>
+                                        Thông tin tài khoản
+                                    </legend>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group" ng-class="{'has-error':MyProfileForm.FullName.$dirty && MyProfileForm.FullName.$invalid, 'has-success':MyProfileForm.FullName.$valid}">
+                                                <label class="control-label" for="FullName">
+                                                    Họ Tên <span class="symbol required"></span>
+                                                </label>
+                                                <input type="text" placeholder="Họ Tên" class="form-control" name="FullName" ng-model="userInfo.FullName" required="">
+                                                <span class="error text-small block" ng-if="MyProfileForm.FullName.$dirty && MyProfileForm.FullName.$invalid">Họ tên là bắt buộc.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Tên Đăng Nhập
+                                                </label>
+                                                <input type="text" placeholder="Tên Đăng Nhập" class="form-control" name="UserName" ng-model="userInfo.UserName" disabled="disabled">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Địa chỉ Email
+                                                </label>
+                                                <input type="email" placeholder="Địa chỉ Email" class="form-control" name="Email" ng-model="userInfo.Email" disabled="disabled">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Số Điện Thoại
+                                                </label>
+                                                <input type="text" placeholder="Số Điện Thoại" class="form-control" name="Phone" ng-model="userInfo.Phone" disabled="disabled">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Upload Hình
+                                                </label>
+                                                <div flow-init="" flow-object="obj.flow">
+                                                    <div class="user-image" ng-controller="UploadMyProfileCtrl">
+                                                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <button type="button" class="btn btn-primary  pull-right" ng-click="uploadFiles()">
+                                                                    <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary btn-block">
+                                                    Cập Nhật
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </uib-tab>
+                        <!-- end: TAB EDIT ACCOUNT -->
+                    </uib-tabset>
+                    <!-- end: USER TABSET -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: USER PROFILE -->
+</body>
+</html>
