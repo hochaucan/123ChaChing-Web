@@ -47,6 +47,9 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestUpdateAvatarDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestAccountTypeDto.cs" />
     <Compile Include="DTO\ChaChing123\ActiveAccountDto.cs" />
     <Compile Include="DTO\ChaChing123\AffiliateOfMonthDto.cs" />
@@ -58,8 +61,13 @@
     <Compile Include="DTO\ChaChing123\BOAccountInfoDto.cs" />
     <Compile Include="DTO\ChaChing123\AfiliateAlertDto.cs" />
     <Compile Include="DTO\ChaChing123\AfiliateItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestDetailByIDDto - Copy.cs" />
+    <Compile Include="DTO\ChaChing123\LeadsDto.cs" />
+    <Compile Include="DTO\ChaChing123\FunnalDetailDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestNextSoloDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestEditAccountDto.cs" />
     <Compile Include="DTO\ChaChing123\FunnalPageItem1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\ConfigModel.cs" />
     <Compile Include="DTO\ChaChing123\ResponeDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestDetailByIDDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestViewDetailDto.cs" />
@@ -67,12 +75,14 @@
     <Compile Include="DTO\ChaChing123\SoloPageByShareCodeDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestFunnalPageDto.cs" />
     <Compile Include="DTO\ChaChing123\FunnalPageItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\NextSoloPageDto.cs" />
+    <Compile Include="DTO\ChaChing123\SoloPageItem2Dto.cs" />
     <Compile Include="DTO\ChaChing123\SoloPageItem1Dto.cs" />
     <Compile Include="DTO\ChaChing123\SoloPageItemDto.cs" />
     <Compile Include="DTO\ChaChing123\SoloPageDto.cs" />
     <Compile Include="DTO\ChaChing123\TitleTemplateDto.cs" />
     <Compile Include="DTO\ChaChing123\ChangePasswordModel.cs" />
-    <Compile Include="DTO\ChaChing123\OrderListSearchDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOOrderItemDto.cs" />
     <Compile Include="DTO\ChaChing123\LogoutDto.cs" />
     <Compile Include="DTO\ChaChing123\DeleteAccountDto.cs" />
     <Compile Include="DTO\ChaChing123\LockAffilateDto.cs" />

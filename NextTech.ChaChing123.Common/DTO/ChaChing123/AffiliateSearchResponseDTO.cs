@@ -24,9 +24,9 @@ namespace NextTech.ChaChing123.Common.Models
 
         public int Status { get; set; }
 
-        public bool IsLock { get; set; }
+        public int IsLock { get; set; }
 
-        public bool IsLockAffilate { get; set; }
+        public int IsLockAffilate { get; set; }
 
         public string ContractNo { get; set; }
 

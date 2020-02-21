@@ -145,13 +145,17 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
 
         }
 
-        private bool CheckLogin(CheckLoginDTO obj)
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("CheckLogin")]
+        public HttpResponseMessage CheckLogin(HttpRequestMessage request, RequestDTO obj)
         {
-            if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-                return false;
-
-            //TODO
-            return true;
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, Common.CheckLogin(obj));
+                return response;
+            });
         }
 
         /*
@@ -272,14 +276,14 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         */
-      
+
 
         #region Account & Affialate
         // No.1
         [AllowAnonymous]
         [Route("GetAccountList")]
         [HttpPost]
-        public HttpResponseMessage GetAccountList(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetAccountList(HttpRequestMessage request, RequestOrderListDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -697,6 +701,22 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         #endregion
+        
+        #region Leads
+        [AllowAnonymous]
+        [Route("GetAllLeads")]
+        [HttpPost]
+        public HttpResponseMessage GetAllLeads(HttpRequestMessage request, LeadsDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllLeads(obj));
+                return response;
+            });
+        }
+        #endregion
+
     }
 }
 

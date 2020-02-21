@@ -43,7 +43,7 @@ namespace NextTech.ChaChing123.Business
 
         #region IAdminService Implementation
         
-        public ResultDTO GetAccountList(RequestDTO obj)
+        public ResultDTO GetAccountList(RequestOrderListDTO obj)
         {
             ResultDTO rsInfo = new ResultDTO();
             try
@@ -586,6 +586,26 @@ namespace NextTech.ChaChing123.Business
         }
 
         #endregion
+        #region Leads
+        
+        public ResultDTO GetAllLeads(LeadsDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetAllLeads(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllLeads", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+        }
+        #endregion
+
 
         #endregion
 

@@ -91,6 +91,22 @@ namespace NextTech.ChaChing123.Business
             }
             return accInfo;
         }
+        public ResultDTO GetAllPublicSoloPage(RequestDTO obj)
+        {
+            ResultDTO accInfo = null;
+            try
+            {
+                accInfo = _repository.GetAllPublicSoloPage(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllPublicSoloPage", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+            return accInfo;
+        }
+        
         public ResultDTO AddSoloPage(SolaPageDTO obj)
         {
             ResultDTO accInfo = null;
@@ -253,8 +269,40 @@ namespace NextTech.ChaChing123.Business
         }
 
         #endregion
+        
+        public ResultDTO GetFunnalDetailByReivew(RequestNextSoloDTO obj)
+        {
+            ResultDTO accInfo = null;
+            try
+            {
+                accInfo = _repository.GetFunnalDetailByReivew(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetFunnalDetailByReivew", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+            return accInfo;
+        }
 
         #region FO
+        
+            public ResultDTO GetFunnalDetailByPublic(RequestNextSoloDTO obj)
+        {
+            ResultDTO accInfo = null;
+            try
+            {
+                accInfo = _repository.GetFunnalDetailByPublic(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetFunnalDetailByPublic", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+            return accInfo;
+        }
         public ResultDTO GetDetailSoloPageByID(RequestDetailByIDDTO obj)
         {
             ResultDTO accInfo = null;
@@ -281,6 +329,21 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("GetDetailFunnalPageByID", ActionType.GetData, ex.Message.ToString(), "Call FO method");
+                accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                accInfo.StatusMsg = ex.Message.ToString();
+            }
+            return accInfo;
+        }
+        public ResultDTO RegisterLeadBySoloPage(RegisterLeadBySoloPageDTO obj)
+        {
+            ResultDTO accInfo = null;
+            try
+            {
+                accInfo = _repository.RegisterLeadBySoloPage(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("RegisterLeadBySoloPage", ActionType.GetData, ex.Message.ToString(), "Call FO method");
                 accInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 accInfo.StatusMsg = ex.Message.ToString();
             }

@@ -228,6 +228,23 @@ namespace NextTech.ChaChing123.Business
             return errorCode;
 
         }
+        public ResultDTO UpdateAvatar(RequestUpdateAvatarDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.UpdateAvatar(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateAvatar", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
 
         #endregion
 

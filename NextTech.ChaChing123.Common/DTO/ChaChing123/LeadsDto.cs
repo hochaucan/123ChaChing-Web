@@ -2,7 +2,7 @@
 
 namespace NextTech.ChaChing123.Common.Models
 {
-   public class RequestDTO
+   public class LeadsDTO
     {
         public string UserName { get; set; }
 
@@ -12,7 +12,7 @@ namespace NextTech.ChaChing123.Common.Models
 
         public int PageCount { get; set; }
 
-        private RequestDTO()
+        private LeadsDTO()
         {
             PageIndex = -1;
             PageCount = -1;

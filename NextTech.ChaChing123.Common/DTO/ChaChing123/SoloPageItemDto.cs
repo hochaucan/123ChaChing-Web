@@ -16,6 +16,7 @@ namespace NextTech.ChaChing123.Common.Models
         public string ResourcePath { get; set; }
         public string ShareCode { get; set; }
         public string UseShareCode { get; set; }
+        public string ThankYouContent { get; set; }
         public int FromType { get; set; }
         public int IsAdvance { get; set; }
         public int Status { get; set; }

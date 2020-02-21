@@ -30,9 +30,9 @@
 
         public int Status { get; set; }
 
-        public bool IsLock { get; set; }
+        public int IsLock { get; set; }
 
-        public bool IsLockAffilate { get; set; }
+        public int IsLockAffilate { get; set; }
 
         [MaxLength(50)]
         [Required(ErrorMessage = "ContractNo must have a value")]

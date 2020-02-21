@@ -17,7 +17,7 @@ namespace NextTech.ChaChing123.Business
     public interface IAdminService
     {
         // No.1
-        ResultDTO GetAccountList(RequestDTO obj);
+        ResultDTO GetAccountList(RequestOrderListDTO obj);
         // No.2
         ResultDTO GetOrderList(RequestOrderListDTO obj);
         // No.3
@@ -75,6 +75,10 @@ namespace NextTech.ChaChing123.Business
         ResultDTO EditSubTitleTemplate(BOTitleTemplateDTO obj);
         ResultDTO DeleteSubTitleTemplate(BOTitleTemplateDTO obj);
         ResultDTO GetAllSubTitleTemplate(RequestDTO obj);
+        #endregion
+
+        #region Leads
+        ResultDTO GetAllLeads(LeadsDTO obj);
         #endregion
     }
 }

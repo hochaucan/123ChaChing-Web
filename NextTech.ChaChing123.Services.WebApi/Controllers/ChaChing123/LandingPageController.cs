@@ -3,7 +3,7 @@
 /// <description>Created date: </description>
 /// <revision history>Version: 1.0.1</revision history>
 /// </summary>
-
+using System.Web.UI;
 namespace NextTech.ChaChing123.Services.WebApi.Controllers
 {
     using NextTech.ChaChing123.Common.Models;
@@ -93,7 +93,35 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+        [AllowAnonymous]
+        [Route("GetFunnalDetailByReivew")]
+        [HttpPost]
+        public HttpResponseMessage GetFunnalDetailByReivew(HttpRequestMessage request, RequestNextSoloDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
 
+                ResultDTO result = _service.GetFunnalDetailByReivew(obj);
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
+        [AllowAnonymous]
+        [Route("GetFunnalDetailByPublic")]
+        [HttpPost]
+        public HttpResponseMessage GetFunnalDetailByPublic(HttpRequestMessage request, RequestNextSoloDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+
+                ResultDTO result = _service.GetFunnalDetailByPublic(obj);
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
+        
         [AllowAnonymous]
         [Route("GetAllSoloPage")]
         [HttpPost]
@@ -110,6 +138,21 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
 
+        [AllowAnonymous]
+        [Route("GetAllPublicSoloPage")]
+        [HttpPost]
+        public HttpResponseMessage GetAllPublicSoloPage(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+
+                HttpResponseMessage response;
+
+                ResultDTO result = _service.GetAllPublicSoloPage(obj);
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
         [AllowAnonymous]
         [Route("AddSoloPage")]
         [HttpPost]
@@ -250,11 +293,25 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
         [AllowAnonymous]
-        [Route("GetTitleTemplate")]
+        [Route("RegisterLeadBySoloPage")]
         [HttpPost]
-        public HttpResponseMessage GetTitleTemplate(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage RegisterLeadBySoloPage(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+
+                ResultDTO result = _service.RegisterLeadBySoloPage(obj);
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
+       
+        [AllowAnonymous]
+        [Route("GetAllTitleTemplate")]
+        [HttpPost]
+        public HttpResponseMessage GetAllTitleTemplate(HttpRequestMessage request, RequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -268,9 +325,9 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [Route("GetSubTitleTemplate")]
+        [Route("GetAllSubTitleTemplate")]
         [HttpPost]
-        public HttpResponseMessage GetSubTitleTemplate(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetAllSubTitleTemplate(HttpRequestMessage request, RequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -283,32 +340,28 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
 
+
         [AllowAnonymous]
         [HttpPost]
         [Route("UploadFile")]
         public HttpResponseMessage UploadFile(HttpRequestMessage request)
         {
             ResultDTO result = new ResultDTO();
-            var requestContext = HttpContext.Current.Request;
-            var pathFolder = Common.GetConfigValue("PathFileOfLandingPage");
-
-            if (!System.IO.Directory.Exists(pathFolder))
-                System.IO.Directory.CreateDirectory(pathFolder);
-
-            string sessionKey = requestContext.Form.Get("SessionKey");
-
-            result= Common.CheckLogin(sessionKey);
-            if (result.StatusCode != 0)
-            {
-                return CreateHttpResponse(request, () =>
-                {
-                    var response = request.CreateResponse(HttpStatusCode.OK, result);
-                    return response;
-                });
-            }
-
             try
             {
+                var requestContext = HttpContext.Current.Request;
+                var pathFolder = System.Web.Hosting.HostingEnvironment.MapPath(Common.GetConfigValue("PathFileOfLandingPage"));
+                string sessionKey = requestContext.Form.Get("SessionKey");
+
+                result = Common.CheckLogin(sessionKey);
+                if (result.StatusCode != 0)
+                {
+                    return CreateHttpResponse(request, () =>
+                    {
+                        var response = request.CreateResponse(HttpStatusCode.OK, result);
+                        return response;
+                    });
+                }
                 if (requestContext.Files.Count < 1)
                 {
                     result.StatusCode = int.Parse(RetCodeMsg.ECS0028, 0);
@@ -319,27 +372,23 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                     string fileName = requestContext.Files[0].FileName;
                     string ext = System.IO.Path.GetExtension(fileName);
                     string originalFileName = System.IO.Path.GetFileName(fileName);
-
                     // Save to file temp
                     var tempFileName = Guid.NewGuid() + ext;
-
                     //To save file, use SaveAs method
                     if (System.IO.File.Exists(pathFolder + tempFileName))
                     {
                         System.IO.File.Delete(pathFolder + tempFileName);
                     }
-
                     //File will be saved in application root
                     requestContext.Files[0].SaveAs(pathFolder + tempFileName);
-
                     result.StatusCode = 0;
                     result.SetContentMsg();
-                    result.Details = tempFileName;
+                    result.Details = (ConfigSystem.LandingPagePath + tempFileName);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                result.StatusCode =9999 ;
+                result.StatusCode = 9999;
                 result.Details = ex.Message;
 
                 return CreateHttpResponse(request, () =>
@@ -354,7 +403,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 var response = request.CreateResponse(HttpStatusCode.OK, result);
                 return response;
             });
-        }
+        }       
     }
 }
 

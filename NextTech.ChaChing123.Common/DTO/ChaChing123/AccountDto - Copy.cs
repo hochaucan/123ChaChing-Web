@@ -13,7 +13,7 @@ namespace NextTech.ChaChing123.Common.Models
         public string Phone { get; set; }
 
         public int AccountType { get; set; }
-        public string AccountTypeName { get; set; }
+        public int AccountTypeName { get; set; }
 
         public int Status { get; set; }
         public string StatusName { get; set; }

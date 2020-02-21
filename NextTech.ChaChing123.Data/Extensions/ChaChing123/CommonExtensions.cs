@@ -6,7 +6,8 @@ using NextTech.ChaChing123.Common.Models;
 namespace NextTech.ChaChing123.Data.Extensions
 {
     using Entities;
-    
+    using NextTech.ChaChing123.Core.Utilities.Security;
+
 
     /// <summary>
     /// Class CommonExtensions.
@@ -29,13 +30,14 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_CheckLogin] @SessionKey, @errorCode out",
-                new SqlParameter("SessionKey", sessionKey),
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_CheckLogin] @SessionKey, @errorCode out",
+                new SqlParameter("SessionKey", DB.SafeSQL(sessionKey)),
                 errorCode);
 
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
+            result.Details = sessionKey;
             return result;
         }
 
@@ -52,6 +54,23 @@ namespace NextTech.ChaChing123.Data.Extensions
             return itemList;
         }
 
+        public ResultDTO CheckLogin(RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+            var errorCode = new SqlParameter("errorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_CheckLogin] @UserName,@SessionKey, @errorCode out",
+                new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                errorCode);
+            try{dbContext.Database.SqlQuery<object>(obj.UserName).FirstOrDefault();}catch{};
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+        }
 
         /// <summary>
         /// Determines whether [is exits user by user name] [the specified user name].

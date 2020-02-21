@@ -125,6 +125,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         }
 
         [AllowAnonymous]
+        [Route("GetAfiliateListByAccount")]
+        [HttpPost]
+        public HttpResponseMessage GetAfiliateListByAccount(HttpRequestMessage request, RequestOrderListDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAfiliateListByAccount(obj));
+                return response;
+            });
+        }
+        
+        [AllowAnonymous]
         [Route("getaffiliatecomission")]
         [HttpPost]
         public PagedResult<AffiliateOfMonth> GetAffiliateComissions(AffiliateModel affiliateModel)
