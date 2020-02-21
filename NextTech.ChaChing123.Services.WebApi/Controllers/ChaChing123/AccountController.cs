@@ -19,6 +19,8 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
     using NextTech.ChaChing123.Core.Filters.ErrorHelper;
     using Common.Constants;
     using NextTech.ChaChing123.Business.Utilities;
+    using System.Web;
+    using System;
 
     /// <summary>
     /// Class AccountController.
@@ -145,17 +147,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
 
        }
 
-       private bool CheckLogin(CheckLoginDTO obj)
-       {
-           if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-               return false;
-
-           //TODO
-           return true;
-       }
-
-
-       [AllowAnonymous]
+        [AllowAnonymous]
        [Route("Login")]
        [HttpPost]
        public HttpResponseMessage Login(HttpRequestMessage request, LoginModel obj)
@@ -211,7 +203,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
            return CreateHttpResponse(request, () =>
            {
                HttpResponseMessage response;
-               response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.ChangePassword(obj) });
+               response = request.CreateResponse(HttpStatusCode.OK,  _service.ChangePassword(obj));
                return response;
            });
        }
@@ -224,7 +216,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.Edit(obj) });
+                response = request.CreateResponse(HttpStatusCode.OK, _service.Edit(obj));
                 return response;
             });
         }
@@ -299,7 +291,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.Logout(obj) });
+                response = request.CreateResponse(HttpStatusCode.OK, _service.Logout(obj));
                 return response;
             });
         }
@@ -311,11 +303,88 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, new { ErrorCode = _service.RequestAccountType(obj) });
+                response = request.CreateResponse(HttpStatusCode.OK, _service.RequestAccountType(obj));
                 return response;
             });
         }
-        
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("UpdateAvatar")]
+        public HttpResponseMessage UpdateAvatar(HttpRequestMessage request)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                var requestContext = HttpContext.Current.Request;
+                var pathFolder = System.Web.Hosting.HostingEnvironment.MapPath(Common.GetConfigValue("PathAvatarFolder"));
+                string sessionKey = requestContext.Form.Get("SessionKey");
+                result = Common.CheckLogin(sessionKey);
+                if (result.StatusCode != 0)
+                {
+                    return CreateHttpResponse(request, () =>
+                    {
+                        var response = request.CreateResponse(HttpStatusCode.OK, result);
+                        return response;
+                    });
+                }
+
+
+                if (requestContext.Files.Count < 1)
+                {
+                    result.StatusCode = int.Parse(RetCodeMsg.ECS0028, 0);
+                    result.SetContentMsg();
+                }
+                else
+                {
+                    string fileName = requestContext.Files[0].FileName;
+                    string ext = System.IO.Path.GetExtension(fileName);
+                    string originalFileName = System.IO.Path.GetFileName(fileName);
+
+                    // Save to file temp
+                    var tempFileName = Guid.NewGuid() + ext;
+
+                    //To save file, use SaveAs method
+                    if (System.IO.File.Exists(pathFolder + tempFileName))
+                    {
+                        System.IO.File.Delete(pathFolder + tempFileName);
+                    }
+
+                    //File will be saved in application root
+                    requestContext.Files[0].SaveAs(pathFolder + tempFileName);
+                    RequestUpdateAvatarDTO olalaObj = new RequestUpdateAvatarDTO();
+                    olalaObj.SessionKey = sessionKey;
+                    olalaObj.AvatarFileName = tempFileName;
+                    return CreateHttpResponse(request, () =>
+                    {
+                        HttpResponseMessage response;
+                        response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateAvatar(olalaObj));
+                        return response;
+                    });
+
+                    //result.StatusCode = 0;
+                    //result.SetContentMsg();
+                    //result.Details = tempFileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = 9999;
+                result.Details = ex.Message;
+
+                return CreateHttpResponse(request, () =>
+                {
+                    var response = request.CreateResponse(HttpStatusCode.OK, result);
+                    return response;
+                });
+            }
+
+            return CreateHttpResponse(request, () =>
+            {
+                var response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
     }
 }
 

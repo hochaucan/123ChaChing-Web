@@ -18,7 +18,7 @@ namespace NextTech.ChaChing123.Data.Extensions
     {
         #region Account & Affialate        
         // No.1
-        public static ResultDTO GetAccountList(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
+        public static ResultDTO GetAccountList(this IEntityBaseRepository<Admin> repository, RequestOrderListDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -27,14 +27,21 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
-            result.Details = dbContext.Database.SqlQuery<BOAccountItemDTO>("EXEC [dbo].[sp_BO_GetAccountList] @SessionKey,@errorCode out",
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            BODataListDTO Items = new BODataListDTO();
+            Items.Items = dbContext.Database.SqlQuery<BOAccountItemDTO>("EXEC [dbo].[sp_BO_GetAccountList] @SessionKey, @Count out,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode).ToList<BOAccountItemDTO>();
+                        count,
+                        errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOAccountItemDTO>();
 
-
+            Items.Total = int.Parse(count.Value.ToString(), 0);
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
+
+            result.Details = Items;
             return result;
         }
         // No.2
@@ -47,31 +54,28 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
-            //if (string.IsNullOrEmpty(obj.UserName) || string.IsNullOrEmpty(obj.SessionKey))
-            //{
-            //    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            //}
-            //else
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
             {
-                try
-                {
-                    var items = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_GetOrderList] @UserName,@SessionKey,@KeyWord, @PaymentState,@AffiliateState, @AffiliateAccount, @errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        new SqlParameter("KeyWord", DB.SafeSQL(obj.KeyWord)),
-                        new SqlParameter("PaymentState", obj.PaymentState),
-                        new SqlParameter("AffiliateState", obj.AffiliateState),
-                        new SqlParameter("AffiliateAccount", obj.AffiliateAccount),
-                        errorCode);
-
-                    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                }
-                catch (Exception ex)
-                {
-                    result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-                    result.StatusMsg = ex.Message;
-                }
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<BOOrderItemDto>("EXEC [dbo].[sp_BO_GetOrderList] @UserName,@SessionKey, @Count out, @errorCode out",
+                    new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    count,
+                    errorCode).Skip((obj.PageIndex-1) * obj.PageCount).Take(obj.PageCount).ToList<BOOrderItemDto>();
+                Items.Total = int.Parse(count.Value.ToString(), 0); 
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                
+                result.Details = Items;
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
             }
 
             return result;
@@ -87,10 +91,9 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<BOAccountItem1DTO>("EXEC [dbo].[sp_BO_GetAccountList] @SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<BOAccountItem1DTO>("EXEC [dbo].[sp_BO_AffialateList] @SessionKey,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode).ToList<BOAccountItem1DTO>();
-
 
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
@@ -808,6 +811,45 @@ namespace NextTech.ChaChing123.Data.Extensions
 
         #region [Template]
 
+        #region Leads
+        public static ResultDTO GetAllLeads(this IEntityBaseRepository<Admin> repository, LeadsDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            try
+            {
+                if (obj.PageIndex != -1)
+                {
+                    result.Details = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetAllLeads] @UserName, @SessionKey, @errorCode out",
+                           new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                           new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                           errorCode).Skip(obj.PageIndex).Take(obj.PageCount).ToList<LeadsItemDTO>();
+                }
+                else
+                {
+                    result.Details = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetAllLeads] @UserName, @SessionKey, @errorCode out",
+                           new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                           new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                           errorCode).ToList<LeadsItemDTO>();
+                }
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.Details = ex.Message;
+            }
+
+            return result;
+        }
+        #endregion
         #endregion
     }
 }

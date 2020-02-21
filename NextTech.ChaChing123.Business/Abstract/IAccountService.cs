@@ -34,5 +34,6 @@ namespace NextTech.ChaChing123.Business
 
         IQueryable<Account> GetAllData(Paging obj);
         ResultDTO RequestAccountType(RequestAccountTypeDTO obj);
+        ResultDTO UpdateAvatar(RequestUpdateAvatarDTO obj);
     }
 }

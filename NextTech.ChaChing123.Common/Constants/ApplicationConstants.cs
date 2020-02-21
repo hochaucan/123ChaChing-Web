@@ -28,7 +28,7 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string Login = "Login";
         public const string Logout = "Logout";
         public const string GetData = "GetData";
-        
+
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ namespace NextTech.ChaChing123.Common.Constants
         ECS9999 = 9999,
     }
 
-    public class  RetCodeMsg 
+    public class RetCodeMsg
     {
         public const string ECS0000 = "Thành công";
         public const string ECS0001 = "Tên đăng nhập không được để trống";
@@ -107,4 +107,9 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS9999 = "Lỗi không xác định.";
     }
 
+    public class ConfigSystem
+    {
+        public const string AvatarFolder = "https://api.123chaching.app/UploadFile/AvatarImages/";
+        public const string LandingPagePath = "https://api.123chaching.app/UploadFile/LandingPage/";
+    }
 }

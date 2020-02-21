@@ -37,9 +37,9 @@ namespace NextTech.ChaChing123.Business.Utilities
             }
             catch (Exception ex)
             {
-                Logger.LogError("Method WriteLog:" + ex.Message);
+                Logger.LogError("Call CheckLogin method error:" + ex.Message);
                 result.StatusCode = ConvertErrorCodeToInt(RetCode.ECS9999);
-                result.Details = ex.Message;
+                result.Details = "Call CheckLogin method error:" + ex.Message;
             }
             return result;
         }
@@ -55,17 +55,7 @@ namespace NextTech.ChaChing123.Business.Utilities
             retCode = (int)Enum.Parse(typeof(RetCode), Enum.GetName(typeof(RetCode), value));
             return retCode;
         }
-
-        /// <summary>
-        /// Gets all resource.
-        /// </summary>
-        /// <returns>List&lt;ResourceModel&gt;.</returns>
-        public static List<ResourceModel> GetAllResource()
-        {
-            CommonExtensions common = new CommonExtensions();
-            return common.GetAllResource();
-        }
-
+        
         /// <summary>
         /// Gets the configuration value.
         /// </summary>
@@ -81,7 +71,26 @@ namespace NextTech.ChaChing123.Business.Utilities
 
             return keyValue;
         }
-
+        public static ResultDTO CheckLogin(RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            if (string.IsNullOrEmpty(obj.SessionKey) && string.IsNullOrEmpty(obj.UserName))
+            {
+                result.StatusCode = ConvertErrorCodeToInt(RetCode.ECS0017);
+                result.SetContentMsg();
+            }
+            try
+            {
+                CommonExtensions common = new CommonExtensions();
+                return common.CheckLogin(obj);
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.Details = "Call CheckLogin method error:" + ex.Message;
+            }
+            return result;
+        }
         public static int IsExitsUserByUserName(string userName)
         {
             try

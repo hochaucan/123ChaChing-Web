@@ -113,19 +113,9 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             var sqlSting = "EXEC [dbo].[sp_GetAccountInfo] @UserName='" + obj.UserName + "',@Password='" + obj.Password + "',@LoginType='" + obj.LoginType + "'";
 
-            var item = dbContext.Database.SqlQuery<Account>(sqlSting).FirstOrDefault();
+            accInfo = dbContext.Database.SqlQuery<AccountInfoDTO>(sqlSting).FirstOrDefault();
             if (accInfo != null)
             {
-                accInfo.FullName = item.FullName;
-                accInfo.Email = item.Email;
-                accInfo.UserName = item.UserName;
-                accInfo.Phone = item.Phone;
-                accInfo.AccountType = item.AccountType;
-                accInfo.Status = item.Status;
-                accInfo.IsLock = item.IsLock;
-                accInfo.IsLockAffilate = item.IsLockAffilate;
-                accInfo.RegisterDate= item.CreatedDate.ToString("dd/MM/yyyy");
-                accInfo.AvartaPath = item.AvartaPath;
                 accInfo.SessionKey = obj.SessionKey;
             }
             return accInfo;
@@ -187,10 +177,9 @@ namespace NextTech.ChaChing123.Data.Extensions
             };
 
             
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditAccount] @FullName,@UserName, @AvartaPath,@SessionKey, @errorCode out",
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_EditAccount] @FullName,@UserName, @SessionKey, @errorCode out",
                     new SqlParameter("FullName", DB.SafeSQL(obj.FullName)),
                     new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                    new SqlParameter("AvartaPath", DB.SafeSQL(obj.AvartaPath)),
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     errorCode);
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
@@ -330,6 +319,32 @@ namespace NextTech.ChaChing123.Data.Extensions
             }
             return result;
         }
+        public static ResultDTO UpdateAvatar(this IEntityBaseRepository<Account> repository, RequestUpdateAvatarDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var avatarFilePath = new SqlParameter("AvatarFilePath", System.Data.SqlDbType.NVarChar,200)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateAvatar] @AvatarFileName, @SessionKey,@AvatarFilePath out, @errorCode out",
+                         new SqlParameter("AvatarFileName", obj.AvatarFileName),
+                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                         avatarFilePath,
+                         errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            result.Details = avatarFilePath.Value.ToString();
+
+            return result;
+        }
+        
         //public static ResultDTO AddTokenPush.
 
 

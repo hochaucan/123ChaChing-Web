@@ -12,7 +12,7 @@ namespace NextTech.ChaChing123.Common.Models
 
         public string Phone { get; set; }
 
-        public string AvartaPath { get; set; }
+        public string AvatarPath { get; set; }
 
         public string RegisterDate { get; set; }
 
@@ -24,7 +24,7 @@ namespace NextTech.ChaChing123.Common.Models
             this.Email = string.Empty;
             this.Phone = string.Empty;
             this.RegisterDate = string.Empty;
-            this.AvartaPath = string.Empty;
+            this.AvatarPath = string.Empty;
         }
 
     }
