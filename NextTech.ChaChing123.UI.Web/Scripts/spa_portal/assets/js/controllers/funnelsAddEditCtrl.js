@@ -35,8 +35,9 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
         $scope.soloPages = [];
 
         var locationURL = $location.url().split('/');
-        if (locationURL[4] && locationURL[4] > 0) {
-            id = locationURL[4];
+        var len = locationURL.length;
+        if (len > 0) {
+            id = locationURL[len - 1];
         }
 
         // GET VALUES FROM INPUT BOXES AND ADD A NEW ROW TO THE TABLE.
@@ -82,6 +83,7 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                     $scope.soloIDs = idList.join();
                 }
 
+                //Edit Funnel
                 if (id > 0) {
                     $scope.funnel = {
                         "ID": id,
@@ -94,6 +96,9 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                     };
 
                     $scope.showSpinner = true;
+                    var funnelID = 0;
+                    var soloID = 0;
+                    var funnelPageUrlBuilder = "";
 
                     funnelsService.EditFunnalPage($scope.funnel,
                         function (result) {
@@ -102,16 +107,30 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                             }
 
                             if (result.data && result.data.StatusCode == 0) {
-                                if (saveMethod == 2) {
-                                    notificationService.displaySuccess("Sửa Funnel Thành Công");
-                                } else {
-                                    notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
-                                }
-                                
-                                $timeout(function () {
+                                if (saveMethod == 1) { // save and preview and it indicates user's clicking on Save & Reivew button
+                                    funnelID = id;
+                                    soloID = $scope.soloIDs.split(",")[0];
+
+                                    var funnelPageUrlBuilder = '#/funnel/preview/' + funnelID + '/' + soloID;
+                                    notificationService.displaySuccess("Lưu Funnel Thành Công");
+
                                     $scope.showSpinner = false;
-                                    loadFunnels();
-                                }, 2000);
+                                    $timeout(function () {
+                                        $window.open(funnelPageUrlBuilder, '_blank');
+                                    }, 1000);
+                                }
+
+                                if (saveMethod == 2) { // indicate that user's clicking on Public button
+                                    funnelID = id;
+                                    soloID = $scope.soloIDs.split(",")[0];
+                                    funnelPageUrlBuilder = '#/funnel/public/' + funnelID + '/' + soloID;
+                                    notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
+
+                                    $scope.showSpinner = false;
+                                    $timeout(function () {
+                                        $window.open(funnelPageUrlBuilder, '_blank');
+                                    }, 1000);
+                                }
                             }
                             else {
                                 $timeout(function () {
@@ -120,7 +139,7 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         });
-                } else {
+                } else { // Add New Funnel
                     $scope.funnel = {
                         "PageName": $scope.funnel.PageName,
                         "Status": saveMethod,
@@ -142,13 +161,13 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                                 notificationService.displaySuccess("Tạo mới Funnel Thành Công");
                                 $timeout(function () {
                                     $scope.showSpinner = false;
-                                    $location.path('/app/funnels/manage');
-                                }, 2000);
+                                    $location.path('/app/editor2/funnels/manage');
+                                }, 1000);
                             }
                             else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;
-                                }, 2000);
+                                }, 1000);
                                 notificationService.displayError(result.data.StatusMsg);
                             }
                         });
@@ -243,7 +262,6 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
 
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.mySoloPages = result.data.Details;
-                    console.log($scope.mySoloPages);
 
                     if (id > 0) {
                         loadFunnelDetails();

@@ -71,11 +71,126 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         $scope.showSpinner = false;
                     }
                 });
+            },
+            getBackgroundFileDetails: function () {
+                $scope.getBackgroundFileDetails = function (e) {
+
+                    $scope.backgroundFiles = [];
+                    $scope.$apply(function () {
+
+                        // STORE THE FILE OBJECT IN AN ARRAY.
+                        for (var i = 0; i < e.files.length; i++) {
+                            $scope.backgroundFiles.push(e.files[i]);
+                            backgroundPath = e.files[i].name;
+                        }
+                    });
+                };
+            },
+            getResourceFileDetails: function () {
+                $scope.getResourceFileDetails = function (e) {
+
+                    $scope.resourceFiles = [];
+                    $scope.$apply(function () {
+
+                        // STORE THE FILE OBJECT IN AN ARRAY.
+                        for (var i = 0; i < e.files.length; i++) {
+                            $scope.resourceFiles.push(e.files[i]);
+                            resourcePath = e.files[i].name;
+                        }
+                    });
+                };
+            },
+            uploadBackgroundFileDetails: function () {
+                // NOW UPLOAD THE FILES.
+                //FILL FormData WITH FILE DETAILS.
+                var data = new FormData();
+
+                for (var i in $scope.backgroundFiles) {
+                    data.append("uploadedFile", $scope.backgroundFiles[i]);
+                    if ($scope.resourceFiles[i].name) {
+                        data.append("SessionKey", sessionKey);
+                        break;
+                    }
+                }
+
+                // ADD LISTENERS.
+                var objXhr = new XMLHttpRequest();
+                objXhr.addEventListener("progress", updateProgress, false);
+                objXhr.addEventListener("load", transferComplete, false);
+
+                // SEND FILE DETAILS TO THE API.
+                objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+                objXhr.send(data);
+
+                // UPDATE PROGRESS BAR.
+                function updateProgress(e) {
+                    if (e.lengthComputable) {
+                        //document.getElementById('pro').setAttribute('value', e.loaded);
+                        //document.getElementById('pro').setAttribute('max', e.total);
+                    }
+                }
+
+                // CONFIRMATION.
+                function transferComplete(e) {
+                    var result = JSON.parse(e.target.response);
+                    if (result.StatusCode == 0) {
+                        backgroundPath = "";// reset
+                        //notificationService.displaySuccess("Upload file thành công");
+                    }
+                    else {
+                        notificationService.displaySuccess(result.StatusMsg);
+                    }
+                }
+            },
+            uploadResourceFileDetails: function () {
+                // NOW UPLOAD THE FILES.
+                //FILL FormData WITH FILE DETAILS.
+                var data = new FormData();
+
+                for (var i in $scope.resourceFiles) {
+                    data.append("uploadedFile", $scope.resourceFiles[i]);
+                    if ($scope.resourceFiles[i].name) {
+                        data.append("SessionKey", sessionKey);
+                        break;
+                    }
+                }
+
+                // ADD LISTENERS.
+                var objXhr = new XMLHttpRequest();
+                objXhr.addEventListener("progress", updateProgress, false);
+                objXhr.addEventListener("load", transferComplete, false);
+
+                // SEND FILE DETAILS TO THE API.
+                objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+                objXhr.send(data);
+
+                // UPDATE PROGRESS BAR.
+                function updateProgress(e) {
+                    if (e.lengthComputable) {
+                        //document.getElementById('pro').setAttribute('value', e.loaded);
+                        //document.getElementById('pro').setAttribute('max', e.total);
+                    }
+                }
+
+                // CONFIRMATION.
+                function transferComplete(e) {
+                    var result = JSON.parse(e.target.response);
+                    if (result.StatusCode == 0) {
+                        resourcePath = "";//reset
+                        //notificationService.displaySuccess("Upload file thành công");
+                    }
+                    else {
+                        notificationService.displaySuccess(result.StatusMsg);
+                    }
+                }
             }
         };
+
         $scope.manageSoloPages.init();
         $scope.manageSoloPages.loadTitles();
         $scope.manageSoloPages.loadSubTitles();
+        $scope.manageSoloPages.getBackgroundFileDetails();
+        $scope.manageSoloPages.getResourceFileDetails();
 
         $scope.showTitleTemplate = function () {
             $scope.isShowTitleTemplate = !$scope.isShowTitleTemplate ? true : false;
@@ -163,8 +278,8 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         "FromType": $scope.formTypeVal,
                         "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature
                         "Status": $scope.saveMethod,
-                        "AutoresponderCodes": $scope.editor.AutoresponderCodes,
-                        "TrackingCode": $scope.editor.TrackingCode,
+                        "AutoresponderCodes": ($scope.editor.AutoresponderCodes) ? $scope.editor.AutoresponderCodes : "",
+                        "TrackingCode": ($scope.editor.TrackingCode) ? $scope.editor.TrackingCode : "",
                         "CreatedBy": username,
                         "SessionKey": sessionKey
                     };
@@ -198,8 +313,18 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         }
 
                         if (result.data && result.data.StatusCode == 0) {
-                            backgroundPath = "";
-                            resourcePath = "";
+                            //if (backgroundPath) {
+                            //    console.log(backgroundPath);
+                            //    $scope.manageSoloPages.uploadBackgroundFileDetails();
+                            //    //updateBackGroundAndResourceByID(ID, URL);
+                            //}
+
+                            //if (resourcePath) {
+                            //    console.log(resourcePath);
+                            //    $scope.manageSoloPages.uploadResourceFileDetails();
+                            //    //updateBackGroundAndResourceByID(ID, URL);
+                            //}
+
                             if ($scope.saveMethod == 1) {
                                 var soloPageUrlBuilder = 'https://123chaching.app/#/solo/page/' + result.data.Details.ID + '/' + username + '/' + sessionKey;
                                 notificationService.displaySuccess('Lưu Solo Page Thành Công');
@@ -236,8 +361,8 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         };
 
     }]);
-app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
-    function ($scope, $uibModal, $window, $localStorage, $timeout, membershipService, editorService, notificationService) {
+app.controller('TabsEditorMyPageCtrl', ["$scope", "$location", "$uibModal", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
+    function ($scope, $location, $uibModal, $window, $localStorage, $timeout, membershipService, editorService, notificationService) {
         $scope.soloPageID = 0;
 
         angular.element('#manageSoloPage a').click(function () {
@@ -281,7 +406,7 @@ app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$loca
                     }
                 });
             }
-        }
+        };
 
         $scope.manageMyPages.loadMyPages();
 
@@ -311,6 +436,13 @@ app.controller('TabsEditorMyPageCtrl', ["$scope", "$uibModal", "$window", "$loca
                 }
             });
         };
+        $scope.goToDestinationLink = function (url, status) {
+            if (status == 2)
+                $window.open(url, '_blank');
+        };
+        $scope.editSoloPage = function (soloID) {
+            $location.path('#/app/editor2/solo/edit/' + soloID + '');
+        };
     }]);
 app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
     // GET THE FILE INFORMATION.
@@ -335,7 +467,6 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
 
         for (var i in $scope.files) {
             data.append("uploadedFile", $scope.files[i]);
-            console.log("Upload file " + $scope.files[i].name);
             if ($scope.files[i].name) {
                 backgroundPath = $scope.files[i].name;
                 data.append("SessionKey", SessionKey);
@@ -343,15 +474,12 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
             }
         }
 
-
-
         // ADD LISTENERS.
         var objXhr = new XMLHttpRequest();
         objXhr.addEventListener("progress", updateProgress, false);
         objXhr.addEventListener("load", transferComplete, false);
 
         // SEND FILE DETAILS TO THE API.
-        //objXhr.open("POST", "http://localhost:1494/api/fileupload/uploadfiles/");
         objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
         objXhr.send(data);
 
@@ -377,6 +505,7 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
         console.log(e);
         var result = JSON.parse(e.target.response);
         if (result.StatusCode == 0) {
+            backgroundPath = result.Details;
             notificationService.displaySuccess("Upload file thành công");
         }
         else {
@@ -407,7 +536,6 @@ app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editor
 
         for (var i in $scope.files) {
             data.append("uploadedFile", $scope.files[i]);
-            console.log("Upload resource " + $scope.files[i].name);
             if ($scope.files[i].name) {
                 resourcePath = $scope.files[i].name;
                 data.append("SessionKey", SessionKey);
@@ -436,9 +564,9 @@ app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editor
     // CONFIRMATION.
     function transferComplete(e) {
         //notificationService.displaySuccess("Upload file thành công");
-        console.log(e);
         var result = JSON.parse(e.target.response);
         if (result.StatusCode == 0) {
+            resourcePath = result.Details;
             notificationService.displaySuccess("Upload file thành công");
         }
         else {
@@ -539,4 +667,4 @@ app.controller('ModalGenerateSharedCodeCtrl', ["$scope", "$window", "$timeout", 
         };
 
         $scope.modalSoloPageSharingCode.init();
-    }]);
+}]);

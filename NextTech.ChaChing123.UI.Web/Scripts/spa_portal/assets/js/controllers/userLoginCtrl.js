@@ -47,14 +47,11 @@
                                     notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + result.data.Details.FullName);
                                     $scope.userData.displayUserInfo();
 
-                                    $timeout(function () {
-                                        $scope.showSpinner = false;
-                                    }, 2000);
-
-                                    if ($rootScope.previousState)
+                                    $scope.showSpinner = false;
+                                    if ($rootScope.previousState && $rootScope.previousState != '/app/login/signin')
                                         $location.path($rootScope.previousState);
                                     else
-                                        $location.path('/');
+                                        $location.path('/app/home');
                                 } else {
                                     //$scope.isLoading = false;
 

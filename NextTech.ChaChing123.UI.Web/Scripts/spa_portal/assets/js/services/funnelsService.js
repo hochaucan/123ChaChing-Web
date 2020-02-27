@@ -16,7 +16,10 @@
             DeleteFunnalPage: DeleteFunnalPage,
             GetAllFunnalPage: GetAllFunnalPage,
             GetDetailFunnalPage: GetDetailFunnalPage,
-            GetAllPublicSoloPage: GetAllPublicSoloPage
+            GetAllPublicSoloPage: GetAllPublicSoloPage,
+            GetFunnalDetailsPreviewPage: GetFunnalDetailsPreviewPage,
+            GetFunnalDetailsPublicPage: GetFunnalDetailsPublicPage,
+            GetDetailFunnalPageByID: GetDetailFunnalPageByID
         };
 
         function AddFunnalPage(editor, completed) {
@@ -49,6 +52,27 @@
 
         function GetDetailFunnalPage(editor, completed) {
             apiService.post(baseUrl + '/api/LandingPage/GetDetailFunnalPage/', editor,
+                completed,
+                funnelsFailed
+            );
+        }
+
+        function GetFunnalDetailsPreviewPage(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetFunnalDetailByReivew/', editor,
+                completed,
+                funnelsFailed
+            );
+        }
+
+        function GetFunnalDetailsPublicPage(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetFunnalDetailByPublic/', editor,
+                completed,
+                funnelsFailed
+            );
+        }
+
+        function GetDetailFunnalPageByID(editor, completed) {
+            apiService.post(baseUrl + '/api/LandingPage/GetDetailFunnalPageByID/', editor,
                 completed,
                 funnelsFailed
             );

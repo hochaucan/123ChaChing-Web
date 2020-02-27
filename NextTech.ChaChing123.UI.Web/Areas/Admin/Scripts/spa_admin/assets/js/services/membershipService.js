@@ -7,7 +7,7 @@
 
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
-        var baseUrl = 'https://api.123chaching.app';
+        var baseUrl = 'https://api.123chaching.app/api/Admin/';
         //var baseUrl = 'http://localhost:1494';
         //var baseUrl = 'http://localhost:8002';
 
@@ -16,8 +16,16 @@
             register: register,
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
-            isUserLoggedIn: isUserLoggedIn
+            isUserLoggedIn: isUserLoggedIn,
+            GetAccountList: GetAccountList
+        };
+
+        function GetAccountList(memberObj, completed) {
+            apiService.post(baseUrl + '/GetAccountList/', memberObj,
+                completed,
+                loginFailed);
         }
+
 
         function login(user, completed) {
             apiService.post(baseUrl + '/api/account/login', user,
@@ -45,7 +53,7 @@
         function removeCredentials() {
             delete $localStorage.currentUser;
             $http.defaults.headers.common.Authorization = '';
-        };
+        }
 
         function loginFailed(response) {
             if (response.data) {

@@ -43,7 +43,10 @@
                                     <tbody>
                                         <tr ng-repeat="funnel in funnels">
                                             <td><i class="ti-layers-alt"></i></td>
-                                            <td><a href="{{funnel.Link}}" class="ng-binding">{{funnel.PageName}}</a></td>
+                                            <td>
+                                                <h4><a ng-href="{{funnel.Link}}/" target="_blank">{{funnel.PageName}}</a></h4>
+                                                <a href="#/app/editor2/funnels/edit/{{funnel.ID}}" class="ng-binding">{{funnel.PageName}}</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -89,19 +92,19 @@
                                 </table>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(1)" ng-if="funnel.Status == '1'">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(1)" ng-model="funnel.Status" ng-if="funnel.Status == '1'">
                                             <i class="fa fa-save" data-id="1" data="1"></i>
                                             Lưu và Xem Trước
                                         </button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-if="funnel.Status == '1'">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-model="funnel.Status" ng-if="funnel.Status == '1'">
                                             <i class="fa  fa-rocket" data-id="2" data="2"></i>
                                             Xuất Bản
                                         </button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-if="funnel.Status == '2'">
+                                        <button class="btn btn-primary btn-block" ng-click="createFunnelPage(2)" ng-model="funnel.Status" ng-if="funnel.Status == '2'">
                                             <i class="fa fa-save" data-id="1" data="1"></i>
                                             Lưu
                                         </button>

@@ -1,4 +1,4 @@
-var app = angular.module('clipApp', ['clip-two']);
+var app = angular.module('ChaChingApp', ['clip-two']);
 var virtualDirectory = angular.element('input[name="__virtualDirectory"]').attr('value');
 app.run(['$rootScope', '$state', '$stateParams',
     function ($rootScope, $state, $stateParams) {
