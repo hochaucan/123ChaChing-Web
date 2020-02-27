@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 /**
  * Config for the router
@@ -159,32 +159,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
     }).state('app.member', {
         url: '/member',
         template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Tables',
+        title: 'Thành Viên',
         ncyBreadcrumb: {
-            label: 'Tables'
+            label: 'Thành Viên'
         }
     }).state('app.member.list', {
         url: '/list',
-        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_data.html",
-        title: 'ngTable',
+        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/member_list.html",
+        title: 'Quản Lý Thành Viên',
         ncyBreadcrumb: {
-            label: 'ngTable'
+            label: 'Quản Lý Thành Viên'
         },
-        resolve: loadSequence('ngTable', 'ngTableCtrl')
+        resolve: loadSequence('ngTable', 'ngTableMemberListCtrl')
     }).state('app.order', {
         url: '/order',
         template: '<div ui-view class="fade-in-up"></div>',
-        title: 'Tables',
+        title: 'Đơn Hàng',
         ncyBreadcrumb: {
-            label: 'Tables'
+            label: 'Đơn Hàng'
         }
     }).state('app.order.list', {
         url: '/list',
-        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/table_basic.html",
-        title: 'Basic Tables',
+        templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/order_list.html",
+        title: 'Quản Lý Đơn Hàng',
         ncyBreadcrumb: {
-            label: 'Basic'
-        }
+            label: 'Quản Lý Đơn Hàng'
+        },
+        resolve: loadSequence('ngTable', 'ngTableOrderListCtrl')
     }).state('app.customer', {
         url: '/customer',
         template: '<div ui-view class="fade-in-up"></div>',

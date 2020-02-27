@@ -1,0 +1,40 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Thành Viên</h1>
+        </div>
+        <div ncy-breadcrumb=""></div>
+    </div>
+</section>
+<!-- end: PAGE TITLE -->
+<!-- start: INLINE EDIT EXAMPLE -->
+<div class="container-fluid container-fullw">
+	<div class="row">
+		<div class="col-md-12">
+			<!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+            <div ng-controller="ngTableMemberListCtrl">
+                <table ng-table="tableParams" class="table table-striped">
+                    <tbody>
+                        <tr ng-repeat="member in $data">
+                            <td data-title="&#39;Tên&#39;">{{member.FullName}}</td>
+                            <td data-title="&#39;Email&#39;">{{member.Email}}</td>
+                            <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
+                            <td data-title="&#39;Loại&#39;">{{member.AccountTypeName}}</td>
+                            <td data-title="&#39;Tình Trạng&#39;">{{member.StatusName}}</td>
+                            <td data-title="&#39;Đăng Ký&#39;">{{member.CreatedDate}}</td>
+                            <td data-title="&#39;Tái Tục&#39;">{{member.RenewalNo}}</td>
+                            <td data-title="&#39;Ghi Chú&#39;">{{member.Note}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div>
+	</div>
+</div>
+<!-- end: INLINE EDIT EXAMPLE -->
+</body></html>

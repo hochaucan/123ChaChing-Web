@@ -54,7 +54,7 @@
                 phone: user.Phone,
                 accountType: user.AccountType,
                 token: user.SessionKey,
-                myavatar: (user.AvatarPath) ? user.AvatarPath : '/Scripts/spa_portal/assets/images/default-user.png'
+                myavatar: (user.AvartaPath) ? user.AvartaPath : '/Scripts/spa_portal/assets/images/default-user.png'
             };
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
@@ -81,6 +81,7 @@
 
         function isAuthenticated() {
             if (!isUserLoggedIn()) {
+                //$location.path('app/login/signin');
                 $window.location.reload();
             }
         }

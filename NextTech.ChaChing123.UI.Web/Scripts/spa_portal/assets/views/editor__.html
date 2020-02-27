@@ -170,7 +170,7 @@
 
                                                         <h3>Bước 3: Upload Hình Ảnh/ Video</h3>
                                                         <!-- background area -->
-                                                        <div ng-controller="soloPageUploadFileCtrl">
+                                                        <div>
                                                             <div id="backgroundArea" style="">
                                                                 <div class="form-group">
                                                                     <label for="exampleInputEmail1">Hình Nền</label>
@@ -179,11 +179,11 @@
                                                                         <div class="col-md-6">
                                                                             <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                         </div>
-                                                                        <div class="col-md-6">
+                                                                        <!--<div class="col-md-6">
                                                                             <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
                                                                                 <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
                                                                             </button>
-                                                                        </div>
+                                                                        </div>-->
                                                                     </div>
                                                                     <!--ADD A PROGRESS BAR ELEMENT.-->
                                                                     <!--<p><progress id="pro" value="0"></progress></p>-->
@@ -292,8 +292,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-primary" ng-click="ok()">Yes! Tôi muốn xóa</button>
-                                                <button class="btn btn-primary btn-o" ng-click="cancel()">No!. Tôi muốn giữ lại</button>
+                                                <button class="btn btn-primary" ng-click="ok()">Đồng ý! Tôi muốn xóa</button>
+                                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không!. Tôi muốn giữ lại</button>
                                             </div>
                                         </script>
                                         <script type="text/ng-template" id="myModalGenerateSharedCode.html">

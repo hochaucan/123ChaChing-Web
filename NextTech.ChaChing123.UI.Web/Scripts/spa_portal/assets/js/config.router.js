@@ -47,25 +47,31 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
         }).state('app.login', {
             url: '/login',
-            template: '<div ui-view class="fade-in-right-big smooth"></div>',
-            abstract: true
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Đăng Nhập',
+            ncyBreadcrumb: {
+                label: 'Đăng Nhập'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.login.signin', {
             url: '/signin',
-            templateUrl: "Scripts/spa_portal/assets/views/login_login.html"
+            templateUrl: "Scripts/spa_portal/assets/views/login_login.html",
+            resolve: { isAuthenticated: isAuthenticated }
             //controller: 'loginCtrl'
         }).state('app.login.forgot', {
             url: '/forgot',
             templateUrl: "Scripts/spa_portal/assets/views/login_forgot.html"
         }).state('app.login.registration', {
             url: '/registration',
-            templateUrl: "Scripts/spa_portal/assets/views/login_registration.html"
+            templateUrl: "Scripts/spa_portal/assets/views/login_registration.html",
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.login.lockscreen', {
             url: '/lock',
             templateUrl: "Scripts/spa_portal/assets/views/login_lock_screen.html"
         }).state('app.profile', {
             url: '/profile',
             templateUrl: "Scripts/spa_portal/assets/views/pages_user_profile.html",
-            title: 'My Profile',
+            title: 'Tài Khoản Của Tôi',
             ncyBreadcrumb: {
                 label: 'Thông tin tài khoản'
             },
@@ -82,6 +88,75 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/editor',
             templateUrl: "Scripts/spa_portal/assets/views/editor.html",
             title: 'editor',
+            ncyBreadcrumb: {
+                label: 'editor'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2', {
+            url: '/editor2',
+            templateUrl: "Scripts/spa_portal/assets/views/editor2.html",
+            title: 'editor',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.solo', {
+            url: '/solo',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Manage Solo Page',
+            ncyBreadcrumb: {
+                label: 'Manage Solo Page'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.solo.add', {
+            url: '/add',
+            templateUrl: "Scripts/spa_portal/assets/views/editor_create_new_solo_page.html",
+            title: 'Create New Solo Page',
+            ncyBreadcrumb: {
+                label: 'Create New Solo Page'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.solo.manage', {
+            url: '/manage',
+            templateUrl: "Scripts/spa_portal/assets/views/editor_manage_solo_page.html",
+            title: 'Create New Solo Page',
+            ncyBreadcrumb: {
+                label: 'Create New Solo Page'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.solo.edit', {
+            url: '/edit/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/editor_edit_mypage.html",
+            title: 'Edit Solo Page',
+            ncyBreadcrumb: {
+                label: 'Edit Solo Page'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.funnels', {
+            url: '/funnels',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Manage Funnels Page',
+            ncyBreadcrumb: {
+                label: 'Manage Funnels Page'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.funnels.manage', {
+            url: '/manage',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel.html",
+            title: 'Funnels',
+            ncyBreadcrumb: {
+                label: 'editor'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.funnels.add', {
+            url: '/add',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
+            title: 'Add New Funnel',
+            ncyBreadcrumb: {
+                label: 'editor'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.funnels.edit', {
+            url: '/edit/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
+            title: 'Edit New Funnel',
             ncyBreadcrumb: {
                 label: 'editor'
             },
@@ -448,9 +523,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('funnel', {
             url: '/funnel',
             template: '<div ui-view class="fade-in-up"></div>'
+        }).state('funnel.preview', {
+            url: '/preview/:funnelID/:soloID',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_preview_public_page.html",
+            title: 'View Funnel'
         }).state('funnel.public', {
-            url: '/public/:id',
-            templateUrl: "Scripts/spa_portal/assets/views/funnel_public_page.html",
+            url: '/public/:funnelID/:soloID?',
+            templateUrl: "Scripts/spa_portal/assets/views/funnel_preview_public_page.html",
             title: 'View Funnel'
         });
 

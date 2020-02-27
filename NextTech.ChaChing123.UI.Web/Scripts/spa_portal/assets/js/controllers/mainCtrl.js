@@ -183,8 +183,8 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
 
             function logout() {
                 membershipService.removeCredentials();
-                $location.path('#/');
                 $scope.userData.displayUserInfo();
+                $location.path('#/');
             }
 
             $scope.userData.displayUserInfo();

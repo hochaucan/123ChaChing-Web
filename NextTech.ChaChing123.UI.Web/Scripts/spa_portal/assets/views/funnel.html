@@ -48,8 +48,8 @@
                                         <tr ng-repeat="funnel in funnels">
                                             <td><i class="ti-layers-alt"></i></td>
                                             <td>
-                                                <h4>{{funnel.PageName}}</h4>
-                                                <a href="#/app/funnels/edit/{{funnel.ID}}">#/app/funnels/edit/{{funnel.ID}}</a>
+                                                <h4><a ng-href="{{funnel.Link}}/" target="_blank">{{funnel.PageName}}</a></h4>
+                                                <a href="#/app/editor2/funnels/edit/{{funnel.ID}}">Chỉnh Sửa Trang Funnel</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -67,7 +67,7 @@
                                     <input ng-model="search" class="form-control text-center ng-pristine ng-valid ng-touched" type="text" placeholder="Nhập landing page...">
                                 </div>
                                 <div class="col-sm-4">
-                                    <a class="btn btn-wide btn-primary" ui-sref="app.funnels.add"><i class="fa fa-plus"></i> Tạo Landing Page Mới</a>
+                                    <a class="btn btn-wide btn-primary" ui-sref="app.editor2.funnels.add"><i class="fa fa-plus"></i> Tạo Landing Page Mới</a>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,41 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Quản Lý Đơn Hàng</h1>
+        </div>
+        <div ncy-breadcrumb=""></div>
+    </div>
+</section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <div ng-controller="ngTableOrderListCtrl">
+                    <table ng-table="tableParams" class="table table-striped">
+                        <tbody>
+                            <tr ng-repeat="order in $data">
+                                <td data-title="&#39;Mã ĐH&#39;">{{order.ContractNo}}</td>
+                                <td data-title="&#39;Ngày&#39;">{{order.CreatedDate}}</td>
+                                <td data-title="&#39;Khách Hàng&#39;">{{order.CustomerName}}</td>
+                                <td data-title="&#39;Thanh Toán&#39;">{{order.PaymentStatusName}}</td>
+                                <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
+                                <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount}}</td>
+                                <td data-title="&#39;Hoa Hồng&#39;">{{order.AffiliateAmount}}</td>
+                                <td data-title="&#39;Đại Sứ&#39;">{{order.AffiliateName}}</td>
+                                <td data-title="&#39;Tình Trạng&#39;">{{order.AffiliateStatusName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body></html>
