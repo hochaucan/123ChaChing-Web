@@ -48,6 +48,8 @@ namespace NextTech.ChaChing123.Common.Models
             CreatedBy = string.Empty;
             SessionKey = string.Empty;
             ThankYouContent = string.Empty;
+            AutoresponderCodes = string.Empty;
+            TrackingCode = string.Empty;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NextTech.ChaChing123.Common.Models
 {
-   public class LeadsOfMonthDTO
+   public class AffiliateOfMonthDTO
     {
         public int Month { get; set; }
 
@@ -10,13 +10,14 @@ namespace NextTech.ChaChing123.Common.Models
 
         //public string EndDate { get; set; }
 
-        public int LeadsCount { get; set; }
+        public decimal Commission { get; set; }
+
+        public decimal CommissionThanks { get; set; }                                                                  
 
 
-        private LeadsOfMonthDTO()
+        private AffiliateOfMonthDTO()
         {
             Month = -1;
-            LeadsCount = 0;
             //StartDate = string.Empty;
             //EndDate = string.Empty;
         }
