@@ -4,7 +4,6 @@
 */
 
 var backgroundPath = "";
-var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
@@ -86,28 +85,15 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                     });
                 };
             },
-            getResourceFileDetails: function () {
-                $scope.getResourceFileDetails = function (e) {
-
-                    $scope.resourceFiles = [];
-                    $scope.$apply(function () {
-
-                        // STORE THE FILE OBJECT IN AN ARRAY.
-                        for (var i = 0; i < e.files.length; i++) {
-                            $scope.resourceFiles.push(e.files[i]);
-                            resourcePath = e.files[i].name;
-                        }
-                    });
-                };
-            },
-            uploadBackgroundFileDetails: function () {
+            uploadBackgroundFileDetailsAndCreateSoloPage: function (editor) {
                 // NOW UPLOAD THE FILES.
                 //FILL FormData WITH FILE DETAILS.
                 var data = new FormData();
-
+                var soloPages = editor;
+                
                 for (var i in $scope.backgroundFiles) {
                     data.append("uploadedFile", $scope.backgroundFiles[i]);
-                    if ($scope.resourceFiles[i].name) {
+                    if ($scope.backgroundFiles[i].name) {
                         data.append("SessionKey", sessionKey);
                         break;
                     }
@@ -134,55 +120,59 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                 function transferComplete(e) {
                     var result = JSON.parse(e.target.response);
                     if (result.StatusCode == 0) {
-                        backgroundPath = "";// reset
-                        //notificationService.displaySuccess("Upload file thành công");
+                        console.log('before ' + editor.BackgroundPath);
+                        editor.BackgroundPath = result.Details;
+                        console.log('after ' + editor.BackgroundPath);
+                        $scope.manageSoloPages.createSoloPage(editor);
+                        //1.2 Save solo object to database
+
                     }
                     else {
                         notificationService.displaySuccess(result.StatusMsg);
                     }
                 }
             },
-            uploadResourceFileDetails: function () {
-                // NOW UPLOAD THE FILES.
-                //FILL FormData WITH FILE DETAILS.
-                var data = new FormData();
-
-                for (var i in $scope.resourceFiles) {
-                    data.append("uploadedFile", $scope.resourceFiles[i]);
-                    if ($scope.resourceFiles[i].name) {
-                        data.append("SessionKey", sessionKey);
-                        break;
+            createSoloPage: function (editor) {
+                editorService.createSoloPage(editor, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
                     }
-                }
 
-                // ADD LISTENERS.
-                var objXhr = new XMLHttpRequest();
-                objXhr.addEventListener("progress", updateProgress, false);
-                objXhr.addEventListener("load", transferComplete, false);
+                    if (result.data && result.data.StatusCode == 0) {
+                        if ($scope.saveMethod == 1) {
+                            var soloPageUrlBuilder = '';
+                            var soloID = 0;
+                            notificationService.displaySuccess('Lưu Solo Page Thành Công');
+                            var urlPath = result.data.Details.urlPath;
+                            var parts = urlPath.split('/');
+                            soloID = parts[parts.length - 3];
+                            if (soloID > 0)
+                                $location.path('/app/editor2/solo/edit/' + soloID);
 
-                // SEND FILE DETAILS TO THE API.
-                objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-                objXhr.send(data);
+                            $timeout(function () {
+                                $scope.showSpinner = false;
+                                if (result.data.Details) {
+                                    soloPageUrlBuilder = result.data.Details.urlPath;
+                                }
+                                $window.open(soloPageUrlBuilder, '_blank');
+                            }, 2000);
+                        }
+                        else {
+                            notificationService.displaySuccess('Xuất Bản Solo Page Thành Công');
+                            $scope.showSpinner = false;
+                            $localStorage.manageMyPageTab = 0;
 
-                // UPDATE PROGRESS BAR.
-                function updateProgress(e) {
-                    if (e.lengthComputable) {
-                        //document.getElementById('pro').setAttribute('value', e.loaded);
-                        //document.getElementById('pro').setAttribute('max', e.total);
-                    }
-                }
-
-                // CONFIRMATION.
-                function transferComplete(e) {
-                    var result = JSON.parse(e.target.response);
-                    if (result.StatusCode == 0) {
-                        resourcePath = "";//reset
-                        //notificationService.displaySuccess("Upload file thành công");
+                            $location.path('/app/editor2/solo/manage');
+                        }
                     }
                     else {
-                        notificationService.displaySuccess(result.StatusMsg);
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 2000);
+                        notificationService.displayError(result.data.StatusMsg);
+                        backgroundPath = "";
                     }
-                }
+                });
             }
         };
 
@@ -190,7 +180,6 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         $scope.manageSoloPages.loadTitles();
         $scope.manageSoloPages.loadSubTitles();
         $scope.manageSoloPages.getBackgroundFileDetails();
-        $scope.manageSoloPages.getResourceFileDetails();
 
         $scope.showTitleTemplate = function () {
             $scope.isShowTitleTemplate = !$scope.isShowTitleTemplate ? true : false;
@@ -272,7 +261,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         "PageName": "",
                         "RefLink": $scope.editor.RefLink,
                         "BackgroundPath": "",
-                        "ResourcePath": resourcePath,
+                        "ResourcePath": "",
                         "UseShareCode": $scope.editor.UseShareCode,
                         "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
@@ -293,7 +282,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                             "PageName": $scope.editor.PageName,
                             "RefLink": $scope.editor.RefLink,
                             "BackgroundPath": backgroundPath,
-                            "ResourcePath": resourcePath,
+                            "ResourcePath": $scope.editor.ResourcePath,
                             "UseShareCode": "",
                             "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.formTypeVal,
@@ -307,55 +296,11 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                     }
 
                     $scope.showSpinner = true;
-                    editorService.createSoloPage(editor, function (result) {
-                        if (result.data && result.data.StatusCode == 17) {
-                            membershipService.checkMemberAuthorization();
-                        }
-
-                        if (result.data && result.data.StatusCode == 0) {
-                            //if (backgroundPath) {
-                            //    console.log(backgroundPath);
-                            //    $scope.manageSoloPages.uploadBackgroundFileDetails();
-                            //    //updateBackGroundAndResourceByID(ID, URL);
-                            //}
-
-                            //if (resourcePath) {
-                            //    console.log(resourcePath);
-                            //    $scope.manageSoloPages.uploadResourceFileDetails();
-                            //    //updateBackGroundAndResourceByID(ID, URL);
-                            //}
-
-                            if ($scope.saveMethod == 1) {
-                                var soloPageUrlBuilder = 'https://123chaching.app/#/solo/page/' + result.data.Details.ID + '/' + username + '/' + sessionKey;
-                                notificationService.displaySuccess('Lưu Solo Page Thành Công');
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                    if (result.data.Details) {
-                                        soloPageUrlBuilder = result.data.Details.urlPath;
-                                    }
-                                    $window.open(soloPageUrlBuilder, '_blank');
-                                }, 2000);
-                            }
-                            else {
-                                notificationService.displaySuccess('Xuất Bản Solo Page Thành Công');
-                                $scope.showSpinner = false;
-                                $localStorage.manageMyPageTab = 0;
-
-                                $timeout(function () {
-                                    angular.element('#manageSoloPage a').trigger('click');
-                                }, 1000);
-                                
-                            }
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.showSpinner = false;
-                            }, 2000);
-                            notificationService.displayError(result.data.StatusMsg);
-                            backgroundPath = "";
-                            resourcePath = "";
-                        }
-                    });
+                    if (backgroundPath && backgroundPath.length > 0) {
+                        $scope.manageSoloPages.uploadBackgroundFileDetailsAndCreateSoloPage(editor);
+                    } else {
+                        $scope.manageSoloPages.createSoloPage(editor);
+                    }
                 }
             }
         };
@@ -439,6 +384,8 @@ app.controller('TabsEditorMyPageCtrl', ["$scope", "$location", "$uibModal", "$wi
         $scope.goToDestinationLink = function (url, status) {
             if (status == 2)
                 $window.open(url, '_blank');
+            else 
+                notificationService.displayInfo("Trang chưa được xuất bản");
         };
         $scope.editSoloPage = function (soloID) {
             $location.path('#/app/editor2/solo/edit/' + soloID + '');

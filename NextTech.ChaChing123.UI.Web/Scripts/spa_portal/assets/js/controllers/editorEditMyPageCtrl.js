@@ -5,7 +5,6 @@
 
 var baseUrl = 'https://api.123chaching.app';
 var backgroundPath = "";
-var resourcePath = "";
 //var baseUrl = 'http://localhost:1494';
 
 app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
@@ -26,6 +25,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.isShowSubTitleTemplate = false;
         $scope.isShareCodeHidden = true;
         $scope.isThankYouContentHidden = true;
+        $scope.isUploadFileDetails = false;
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
         $scope.buttonColor = "";
@@ -131,7 +131,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         "PageName": "",
                         "RefLink": $scope.editor.RefLink,
                         "BackgroundPath": "",
-                        "ResourcePath": resourcePath,
+                        "ResourcePath": "",
                         "UseShareCode": $scope.editor.UseShareCode,
                         "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
@@ -153,7 +153,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                             "PageName": $scope.editor.PageName,
                             "RefLink": $scope.editor.RefLink,
                             "BackgroundPath": backgroundPath,
-                            "ResourcePath": resourcePath,
+                            "ResourcePath": $scope.editor.ResourcePath,
                             "UseShareCode": "",
                             "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.editor.FromType,
@@ -167,47 +167,12 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                     }
 
                     $scope.showSpinner = true;
-                    editorService.editSoloPage(editor, function (result) {
-                        if (result.data && result.data.StatusCode == 17) {
-                            membershipService.checkMemberAuthorization();
-                        }
-
-                        if (result.data && result.data.StatusCode == 0) {
-                            // Save and Review (open new tab)
-                            if ($scope.saveMethod == 1) {
-                                var soloPageUrlBuilder = '#/solo/page/' + ID + '/' + username + '/' + sessionKey;
-                                notificationService.displaySuccess('Lưu Solo Page Thành Công');
-                                $scope.showSpinner = false;
-                                $timeout(function () {
-                                    $window.open(soloPageUrlBuilder, '_blank');
-                                }, 1000);
-                            }
-
-                            // Public page
-                            if ($scope.saveMethod == 2) {
-                                notificationService.displaySuccess('Xuất Bản Solo Page Thành Công');
-                                $scope.showSpinner = false;
-                                $localStorage.manageMyPageTab = 0;
-                                $location.path('/app/editor2/solo/manage');
-                            }
-
-                            // Just save because this page is already publiced
-                            if ($scope.saveMethod == 3) {
-                                notificationService.displaySuccess('Lưu Trang Xuất Bản Thành Công');
-                                $scope.showSpinner = false;
-                                $localStorage.manageMyPageTab = 0;
-                                $location.path('/app/editor2/solo/manage');
-                            }
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.showSpinner = false;
-                            }, 2000);
-                            notificationService.displayError(result.data.StatusMsg);
-                            backgroundPath = "";
-                            resourcePath = "";
-                        }
-                    });
+                    $scope.showSpinner = true;
+                    if (backgroundPath && backgroundPath.length > 0 && $scope.isUploadFileDetails) {
+                        $scope.manageSoloPages.uploadBackgroundFileDetailsAndEditSoloPage(editor);
+                    } else {
+                        $scope.manageSoloPages.editSoloPage(editor);
+                    }
                 }
 
             }
@@ -223,8 +188,8 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.editor = result.data.Details;
                     $scope.IsAdvanceAccount = (accountType == 2) ? true : false;
+
                     backgroundPath = result.data.Details.BackgroundPath;
-                    resourcePath = result.data.Details.ResourcePath;
 
                     if ($scope.editor.UseShareCode) {
                         $scope.editor.FromType = 5;
@@ -287,41 +252,27 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                 });
             },
             getBackgroundFileDetails: function () {
-                $scope.getFileDetails = function (e) {
+                $scope.getBackgroundFileDetails = function (e) {
 
-                    $scope.files = [];
+                    $scope.backgroundFiles = [];
                     $scope.$apply(function () {
-
                         // STORE THE FILE OBJECT IN AN ARRAY.
                         for (var i = 0; i < e.files.length; i++) {
-                            $scope.files.push(e.files[i]);
+                            $scope.backgroundFiles.push(e.files[i]);
+                            backgroundPath = e.files[i].name;
+                            $scope.isUploadFileDetails = true;
                         }
                     });
                 };
             },
-            getResourceFileDetails: function () {
-                $scope.getFileDetails = function (e) {
-
-                    $scope.files = [];
-                    $scope.$apply(function () {
-
-                        // STORE THE FILE OBJECT IN AN ARRAY.
-                        for (var i = 0; i < e.files.length; i++) {
-                            $scope.files.push(e.files[i]);
-                            console.log($scope.files);
-                        }
-                    });
-                };
-            },
-            uploadBackgroundFileDetails: function () {
+            uploadBackgroundFileDetailsAndEditSoloPage: function (editor) {
                 // NOW UPLOAD THE FILES.
                 //FILL FormData WITH FILE DETAILS.
                 var data = new FormData();
 
-                for (var i in $scope.files) {
-                    data.append("uploadedFile", $scope.files[i]);
-                    if ($scope.files[i].name) {
-                        backgroundPath = $scope.files[i].name;
+                for (var i in $scope.backgroundFiles) {
+                    data.append("uploadedFile", $scope.backgroundFiles[i]);
+                    if ($scope.backgroundFiles[i].name) {
                         data.append("SessionKey", sessionKey);
                         break;
                     }
@@ -348,13 +299,55 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                 function transferComplete(e) {
                     var result = JSON.parse(e.target.response);
                     if (result.StatusCode == 0) {
-                        backgroundPath = result.Details;
-                        //notificationService.displaySuccess("Upload file thành công");
+                        editor.BackgroundPath = result.Details;
+                        $scope.manageSoloPages.editSoloPage(editor);
                     }
                     else {
                         notificationService.displaySuccess(result.StatusMsg);
                     }
                 }
+            },
+            editSoloPage: function (editor) {
+                editorService.editSoloPage(editor, function (result) {
+                    if (result.data && result.data.StatusCode == 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
+                    if (result.data && result.data.StatusCode == 0) {
+                        // Save and Review (open new tab)
+                        if ($scope.saveMethod == 1) {
+                            var soloPageUrlBuilder = '#/solo/page/' + ID + '/' + username + '/' + sessionKey;
+                            notificationService.displaySuccess('Lưu Solo Page Thành Công');
+                            $scope.showSpinner = false;
+                            $timeout(function () {
+                                $window.open(soloPageUrlBuilder, '_blank');
+                            }, 1000);
+                        }
+
+                        // Public page
+                        if ($scope.saveMethod == 2) {
+                            notificationService.displaySuccess('Xuất Bản Solo Page Thành Công');
+                            $scope.showSpinner = false;
+                            $localStorage.manageMyPageTab = 0;
+                            $location.path('/app/editor2/solo/manage');
+                        }
+
+                        // Just save because this page is already publiced
+                        if ($scope.saveMethod == 3) {
+                            notificationService.displaySuccess('Lưu Trang Xuất Bản Thành Công');
+                            $scope.showSpinner = false;
+                            $localStorage.manageMyPageTab = 0;
+                            $location.path('/app/editor2/solo/manage');
+                        }
+                    }
+                    else {
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 2000);
+                        notificationService.displayError(result.data.StatusMsg);
+                        backgroundPath = "";
+                    }
+                });
             }
         };
 
@@ -363,7 +356,6 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.manageSoloPages.loadTitles();
         $scope.manageSoloPages.loadSubTitles();
         $scope.manageSoloPages.getBackgroundFileDetails();
-        $scope.manageSoloPages.getResourceFileDetails();
     }]);
 
 app.controller('soloPageEditUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {

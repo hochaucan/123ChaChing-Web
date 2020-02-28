@@ -19,12 +19,13 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
         $scope.funnels = {};
         $scope.funnel = {};
         $scope.id = 0;
+        $scope.isFunnelNameValid = true;
+        $scope.isSoloPageNameValid = true;
 
         $scope.soloPages = {};
         $scope.soloOrder = {};
         $scope.soloIDs = {};
         $scope.funnel = {
-            "PageName": "",
             "Status": "1",
             "StepList": "",
             "SoloIDList": "",
@@ -40,9 +41,20 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
             id = locationURL[len - 1];
         }
 
+        $scope.goToDestinationLink = function (url, status) {
+            if (status == 2)
+                $window.open(url + '/', '_blank');
+            else
+                notificationService.displayInfo("Trang Funnel chưa được xuất bản");
+        };
+
         // GET VALUES FROM INPUT BOXES AND ADD A NEW ROW TO THE TABLE.
         $scope.addRow = function () {
-            if ($scope.funnel.PageName != undefined && $scope.soloPage.Title != undefined) {
+            $scope.isFunnelNameValid = true;
+            $scope.isSoloPageNameValid = true;
+
+            if ($scope.funnel.PageName != undefined && $scope.funnel.PageName.length > 0
+                && $scope.soloPage != undefined) {
                 var mySoloPage = [];
                 mySoloPage.ID = $scope.soloPage.ID;
                 mySoloPage.PageName = $scope.soloPage.PageName;
@@ -50,6 +62,17 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                 $scope.soloPages.push(mySoloPage);
 
                 // CLEAR TEXTBOX.
+            } else {
+                if ($scope.funnel.PageName == undefined || $scope.funnel.PageName.length == 0) {
+                    $scope.funnel.PageName = "";
+                    $scope.isFunnelNameValid = false;
+                    console.log($scope.funnel.PageName);
+                }
+
+                if ($scope.soloPage == undefined) {
+                    console.log($scope.funnel.PageName);
+                    $scope.isSoloPageNameValid = false;
+                }
             }
         };
 

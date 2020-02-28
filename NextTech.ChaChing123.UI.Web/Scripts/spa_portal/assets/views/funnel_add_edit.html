@@ -38,14 +38,18 @@
                             </div>
                         </div>
                         <div class="panel-body no-padding">
-                            <div class="panel-scroll height-200" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
+                            <div class="panel-scroll height-300" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
                                 <table class="table no-margin">
                                     <tbody>
                                         <tr ng-repeat="funnel in funnels">
                                             <td><i class="ti-layers-alt"></i></td>
                                             <td>
-                                                <h4><a ng-href="{{funnel.Link}}/" target="_blank">{{funnel.PageName}}</a></h4>
-                                                <a href="#/app/editor2/funnels/edit/{{funnel.ID}}" class="ng-binding">{{funnel.PageName}}</a>
+                                                <h4>
+                                                    <a ng-click="goToDestinationLink(funnel.Link, funnel.Status)" class="{{funnel.Status=='1' ? 'gray-funnel-name' : 'highlight-funnel-name' }}">{{funnel.PageName}}</a>
+                                                </h4>
+                                            </td>
+                                            <td>
+                                                <a href="#/app/editor2/funnels/edit/{{funnel.ID}}" class="ng-binding"><i class="fa fa-pencil deleteQuick"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -58,19 +62,23 @@
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div class="panel panel-white no-radius">
                         <div class="panel-body">
+                            <div class="has-error">
+                                <span class="error text-small block ng-scope" ng-if="!isFunnelNameValid">Trang Funnel là bắt buộc</span>
+                                <span class="error text-small block ng-scope" ng-if="!isSoloPageNameValid">Trang Solo là bắt buộc</span>
+                            </div>
                             <form class="form-inline">
                                 <div class="form-group">
-                                    <label for="exampleInputName">Title</label>
-                                    <input type="text" class="form-control" id="funnelTitle" ng-model="funnel.PageName" placeholder="Funnel Name">
+                                    <label for="exampleInputName">Funnel</label>
+                                    <input type="text" class="form-control" id="funnelTitle" ng-model="funnel.PageName" placeholder="Tên Trang Funnel">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputage">Solo Page</label>
+                                    <label for="exampleInputage">Solo</label>
                                     <select class="form-control black" ng-options="option as option.PageName for option in mySoloPages" ng-model="soloPage">
                                         <option value="" disabled="">Chọn Solo Page</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-primary" ng-click="addRow()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add Funnel</button>
+                                    <button type="button" class="btn btn-primary" ng-click="addRow()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Thêm Solo</button>
                                 </div>
                             </form>
                             <div class="container" style="padding:10px 10px;">

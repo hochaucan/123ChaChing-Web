@@ -188,6 +188,25 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
             title: 'Edit New Funnel',
             resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.lead', {
+            url: '/lead',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Khách Hàng'
+        }).state('app.lead.manage', {
+            url: '/manage',
+            templateUrl: "Scripts/spa_portal/assets/views/lead.html",
+            title: 'Khách Hàng',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.lead.add', {
+            url: '/add',
+            templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",
+            title: 'Thêm Khách Hàng',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.lead.edit', {
+            url: '/edit/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",
+            title: 'Sửa Khách Hàng',
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',

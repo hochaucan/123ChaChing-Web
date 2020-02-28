@@ -4,12 +4,13 @@
 */
 
 var baseUrl = 'https://api.123chaching.app';
-app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "notificationService",
-    function ($scope, $window, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, notificationService) {
+app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "notificationService",
+    function ($scope, $sce, $window, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, notificationService) {
         var ID = 0;
         var UserName = "";
         var SessionKey = "";
         var destinationURL = "";
+        $scope.isShowVideoSource = false;
         $scope.lead = {};
         var soloPageObj = {};
 
@@ -64,6 +65,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                             };
 
                             destinationURL = angular.element('#refLink').val();
+                            var indexOfHttps = -1;
 
                             $scope.showSpinner = true;
                             // Load the data from the API
@@ -77,6 +79,11 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         if (destinationURL && destinationURL.length > 0) {
+                                            indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
+                                            if (indexOfHttps == -1) {
+                                                destinationURL = 'http://' + destinationURL;
+                                            }
+
                                             $window.open(destinationURL, '_blank');
                                         }
                                     }, 1000);
@@ -92,10 +99,10 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                     }
                 };
             },
-            previewSoloPage : function () {
+            previewSoloPage: function () {
                 $scope.formType = 4;
                 $scope.soloPageDetails = {};
-                
+
                 soloPageObj = {
                     "ID": ID,
                     "UserName": UserName,
@@ -113,16 +120,30 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                     }
 
                     if (result.data && result.data.StatusCode == 0) {
+                        var findWatchIndex = -1;
+                        var urlVideo = "";
+
                         $scope.soloPageDetails = result.data.Details;
                         $scope.formType = result.data.Details.FromType;
                         $scope.Title = result.data.Details.Title;
                         $scope.SubTitle = result.data.Details.SubTitle;
                         $scope.ButtonName = result.data.Details.ButtonName;
                         $scope.ButtonColor = result.data.Details.ButtonColor;
+
+                        if (result.data.Details.ResourcePath && result.data.Details.ResourcePath.length > 0) {
+                            findWatchIndex = result.data.Details.ResourcePath.indexOf('watch?v=');
+                            if (findWatchIndex != -1) {
+                                urlVideo = result.data.Details.ResourcePath.replace('watch?v=', 'embed/');
+                                $scope.VideoSource = $sce.trustAsResourceUrl(urlVideo);
+                                $scope.isShowVideoSource = true;
+                            }
+                        }
+                        
                         document.body.style.backgroundImage = "url('" + result.data.Details.BackgroundPath + "')";
                     }
                     else {
                         notificationService.displayError(result.data.StatusMsg);
+                        $scope.isShowVideoSource = false;
                     }
                 });
             },
@@ -142,6 +163,8 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                     }
 
                     if (result.data && result.data.StatusCode == 0) {
+                        var findWatchIndex = -1;
+                        var urlVideo = "";
 
                         $scope.soloPageDetails = result.data.Details;
                         $scope.formType = result.data.Details.FromType;
@@ -149,6 +172,16 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
                         $scope.SubTitle = result.data.Details.SubTitle;
                         $scope.ButtonName = result.data.Details.ButtonName;
                         $scope.ButtonColor = result.data.Details.ButtonColor;
+
+                        if (result.data.Details.ResourcePath && result.data.Details.ResourcePath.length > 0) {
+                            findWatchIndex = result.data.Details.ResourcePath.indexOf('watch?v=');
+                            if (findWatchIndex != -1) {
+                                urlVideo = result.data.Details.ResourcePath.replace('watch?v=', 'embed/');
+                                $scope.VideoSource = $sce.trustAsResourceUrl(urlVideo);
+                                $scope.isShowVideoSource = true;
+                            }
+                        }
+
                         document.body.style.backgroundImage = "url('" + result.data.Details.BackgroundPath + "')";
                     }
                     else {
@@ -165,4 +198,4 @@ app.controller('editorSoloPageCtrl', ["$scope", "$window", "$location", "$localS
         } else {
             $scope.soloPageManager.publicSoloPage();
         }
-}]);
+    }]);

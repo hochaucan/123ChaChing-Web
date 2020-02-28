@@ -76,7 +76,7 @@
                                                     </div>
                                                 </div>
 
-                                                <h3>Bước 2: Điền Thông Tin</h3>
+                                                <h3 ng-if="isShareCodeHidden">Bước 2: Điền Thông Tin</h3>
                                                 <!-- loop through and display all page elements -->
                                                 <div id="pageElements">
                                                     <div class="form-group" ng-if="isShareCodeHidden" ng-class="{'has-error':FormCreateSoloPage.Title.$dirty && FormCreateSoloPage.Title.$invalid, 'has-success':FormCreateSoloPage.Title.$valid}">
@@ -141,36 +141,32 @@
                                                 </div>
 
                                                 <!-- Page Name -->
-                                                <div class="form-group" ng-class="{'has-error':FormCreateSoloPage.PageName.$dirty && FormCreateSoloPage.PageName.$invalid, 'has-success':FormCreateSoloPage.PageName.$valid}">
+                                                <div ng-if="isShareCodeHidden" class="form-group" ng-class="{'has-error':FormCreateSoloPage.PageName.$dirty && FormCreateSoloPage.PageName.$invalid, 'has-success':FormCreateSoloPage.PageName.$valid}">
                                                     <label for="exampleInputEmail1">Tên Trang <span class="symbol required"></span></label>
                                                     <input type="text" class="page-element form-control" id="PageName" name="PageName" ng-model="editor.PageName" required="" placeholder="Điền tên trang của bạn ở đây">
                                                     <span class="error text-small block" ng-if="FormCreateSoloPage.PageName.$dirty && FormCreateSoloPage.PageName.$invalid">Tên trang là bắt buộc.</span>
                                                 </div>
 
                                                 <!-- Destination URL -->
-                                                <div class="form-group" id="hideDestinationGroup" ng-class="{'has-error':FormCreateSoloPage.RefLink.$dirty && FormCreateSoloPage.RefLink.$invalid, 'has-success':FormCreateSoloPage.RefLink.$valid}">
+                                                <div ng-if="isShareCodeHidden" class="form-group" id="hideDestinationGroup" ng-class="{'has-error':FormCreateSoloPage.RefLink.$dirty && FormCreateSoloPage.RefLink.$invalid, 'has-success':FormCreateSoloPage.RefLink.$valid}">
                                                     <label for="exampleInputEmail1">Link Đích <span class="symbol required"></span></label>
-                                                    <input type="text" class="page-element form-control" id="destination" name="RefLink" ng-model="editor.RefLink" required="" placeholder="Điền link đích của bạn ở đây">
+                                                    <input type="text" class="page-element form-control" id="destination" name="RefLink" ng-model="editor.RefLink" ng-pattern="/^(http|https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/" required="" placeholder="Điền link đích của bạn ở đây">
                                                     <span class="error text-small block" ng-if="FormCreateSoloPage.RefLink.$dirty && FormCreateSoloPage.RefLink.$invalid">Link đích là bắt buộc.</span>
+                                                    <span class="error text-small block" ng-if="FormCreateSoloPage.RefLink.$error.pattern">Link đích không hợp lệ!</span>
                                                     <small id="small" class="form-text text-muted"><strong>Bắt buộc.</strong> Trang được chuyển đến sau khi điền thông tin.</small>
                                                 </div>
 
-                                                <h3>Bước 3: Upload Hình Ảnh/ Video</h3>
+                                                <h3 ng-if="isShareCodeHidden">Bước 3: Upload Hình Ảnh/ Video</h3>
                                                 <!-- background area -->
-                                                <div ng-controller="soloPageEditUploadFileCtrl">
+                                                <div ng-if="isShareCodeHidden">
                                                     <div id="backgroundArea" style="">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Hình Nền</label>
                                                             <br>
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
-                                                                    <!--<input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getBackgroundFileDetails(this)" />-->
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
-                                                                        <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
-                                                                    </button>
+                                                                    <!--<input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />-->
+                                                                    <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getBackgroundFileDetails(this)" />
                                                                 </div>
                                                             </div>
                                                             <!--ADD A PROGRESS BAR ELEMENT.-->
@@ -184,35 +180,28 @@
                                                     </div>
 
                                                     <!-- resource area -->
-                                                    <div ng-controller="soloPageEditUploadResourceCtrl">
-                                                        <div id="backgroundArea" style="">
-                                                            <div class="form-group">
-                                                                <label for="exampleInputEmail1">Tài Nguyên</label>
-                                                                <br>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
-                                                                        <!--<input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getResourceFileDetails(this)" />-->
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <button type="button" class="btn btn-primary pull-right" ng-click="uploadFiles()">
-                                                                            <span class="glyphicon glyphicon-upload"></span> Upload Hình Ảnh/Video
-                                                                        </button>
-                                                                    </div>
+                                                    <div id="backgroundArea">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Link Video</label>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <input type="text" class="page-element form-control" id="videoURL" name="ResourcePath" ng-model="editor.ResourcePath" placeholder="Điền link video ở đây">
+                                                                    <!--<span class="error text-small block" ng-if="FormCreateSoloPage.BackgroundPath.$error.pattern">Link đích không hợp lệ!</span>-->
                                                                 </div>
-                                                                <!-- The fileinput-button span is used to style the file input field as button -->
-                                                                <br>
-                                                                <!-- The global progress bar -->
-                                                                <!--<div id="progress" class="progress"><div class="progress-bar progress-bar-success"></div></div>-->
-                                                                <!-- The container for the uploaded files -->
-                                                                <!--<div id="files" class="files"><p>UPLOAD COMPLETE!</p></div>-->
                                                             </div>
+                                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                                            <br>
+                                                            <!-- The global progress bar -->
+                                                            <!--<div id="progress" class="progress"><div class="progress-bar progress-bar-success"></div></div>-->
+                                                            <!-- The container for the uploaded files -->
+                                                            <!--<div id="files" class="files"><p>UPLOAD COMPLETE!</p></div>-->
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <!-- Advanced Settings -->
-                                                <div class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
+                                                <div ng-if="isShareCodeHidden" class="panel panel-white" id="panelEditorCreateSoloPageAdvanceArea" ng-show="IsAdvanceAccount">
                                                     <div class="panel-heading">
                                                         <h4 class="panel-title text-primary">Nâng Cao</h4>
                                                         <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>

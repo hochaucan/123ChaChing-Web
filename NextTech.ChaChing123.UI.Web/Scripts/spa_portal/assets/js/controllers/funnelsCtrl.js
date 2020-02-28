@@ -30,6 +30,13 @@ app.controller('FunnelsManageCtrl', ["$scope", "$uibModal", "$window", "$locatio
             });
         };
 
+        $scope.goToDestinationLink = function (url, status) {
+            if (status == 2)
+                $window.open(url + '/', '_blank');
+            else
+                notificationService.displayInfo("Trang Funnel chưa được xuất bản");
+        };
+
         function loadFunnels() {
             $scope.showSpinner = true;
 
