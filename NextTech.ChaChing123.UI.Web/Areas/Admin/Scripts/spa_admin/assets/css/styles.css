@@ -711,9 +711,9 @@ h5.over-title {
 .navbar .navbar-right > li.current-user > a img {
   float: left;
   margin-right: 5px;
-  width: 39px;
+  width: 50px;
   margin-top: -2px;
-  border-radius: 20%;
+  /*border-radius: 20%;*/
 }
 .navbar .navbar-right > li.current-user > a span {
   float: left;

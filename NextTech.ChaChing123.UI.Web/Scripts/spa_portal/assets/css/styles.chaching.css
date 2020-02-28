@@ -534,3 +534,10 @@ html {
     margin-bottom: 5px;
 }
 /*END SOLO PAGE*/
+.highlight-funnel-name {
+    color: #06a2e3;
+}
+
+.gray-funnel-name {
+    color: #808080;
+}

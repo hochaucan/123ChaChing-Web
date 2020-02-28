@@ -1,0 +1,63 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="topbar.nav.FUNNEL">Danh Sách Trang</h1>
+                <span class="mainDescription">Tạo Funnel Trang Và Quản Lý Trang</span>
+            </div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: TABS -->
+    <!-- /// controller:  'TabsEditorCtrl' -  localtion: assets/js/controllers/funnelCtrl.js /// -->
+    <div>
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row" ng-controller="LeadAddEditCtrl">
+                <div class="col-md-4">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-heading border-light">
+                            <h4 class="panel-title">Funnels</h4>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="padding-10">
+                                <form action="#" class="ng-pristine ng-valid">
+                                    <div class="input-group well">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fa fa-search"></i> Search
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <div class="panel-scroll height-200" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
+                                <table class="table no-margin">
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-body">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
