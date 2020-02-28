@@ -37,11 +37,13 @@ namespace NextTech.ChaChing123.Data.Extensions
                         count,
                         errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOAccountItemDTO>();
 
-            Items.Total = int.Parse(count.Value.ToString(), 0);
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
-            result.Details = Items;
+            if (result.StatusCode == 0)
+            {
+                Items.Total = int.Parse(count.Value.ToString(), 0);
+                result.Details = Items;
+            }
             return result;
         }
         // No.2
@@ -66,11 +68,13 @@ namespace NextTech.ChaChing123.Data.Extensions
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
                     errorCode).Skip((obj.PageIndex-1) * obj.PageCount).Take(obj.PageCount).ToList<BOOrderItemDto>();
-                Items.Total = int.Parse(count.Value.ToString(), 0); 
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
-                
-                result.Details = Items;
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
             }
             catch (Exception ex)
             {
@@ -821,25 +825,28 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
             try
             {
-                if (obj.PageIndex != -1)
-                {
-                    result.Details = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetAllLeads] @UserName, @SessionKey, @errorCode out",
+                
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_BO_GetAllLeads] @UserName, @SessionKey, @Count out, @errorCode out",
                            new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                           errorCode).Skip(obj.PageIndex).Take(obj.PageCount).ToList<LeadsItemDTO>();
-                }
-                else
-                {
-                    result.Details = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetAllLeads] @UserName, @SessionKey, @errorCode out",
-                           new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                           new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                           errorCode).ToList<LeadsItemDTO>();
-                }
+                            count,
+                            errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<LeadsItemDTO>();
+
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+                
             }
             catch (Exception ex)
             {

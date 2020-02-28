@@ -10,10 +10,12 @@ namespace NextTech.ChaChing123.Common.Models
         public string Phone { get; set; }
         public string CreatedDate { get; set; }
         public int AccountType { get; set; }
+        public string AccountTypeName { get; set; }
         public int StatusCode { get; set; }
         public string StatusName { get; set; }
         public string ContractNo { get; set; }
-        
+        public string AffiliateName { get; set; }
+
         private AfiliateItemDTO()
         {
             ID = 0;
@@ -25,6 +27,8 @@ namespace NextTech.ChaChing123.Common.Models
             StatusCode = 0;
             StatusName = string.Empty;
             ContractNo = string.Empty;
+            AccountTypeName = string.Empty;
+            AffiliateName = string.Empty;
         }
     }
 }

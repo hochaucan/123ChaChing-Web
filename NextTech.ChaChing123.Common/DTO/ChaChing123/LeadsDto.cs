@@ -14,8 +14,8 @@ namespace NextTech.ChaChing123.Common.Models
 
         private LeadsDTO()
         {
-            PageIndex = -1;
-            PageCount = -1;
+            PageIndex = 1;
+            PageCount = 10;
             UserName = string.Empty;
             SessionKey = string.Empty;
         }

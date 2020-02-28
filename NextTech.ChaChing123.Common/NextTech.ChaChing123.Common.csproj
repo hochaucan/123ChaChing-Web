@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\LeadsOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestUpdateAvatarDto.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="DTO\ChaChing123\BOAccountInfoDto.cs" />
     <Compile Include="DTO\ChaChing123\AfiliateAlertDto.cs" />
     <Compile Include="DTO\ChaChing123\AfiliateItemDto.cs" />
-    <Compile Include="DTO\ChaChing123\RequestDetailByIDDto - Copy.cs" />
+    <Compile Include="DTO\ChaChing123\RegisterLeadBySoloPageDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsDto.cs" />
     <Compile Include="DTO\ChaChing123\FunnalDetailDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestNextSoloDto.cs" />
