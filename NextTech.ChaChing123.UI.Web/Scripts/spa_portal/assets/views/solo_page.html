@@ -10,14 +10,19 @@
         <div ng-if="soloPageDetails.FromType=='1'">
             <div class="row padding-top">
                 <div class="col-md-7">
-                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
-                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <div id="video_1" ng-if="isShowVideoSource">
                         <iframe width="560" height="315" ng-src="{{VideoSource}}"
                                 frameborder="0" allowfullscreen></iframe>
                     </div>
+                    <div id="image_1" ng-if="isShowImageSource">
+                        <div class="col-md-8 col-md-offset-4">
+                            <img src="{{ImageSource}}" alt="offce" class="img-responsive">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-5">
+                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
                         <div class="form-group" ng-class="{'has-error':SoLoPageForm.email.$dirty && SoLoPageForm.email.$invalid, 'has-success':SoLoPageForm.email.$valid}">
                             <input type="email" class="form-control t-input field-border color-border" id="email" name="email" ng-model="lead.email" placeholder="Enter Your Email Address" required="">
@@ -32,14 +37,19 @@
         <div ng-if="soloPageDetails.FromType=='2'">
             <div class="row padding-top">
                 <div class="col-md-7">
-                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
-                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <div id="video_1" ng-if="isShowVideoSource">
                         <iframe width="560" height="315" ng-src="{{VideoSource}}"
                                 frameborder="0" allowfullscreen></iframe>
                     </div>
+                    <div id="image_1" ng-if="isShowImageSource">
+                        <div class="col-md-8 col-md-offset-4">
+                            <img src="{{ImageSource}}" alt="offce" class="img-responsive">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-5">
+                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
                         <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
                             <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">
@@ -58,14 +68,19 @@
         <div ng-if="soloPageDetails.FromType=='3'">
             <div class="row padding-top">
                 <div class="col-md-7">
-                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
-                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <div id="video_1" ng-if="isShowVideoSource">
                         <iframe width="560" height="315" ng-src="{{VideoSource}}"
                                 frameborder="0" allowfullscreen></iframe>
                     </div>
+                    <div id="image_1" ng-if="isShowImageSource">
+                        <div class="col-md-8 col-md-offset-4">
+                            <img src="{{ImageSource}}" alt="offce" class="img-responsive">
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-5">
+                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
                     <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
                         <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
                             <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">

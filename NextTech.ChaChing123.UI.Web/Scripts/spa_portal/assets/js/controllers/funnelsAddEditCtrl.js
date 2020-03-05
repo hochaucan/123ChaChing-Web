@@ -66,11 +66,9 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
                 if ($scope.funnel.PageName == undefined || $scope.funnel.PageName.length == 0) {
                     $scope.funnel.PageName = "";
                     $scope.isFunnelNameValid = false;
-                    console.log($scope.funnel.PageName);
                 }
 
                 if ($scope.soloPage == undefined) {
-                    console.log($scope.funnel.PageName);
                     $scope.isSoloPageNameValid = false;
                 }
             }
@@ -92,109 +90,147 @@ app.controller('FunnelsAddEditCtrl', ["$scope", "$window", "$location", "$localS
             var idList = [];
             var orderAsc = 0;
 
-            if ($scope.soloPages.length > 0) {
-                angular.forEach($scope.soloPages, function (value, index) {
-                    orderList.push(orderAsc++);
-                    idList.push(value.ID);
-                });
+            if ($scope.funnel.PageName != undefined && $scope.funnel.PageName.length > 0) {
+                if ($scope.soloPages.length > 0) {
+                    angular.forEach($scope.soloPages, function (value, index) {
+                        orderList.push(orderAsc++);
+                        idList.push(value.ID);
+                    });
 
-                if (orderList.length > 0) {
-                    $scope.soloOrder = orderList.join();
-                }
+                    if (orderList.length > 0) {
+                        $scope.soloOrder = orderList.join();
+                    }
 
-                if (idList.length > 0) {
-                    $scope.soloIDs = idList.join();
-                }
+                    if (idList.length > 0) {
+                        $scope.soloIDs = idList.join();
+                    }
 
-                //Edit Funnel
-                if (id > 0) {
-                    $scope.funnel = {
-                        "ID": id,
-                        "PageName": $scope.funnel.PageName,
-                        "Status": saveMethod,
-                        "StepList": $scope.soloOrder,
-                        "SoloIDList": $scope.soloIDs,
-                        "UserName": username,
-                        "SessionKey": sessionKey
-                    };
+                    //Edit Funnel
+                    if (id > 0) {
+                        $scope.funnel = {
+                            "ID": id,
+                            "PageName": $scope.funnel.PageName,
+                            "Status": saveMethod,
+                            "StepList": $scope.soloOrder,
+                            "SoloIDList": $scope.soloIDs,
+                            "UserName": username,
+                            "SessionKey": sessionKey
+                        };
 
-                    $scope.showSpinner = true;
-                    var funnelID = 0;
-                    var soloID = 0;
-                    var funnelPageUrlBuilder = "";
+                        $scope.showSpinner = true;
+                        var funnelID = 0;
+                        var soloID = 0;
+                        var funnelPageUrlBuilder = "";
 
-                    funnelsService.EditFunnalPage($scope.funnel,
-                        function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
-                                membershipService.checkMemberAuthorization();
-                            }
-
-                            if (result.data && result.data.StatusCode == 0) {
-                                if (saveMethod == 1) { // save and preview and it indicates user's clicking on Save & Reivew button
-                                    funnelID = id;
-                                    soloID = $scope.soloIDs.split(",")[0];
-
-                                    var funnelPageUrlBuilder = '#/funnel/preview/' + funnelID + '/' + soloID;
-                                    notificationService.displaySuccess("Lưu Funnel Thành Công");
-
-                                    $scope.showSpinner = false;
-                                    $timeout(function () {
-                                        $window.open(funnelPageUrlBuilder, '_blank');
-                                    }, 1000);
+                        funnelsService.EditFunnalPage($scope.funnel,
+                            function (result) {
+                                if (result.data && result.data.StatusCode == 17) {
+                                    membershipService.checkMemberAuthorization();
                                 }
 
-                                if (saveMethod == 2) { // indicate that user's clicking on Public button
-                                    funnelID = id;
-                                    soloID = $scope.soloIDs.split(",")[0];
-                                    funnelPageUrlBuilder = '#/funnel/public/' + funnelID + '/' + soloID;
-                                    notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
+                                if (result.data && result.data.StatusCode == 0) {
+                                    if (saveMethod == 1) { // save and preview and it indicates user's clicking on Save & Reivew button
+                                        funnelID = id;
+                                        soloID = $scope.soloIDs.split(",")[0];
 
-                                    $scope.showSpinner = false;
-                                    $timeout(function () {
-                                        $window.open(funnelPageUrlBuilder, '_blank');
-                                    }, 1000);
+                                        var funnelPageUrlBuilder = '#/funnel/preview/' + funnelID + '/' + soloID;
+                                        notificationService.displaySuccess("Lưu Funnel Thành Công");
+
+                                        $scope.showSpinner = false;
+                                        $timeout(function () {
+                                            $window.open(funnelPageUrlBuilder, '_blank');
+                                        }, 1000);
+                                    }
+
+                                    if (saveMethod == 2) { // indicate that user's clicking on Public button
+                                        funnelID = id;
+                                        soloID = $scope.soloIDs.split(",")[0];
+                                        //funnelPageUrlBuilder = '#/funnel/public/' + funnelID + '/' + soloID;
+                                        notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
+                                        $location.path('/app/editor2/funnels/manage');
+                                        $scope.showSpinner = false;
+                                        //$timeout(function () {
+                                        //    $window.open(funnelPageUrlBuilder, '_blank');
+                                        //}, 1000);
+                                    }
                                 }
-                            }
-                            else {
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 2000);
-                                notificationService.displayError(result.data.StatusMsg);
-                            }
-                        });
-                } else { // Add New Funnel
-                    $scope.funnel = {
-                        "PageName": $scope.funnel.PageName,
-                        "Status": saveMethod,
-                        "StepList": $scope.soloOrder,
-                        "SoloIDList": $scope.soloIDs,
-                        "UserName": username,
-                        "SessionKey": sessionKey
-                    };
+                                else {
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 2000);
+                                    notificationService.displayError(result.data.StatusMsg);
+                                }
+                            });
+                    } else { // Add New Funnel
+                        $scope.funnel = {
+                            "PageName": $scope.funnel.PageName,
+                            "Status": saveMethod,
+                            "StepList": $scope.soloOrder,
+                            "SoloIDList": $scope.soloIDs,
+                            "UserName": username,
+                            "SessionKey": sessionKey
+                        };
 
-                    $scope.showSpinner = true;
+                        $scope.showSpinner = true;
 
-                    funnelsService.AddFunnalPage($scope.funnel,
-                        function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
-                                membershipService.checkMemberAuthorization();
-                            }
+                        funnelsService.AddFunnalPage($scope.funnel,
+                            function (result) {
+                                if (result.data && result.data.StatusCode == 17) {
+                                    membershipService.checkMemberAuthorization();
+                                }
 
-                            if (result.data && result.data.StatusCode == 0) {
-                                notificationService.displaySuccess("Tạo mới Funnel Thành Công");
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                    $location.path('/app/editor2/funnels/manage');
-                                }, 1000);
-                            }
-                            else {
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 1000);
-                                notificationService.displayError(result.data.StatusMsg);
-                            }
-                        });
+                                if (result.data && result.data.StatusCode == 0) {
+                                    //notificationService.displaySuccess("Tạo mới Funnel Thành Công");
+                                    //$timeout(function () {
+                                    //    $scope.showSpinner = false;
+                                    //    $location.path('/app/editor2/funnels/manage');
+                                    //}, 1000);
+
+                                    if (saveMethod == 1) { // save and preview and it indicates user's clicking on Save & Reivew button
+                                        var funnelPageUrlBuilder = result.data.Details.urlPath;
+                                        notificationService.displaySuccess("Tạo mới Funnel Thành Công");
+
+                                        var parts = funnelPageUrlBuilder.split('/');
+                                        var funnelID = 0;
+
+                                        if (parts.length > 0) {
+                                            funnelID = parts[parts.length - 2];
+                                        }
+
+                                        if (funnelID > 0) {
+                                            $location.path('app/editor2/funnels/edit/' + funnelID);
+                                        }
+
+                                        $scope.showSpinner = false;
+                                        $timeout(function () {
+                                            $window.open(funnelPageUrlBuilder, '_blank');
+                                        }, 1000);
+                                    }
+
+                                    if (saveMethod == 2) { // indicate that user's clicking on Public button
+                                        //funnelID = id;
+                                        //soloID = $scope.soloIDs.split(",")[0];
+                                        //funnelPageUrlBuilder = '#/funnel/public/' + funnelID + '/' + soloID;
+                                        notificationService.displaySuccess("Xuất Bản Funnel Thành Công");
+                                        $location.path('/app/editor2/funnels/manage');
+                                        $scope.showSpinner = false;
+                                        //$timeout(function () {
+                                        //    $window.open(funnelPageUrlBuilder, '_blank');
+                                        //}, 1000);
+                                    }
+
+                                }
+                                else {
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 1000);
+                                    notificationService.displayError(result.data.StatusMsg);
+                                }
+                            });
+                    }
                 }
+            } else {
+                $scope.isFunnelNameValid = false;
             }
         };
 

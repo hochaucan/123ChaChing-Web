@@ -111,8 +111,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             title: 'Create New Solo Page',
             ncyBreadcrumb: {
                 label: 'Create New Solo Page'
-            },
-            resolve: { isAuthenticated: isAuthenticated }
+            }
         }).state('app.editor2.solo.manage', {
             url: '/manage',
             templateUrl: "Scripts/spa_portal/assets/views/editor_manage_solo_page.html",
@@ -120,15 +119,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Create New Solo Page'
             },
-            resolve: { isAuthenticated: isAuthenticated }
+            resolve: loadSequence('ngTable', 'ngTableSoloPageListCtrl')
         }).state('app.editor2.solo.edit', {
             url: '/edit/:id',
             templateUrl: "Scripts/spa_portal/assets/views/editor_edit_mypage.html",
             title: 'Edit Solo Page',
             ncyBreadcrumb: {
                 label: 'Edit Solo Page'
-            },
-            resolve: { isAuthenticated: isAuthenticated }
+            }
         }).state('app.editor2.funnels', {
             url: '/funnels',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -144,7 +142,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'editor'
             },
-            resolve: { isAuthenticated: isAuthenticated }
+            resolve: loadSequence('ngTable', 'ngTableSoloPageListCtrl')
         }).state('app.editor2.funnels.add', {
             url: '/add',
             templateUrl: "Scripts/spa_portal/assets/views/funnel_add_edit.html",
@@ -191,12 +189,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.lead', {
             url: '/lead',
             template: '<div ui-view class="fade-in-up"></div>',
-            title: 'Khách Hàng'
+            title: 'Khách Hàng',
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.lead.manage', {
             url: '/manage',
             templateUrl: "Scripts/spa_portal/assets/views/lead.html",
             title: 'Khách Hàng',
-            resolve: { isAuthenticated: isAuthenticated }
+            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
         }).state('app.lead.add', {
             url: '/add',
             templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",

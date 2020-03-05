@@ -6,7 +6,7 @@
     <section id="page-title">
         <div class="row">
             <div class="col-sm-8">
-                <h1 class="mainTitle" translate="topbar.nav.FUNNEL">Khách Hàng</h1>
+                <h1 class="mainTitle" translate="topbar.nav.LEAD">Khách Hàng</h1>
                 <span class="mainDescription">Quản Lý Khách Hàng</span>
             </div>
         </div>
@@ -16,63 +16,194 @@
     <!-- /// controller:  'TabsEditorCtrl' -  localtion: assets/js/controllers/funnelCtrl.js /// -->
     <div>
         <div class="container-fluid container-fullw bg-white">
-            <div class="row" ng-controller="LeadManageCtrl">
+            <div class="row">
                 <div class="col-md-4">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-white no-radius">
+                    <div class="panel panel-white no-radius" ng-controller="LeadAddEditCtrl">
                         <div class="panel-heading border-light">
-                            <h4 class="panel-title">Funnels</h4>
+                            <h4><a class="btn btn-sm btn-primary" ng-click="addNewLead()">Thêm Khách Hàng</a></h4>
                         </div>
+                        <script type="text/ng-template" id="myModalAddNewLead.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormAddNewLead" id="FormAddNewLead" novalidate="" ng-submit="form.submit(FormAddNewLead)">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">Thêm Khách Hàng</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group" ng-class="{'has-error':FormAddNewLead.Name.$dirty && FormAddNewLead.Name.$invalid, 'has-success':FormAddNewLead.Name.$valid}">
+                                        <label for="leadName">
+                                            Tên <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="leadName" name="Name" ng-model="lead.Name" placeholder="Tên" required="">
+                                        <span class="error text-small block" ng-if="FormAddNewLead.Name.$dirty && FormAddNewLead.Name.$invalid">Tên là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddNewLead.Email.$dirty && FormAddNewLead.Email.$invalid, 'has-success':FormAddNewLead.Email.$valid}">
+                                        <label for="leadEmail">
+                                            Email <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="leadEmail" name="Email" ng-model="lead.Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Địa chỉ email" required="">
+                                        <span class="error text-small block" ng-if="FormAddNewLead.Email.$dirty && FormAddNewLead.Email.$invalid">Email là bắt buộc.</span>
+                                        <span class="error text-small block" ng-if="FormAddNewLead.Email.$error.pattern">Vui lòng cung cấp một địa chỉ email hợp lệ.!</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddNewLead.Phone.$dirty && FormAddNewLead.Phone.$invalid, 'has-success':FormAddNewLead.Phone.$valid}">
+                                        <label for="leadPhone">
+                                            Số Điện Thoại <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="leadPhone" name="Phone" ng-model="lead.Phone" placeholder="Số Điện Thoại" ng-pattern="/^[0-9]*$/" required="">
+                                        <span class="error text-small block" ng-if="FormAddNewLead.Phone.$dirty && FormAddNewLead.Phone.$invalid">Số Điện Thoại là bắt buộc và phải là số.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddNewLead.LeadsType.$dirty && FormAddNewLead.LeadsType.$invalid, 'has-success':FormAddNewLead.LeadsType.$valid}">
+                                        <label for="leadLeadsType">
+                                            Phân Loại <span class="symbol required"></span>
+                                        </label>
+                                        <select id="leadLeadsType" class="form-control black" name="LeadsType" ng-model="lead.LeadsType" required="">
+                                            <option value="" disabled="">Chọn Loại Khách Hàng</option>
+                                            <option value="1">Ấm</option>
+                                            <option value="2">Nóng</option>
+                                            <option value="3">Lạnh</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="leadNotes">
+                                            Ghi Chú
+                                        </label>
+                                        <input type="text" class="form-control" id="leadNotes" name="Notes" ng-model="lead.Notes" placeholder="Ghi Chú">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </script>
                         <div class="panel-body no-padding">
                             <div class="padding-10">
-                                <form action="#" class="ng-pristine ng-valid">
-                                    <div class="input-group well">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fa fa-search"></i> Search
-                                            </button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="panel-body no-padding">
-                            <div class="panel-scroll height-200" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
-                                <table class="table no-margin">
-                                    <thead>
-                                        <tr></tr>
-                                        <tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
+                                <h4>Bộ Lọc</h4>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-white no-radius">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <input ng-model="search" class="form-control text-center ng-pristine ng-valid ng-touched" type="text" placeholder="Nhập landing page...">
-                                </div>
-                                <div class="col-sm-4">
-                                    <a class="btn btn-wide btn-primary" ui-sref="app.editor2.funnels.add"><i class="fa fa-plus"></i> Tạo Landing Page Mới</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="panel panel-white no-radius" ng-controller="ngTableLeadListCtrl">
                         <div class="panel-body">
-                            <table class="table table-striped table-hover" id="sample-table-2">
-                                <thead>
-                                </thead>
+                            <table ng-table="tableParams" class="table table-striped">
                                 <tbody>
-                                    
+                                    <tr ng-repeat="member in $data">
+                                        <td data-title="&#39;Tên&#39;">{{member.Name}}</td>
+                                        <td data-title="&#39;Email&#39;">{{member.Email}}</td>
+                                        <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
+                                        <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
+                                        <td data-title="&#39;Chi Tiết&#39;">
+                                            <input type="button" class="btn btn-primary btn-o btn-sm" id="editRowBtn4" value="Chi Tiết" data-id="{{member.ID}}" data="{{member.ID}}" ng-click="viewLeadDetails($event)">
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
+                            <script type="text/ng-template" id="myModalViewLeadDetails.html">
+                                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                <div class="modal-body">
+                                    <div>
+                                        <!-- start: USER TABSET -->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-heading border-light">
+                                                        <span class="modal-title text-bold">Xem Chi Tiết Khách Hàng</span>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <p class="text-left">
+                                                            <span class="text-bold text-uppercase">{{lead.Name}}</span>
+                                                        </p>
+                                                        <p>
+                                                            <span class="text-bold text-uppercase">{{lead.CreatedDate}}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="panel-footer">
+                                                        <h3>
+                                                            <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <uib-tabset class="tabbable">
+                                            <!-- start: TAB OVERVIEW -->
+                                            <uib-tab heading="Chi Tiết">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-white">
+                                                            <div class="panel-body">
+                                                                <table class="table table-condensed">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th colspan="3">Thông Tin Khách Hàng</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Tên</td>
+                                                                            <td>
+                                                                                <span>{{lead.Name}}</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Email</td>
+                                                                            <td>
+                                                                                {{lead.Email}}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Điện Thoại</td>
+                                                                            <td>{{lead.Phone}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Nguồn</td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table class="table table-condensed">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th colspan="3">Đánh Giá</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </uib-tab>
+                                            <!-- end: TAB OVERVIEW -->
+                                            <!-- start: TAB EDIT ACCOUNT -->
+                                            <uib-tab heading="Ghi Chú" active="editActive">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-white">
+                                                            <div class="panel-body">
+                                                                <p class="text-left">
+                                                                    <span class="text-bold text-uppercase">{{lead.Notes}}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </uib-tab>
+                                            <!-- end: TAB EDIT ACCOUNT -->
+                                        </uib-tabset>
+                                        <!-- end: USER TABSET -->
+                                    </div>
+                                </div>
+                            </script>
                         </div>
                     </div>
                 </div>

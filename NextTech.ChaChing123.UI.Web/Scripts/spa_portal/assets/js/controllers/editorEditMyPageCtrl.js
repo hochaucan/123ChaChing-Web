@@ -5,6 +5,7 @@
 
 var baseUrl = 'https://api.123chaching.app';
 var backgroundPath = "";
+var resourceUploadImageFullFileName = "";
 //var baseUrl = 'http://localhost:1494';
 
 app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
@@ -24,11 +25,15 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.isShowTitleTemplate = false;
         $scope.isShowSubTitleTemplate = false;
         $scope.isShareCodeHidden = true;
+        $scope.isShowResourceUploadImageFile = false;
+        $scope.isShowResourceVideoLink = true;
         $scope.isThankYouContentHidden = true;
         $scope.isUploadFileDetails = false;
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
         $scope.buttonColor = "";
+        $scope.LinkImageResource = "video";
+        $scope.ResourceSelected = "";
         $scope.IsAdvanceAccount = true;
         $scope.editor = {};
         $scope.titles = {};
@@ -57,6 +62,25 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
             $scope.formTypeVal = formTypeVal;
         });
 
+        $scope.$watch('LinkImageResource', function (LinkImageResource) {
+            $scope.LinkImageResource = LinkImageResource;
+        });
+
+        $scope.ResourceUploadRadioChange = function (s) {
+            $scope.editor.ResourcePath = "";
+            $scope.ResourceSelected = s;
+
+            if ($scope.ResourceSelected == "image") {
+                $scope.isShowResourceUploadImageFile = true;
+                $scope.isShowResourceVideoLink = false;
+            }
+
+            if ($scope.ResourceSelected == "video") {
+                $scope.isShowResourceUploadImageFile = false;
+                $scope.isShowResourceVideoLink = true;
+            }
+        };
+
         $scope.$watch('editor.ButtonColor', function (pageColour) {
             var buttonColor = pageColour;
             $scope.buttonColor = buttonColor;
@@ -64,7 +88,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                 var idBuilder = buttonColor.substr(1, buttonColor.length - 1);
                 angular.element('.color').removeClass("color-select");
                 angular.element('#' + idBuilder + '').addClass("color-select");
-            } 
+            }
         });
 
         $scope.showTitleTemplate = function () {
@@ -167,7 +191,13 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                     }
 
                     $scope.showSpinner = true;
-                    $scope.showSpinner = true;
+                    //1. Check if image uploading is being selected
+                    if ($scope.ResourceSelected == "image") {
+                        if (resourceUploadImageFullFileName && resourceUploadImageFullFileName.length > 0) {
+                            editor.ResourcePath = resourceUploadImageFullFileName;
+                        }
+                    }
+
                     if (backgroundPath && backgroundPath.length > 0 && $scope.isUploadFileDetails) {
                         $scope.manageSoloPages.uploadBackgroundFileDetailsAndEditSoloPage(editor);
                     } else {
@@ -186,11 +216,26 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                 }
 
                 if (result.data && result.data.StatusCode == 0) {
+                    var resource = "";
+
                     $scope.editor = result.data.Details;
                     $scope.IsAdvanceAccount = (accountType == 2) ? true : false;
 
                     backgroundPath = result.data.Details.BackgroundPath;
+                    resource = result.data.Details.ResourcePath;
 
+                    // solo page is used by uploading video or image
+                    if (resource.length > 0 && checkURL(resource)) {
+                        $scope.LinkImageResource = "image";
+                        $scope.isShowResourceUploadImageFile = true;
+                        $scope.isShowResourceVideoLink = false;
+                    } else {
+                        $scope.LinkImageResource = "video";
+                        $scope.isShowResourceUploadImageFile = false;;
+                        $scope.isShowResourceVideoLink = true;
+                    }
+
+                    // solo page is created by using shared code
                     if ($scope.editor.UseShareCode) {
                         $scope.editor.FromType = 5;
                     }
@@ -205,6 +250,10 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                     notificationService.displayError(result.data.StatusMsg);
                 }
             });
+        }
+
+        function checkURL(url) {
+            return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
         }
 
         $scope.manageSoloPages = {
@@ -301,9 +350,11 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                     if (result.StatusCode == 0) {
                         editor.BackgroundPath = result.Details;
                         $scope.manageSoloPages.editSoloPage(editor);
+                        $scope.isUploadFileDetails = false;
                     }
                     else {
                         notificationService.displaySuccess(result.StatusMsg);
+                        $scope.isUploadFileDetails = false;
                     }
                 }
             },
@@ -318,9 +369,11 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         if ($scope.saveMethod == 1) {
                             var soloPageUrlBuilder = '#/solo/page/' + ID + '/' + username + '/' + sessionKey;
                             notificationService.displaySuccess('Lưu Solo Page Thành Công');
+                            //$location.path('app/editor2/solo/edit/' + ID);
                             $scope.showSpinner = false;
                             $timeout(function () {
                                 $window.open(soloPageUrlBuilder, '_blank');
+                                $window.location.reload();
                             }, 1000);
                         }
 
@@ -339,6 +392,9 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                             $localStorage.manageMyPageTab = 0;
                             $location.path('/app/editor2/solo/manage');
                         }
+
+                        backgroundPath = "";
+                        resourceUploadImageFullFileName = "";
                     }
                     else {
                         $timeout(function () {
@@ -346,6 +402,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         }, 2000);
                         notificationService.displayError(result.data.StatusMsg);
                         backgroundPath = "";
+                        resourceUploadImageFullFileName = "";
                     }
                 });
             }
@@ -358,10 +415,10 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.manageSoloPages.getBackgroundFileDetails();
     }]);
 
-app.controller('soloPageEditUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
+app.controller('ResourceUploadImageFile', ["$scope", "$timeout", "$localStorage", "editorService", "notificationService", function ($scope, $timeout, $localStorage, editorService, notificationService) {
     // GET THE FILE INFORMATION.
     $scope.getFileDetails = function (e) {
-
+        $scope.showSpinner = true;
         $scope.files = [];
         $scope.$apply(function () {
 
@@ -370,10 +427,6 @@ app.controller('soloPageEditUploadFileCtrl', ["$scope", "$localStorage", "editor
                 $scope.files.push(e.files[i]);
             }
         });
-    };
-
-    // NOW UPLOAD THE FILES.
-    $scope.uploadFiles = function () {
 
         //FILL FormData WITH FILE DETAILS.
         var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
@@ -382,78 +435,6 @@ app.controller('soloPageEditUploadFileCtrl', ["$scope", "$localStorage", "editor
         for (var i in $scope.files) {
             data.append("uploadedFile", $scope.files[i]);
             if ($scope.files[i].name) {
-                backgroundPath = $scope.files[i].name;
-                data.append("SessionKey", SessionKey);
-                break;
-            }
-        }
-
-
-
-        // ADD LISTENERS.
-        var objXhr = new XMLHttpRequest();
-        objXhr.addEventListener("progress", updateProgress, false);
-        objXhr.addEventListener("load", transferComplete, false);
-
-        // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-        objXhr.send(data);
-
-        //editorService.uploadFile(data, function (result) {
-        //    if (result.data && result.data.StatusCode == 0) {
-        //        notificationService.displaySuccess('Upload file thành công');
-        //    } else {
-        //        notificationService.displayError(result.data.StatusMsg);
-        //    }
-        //});
-    };
-
-    // UPDATE PROGRESS BAR.
-    function updateProgress(e) {
-        if (e.lengthComputable) {
-            //document.getElementById('pro').setAttribute('value', e.loaded);
-            //document.getElementById('pro').setAttribute('max', e.total);
-        }
-    }
-
-    // CONFIRMATION.
-    function transferComplete(e) {
-        console.log(e);
-        var result = JSON.parse(e.target.response);
-        if (result.StatusCode == 0) {
-            backgroundPath = result.Details;
-            notificationService.displaySuccess("Upload file thành công");
-        }
-        else {
-            notificationService.displaySuccess(result.StatusMsg);
-        }
-    }
-}]);
-app.controller('soloPageEditUploadResourceCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
-    // GET THE FILE INFORMATION.
-    $scope.getFileDetails = function (e) {
-
-        $scope.files = [];
-        $scope.$apply(function () {
-
-            // STORE THE FILE OBJECT IN AN ARRAY.
-            for (var i = 0; i < e.files.length; i++) {
-                $scope.files.push(e.files[i]);
-            }
-        });
-    };
-
-    // NOW UPLOAD THE FILES.
-    $scope.uploadFiles = function () {
-
-        //FILL FormData WITH FILE DETAILS.
-        var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-        var data = new FormData();
-
-        for (var i in $scope.files) {
-            data.append("uploadedFile", $scope.files[i]);
-            if ($scope.files[i].name) {
-                resourcePath = $scope.files[i].name;
                 data.append("SessionKey", SessionKey);
                 break;
             }
@@ -461,6 +442,7 @@ app.controller('soloPageEditUploadResourceCtrl', ["$scope", "$localStorage", "ed
 
         // ADD LISTENERS.
         var objXhr = new XMLHttpRequest();
+        $scope.showSpinner = true;
         objXhr.addEventListener("progress", updateProgress, false);
         objXhr.addEventListener("load", transferComplete, false);
 
@@ -482,11 +464,16 @@ app.controller('soloPageEditUploadResourceCtrl', ["$scope", "$localStorage", "ed
         //notificationService.displaySuccess("Upload file thành công");
         var result = JSON.parse(e.target.response);
         if (result.StatusCode == 0) {
-            resourcePath = result.Details;
+            resourceUploadImageFullFileName = result.Details;
             notificationService.displaySuccess("Upload file thành công");
+
+            $timeout(function () {
+                $scope.showSpinner = false;
+            }, 1000);
         }
         else {
             notificationService.displaySuccess(result.StatusMsg);
+            $scope.showSpinner = false;
         }
     }
 }]);

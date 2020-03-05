@@ -1,3 +1,62 @@
 .navbar-form {
     margin-top: 10px;
 }
+.navbar-form .form-control {
+    background-color: #fff !important
+}
+.navbar .navbar-collapse {
+    background-color: #06a2e3 !important
+}
+.navbar .navbar-right > li.current-user > a {
+    color: #fff;
+}
+.label-account-status-fi {
+    color: #A1A1A1;
+}
+.label-account-status-se {
+    color: #FE7801;
+}
+.label-account-status-th {
+    color: #a5a5a0;
+}
+.label-account-status-fo {
+    color: #00FF00;
+}
+.label-account-status-fi {
+    color: #FF0000;
+}
+.label-account-status-si {
+    color: #ED462F;
+}
+.Red {
+    color: Red;
+}
+
+.Yellow {
+    color: Yellow;
+}
+
+.Blue {
+    color: Blue;
+}
+
+.Green {
+    color: Green;
+}
+
+.Gray {
+    color: Gray;
+}
+
+.b {
+    font-weight: bold;
+}
+.PaymentStatusPaid {
+    color: #007AFF;
+}
+.PaymentStatusNotPaid {
+    color: #555555;
+}
+.PaymentStatusReturn {
+    color: #d9534f;
+}

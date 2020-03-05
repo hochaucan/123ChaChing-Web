@@ -28,7 +28,7 @@
         }
 
         function GetAllLeadsByAccount(leads, completed) {
-            apiService.post(baseUrl + '/api/Account/GetAllLeadsByAccount/', leads,
+            apiService.post(baseUrl + '/api/GetAllLeadsByAccount/', leads,
                 completed,
                 leadsFailed
             );
