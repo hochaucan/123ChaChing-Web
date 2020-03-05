@@ -4,6 +4,7 @@
 */
 
 var backgroundPath = "";
+var resourceUploadImageFullFileName = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
@@ -18,6 +19,10 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         $scope.isShowTitleTemplate = false;
         $scope.isShowSubTitleTemplate = false;
         $scope.isShareCodeHidden = true;
+        $scope.isShowResourceUploadImageFile = false;
+        $scope.isShowResourceVideoLink = true;
+        $scope.LinkImageResource = "video";
+        $scope.ResourceSelected = "";
         $scope.isThankYouContentHidden = true;
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
@@ -90,7 +95,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                 //FILL FormData WITH FILE DETAILS.
                 var data = new FormData();
                 var soloPages = editor;
-                
+
                 for (var i in $scope.backgroundFiles) {
                     data.append("uploadedFile", $scope.backgroundFiles[i]);
                     if ($scope.backgroundFiles[i].name) {
@@ -120,9 +125,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                 function transferComplete(e) {
                     var result = JSON.parse(e.target.response);
                     if (result.StatusCode == 0) {
-                        console.log('before ' + editor.BackgroundPath);
                         editor.BackgroundPath = result.Details;
-                        console.log('after ' + editor.BackgroundPath);
                         $scope.manageSoloPages.createSoloPage(editor);
                         //1.2 Save solo object to database
 
@@ -212,6 +215,24 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
             }
         });
 
+        $scope.$watch('LinkImageResource', function (LinkImageResource) {
+            $scope.LinkImageResource = LinkImageResource;
+        });
+
+        $scope.ResourceUploadRadioChange = function (s) {
+            $scope.ResourceSelected = s;
+
+            if ($scope.ResourceSelected == "image") {
+                $scope.isShowResourceUploadImageFile = true;
+                $scope.isShowResourceVideoLink = false;
+            }
+
+            if ($scope.ResourceSelected == "video") {
+                $scope.isShowResourceUploadImageFile = false;
+                $scope.isShowResourceVideoLink = true;
+            }
+        };
+
         $scope.clickMe1 = function () {
             $scope.saveMethod = 1;
         };
@@ -296,6 +317,12 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                     }
 
                     $scope.showSpinner = true;
+                    //1. Check if image uploading is being selected
+                    if ($scope.ResourceSelected == "image") {
+                        if (resourceUploadImageFullFileName && resourceUploadImageFullFileName.length > 0) {
+                            editor.ResourcePath = resourceUploadImageFullFileName;
+                        }
+                    }
                     if (backgroundPath && backgroundPath.length > 0) {
                         $scope.manageSoloPages.uploadBackgroundFileDetailsAndCreateSoloPage(editor);
                     } else {
@@ -306,95 +333,142 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         };
 
     }]);
-app.controller('TabsEditorMyPageCtrl', ["$scope", "$location", "$uibModal", "$window", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
-    function ($scope, $location, $uibModal, $window, $localStorage, $timeout, membershipService, editorService, notificationService) {
-        $scope.soloPageID = 0;
+app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService",
+    function ($scope, $localStorage, editorService, notificationService) {
+        // GET THE FILE INFORMATION.
+        $scope.getFileDetails = function (e) {
 
-        angular.element('#manageSoloPage a').click(function () {
-            $scope.manageMyPages.loadMyPages();
-        });
+            $scope.files = [];
+            $scope.$apply(function () {
 
-        $scope.manageMyPages = {
-            loadMyPages: function () {
-                $scope.master = $scope.user;
-                $scope.showSpinner = false;
+                // STORE THE FILE OBJECT IN AN ARRAY.
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i]);
+                }
+            });
+        };
 
-                var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-                var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-                var accountType = ($localStorage.currentUser) ? $localStorage.currentUser.accountType : "";
+        // NOW UPLOAD THE FILES.
+        $scope.uploadFiles = function () {
 
-                $scope.myPages = {};
-                $scope.isPublicLink = true;
+            //FILL FormData WITH FILE DETAILS.
+            var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+            var data = new FormData();
 
-                var userObj = {
-                    UserName: username,
-                    SessionKey: sessionKey
-                };
-
-                $scope.showSpinner = true;
-                editorService.getMyPages(userObj, function (result) {
-                    if (result.data && result.data.StatusCode == 17) {
-                        membershipService.checkMemberAuthorization();
-                    }
-
-                    if (result.data && result.data.StatusCode == 0) {
-                        $scope.myPages = result.data.Details;
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 2000);
-                    }
-                    else {
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 2000);
-                        notificationService.displayError(result.data.StatusMsg);
-                    }
-                });
+            for (var i in $scope.files) {
+                data.append("uploadedFile", $scope.files[i]);
+                if ($scope.files[i].name) {
+                    backgroundPath = $scope.files[i].name;
+                    data.append("SessionKey", SessionKey);
+                    break;
+                }
             }
+
+            // ADD LISTENERS.
+            var objXhr = new XMLHttpRequest();
+            objXhr.addEventListener("progress", updateProgress, false);
+            objXhr.addEventListener("load", transferComplete, false);
+
+            // SEND FILE DETAILS TO THE API.
+            objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+            objXhr.send(data);
+
+            //editorService.uploadFile(data, function (result) {
+            //    if (result.data && result.data.StatusCode == 0) {
+            //        notificationService.displaySuccess('Upload file thành công');
+            //    } else {
+            //        notificationService.displayError(result.data.StatusMsg);
+            //    }
+            //});
         };
 
-        $scope.manageMyPages.loadMyPages();
+        // UPDATE PROGRESS BAR.
+        function updateProgress(e) {
+            if (e.lengthComputable) {
+                //document.getElementById('pro').setAttribute('value', e.loaded);
+                //document.getElementById('pro').setAttribute('max', e.total);
+            }
+        }
 
-        $scope.deleteSoloPage = function (size) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalDeleteSoloPage.html',
-                controller: 'ModalDeleteSoloPageCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        $scope.soloPageID = size.target.attributes.data.value;
-                        return $scope.soloPageID;
-                    }
-                }
-            });
-        };
-        $scope.shareSoloPageCode = function (size) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalGenerateSharedCode.html',
-                controller: 'ModalGenerateSharedCodeCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        $scope.soloPageID = size.target.attributes.data.value;
-                        return $scope.soloPageID;
-                    }
-                }
-            });
-        };
-        $scope.goToDestinationLink = function (url, status) {
-            if (status == 2)
-                $window.open(url, '_blank');
-            else 
-                notificationService.displayInfo("Trang chưa được xuất bản");
-        };
-        $scope.editSoloPage = function (soloID) {
-            $location.path('#/app/editor2/solo/edit/' + soloID + '');
-        };
+        // CONFIRMATION.
+        function transferComplete(e) {
+            console.log(e);
+            var result = JSON.parse(e.target.response);
+            if (result.StatusCode == 0) {
+                backgroundPath = result.Details;
+                notificationService.displaySuccess("Upload file thành công");
+            }
+            else {
+                notificationService.displaySuccess(result.StatusMsg);
+            }
+        }
     }]);
-app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
+app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editorService", "notificationService",
+    function ($scope, $localStorage, editorService, notificationService) {
+        // GET THE FILE INFORMATION.
+        $scope.getFileDetails = function (e) {
+
+            $scope.files = [];
+            $scope.$apply(function () {
+
+                // STORE THE FILE OBJECT IN AN ARRAY.
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i]);
+                }
+            });
+        };
+
+        // NOW UPLOAD THE FILES.
+        $scope.uploadFiles = function () {
+
+            //FILL FormData WITH FILE DETAILS.
+            var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+            var data = new FormData();
+
+            for (var i in $scope.files) {
+                data.append("uploadedFile", $scope.files[i]);
+                if ($scope.files[i].name) {
+                    resourcePath = $scope.files[i].name;
+                    data.append("SessionKey", SessionKey);
+                    break;
+                }
+            }
+
+            // ADD LISTENERS.
+            var objXhr = new XMLHttpRequest();
+            objXhr.addEventListener("progress", updateProgress, false);
+            objXhr.addEventListener("load", transferComplete, false);
+
+            // SEND FILE DETAILS TO THE API.
+            objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+            objXhr.send(data);
+        };
+
+        // UPDATE PROGRESS BAR.
+        function updateProgress(e) {
+            if (e.lengthComputable) {
+                //document.getElementById('pro').setAttribute('value', e.loaded);
+                //document.getElementById('pro').setAttribute('max', e.total);
+            }
+        }
+
+        // CONFIRMATION.
+        function transferComplete(e) {
+            //notificationService.displaySuccess("Upload file thành công");
+            var result = JSON.parse(e.target.response);
+            if (result.StatusCode == 0) {
+                resourcePath = result.Details;
+                notificationService.displaySuccess("Upload file thành công");
+            }
+            else {
+                notificationService.displaySuccess(result.StatusMsg);
+            }
+        }
+    }]);
+app.controller('ResourceUploadImageFile', ["$scope", "$timeout", "$localStorage", "editorService", "notificationService", function ($scope, $timeout, $localStorage, editorService, notificationService) {
     // GET THE FILE INFORMATION.
     $scope.getFileDetails = function (e) {
-
+        $scope.showSpinner = true;
         $scope.files = [];
         $scope.$apply(function () {
 
@@ -403,10 +477,6 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
                 $scope.files.push(e.files[i]);
             }
         });
-    };
-
-    // NOW UPLOAD THE FILES.
-    $scope.uploadFiles = function () {
 
         //FILL FormData WITH FILE DETAILS.
         var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
@@ -415,7 +485,6 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
         for (var i in $scope.files) {
             data.append("uploadedFile", $scope.files[i]);
             if ($scope.files[i].name) {
-                backgroundPath = $scope.files[i].name;
                 data.append("SessionKey", SessionKey);
                 break;
             }
@@ -423,75 +492,7 @@ app.controller('soloPageUploadFileCtrl', ["$scope", "$localStorage", "editorServ
 
         // ADD LISTENERS.
         var objXhr = new XMLHttpRequest();
-        objXhr.addEventListener("progress", updateProgress, false);
-        objXhr.addEventListener("load", transferComplete, false);
-
-        // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-        objXhr.send(data);
-
-        //editorService.uploadFile(data, function (result) {
-        //    if (result.data && result.data.StatusCode == 0) {
-        //        notificationService.displaySuccess('Upload file thành công');
-        //    } else {
-        //        notificationService.displayError(result.data.StatusMsg);
-        //    }
-        //});
-    };
-
-    // UPDATE PROGRESS BAR.
-    function updateProgress(e) {
-        if (e.lengthComputable) {
-            //document.getElementById('pro').setAttribute('value', e.loaded);
-            //document.getElementById('pro').setAttribute('max', e.total);
-        }
-    }
-
-    // CONFIRMATION.
-    function transferComplete(e) {
-        console.log(e);
-        var result = JSON.parse(e.target.response);
-        if (result.StatusCode == 0) {
-            backgroundPath = result.Details;
-            notificationService.displaySuccess("Upload file thành công");
-        }
-        else {
-            notificationService.displaySuccess(result.StatusMsg);
-        }
-    }
-}]);
-app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editorService", "notificationService", function ($scope, $localStorage, editorService, notificationService) {
-    // GET THE FILE INFORMATION.
-    $scope.getFileDetails = function (e) {
-
-        $scope.files = [];
-        $scope.$apply(function () {
-
-            // STORE THE FILE OBJECT IN AN ARRAY.
-            for (var i = 0; i < e.files.length; i++) {
-                $scope.files.push(e.files[i]);
-            }
-        });
-    };
-
-    // NOW UPLOAD THE FILES.
-    $scope.uploadFiles = function () {
-
-        //FILL FormData WITH FILE DETAILS.
-        var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-        var data = new FormData();
-
-        for (var i in $scope.files) {
-            data.append("uploadedFile", $scope.files[i]);
-            if ($scope.files[i].name) {
-                resourcePath = $scope.files[i].name;
-                data.append("SessionKey", SessionKey);
-                break;
-            }
-        }
-
-        // ADD LISTENERS.
-        var objXhr = new XMLHttpRequest();
+        $scope.showSpinner = true;
         objXhr.addEventListener("progress", updateProgress, false);
         objXhr.addEventListener("load", transferComplete, false);
 
@@ -513,105 +514,16 @@ app.controller('soloPageUploadResourceCtrl', ["$scope", "$localStorage", "editor
         //notificationService.displaySuccess("Upload file thành công");
         var result = JSON.parse(e.target.response);
         if (result.StatusCode == 0) {
-            resourcePath = result.Details;
+            resourceUploadImageFullFileName = result.Details;
             notificationService.displaySuccess("Upload file thành công");
+
+            $timeout(function () {
+                $scope.showSpinner = false;
+            }, 1000);
         }
         else {
             notificationService.displaySuccess(result.StatusMsg);
+            $scope.showSpinner = false;
         }
     }
-}]);
-app.controller('ModalDeleteSoloPageCtrl', ["$scope", "$window", "$timeout", "$location", "$localStorage", "$uibModalInstance", "items", "membershipService", "editorService", "notificationService",
-    function ($scope, $window, $timeout, $location, $localStorage, $uibModalInstance, items, membershipService, editorService, notificationService) {
-        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-
-        $scope.ok = function () {
-            var ID = items;
-
-            var soloPageObj = {
-                "ID": ID,
-                "UserName": username,
-                "SessionKey": sessionKey
-            };
-
-            editorService.deleteSoloPage(soloPageObj, function (result) {
-                if (result.data && result.data.StatusCode == 17) {
-                    membershipService.checkMemberAuthorization();
-                }
-
-                if (result.data && result.data.StatusCode == 0) {
-                    notificationService.displaySuccess('Delete Solo Page Thành Công');
-                    $uibModalInstance.dismiss('cancel');
-                    $localStorage.manageMyPageTab = result.data.StatusCode;
-
-                    $window.location.reload();
-
-                    //angular.element('#manageSoloPage a').trigger('click');
-                }
-                else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 2000);
-                }
-            });
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        $scope.manageMyPages = {
-            loadMyPages: function () {
-                $scope.master = $scope.user;
-                $scope.showSpinner = false;
-
-                $scope.myPages = {};
-                $scope.isPublicLink = true;
-
-                var userObj = {
-                    UserName: username,
-                    SessionKey: sessionKey
-                };
-
-                $scope.showSpinner = true;
-                editorService.getMyPages(userObj, function (result) {
-                    if (result.data && result.data.StatusCode == 17) {
-                        membershipService.checkMemberAuthorization();
-                    }
-
-                    if (result.data && result.data.StatusCode == 0) {
-                        $scope.myPages = result.data.Details;
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 2000);
-                    }
-                    else {
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 2000);
-                        notificationService.displayError(result.data.StatusMsg);
-                    }
-                });
-            }
-        }
-    }]);
-app.controller('ModalGenerateSharedCodeCtrl', ["$scope", "$window", "$timeout", "$location", "$localStorage", "$uibModalInstance", "items", "editorService", "notificationService",
-    function ($scope, $window, $timeout, $location, $localStorage, $uibModalInstance, items, editorService, notificationService) {
-        $scope.editor = {};
-        $scope.ok = function () {
-            
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-        $scope.modalSoloPageSharingCode = {
-            init: function () {
-                $scope.editor.soloPageShareCode = items;
-            }
-        };
-
-        $scope.modalSoloPageSharingCode.init();
 }]);

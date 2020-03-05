@@ -541,3 +541,12 @@ html {
 .gray-funnel-name {
     color: #808080;
 }
+.tableRowCustom {
+    background-color: #ffffff !important;
+}
+.tableColCustom {
+    border-bottom: 0px !important;
+}
+.iconQuick {
+    padding: 0px 5px;
+}

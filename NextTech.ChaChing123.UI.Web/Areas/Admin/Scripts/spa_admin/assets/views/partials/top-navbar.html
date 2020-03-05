@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 </head>
@@ -18,7 +18,7 @@
             <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)">
                 <form class="navbar-form" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="{{ &#39;sidebar.search.PLACEHOLDER&#39; | translate }}">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm">
                         <button class="btn search-button" type="submit">
                             <i class="ti-search"></i>
                         </button>
@@ -28,13 +28,13 @@
             <!-- end: MESSAGES DROPDOWN -->
             <!-- start: USER OPTIONS DROPDOWN -->
             <li class="dropdown current-user" uib-dropdown="" on-toggle="toggled(open)">
-                <a href="assets/views/partials/top-navbar.html" class="dropdown-toggle" uib-dropdown-toggle=""> <img src="{{baseUrl.url}}Areas/Admin/Scripts/spa_admin/assets/images/avatar-1.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> </a>
-                <ul class="dropdown-menu dropdown-dark">
+                <a href="assets/views/partials/top-navbar.html" class="dropdown-toggle" uib-dropdown-toggle=""> 
+                    <img src="{{baseUrl.url}}Areas/Admin/Scripts/spa_admin/assets/images/default-user.png" alt="{{user.name}}"> 
+                    <span class="username">{{user.name}} <i class="ti-angle-down"></i></span> 
+                </a>
+                <ul class="dropdown-menu dropdown-dark" ng-if="userData.isUserLoggedIn">
                     <li>
-                        <a ui-sref="app.pages.user" translate="topbar.user.PROFILE"> My Profile </a>
-                    </li>
-                    <li>
-                        <a ui-sref="login.signin" translate="topbar.user.LOGOUT"> Log Out </a>
+                        <a ng-click="logout();" translate="topbar.user.LOGOUT"> Log Out </a>
                     </li>
                 </ul>
             </li>

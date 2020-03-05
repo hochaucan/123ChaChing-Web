@@ -11,6 +11,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
         var SessionKey = "";
         var destinationURL = "";
         $scope.isShowVideoSource = false;
+        $scope.isShowImageSource = false;
         $scope.lead = {};
         var soloPageObj = {};
 
@@ -121,24 +122,32 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
 
                     if (result.data && result.data.StatusCode == 0) {
                         var findWatchIndex = -1;
-                        var urlVideo = "";
+                        var fullResourcePath = "";
 
                         $scope.soloPageDetails = result.data.Details;
                         $scope.formType = result.data.Details.FromType;
                         $scope.Title = result.data.Details.Title;
                         $scope.SubTitle = result.data.Details.SubTitle;
                         $scope.ButtonName = result.data.Details.ButtonName;
-                        $scope.ButtonColor = result.data.Details.ButtonColor;
-
-                        if (result.data.Details.ResourcePath && result.data.Details.ResourcePath.length > 0) {
-                            findWatchIndex = result.data.Details.ResourcePath.indexOf('watch?v=');
-                            if (findWatchIndex != -1) {
-                                urlVideo = result.data.Details.ResourcePath.replace('watch?v=', 'embed/');
-                                $scope.VideoSource = $sce.trustAsResourceUrl(urlVideo);
+                        $scope.ButtonColor = result.data.Details.ButtonColor;           
+                        
+                        fullResourcePath = result.data.Details.ResourcePath;
+                        if (fullResourcePath.length > 0) {
+                            var linkImage = $scope.soloPageManager.checkURL(fullResourcePath);
+                            if (linkImage) { // Display Image
+                                $scope.isShowImageSource = true;
+                                $scope.ImageSource = fullResourcePath;
+                            } else { // Diplay Video
                                 $scope.isShowVideoSource = true;
+                                findWatchIndex = fullResourcePath.indexOf('watch?v=');
+                                if (findWatchIndex != -1) {
+                                    fullResourcePath = fullResourcePath.replace('watch?v=', 'embed/');
+                                }
+
+                                $scope.VideoSource = $sce.trustAsResourceUrl(fullResourcePath);
                             }
                         }
-                        
+
                         document.body.style.backgroundImage = "url('" + result.data.Details.BackgroundPath + "')";
                     }
                     else {
@@ -164,7 +173,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
 
                     if (result.data && result.data.StatusCode == 0) {
                         var findWatchIndex = -1;
-                        var urlVideo = "";
+                        var fullResourcePath = "";
 
                         $scope.soloPageDetails = result.data.Details;
                         $scope.formType = result.data.Details.FromType;
@@ -173,12 +182,20 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                         $scope.ButtonName = result.data.Details.ButtonName;
                         $scope.ButtonColor = result.data.Details.ButtonColor;
 
-                        if (result.data.Details.ResourcePath && result.data.Details.ResourcePath.length > 0) {
-                            findWatchIndex = result.data.Details.ResourcePath.indexOf('watch?v=');
-                            if (findWatchIndex != -1) {
-                                urlVideo = result.data.Details.ResourcePath.replace('watch?v=', 'embed/');
-                                $scope.VideoSource = $sce.trustAsResourceUrl(urlVideo);
+                        fullResourcePath = result.data.Details.ResourcePath;
+                        if (fullResourcePath.length > 0) {
+                            var linkImage = $scope.soloPageManager.checkURL(fullResourcePath);
+                            if (linkImage) { // Display Image
+                                $scope.isShowImageSource = true;
+                                $scope.ImageSource = fullResourcePath;
+                            } else { // Diplay Video
                                 $scope.isShowVideoSource = true;
+                                findWatchIndex = fullResourcePath.indexOf('watch?v=');
+                                if (findWatchIndex != -1) {
+                                    fullResourcePath = fullResourcePath.replace('watch?v=', 'embed/');
+                                }
+
+                                $scope.VideoSource = $sce.trustAsResourceUrl(fullResourcePath);
                             }
                         }
 
@@ -186,8 +203,12 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                     }
                     else {
                         notificationService.displayError(result.data.StatusMsg);
+                        $scope.isShowVideoSource = false;
                     }
                 });
+            },
+            checkURL: function (url) {
+                return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
             }
         };
 

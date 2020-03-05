@@ -1,0 +1,43 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">Quản Lý Khách Hàng</h1>
+            </div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: TABS -->
+    <!-- /// controller:  'TabsEditorCtrl' -  localtion: assets/js/controllers/funnelCtrl.js /// -->
+    <div>
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="panel panel-white no-radius" ng-controller="ngTableLeadListCtrl">
+                        <div class="panel-body">
+                            <table ng-table="tableParams" class="table table-striped">
+                                <tbody>
+                                    <tr ng-repeat="member in $data">
+                                        <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                        <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
+                                        <td data-title="&#39;Khách Hàng&#39;">{{member.Name}}</td>
+                                        <td data-title="&#39;Email&#39;">{{member.Email}}</td>
+                                        <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
+                                        <td data-title="&#39;Phân Loại&#39;"><span ng-class="[getClassForLeadsType(member.LeadType), 'b']"> {{member.TypeName}}</span> </td>
+                                        <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForLeadStatus(member.Status), 'b']"> {{member.StatusName}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

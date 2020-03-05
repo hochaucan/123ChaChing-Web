@@ -21,11 +21,12 @@
                 <table ng-table="tableParams" class="table table-striped">
                     <tbody>
                         <tr ng-repeat="member in $data">
-                            <td data-title="&#39;Tên&#39;">{{member.FullName}}</td>
+                            <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                            <td data-title="&#39;Tên&#39;"><a>{{member.FullName}}</a></td>
                             <td data-title="&#39;Email&#39;">{{member.Email}}</td>
                             <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
                             <td data-title="&#39;Loại&#39;">{{member.AccountTypeName}}</td>
-                            <td data-title="&#39;Tình Trạng&#39;">{{member.StatusName}}</td>
+                            <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(member.Status), 'b']">{{member.StatusName}}</span></td>
                             <td data-title="&#39;Đăng Ký&#39;">{{member.CreatedDate}}</td>
                             <td data-title="&#39;Tái Tục&#39;">{{member.RenewalNo}}</td>
                             <td data-title="&#39;Ghi Chú&#39;">{{member.Note}}</td>

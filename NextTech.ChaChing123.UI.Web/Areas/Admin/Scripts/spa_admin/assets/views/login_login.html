@@ -1,4 +1,4 @@
-<!-- saved from url=(0093)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/login_login.html -->
+﻿<!-- saved from url=(0093)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/login_login.html -->
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -10,52 +10,40 @@
                 <img ng-src="{{app.layout.logo}}" alt="{{app.name}}">
             </div>
             <!-- start: LOGIN BOX -->
-            <div class="box-login">
-                <form class="form-login" action="http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/index.html">
+            <div class="box-login" ng-controller="UserLoginCtrl">
+                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                <form name="FormLogin" id="FormLogin" novalidate="" ng-submit="form.submit(FormLogin)">
                     <fieldset>
                         <legend>
-                            Sign in to your account
+                            Đăng nhập
                         </legend>
                         <p>
-                            Please enter your name and password to log in.
+                            Vui lòng đăng nhập với Tên Đăng Nhập Và Mật Khẩu của bạn
                         </p>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error':FormLogin.username.$dirty && FormLogin.username.$invalid, 'has-success':FormLogin.username.$valid}">
                             <span class="input-icon">
-                                <input type="text" class="form-control" name="username" placeholder="Username">
+                                <input type="text" class="form-control" id="inputUsername" name="username" ng-model="userLogin.username" placeholder="Tên Đăng Nhập" required="">
                                 <i class="fa fa-user"></i>
                             </span>
+                            <span class="error text-small block" ng-if="FormLogin.username.$dirty && FormLogin.username.$invalid">Tên Đăng Nhập là bắt buộc.</span>
                         </div>
-                        <div class="form-group form-actions">
+                        <div class="form-group form-actions" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}">
                             <span class="input-icon">
-                                <input type="password" class="form-control password" name="password" placeholder="Password">
+                                <input type="password" class="form-control" id="inputPassword" name="password" ng-model="userLogin.password" placeholder="Mật Khẩu" required="">
                                 <i class="fa fa-lock"></i>
-                                <a class="forgot" ui-sref="login.forgot">
-                                    I forgot my password
-                                </a>
                             </span>
+                            <span class="error text-small block" ng-if="FormLogin.password.$dirty && FormLogin.password.$invalid">Mật khẩu là bắt buộc.</span>
                         </div>
                         <div class="form-actions">
-                            <div class="checkbox clip-check check-primary">
-                                <input type="checkbox" id="remember" value="1">
-                                <label for="remember">
-                                    Keep me signed in
-                                </label>
-                            </div>
                             <button type="submit" class="btn btn-primary pull-right">
-                                Login <i class="fa fa-arrow-circle-right"></i>
+                                Đăng Nhập <i class="fa fa-arrow-circle-right"></i>
                             </button>
-                        </div>
-                        <div class="new-account">
-                            Don't have an account yet?
-                            <a ui-sref="login.registration">
-                                Create an account
-                            </a>
                         </div>
                     </fieldset>
                 </form>
                 <!-- start: COPYRIGHT -->
                 <div class="copyright">
-                    {{app.year}} � {{ app.name }} by {{ app.author }}.
+                    {{app.year}} © {{ app.name }}.
                 </div>
                 <!-- end: COPYRIGHT -->
             </div>

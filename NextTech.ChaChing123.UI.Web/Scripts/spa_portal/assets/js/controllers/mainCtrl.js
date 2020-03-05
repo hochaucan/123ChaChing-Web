@@ -46,11 +46,6 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
             // Save the route title
             $rootScope.currTitle = $state.current.title;
         });
-
-        $window.onbeforeunload = function (event) {
-            membershipService.checkMemberAuthorization();
-        };
-
         // State not found
         $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
             //$rootScope.loading = false;
@@ -187,7 +182,7 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                 function logout() {
                     membershipService.removeCredentials();
                     $scope.userData.displayUserInfo();
-                    $location.path('#/');
+                    $location.path('/app/login/signin');
                 }
 
                 $scope.userData.displayUserInfo();
@@ -209,6 +204,20 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
         };
 
         $scope.userAuthentication.init();
+
+        $window.onbeforeunload = function (event) {
+            //if (membershipService.isUserLoggedIn()) {
+            //    membershipService.checkMemberAuthorization();
+            //    $scope.userData.displayUserInfo();
+            //    $location.path('/app/login/signin');
+            //    $localStorage.isMySessionActive = "false";
+            //}
+            //return undefined;
+        };
+
+        $window.onload = function (event) {
+            $localStorage.isMySessionActive = "true";
+        };
 
         $scope.userRegistration = {
             init: function () {

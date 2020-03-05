@@ -5,19 +5,20 @@
         .module('ChaChingApp')
         .factory('membershipService', Service);
 
-    function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
+    function Service(apiService, $window, $http, $rootScope, $localStorage, notificationService) {
 
         var baseUrl = 'https://api.123chaching.app/api/Admin/';
         //var baseUrl = 'http://localhost:1494';
         //var baseUrl = 'http://localhost:8002';
 
         var service = {
-            login: login,
+            Login: Login,
             register: register,
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
             isUserLoggedIn: isUserLoggedIn,
-            GetAccountList: GetAccountList
+            GetAccountList: GetAccountList,
+            checkMemberAuthorization: checkMemberAuthorization,
         };
 
         function GetAccountList(memberObj, completed) {
@@ -27,31 +28,28 @@
         }
 
 
-        function login(user, completed) {
-            apiService.post(baseUrl + '/api/account/login', user,
+        function Login(user, completed) {
+            apiService.post(baseUrl + '/Login/', user,
             completed,
             loginFailed);
         }
 
         function register(user, completed) {
-            apiService.post(baseUrl + '/api/Account/register', user,
+            apiService.post(baseUrl + '/Account/register', user,
             completed,
             registrationFailed);
         }
 
         function saveCredentials(user) {
-            $localStorage.currentUser = {
-                username: user.UserName,
-                fullname: user.FullName,
-                phone: user.Phone,
-                token: user.SessionKey
+            $localStorage.currentUserAdmin = {
+                token: user
             };
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + user;
         }
 
         function removeCredentials() {
-            delete $localStorage.currentUser;
+            delete $localStorage.currentUserAdmin;
             $http.defaults.headers.common.Authorization = '';
         }
 
@@ -66,7 +64,18 @@
         }
 
         function isUserLoggedIn() {
-            return $localStorage.currentUser != null;   
+            return $localStorage.currentUserAdmin != null;   
+        }
+
+        function isAuthenticated() {
+            if (!isUserLoggedIn()) {
+                $window.location.reload();
+            }
+        }
+
+        function checkMemberAuthorization() {
+            removeCredentials();
+            isAuthenticated();
         }
 
         return service;
