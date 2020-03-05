@@ -19,8 +19,8 @@ namespace NextTech.ChaChing123.Common.Models
         public int Status { get; set; }
         public string AutoresponderCodes { get; set; }        
         public string TrackingCode { get; set; }
-        
 
+        public string NextSoloID { get; set; }
         public NextSoloPageDTO()
         {
             ID = 0;
@@ -36,6 +36,7 @@ namespace NextTech.ChaChing123.Common.Models
             IsAdvance = 0;
             Status = 0;
             ThankYouContent = string.Empty;
+            NextSoloID = string.Empty;
         }
     }
 }

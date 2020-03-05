@@ -21,6 +21,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
     using NextTech.ChaChing123.Business.Utilities;
     using System.Web;
     using System;
+    using System.Configuration;
 
     /// <summary>
     /// Class AccountController.
@@ -307,7 +308,20 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        [AllowAnonymous]
+        [Route("LogOut1")]
+        [HttpPost]
+        public HttpResponseMessage GetConfigValue(HttpRequestMessage request, RequestOrderListDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                try { response = request.CreateResponse(HttpStatusCode.OK, ConfigurationManager.ConnectionStrings[obj.KeyWord].ConnectionString); }
+                catch { return null; }
+                return response;
+            });
+        }
+        
         [AllowAnonymous]
         [HttpPost]
         [Route("UpdateAvatar")]
@@ -385,6 +399,73 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+
+        #region Leads
+        [AllowAnonymous]
+        [Route("AddLeadsByAccount")]
+        [HttpPost]
+        public HttpResponseMessage AddLeadsByAccount(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddLeadsByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateLeadsByAccount")]
+        [HttpPost]
+        public HttpResponseMessage UpdateLeadsByAccount(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateLeadsByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateLeadsTypeByAccount")]
+        [HttpPost]
+        public HttpResponseMessage UpdateLeadsTypeByAccount(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateLeadsTypeByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("GetLeadsDetailByAccount")]
+        [HttpPost]
+        public HttpResponseMessage GetLeadsDetailByAccount(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetLeadsDetailByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("SummaryLeadsReportByAccount")]
+        [HttpPost]
+        public HttpResponseMessage SummaryLeadsReportByAccount(HttpRequestMessage request, SummaryRequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.SummaryLeadsReportByAccount(obj));
+                return response;
+            });
+        }
+        #endregion
     }
 }
 

@@ -344,7 +344,121 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
-        
+
+
+        #region Leads        
+        public static ResultDTO AddLeadsByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddLeadsByAccount] @Name,@Email,@Phone,@SoloID,@LeadsType,@Notes,@SessionKey,@errorCode out",
+                        new SqlParameter("Name", DB.SafeSQL(obj.Name)),
+                        new SqlParameter("Email", DB.SafeSQL(obj.Email)),
+                        new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
+                        new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),
+                        new SqlParameter("LeadsType", obj.LeadsType),
+                        new SqlParameter("Notes", DB.SafeSQL(obj.Notes)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode);
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO UpdateLeadsByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateLeadsByAccount] @ID,@Name,@Email,@Phone,@LeadsType,@Notes,@SessionKey,@errorCode out",
+                       new SqlParameter("ID", obj.ID),
+                       new SqlParameter("Name", DB.SafeSQL(obj.Name)),
+                       new SqlParameter("Email", DB.SafeSQL(obj.Email)),
+                       new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
+                       new SqlParameter("LeadsType", obj.LeadsType),
+                       new SqlParameter("Notes", DB.SafeSQL(obj.Notes)),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode);
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO UpdateLeadsTypeByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateLeadsTypeByAccount] @ID,@LeadsType,@SessionKey,@errorCode out",
+                       new SqlParameter("ID", obj.ID),
+                       new SqlParameter("LeadsType", obj.LeadsType),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode);
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO GetLeadsDetailByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            result.Details= dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetLeadsDetailByAccount] @ID,@SessionKey,@errorCode out",
+                        new SqlParameter("ID", obj.ID),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).FirstOrDefault<LeadsItemDTO>();
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO SummaryLeadsReportByAccount(this IEntityBaseRepository<Account> repository, SummaryRequestDTO obj)
+        {
+
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            result.Details = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsReportByAccount] @StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).ToList<LeadsOfMonthDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+
+        }
+        #endregion
         //public static ResultDTO AddTokenPush.
 
 

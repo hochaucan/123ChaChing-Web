@@ -246,6 +246,96 @@ namespace NextTech.ChaChing123.Business
 
         }
 
+        #region Leads
+        public ResultDTO AddLeadsByAccount(RegisterLeadBySoloPageDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.AddLeadsByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("AddLeadsByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO UpdateLeadsByAccount(RegisterLeadBySoloPageDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.UpdateLeadsByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateLeadsByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO UpdateLeadsTypeByAccount(RegisterLeadBySoloPageDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.UpdateLeadsTypeByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateLeadsTypeByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO GetLeadsDetailByAccount(RegisterLeadBySoloPageDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetLeadsDetailByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetLeadsDetailByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO SummaryLeadsReportByAccount(SummaryRequestDTO obj)
+        {
+            ResultDTO rsInfo = new ResultDTO();
+            try
+            {
+                obj.StartList = Utilities.Common.GeStartListByYear(obj.YearList);
+                obj.EndList = Utilities.Common.GeEndListByYear(obj.YearList);
+                rsInfo = _repository.SummaryLeadsReportByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("SummaryLeadsReportByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                rsInfo.StatusMsg = ex.Message.ToString();
+            }
+
+            return rsInfo;
+
+        }
+        #endregion
+
         #endregion
 
     }
