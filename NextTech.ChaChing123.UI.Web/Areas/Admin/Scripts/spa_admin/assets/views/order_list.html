@@ -56,35 +56,32 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group" ng-class="{'has-error':FormEditOrder.CustomerName.$dirty && FormEditOrder.CustomerName.$invalid, 'has-success':FormEditOrder.CustomerName.$valid}">
+                                <div class="form-group">
                                     <label for="CustomerName">
-                                        Tên Khách Hàng <span class="symbol required"></span>
+                                        Tên Khách Hàng
                                     </label>
-                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="Tên Khách Hàng" required="">
-                                    <span class="error text-small block" ng-if="FormEditOrder.CustomerName.$dirty && FormEditOrder.CustomerName.$invalid">Tên Khách Hàng là bắt buộc.</span>
+                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="Tên Khách Hàng" readonly>
                                 </div>
-                                <div class="form-group" ng-class="{'has-error':FormEditOrder.PaymentStatus.$dirty && FormEditOrder.PaymentStatus.$invalid, 'has-success':FormEditOrder.PaymentStatus.$valid}">
+                                <div class="form-group">
                                     <label for="PaymentStatus">
-                                        Thanh Toán <span class="symbol required"></span>
+                                        Thanh Toán
                                     </label>
-                                    <select id="PaymentStatus" class="form-control black" name="PaymentStatus" ng-model="order.PaymentStatus" required="">
+                                    <select id="PaymentStatus" class="form-control black" name="PaymentStatus" ng-model="order.PaymentStatus" ng-options="payment.PaymentStatusName for payment in PaymentStatusList">
                                         <option value="" disabled="">Chọn Loại Thanh Toán</option>
-                                        <option value="1">Chưa Thanh Toán</option>
+                                        <!--<option value="1">Chưa Thanh Toán</option>
                                         <option value="2">Đã Thanh Toán</option>
-                                        <option value="3">Hoàn Tiền</option>
+                                        <option value="3">Hoàn Tiền</option>-->
                                     </select>
-                                    <span class="error text-small block" ng-if="FormEditOrder.PaymentStatus.$dirty && FormEditOrder.PaymentStatus.$invalid">Loại Thanh Toán là bắt buộc.</span>
                                 </div>
-                                <div class="form-group" ng-class="{'has-error':FormEditOrder.AccountType.$dirty && FormEditOrder.AccountType.$invalid, 'has-success':FormEditOrder.AccountType.$valid}">
+                                <div class="form-group">
                                     <label for="AccountType">
-                                        Loại Tài Khoản <span class="symbol required"></span>
+                                        Loại Tài Khoản
                                     </label>
-                                    <select id="AccountType" class="form-control black" name="AccountType" ng-model="order.AccountType" required="">
+                                    <select id="AccountType" class="form-control black" name="AccountType" ng-model="order.AccountType" ng-options="accountType.AccountTypeName for accountType in AccountTypeList">
                                         <option value="" disabled="">Chọn Loại Tài Khoản</option>
-                                        <option value="1">Cơ Bản</option>
-                                        <option value="2">Nâng Cao</option>
+                                        <!--<option value="1">Cơ Bản</option>
+                                        <option value="2">Nâng Cao</option>-->
                                     </select>
-                                    <span class="error text-small block" ng-if="FormEditOrder.AccountType.$dirty && FormEditOrder.AccountType.$invalid">Loại Tài Khoản là bắt buộc.</span>
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerAmount">
@@ -108,11 +105,11 @@
                                     <label for="AccountType">
                                         Tình Trạng <span class="symbol required"></span>
                                     </label>
-                                    <select id="AccountType" class="form-control black" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="">
+                                    <select id="AccountType" class="form-control black" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
                                         <option value="" disabled="">Chọn Tình Trạng</option>
-                                        <option value="1">Đang Phê Duyệt</option>
+                                        <!--<option value="1">Đang Phê Duyệt</option>
                                         <option value="2">Đã Duyệt</option>
-                                        <option value="3">Hủy</option>
+                                        <option value="3">Hủy</option>-->
                                     </select>
                                     <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Tình Trạng là bắt buộc.</span>
                                 </div>

@@ -340,6 +340,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\login_login.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\login_registration.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\login_signin.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\order_edit_modal.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\order_list.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\pages_user_profile.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\partials\footer.html" />

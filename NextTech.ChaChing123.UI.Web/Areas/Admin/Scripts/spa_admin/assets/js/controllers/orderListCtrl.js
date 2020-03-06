@@ -114,6 +114,9 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
 app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "orderService", "notificationService",
     function ($scope, $uibModalInstance, items, orderService, notificationService) {
         $scope.order = {};
+        $scope.PaymentStatusList = {};
+        $scope.AccountTypeList = {};
+        $scope.AffiliateStatusList = {};
         $scope.orderID = 0;
 
         $scope.ok = function () {
@@ -145,8 +148,34 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
             };
         }
 
+        function loadPaymentStatus() {
+            $scope.PaymentStatusList = [
+                { PaymentStatus: 1, PaymentStatusName: 'Chưa thanh toán' },
+                { PaymentStatus: 2, PaymentStatusName: 'Ðã thanh toán' },
+                { PaymentStatus: 3, PaymentStatusName: 'Hoàn Tiền' }
+            ];
+        }
+
+        function loadAccountTypeList() {
+            $scope.AccountTypeList = [
+                { AccountType: 1, AccountTypeName: 'Cơ Bản' },
+                { AccountType: 2, AccountTypeName: 'Nâng Cao' }
+            ];
+        }
+
+        function loadAffiliateStatus() {
+            $scope.AffiliateStatusList = [
+                { AffiliateStatus: 1, AffiliateStatusName: 'Đang Duyệt' },
+                { AffiliateStatus: 2, AffiliateStatusName: 'Đã Duyệt' },
+                { AffiliateStatus: 3, AffiliateStatusName: 'Hủy' }
+            ];
+        }
+
         $scope.ModalEditOrderManager = {
             init: function () {
+                loadPaymentStatus();
+                loadAccountTypeList();
+                loadAffiliateStatus();
                 loadOrderDetails();
             }
         };
