@@ -20,6 +20,8 @@ namespace NextTech.ChaChing123.Common.Models
         public string StatusName { get; set; }
         public string Link { get; set; }
         public string Notes { get; set; }
+        public string PageName { get; set; }
+        
         private LeadsItemDTO()
         {
             ID = -1;
@@ -34,7 +36,7 @@ namespace NextTech.ChaChing123.Common.Models
             StatusName = string.Empty;
             Link = string.Empty;
             Notes = string.Empty;
-            
+            PageName = string.Empty;
         }
     }
 }

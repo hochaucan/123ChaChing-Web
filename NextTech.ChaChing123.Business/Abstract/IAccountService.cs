@@ -41,6 +41,7 @@ namespace NextTech.ChaChing123.Business
         ResultDTO UpdateLeadsByAccount(RegisterLeadBySoloPageDTO obj);
         ResultDTO UpdateLeadsTypeByAccount(RegisterLeadBySoloPageDTO obj);
         ResultDTO GetLeadsDetailByAccount(RegisterLeadBySoloPageDTO obj);
+        ResultDTO GetAllLeadsByAccount(LeadsDTO obj);
         ResultDTO SummaryLeadsReportByAccount(SummaryRequestDTO obj);
         #endregion
     }

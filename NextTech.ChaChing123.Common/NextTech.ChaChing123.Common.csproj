@@ -47,9 +47,23 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOCommentDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOScriptItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOResponseDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOQuickRepliesItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BORebuttalsItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOAffiliateLinkDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOAffiliateLinksItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOQuestionItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOIntroPageItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BONotificationItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOBlockTabMarketingItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BODocumentDto.cs" />
+    <Compile Include="DTO\ChaChing123\BODocumentsDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />
+    <Compile Include="DTO\ChaChing123\WithdrawalDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestUpdateAvatarDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestAccountTypeDto.cs" />
     <Compile Include="DTO\ChaChing123\ActiveAccountDto.cs" />

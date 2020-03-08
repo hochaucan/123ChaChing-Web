@@ -436,6 +436,46 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
+        public static ResultDTO GetAllLeadsByAccount(this IEntityBaseRepository<Account> repository, LeadsDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetAllLeadsByAccount] @SessionKey,@LeadType, @Count out, @errorCode out",
+                               new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                                new SqlParameter("LeadType", DB.SafeSQL(obj.LeadType)),
+                                count,
+                                errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<LeadsItemDTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.Details = ex.Message;
+            }
+
+            return result;
+        }
+        
         public static ResultDTO SummaryLeadsReportByAccount(this IEntityBaseRepository<Account> repository, SummaryRequestDTO obj)
         {
 

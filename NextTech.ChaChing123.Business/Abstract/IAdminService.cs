@@ -31,7 +31,7 @@ namespace NextTech.ChaChing123.Business
         // No7=>TODO
         ResultDTO SetDefautAccount(RequestDTO obj);
         // No8=>TODO
-        ResultDTO SetPasswodForAccount(RequestDTO obj);
+        ResultDTO SetPasswodForAccount(ChangePasswordModel obj);
         // No9=>TODO       
         ResultDTO ChangeAccountType(ChangeAccountTypeDTO obj);
         // No.10=>TODO
@@ -39,7 +39,7 @@ namespace NextTech.ChaChing123.Business
         // No.11=>TODO
         ResultDTO LockAffialate(LockAffilateDTO obj);
         // No.12=>TODO
-        ResultDTO GetAffiliateListByAccount(RequestDTO obj);
+        ResultDTO GetAffiliateList(RequestDTO obj);
         // No.13
         ResultDTO UpdateAccountInfo(RequestDTO obj);
         // No.14
@@ -51,7 +51,7 @@ namespace NextTech.ChaChing123.Business
         // No.17
         ResultDTO GetAllWithDrawallInfo(RequestDTO obj);
         // No.18
-        ResultDTO SumaryReportChart(RequestDTO obj);
+        ResultDTO SumaryReportChart(SummaryRequestDTO obj);
         // No.19
         ResultDTO GetAllLead(RequestDTO obj);
         // No.20
@@ -62,6 +62,8 @@ namespace NextTech.ChaChing123.Business
         ResultDTO Logout(LogoutDTO obj);
         // No.23
         ResultDTO ChangePassword(ChangePasswordModel obj);
+        // No.24
+        ResultDTO ApprovetWithDrawallInfoByAccount(WithdrawaltDTO obj);
 
         #region [TitleTemplate]
         ResultDTO AddTitleTemplate(BOTitleTemplateDTO obj);
@@ -80,5 +82,139 @@ namespace NextTech.ChaChing123.Business
         #region Leads
         ResultDTO GetAllLeads(LeadsDTO obj);
         #endregion
+
+        #region [QuickReplies]
+        // Get All QuickReplies
+        ResultDTO GetAllQuickReplies(RequestDTO obj);
+        // Add Item
+        ResultDTO AddQuickReplies(BOQuickRepliesItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateQuickRepliesByID(BOQuickRepliesItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteQuickRepliesByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Script]
+        // Get All Script
+        ResultDTO GetAllScript(RequestDTO obj);
+        // Add Item
+        ResultDTO AddScript(BOScriptItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateScriptByID(BOScriptItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteScriptByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Rebuttals]
+        // Get All Rebuttals
+        ResultDTO GetAllRebuttals(RequestDTO obj);
+        // Add Item
+        ResultDTO AddRebuttals(BORebuttalsItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateRebuttalsByID(BORebuttalsItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteRebuttalsByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Documents]
+        // Get All Documents
+        ResultDTO GetAllDocuments(RequestDTO obj);
+        // Add Item
+        ResultDTO AddDocuments(BODocumentsItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateDocumentsByID(BODocumentsItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteDocumentsByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Document]
+        // Get All Document
+        ResultDTO GetAllDocument(RequestDTO obj);
+        // Add Item
+        ResultDTO AddDocument(BODocumentItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateDocumentByID(BODocumentItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteDocumentByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [BlockTabMarketing]
+        // Get All BlockTabMarketing
+        ResultDTO GetAllBlockTabMarketing(RequestDTO obj);
+        // Add Item
+        ResultDTO AddBlockTabMarketing(BOBlockTabMarketingItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateBlockTabMarketingByID(BOBlockTabMarketingItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteBlockTabMarketingByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Notification]
+        // Get All Notification
+        ResultDTO GetAllNotification(RequestDTO obj);
+        // Add Item
+        ResultDTO AddNotification(BONotificationItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateNotificationByID(BONotificationItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteNotificationByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [IntroPage]
+        // Get All IntroPage
+        ResultDTO GetAllIntroPage(RequestDTO obj);
+        // Add Item
+        ResultDTO AddIntroPage(BOIntroPageItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateIntroPageByID(BOIntroPageItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteIntroPageByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Comment]
+        // Get All Comment
+        ResultDTO GetAllComment(RequestDTO obj);
+        // Add Item
+        ResultDTO AddComment(BOCommentItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateCommentByID(BOCommentItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteCommentByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [Question]
+        // Get All Question
+        ResultDTO GetAllQuestion(RequestDTO obj);
+        // Add Item
+        ResultDTO AddQuestion(BOQuestionItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateQuestionByID(BOQuestionItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteQuestionByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [AffiliateLinks]
+        // Get All AffiliateLinks
+        ResultDTO GetAllAffiliateLinks(RequestDTO obj);
+        // Add Item
+        ResultDTO AddAffiliateLinks(BOAffiliateLinksItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateAffiliateLinksByID(BOAffiliateLinksItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteAffiliateLinksByID(RequestViewDetaiDTO obj);
+        #endregion
+
+        #region [AffiliateLink]
+        // Get All AffiliateLink
+        ResultDTO GetAllAffiliateLink(RequestDTO obj);
+        // Add Item
+        ResultDTO AddAffiliateLink(BOAffiliateLinkItemDTO obj);
+        // Update Item By ID
+        ResultDTO UpdateAffiliateLinkByID(BOAffiliateLinkItemDTO obj);
+        // Delete Item By ID
+        ResultDTO DeleteAffiliateLinkByID(RequestViewDetaiDTO obj);
+        #endregion
+        //ONStep 2:
+        
     }
 }
