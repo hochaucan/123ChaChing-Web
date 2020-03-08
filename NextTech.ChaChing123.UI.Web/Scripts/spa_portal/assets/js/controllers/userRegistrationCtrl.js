@@ -72,6 +72,11 @@
 
                 $scope.initForm = {
                     init: function () {
+                        if ($localStorage.refcodeVal == undefined || !$localStorage.refcodeVal) {
+                            var search = $location.search();
+                            $localStorage.refcodeVal = search;
+                        }
+
                         var refObj = $localStorage.refcodeVal;
                         //Initial the account type for user
                         var accountType = 1;
@@ -93,16 +98,17 @@
                             $scope.userReg = userRegistration;
 
                             //2.1 if user is already logged, kick him out then redirect to register url
-                            //if (membershipService.isUserLoggedIn()) {
-                            //    membershipService.removeCredentials();
-                            //    $location.path('/app/login/signin?refcode=' + refObj.refcode);
-                            //    notificationService.displaySuccess("remove user's credential successfully");
-                            //}
-
-                            //2.2 Trigger Registration Tab
-                            $timeout(function () {
-                                angular.element('#registerTabID a').trigger('click');
-                            }, 1000);
+                            if (membershipService.isUserLoggedIn()) {
+                                membershipService.removeCredentials();
+                                $window.location.reload();
+                                //$location.path('/app/login/signin?refcode=' + refObj.refcode);
+                                //notificationService.displaySuccess("remove user's credential successfully");
+                            } else {
+                                //2.2 Trigger Registration Tab
+                                $timeout(function () {
+                                    angular.element('#registerTabID a').trigger('click');
+                                }, 1000);
+                            }
 
                             delete $localStorage.refcodeVal;
                             //membershipService.removeCredentials();

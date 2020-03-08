@@ -1,4 +1,4 @@
-﻿{
+{
   "dashboard": {
     "WELCOME": "Chào mừng tới {{appName}}"
   },
@@ -50,7 +50,7 @@
       "DOCUMENTATION": "Documentation"
     },
     "search": {
-      "PLACEHOLDER": "Search..."
+      "PLACEHOLDER": "Tìm kiếm..."
     },
     "nav": {
       "dashboard": {

@@ -2,20 +2,18 @@ var app = angular.module('ChaChingApp', ['clip-two']);
 var virtualDirectory = angular.element('input[name="__virtualDirectory"]').attr('value');
 app.run(['$rootScope', '$state', '$stateParams',
     function ($rootScope, $state, $stateParams) {
-        console.log("main.js");
         // Attach Fastclick for eliminating the 300ms delay between a physical tap and the firing of a click event on mobile browsers
         FastClick.attach(document.body);
 
         // Set some reference to access them from any scope
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
-        console.log(virtualDirectory);
 
         // GLOBAL APP SCOPE
         // set below basic information
         $rootScope.app = {
-            name: 'ChaChing 123', // name of your project
-            author: 'Next Tech', // author's name or company name
+            name: '123 ChaChing', // name of your project
+            author: '123 Cha Ching', // author's name or company name
             description: 'ChaChing 123 Admin', // brief description
             version: '2.0', // current version
             year: ((new Date()).getFullYear()), // automatic current year (for copyright information)
@@ -36,9 +34,9 @@ app.run(['$rootScope', '$state', '$stateParams',
             }
         };
         $rootScope.user = {
-            name: 'Peter',
+            name: 'admin',
             job: 'ng-Dev',
-            picture: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/app/img/user/02.jpg'
+            picture: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/images/default-user.png'
         };
         $rootScope.baseUrl = {
             url: virtualDirectory
@@ -50,7 +48,6 @@ app.config(['$translateProvider',
 
         // prefix and suffix information  is required to specify a pattern
         // You can simply use the static-files loader with this pattern:
-        console.log(virtualDirectory);
         $translateProvider.useStaticFilesLoader({
             prefix: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/i18n/',
             suffix: '.json'

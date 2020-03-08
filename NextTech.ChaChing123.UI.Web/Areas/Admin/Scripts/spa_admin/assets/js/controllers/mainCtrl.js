@@ -2,165 +2,196 @@
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', 'cfpLoadingBar',
-function($rootScope, $scope, $state, $translate, $localStorage, $window, $document, $timeout, cfpLoadingBar) {
+app.controller('AppCtrl', ['$rootScope', '$scope', '$location', '$http', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', 'cfpLoadingBar', 'membershipService',
+    function ($rootScope, $scope, $location, $http, $state, $translate, $localStorage, $window, $document, $timeout, cfpLoadingBar, membershipService) {
 
-	// Loading bar transition
-	// -----------------------------------
-	var $win = $($window);
+        // Loading bar transition
+        // -----------------------------------
+        var $win = $($window);
 
-	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-		//start loading bar on stateChangeStart
-		cfpLoadingBar.start();
-		if(typeof CKEDITOR !== 'undefined'){
-	        for(name in CKEDITOR.instances)
-			{
-			    CKEDITOR.instances[name].destroy();
-			}
-		}
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            //start loading bar on stateChangeStart
+            cfpLoadingBar.start();
+            if (typeof CKEDITOR !== 'undefined') {
+                for (name in CKEDITOR.instances) {
+                    CKEDITOR.instances[name].destroy();
+                }
+            }
 
-	});
-	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        });
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
-		//stop loading bar on stateChangeSuccess
-		event.targetScope.$watch("$viewContentLoaded", function() {
+            //stop loading bar on stateChangeSuccess
+            event.targetScope.$watch("$viewContentLoaded", function () {
 
-			cfpLoadingBar.complete();
-		});
+                cfpLoadingBar.complete();
+            });
 
-		// scroll top the page on change state
-		$('#app .main-content').css({
-			position : 'relative',
-			top : 'auto'
-		});
-		
-		$('footer').show();
-		
-		window.scrollTo(0, 0);
+            // scroll top the page on change state
+            $('#app .main-content').css({
+                position: 'relative',
+                top: 'auto'
+            });
 
-		if (angular.element('.email-reader').length) {
-			angular.element('.email-reader').animate({
-				scrollTop : 0
-			}, 0);
-		}
+            $('footer').show();
 
-		// Save the route title
-		$rootScope.currTitle = $state.current.title;
-	});
+            window.scrollTo(0, 0);
 
-	// State not found
-	$rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
-		//$rootScope.loading = false;
-		console.log(unfoundState.to);
-		// "lazy.state"
-		console.log(unfoundState.toParams);
-		// {a:1, b:2}
-		console.log(unfoundState.options);
-		// {inherit:false} + default options
-	});
+            if (angular.element('.email-reader').length) {
+                angular.element('.email-reader').animate({
+                    scrollTop: 0
+                }, 0);
+            }
 
-	$rootScope.pageTitle = function() {
-		return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
-	};
+            // Save the route title
+            $rootScope.currTitle = $state.current.title;
+        });
 
-	// save settings to local storage
-	if (angular.isDefined($localStorage.layout)) {
-		$scope.app.layout = $localStorage.layout;
+        // State not found
+        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+            //$rootScope.loading = false;
+            console.log(unfoundState.to);
+            // "lazy.state"
+            console.log(unfoundState.toParams);
+            // {a:1, b:2}
+            console.log(unfoundState.options);
+            // {inherit:false} + default options
+        });
 
-	} else {
-		$localStorage.layout = $scope.app.layout;
-	}
-	$scope.$watch('app.layout', function() {
-		// save to local storage
-		$localStorage.layout = $scope.app.layout;
-	}, true);
+        $rootScope.pageTitle = function () {
+            return $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
+        };
 
-	//global function to scroll page up
-	$scope.toTheTop = function() {
+        // save settings to local storage
+        if (angular.isDefined($localStorage.layout)) {
+            $scope.app.layout = $localStorage.layout;
 
-		$document.scrollTopAnimated(0, 600);
+        } else {
+            $localStorage.layout = $scope.app.layout;
+        }
+        $scope.$watch('app.layout', function () {
+            // save to local storage
+            $localStorage.layout = $scope.app.layout;
+        }, true);
 
-	};
+        //global function to scroll page up
+        $scope.toTheTop = function () {
 
-	// angular translate
-	// ----------------------
+            $document.scrollTopAnimated(0, 600);
 
-	$scope.language = {
-		// Handles language dropdown
-		listIsOpen : false,
-		// list of available languages
-		available : {
-			'en' : 'English',
-			'it_IT' : 'Italiano',
-			'de_DE' : 'Deutsch'
-		},
-		// display always the current ui language
-		init : function() {
-			var proposedLanguage = $translate.proposedLanguage() || $translate.use();
-			var preferredLanguage = $translate.preferredLanguage();
-			// we know we have set a preferred one in app.config
-			$scope.language.selected = $scope.language.available[(proposedLanguage || preferredLanguage)];
-		},
-		set : function(localeId, ev) {
-			$translate.use(localeId);
-			$scope.language.selected = $scope.language.available[localeId];
-			$scope.language.listIsOpen = !$scope.language.listIsOpen;
-		}
-	};
+        };
 
-	$scope.language.init();
+        // angular translate
+        // ----------------------
 
-	// Function that find the exact height and width of the viewport in a cross-browser way
-	var viewport = function() {
-		var e = window, a = 'inner';
-		if (!('innerWidth' in window)) {
-			a = 'client';
-			e = document.documentElement || document.body;
-		}
-		return {
-			width : e[a + 'Width'],
-			height : e[a + 'Height']
-		};
-	};
-	// function that adds information in a scope of the height and width of the page
-	$scope.getWindowDimensions = function() {
-		return {
-			'h' : viewport().height,
-			'w' : viewport().width
-		};
-	};
-	// Detect when window is resized and set some variables
-	$scope.$watch($scope.getWindowDimensions, function(newValue, oldValue) {
-		$scope.windowHeight = newValue.h;
-		$scope.windowWidth = newValue.w;
-		
-		if (newValue.w >= 992) {
-			$scope.isLargeDevice = true;
-		} else {
-			$scope.isLargeDevice = false;
-		}
-		if (newValue.w < 992) {
-			$scope.isSmallDevice = true;
-		} else {
-			$scope.isSmallDevice = false;
-		}
-		if (newValue.w <= 768) {
-			$scope.isMobileDevice = true;
-		} else {
-			$scope.isMobileDevice = false;
-		}
-	}, true);
-	// Apply on resize
-	$win.on('resize', function() {
-		
-		$scope.$apply();
-		if ($scope.isLargeDevice) {
-			$('#app .main-content').css({
-				position : 'relative',
-				top : 'auto',
-				width: 'auto'
-			});
-			$('footer').show();
-		}
-	});
-}]);
+        $scope.language = {
+            // Handles language dropdown
+            listIsOpen: false,
+            // list of available languages
+            available: {
+                'en': 'English',
+                'it_IT': 'Italiano',
+                'de_DE': 'Deutsch'
+            },
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
+                var preferredLanguage = $translate.preferredLanguage();
+                // we know we have set a preferred one in app.config
+                $scope.language.selected = $scope.language.available[(proposedLanguage || preferredLanguage)];
+            },
+            set: function (localeId, ev) {
+                $translate.use(localeId);
+                $scope.language.selected = $scope.language.available[localeId];
+                $scope.language.listIsOpen = !$scope.language.listIsOpen;
+            }
+        };
+
+        $scope.language.init();
+
+        // Function that find the exact height and width of the viewport in a cross-browser way
+        var viewport = function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            return {
+                width: e[a + 'Width'],
+                height: e[a + 'Height']
+            };
+        };
+        // function that adds information in a scope of the height and width of the page
+        $scope.getWindowDimensions = function () {
+            return {
+                'h': viewport().height,
+                'w': viewport().width
+            };
+        };
+        // Detect when window is resized and set some variables
+        $scope.$watch($scope.getWindowDimensions, function (newValue, oldValue) {
+            $scope.windowHeight = newValue.h;
+            $scope.windowWidth = newValue.w;
+
+            if (newValue.w >= 992) {
+                $scope.isLargeDevice = true;
+            } else {
+                $scope.isLargeDevice = false;
+            }
+            if (newValue.w < 992) {
+                $scope.isSmallDevice = true;
+            } else {
+                $scope.isSmallDevice = false;
+            }
+            if (newValue.w <= 768) {
+                $scope.isMobileDevice = true;
+            } else {
+                $scope.isMobileDevice = false;
+            }
+        }, true);
+        // Apply on resize
+        $win.on('resize', function () {
+
+            $scope.$apply();
+            if ($scope.isLargeDevice) {
+                $('#app .main-content').css({
+                    position: 'relative',
+                    top: 'auto',
+                    width: 'auto'
+                });
+                $('footer').show();
+            }
+        });
+
+        $scope.userAuthentication = {
+            init: function () {
+                $scope.userData = {};
+
+                $scope.userData.displayUserInfo = displayUserInfo;
+                $scope.logout = logout;
+
+
+                function displayUserInfo() {
+                    $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
+                    if ($scope.userData.isUserLoggedIn) {
+                        $scope.username = 'admin';
+                    }
+                }
+
+                function logout() {
+                    membershipService.removeCredentials();
+                    $scope.userData.displayUserInfo();
+                    $location.path('/login/signin');
+                }
+
+                $scope.userData.displayUserInfo();
+
+                // keep user logged in after page refresh
+                if ($localStorage.currentUserAdmin) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUserAdmin.token;
+                }
+            }
+        };
+
+        $scope.userAuthentication.init();
+    }]);

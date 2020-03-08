@@ -18,8 +18,8 @@
 				<uib-tabset class="tabbable">
 					<!-- start: TAB OVERVIEW -->
 					<uib-tab heading="Tài Khoản">
-						<div class="row">
-							<div class="col-md-6" ng-controller="AffiliateWalletCtrl">
+                        <div class="row">
+                            <div class="col-md-6" ng-controller="AffiliateWalletCtrl">
                                 <div class="user-left">
                                     <table class="table table-condensed">
                                         <thead>
@@ -150,16 +150,20 @@
                                         </div>
                                     </div>
                                 </div>
-							</div>
-							<div class="col-md-6" ng-controller="AffiliateNotificationCtrl">
-                                <div class="panel panel-white" ng-repeat="data in affiliateNotifications">
-                                    <div class="panel-body">
-                                        <p class="text-left">{{data.Fullname}} số điện thoại {{data.Phone}} đã đăng ký với mã giới thiệu của bạn</p>
-                                        <p>{{data.RegisterDate}}</p>
+                            </div>
+                            <div class="col-md-6" ng-controller="AffiliateNotificationCtrl">
+                                <div class="panel-body no-padding">
+                                    <div class="panel-scroll height-300" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
+                                        <div class="panel panel-white" ng-repeat="data in affiliateNotifications">
+                                            <div class="panel-body">
+                                                <p class="text-left">{{data.Fullname}} số điện thoại {{data.Phone}} đã đăng ký với mã giới thiệu của bạn</p>
+                                                <p>{{data.RegisterDate}}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-							</div>
-						</div>
+                            </div>
+                        </div>
                         <div class="row" ng-controller="SummaryReportByAccountForAffiliateAccountTabCtrl" ng-if="!loadingAffiliateComissionsReportForAffiliateAccountTab">
                             <h3>Theo Dõi Thu Nhập</h3>
                             <div class="col-md-2">
@@ -311,6 +315,7 @@
                                             <tr>
                                                 <th>Ngày Đăng Ký</th>
                                                 <th>Tên</th>
+                                                <th>KH Gián Tiếp Giới Thiệu Bởi</th>
                                                 <th>Gói</th>
                                                 <th>Tình Trạng</th>
                                             </tr>
@@ -319,6 +324,7 @@
                                             <tr ng-repeat="data in affiliateListByAccount">
                                                 <td>{{data.CreatedDate}}</td>
                                                 <td>{{data.FullName}}</td>
+                                                <td>{{data.AffiliateName}}</td>
                                                 <td>{{data.AccountType === 1 ? "Cơ bản" : "Nâng cao"}}</td>
                                                 <td>{{data.StatusName}}</td>
                                             </tr>

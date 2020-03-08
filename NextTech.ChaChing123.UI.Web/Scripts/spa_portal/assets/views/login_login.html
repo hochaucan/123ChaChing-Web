@@ -21,7 +21,7 @@
                                     <input type="text" class="form-control" id="inputUsername" name="username" ng-model="userLogin.username" placeholder="Enter Email/Phone" required="">
                                     <span class="error text-small block" ng-if="FormLogin.username.$dirty && FormLogin.username.$invalid">Email/Số Điện Thoại là bắt buộc.</span>
                                 </div>
-                                <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}" }">
+                                <div class="form-group" ng-class="{'has-error':FormLogin.password.$dirty && FormLogin.password.$invalid, 'has-success':FormLogin.password.$valid}">
                                     <label class="control-label" for="inputPassword">
                                         Mật Khẩu <span class="symbol required"></span>
                                     </label>

@@ -88,7 +88,7 @@ app.controller('FunnelsManageCtrl', ["$scope", "$uibModal", "$window", "$locatio
         $scope.FunnelsManager = {
             init: function () {
                 loadFunnels();
-                loadSoloPages();
+                //loadSoloPages();
             }
         };
 
