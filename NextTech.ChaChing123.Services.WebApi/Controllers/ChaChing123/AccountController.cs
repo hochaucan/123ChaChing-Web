@@ -452,7 +452,22 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        [AllowAnonymous]
+        [Route("GetAllLeadsByAccount")]
+        [HttpPost]
+        public HttpResponseMessage GetAllLeadsByAccount(HttpRequestMessage request, LeadsDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                if (obj.LeadType == "-1")
+                {
+                    obj.LeadType = "0,1,2,3";
+                }
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllLeadsByAccount(obj));
+                return response;
+            });
+        }
         [AllowAnonymous]
         [Route("SummaryLeadsReportByAccount")]
         [HttpPost]

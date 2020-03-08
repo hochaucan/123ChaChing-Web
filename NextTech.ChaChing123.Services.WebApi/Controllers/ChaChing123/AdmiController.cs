@@ -374,7 +374,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("SetPasswodForAccount")]
         [HttpPost]
-        public HttpResponseMessage SetPasswodForAccount(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage SetPasswodForAccount(HttpRequestMessage request, ChangePasswordModel obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -424,14 +424,14 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         }
         // No.12=>TODO
         [AllowAnonymous]
-        [Route("GetAffiliateListByAccount")]
+        [Route("GetAffiliateList")]
         [HttpPost]
-        public HttpResponseMessage GetAffiliateListByAccount(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage GetAffiliateList(HttpRequestMessage request, RequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAffiliateListByAccount(obj));
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAffiliateList(obj));
                 return response;
             });
         }
@@ -504,7 +504,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("SumaryReportChart")]
         [HttpPost]
-        public HttpResponseMessage SumaryReportChart(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage SumaryReportChart(HttpRequestMessage request, SummaryRequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -559,8 +559,8 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 }
                 else
                 {
-                    //TODO: alert error code
-                    response = request.CreateResponse(HttpStatusCode.OK, result);
+                //TODO: alert error code
+                response = request.CreateResponse(HttpStatusCode.OK, result);
                 }
                 return response;
             });
@@ -589,6 +589,18 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             {
                 HttpResponseMessage response = null;
                 response = request.CreateResponse(HttpStatusCode.OK, _service.ChangePassword(obj));
+                return response;
+            });
+        }
+        [AllowAnonymous]
+        [Route("ApprovetWithDrawallInfoByAccount")]
+        [HttpPost]
+        public HttpResponseMessage ApprovetWithDrawallInfoByAccount(HttpRequestMessage request, WithdrawaltDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.ApprovetWithDrawallInfoByAccount(obj));
                 return response;
             });
         }
@@ -701,7 +713,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         #endregion
-        
+
         #region Leads
         [AllowAnonymous]
         [Route("GetAllLeads")]
@@ -711,11 +723,663 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
+                if (obj.LeadType == "-1")
+                {
+                    obj.LeadType = "0,1,2,3";
+                }
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllLeads(obj));
                 return response;
             });
         }
         #endregion
+
+        #region [QuickReplies]
+        [AllowAnonymous]
+        [Route("GetAllQuickReplies")]
+        [HttpPost]
+        public HttpResponseMessage GetAllQuickReplies(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllQuickReplies(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddQuickReplies")]
+        [HttpPost]
+        public HttpResponseMessage AddQuickReplies(HttpRequestMessage request, BOQuickRepliesItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddQuickReplies(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateQuickRepliesByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateQuickRepliesByID(HttpRequestMessage request, BOQuickRepliesItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateQuickRepliesByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteQuickRepliesByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteQuickRepliesByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteQuickRepliesByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Script]
+        [AllowAnonymous]
+        [Route("GetAllScript")]
+        [HttpPost]
+        public HttpResponseMessage GetAllScript(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllScript(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddScript")]
+        [HttpPost]
+        public HttpResponseMessage AddScript(HttpRequestMessage request, BOScriptItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddScript(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateScriptByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateScriptByID(HttpRequestMessage request, BOScriptItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateScriptByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteScriptByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteScriptByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteScriptByID(obj));
+                return response;
+            });
+        }
+        #endregion
+        #region [Rebuttals]
+        [AllowAnonymous]
+        [Route("GetAllRebuttals")]
+        [HttpPost]
+        public HttpResponseMessage GetAllRebuttals(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllRebuttals(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddRebuttals")]
+        [HttpPost]
+        public HttpResponseMessage AddRebuttals(HttpRequestMessage request, BORebuttalsItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddRebuttals(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateRebuttalsByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateRebuttalsByID(HttpRequestMessage request, BORebuttalsItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateRebuttalsByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteRebuttalsByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteRebuttalsByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteRebuttalsByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Documents]
+        [AllowAnonymous]
+        [Route("GetAllDocuments")]
+        [HttpPost]
+        public HttpResponseMessage GetAllDocuments(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllDocuments(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddDocuments")]
+        [HttpPost]
+        public HttpResponseMessage AddDocuments(HttpRequestMessage request, BODocumentsItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddDocuments(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateDocumentsByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateDocumentsByID(HttpRequestMessage request, BODocumentsItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateDocumentsByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteDocumentsByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteDocumentsByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteDocumentsByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Document]
+        [AllowAnonymous]
+        [Route("GetAllDocument")]
+        [HttpPost]
+        public HttpResponseMessage GetAllDocument(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllDocument(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddDocument")]
+        [HttpPost]
+        public HttpResponseMessage AddDocument(HttpRequestMessage request, BODocumentItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddDocument(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateDocumentByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateDocumentByID(HttpRequestMessage request, BODocumentItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateDocumentByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteDocumentByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteDocumentByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteDocumentByID(obj));
+                return response;
+            });
+        }
+        #endregion
+        #region [BlockTabMarketing]
+        [AllowAnonymous]
+        [Route("GetAllBlockTabMarketing")]
+        [HttpPost]
+        public HttpResponseMessage GetAllBlockTabMarketing(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllBlockTabMarketing(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddBlockTabMarketing")]
+        [HttpPost]
+        public HttpResponseMessage AddBlockTabMarketing(HttpRequestMessage request, BOBlockTabMarketingItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddBlockTabMarketing(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateBlockTabMarketingByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateBlockTabMarketingByID(HttpRequestMessage request, BOBlockTabMarketingItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateBlockTabMarketingByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteBlockTabMarketingByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteBlockTabMarketingByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteBlockTabMarketingByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Notification]
+        [AllowAnonymous]
+        [Route("GetAllNotification")]
+        [HttpPost]
+        public HttpResponseMessage GetAllNotification(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllNotification(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddNotification")]
+        [HttpPost]
+        public HttpResponseMessage AddNotification(HttpRequestMessage request, BONotificationItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddNotification(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateNotificationByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateNotificationByID(HttpRequestMessage request, BONotificationItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateNotificationByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteNotificationByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteNotificationByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteNotificationByID(obj));
+                return response;
+            });
+        }
+        #endregion
+        #region [IntroPage]
+        [AllowAnonymous]
+        [Route("GetAllIntroPage")]
+        [HttpPost]
+        public HttpResponseMessage GetAllIntroPage(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllIntroPage(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddIntroPage")]
+        [HttpPost]
+        public HttpResponseMessage AddIntroPage(HttpRequestMessage request, BOIntroPageItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddIntroPage(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateIntroPageByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateIntroPageByID(HttpRequestMessage request, BOIntroPageItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateIntroPageByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteIntroPageByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteIntroPageByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteIntroPageByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Comment]
+        [AllowAnonymous]
+        [Route("GetAllComment")]
+        [HttpPost]
+        public HttpResponseMessage GetAllComment(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllComment(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddComment")]
+        [HttpPost]
+        public HttpResponseMessage AddComment(HttpRequestMessage request, BOCommentItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddComment(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateCommentByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateCommentByID(HttpRequestMessage request, BOCommentItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateCommentByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteCommentByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteCommentByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteCommentByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [Question]
+        [AllowAnonymous]
+        [Route("GetAllQuestion")]
+        [HttpPost]
+        public HttpResponseMessage GetAllQuestion(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllQuestion(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddQuestion")]
+        [HttpPost]
+        public HttpResponseMessage AddQuestion(HttpRequestMessage request, BOQuestionItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddQuestion(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateQuestionByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateQuestionByID(HttpRequestMessage request, BOQuestionItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateQuestionByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteQuestionByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteQuestionByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteQuestionByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [AffiliateLinks]
+        [AllowAnonymous]
+        [Route("GetAllAffiliateLinks")]
+        [HttpPost]
+        public HttpResponseMessage GetAllAffiliateLinks(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllAffiliateLinks(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddAffiliateLinks")]
+        [HttpPost]
+        public HttpResponseMessage AddAffiliateLinks(HttpRequestMessage request, BOAffiliateLinksItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddAffiliateLinks(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateAffiliateLinksByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateAffiliateLinksByID(HttpRequestMessage request, BOAffiliateLinksItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateAffiliateLinksByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteAffiliateLinksByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteAffiliateLinksByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteAffiliateLinksByID(obj));
+                return response;
+            });
+        }
+        #endregion
+
+        #region [AffiliateLink]
+        [AllowAnonymous]
+        [Route("GetAllAffiliateLink")]
+        [HttpPost]
+        public HttpResponseMessage GetAllAffiliateLink(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllAffiliateLink(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("AddAffiliateLink")]
+        [HttpPost]
+        public HttpResponseMessage AddAffiliateLink(HttpRequestMessage request, BOAffiliateLinkItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddAffiliateLink(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateAffiliateLinkByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateAffiliateLinkByID(HttpRequestMessage request, BOAffiliateLinkItemDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateAffiliateLinkByID(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteAffiliateLinkByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteAffiliateLinkByID(HttpRequestMessage request, RequestViewDetaiDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteAffiliateLinkByID(obj));
+                return response;
+            });
+        }
+        #endregion
+        //ONStep 1:
+        
+
 
     }
 }

@@ -18,7 +18,7 @@ namespace NextTech.ChaChing123.Common.Models
         //public int ErrorCode { get; set; }
         public string UserAdmin { get; set; }
 
-        private LoginModel()
+        public LoginModel()
         {
             UserAdmin = string.Empty;
             LoginType = 1;

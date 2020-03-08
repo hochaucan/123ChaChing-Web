@@ -315,6 +315,24 @@ namespace NextTech.ChaChing123.Business
             return errorCode;
 
         }
+        public ResultDTO GetAllLeadsByAccount(LeadsDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetAllLeadsByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllLeadsByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        
         public ResultDTO SummaryLeadsReportByAccount(SummaryRequestDTO obj)
         {
             ResultDTO rsInfo = new ResultDTO();
