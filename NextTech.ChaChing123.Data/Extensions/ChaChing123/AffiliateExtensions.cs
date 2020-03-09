@@ -99,7 +99,7 @@ namespace NextTech.ChaChing123.Data.Extensions
             var lengthPass = int.Parse(Common.Utilities.Common.GetConfigValue("LengthPass"));
             string strContractNo = PasswordGenerator.generatePassword(lengthPass, false, true, false);
 
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_GetWithDrawallInfoByAccount] @SessionKey,@UserReceiver,@BeneAccountName,@BeneBankName,@BeneAccountNo,@Amount,@Remarks,@ContractNo,@errorCode out",
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_RequestWithDrawal] @SessionKey,@UserReceiver,@BeneAccountName,@BeneBankName,@BeneAccountNo,@Amount,@Remarks,@ContractNo,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         new SqlParameter("UserReceiver", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("BeneAccountName", DB.SafeSQL(obj.BeneAccountName)),

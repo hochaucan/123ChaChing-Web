@@ -68,15 +68,24 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
-            result.Details = dbContext.Database.SqlQuery<SoloPageItem1DTO>("EXEC [dbo].[sp_GetAllSoloPage] @UserName,@SessionKey,@errorCode out",
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            BODataListDTO Items = new BODataListDTO();
+            Items.Items = dbContext.Database.SqlQuery<SoloPageItem1DTO>("EXEC [dbo].[sp_GetAllSoloPage] @UserName,@SessionKey,@Count out,@errorCode out",
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode).ToList<SoloPageItem1DTO>();
+                        count,
+                        errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<SoloPageItem1DTO>();
 
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
+            if (result.StatusCode == 0)
+            {
+                Items.Total = int.Parse(count.Value.ToString(), 0);
+                result.Details = Items;
+            }
             return result;
         }
         public static ResultDTO AddSoloPage(this IEntityBaseRepository<LandingPage> repository, SolaPageDTO obj)
