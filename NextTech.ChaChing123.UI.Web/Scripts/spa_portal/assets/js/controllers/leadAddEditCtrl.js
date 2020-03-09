@@ -106,7 +106,6 @@ app.controller('ModalAddNewLeadCtrl', ["$scope", "$window", "$location", "$timeo
                         $uibModalInstance.dismiss('cancel');
                     });
                 }
-
             }
         };
 

@@ -35,9 +35,6 @@
                                         <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
                                             <i class="fa fa-pencil" data="{{order.ContractNo}}"></i>
                                         </a>
-                                        <a ng-click="viewDetailsOrder($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Chi Tiết">
-                                            <i class="fa fa-share" data="{{order.ContractNo}}"></i>
-                                        </a>
                                         <a ng-click="deleteOrder($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
                                             <i class="fa fa-times fa fa-white" data="{{order.ContractNo}}"></i>
                                         </a>
@@ -60,28 +57,19 @@
                                     <label for="CustomerName">
                                         Tên Khách Hàng
                                     </label>
-                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="Tên Khách Hàng" readonly>
+                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="order.CustomerName" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="PaymentStatus">
                                         Thanh Toán
                                     </label>
-                                    <select id="PaymentStatus" class="form-control black" name="PaymentStatus" ng-model="order.PaymentStatus" ng-options="payment.PaymentStatusName for payment in PaymentStatusList">
-                                        <option value="" disabled="">Chọn Loại Thanh Toán</option>
-                                        <!--<option value="1">Chưa Thanh Toán</option>
-                                        <option value="2">Đã Thanh Toán</option>
-                                        <option value="3">Hoàn Tiền</option>-->
-                                    </select>
+                                    <input type="text" class="form-control" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatusName" placeholder="order.PaymentStatusName" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="AccountType">
                                         Loại Tài Khoản
                                     </label>
-                                    <select id="AccountType" class="form-control black" name="AccountType" ng-model="order.AccountType" ng-options="accountType.AccountTypeName for accountType in AccountTypeList">
-                                        <option value="" disabled="">Chọn Loại Tài Khoản</option>
-                                        <!--<option value="1">Cơ Bản</option>
-                                        <option value="2">Nâng Cao</option>-->
-                                    </select>
+                                    <input type="text" class="form-control" id="AccountType" name="AccountType" ng-model="order.AccountTypeName" placeholder="order.AccountTypeName" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerAmount">
@@ -105,11 +93,8 @@
                                     <label for="AccountType">
                                         Tình Trạng <span class="symbol required"></span>
                                     </label>
-                                    <select id="AccountType" class="form-control black" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                    <select id="AccountType" class="form-control black" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
                                         <option value="" disabled="">Chọn Tình Trạng</option>
-                                        <!--<option value="1">Đang Phê Duyệt</option>
-                                        <option value="2">Đã Duyệt</option>
-                                        <option value="3">Hủy</option>-->
                                     </select>
                                     <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Tình Trạng là bắt buộc.</span>
                                 </div>
@@ -189,6 +174,25 @@
                                 </div>
                             </div>
                         </form>
+                    </script>
+                    <script type="text/ng-template" id="myModalDeleteDetailsOrder.html">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <div class="modal-header">
+                            <span class="modal-title text-bold">Xóa Đơn Hàng</span>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" id="orderID" name="orderID" value="">
+                                <p>Bạn muốn xóa đơn hàng này không?</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="ok()">Đồng ý! Tôi muốn xóa</button>
+                            <button class="btn btn-primary btn-o" ng-click="cancel()">Không!. Tôi muốn giữ lại</button>
+                        </div>
                     </script>
                 </div>
             </div>

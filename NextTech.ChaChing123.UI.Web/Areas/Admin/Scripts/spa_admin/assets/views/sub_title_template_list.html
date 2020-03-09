@@ -1,0 +1,97 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Quản Lý Mẫu Tiêu Đề Phụ</h1>
+        </div>
+        <div ncy-breadcrumb=""></div>
+    </div>
+</section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                <div class="panel panel-white ng-scope" ng-controller="ngTableSubTitleTemplateListCtrl">
+                    <div class="panel-heading">
+                        <p>
+                            <button class="btn btn-primary" ng-click="addTitle(0)">
+                                Thêm Mới Tiêu Đề Phụ
+                            </button>
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr ng-repeat="entity in titles">
+                                    <td>#{{entity.ID}}</td>
+                                    <td>{{entity.Title}}</td>
+                                    <td class="center">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            <a ng-click="editTitle($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
+                                                <i class="fa fa-pencil" data="{{entity.ID}}"></i>
+                                            </a>
+                                            <a ng-click="deleteTitle($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
+                                                <i class="fa fa-times fa fa-white" data="{{entity.ID}}"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <script type="text/ng-template" id="myModalAddEditTitle.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormAddEditTitle" id="FormAddEditTitle" novalidate="" ng-submit="form.submit(FormAddEditTitle)">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">{{titleHeading}}</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditTitle.Title.$dirty && FormAddEditTitle.Title.$invalid, 'has-success':FormAddEditTitle.Title.$valid}">
+                                        <label for="Title">
+                                            Tên Tiêu Đề <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Title" name="Title" ng-model="entity.Title" placeholder="Tiêu Đề" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditTitle.Title.$dirty && FormAddEditTitle.Title.$invalid">Tiêu đề là bắt buộc.</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </script>
+                        <script type="text/ng-template" id="myModalDeleteTitle.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Xóa Tiêu Đề Phụ</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="titleID" name="titleID" value="">
+                                    <p>Bạn muốn xóa tiêu đề phụ này không?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">Đồng ý! Tôi muốn xóa</button>
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không!. Tôi muốn giữ lại</button>
+                            </div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body></html>

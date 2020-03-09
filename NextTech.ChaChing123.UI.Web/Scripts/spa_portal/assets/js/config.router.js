@@ -206,6 +206,41 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",
             title: 'Sửa Khách Hàng',
             resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.document', {
+            url: '/document',
+            templateUrl: "Scripts/spa_portal/assets/views/document.html",
+            title: 'Tài Liệu',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.document.usermanual', {
+            url: '/usermanual',
+            templateUrl: "Scripts/spa_portal/assets/views/document_user_manual.html",
+            title: 'Hướng Dẫn Sử Dụng',
+            ncyBreadcrumb: {
+                label: 'Hướng Dẫn Sử Dụng'
+            }
+            //resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.document.generalmarketing', {
+            url: '/generalmarketing',
+            templateUrl: "Scripts/spa_portal/assets/views/document_general_marketing.html",
+            title: 'Marketing Tổng Thể',
+            ncyBreadcrumb: {
+                label: 'Marketing Tổng Thể'
+            }
+        }).state('app.document.advancedmarketing', {
+            url: '/advancedmarketing',
+            templateUrl: "Scripts/spa_portal/assets/views/document_advanced_marketing.html",
+            title: 'Marketing Cao Cấp',
+            ncyBreadcrumb: {
+                label: 'Marketing Cao Cấp'
+            }
+            //resolve: loadSequence('ngTable', 'ngTableSoloPageListCtrl')
+        }).state('app.document.courses', {
+            url: '/courses',
+            templateUrl: "Scripts/spa_portal/assets/views/document_course.html",
+            title: 'Khóa Học',
+            ncyBreadcrumb: {
+                label: 'Khóa Học'
+            }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',

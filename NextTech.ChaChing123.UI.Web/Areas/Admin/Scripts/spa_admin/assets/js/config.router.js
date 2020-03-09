@@ -42,7 +42,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Dashboard'
             },
-            resolve: { isAuthenticated: isAuthenticated }
+            //resolve: { isAuthenticated: isAuthenticated }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -205,6 +205,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Khách Hàng'
             },
             resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
+        }).state('app.title', {
+            url: '/title',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Mẫu Tiêu Đề',
+            ncyBreadcrumb: {
+                label: 'Mẫu Tiêu Đề'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.title.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/title_template_list.html",
+            title: 'Quản Lý Mẫu Tiêu Đề',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Mẫu Tiêu Đề'
+            }
+            //resolve: loadSequence('ngTable', 'ngTableTitleListCtrl')
+        }).state('app.subtitle', {
+            url: '/subtitle',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Mẫu Tiêu Đề Phụ',
+            ncyBreadcrumb: {
+                label: 'Mẫu Tiêu Đề Phụ'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.subtitle.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/sub_title_template_list.html",
+            title: 'Quản Lý Mẫu Tiêu Đề Phụ',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Mẫu Tiêu Đề Phụ'
+            }
+            //resolve: loadSequence('ngTable', 'ngTableSubTitleListCtrl')
         }).state('app.configuration', {
             url: "/configuration",
             templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration.html",

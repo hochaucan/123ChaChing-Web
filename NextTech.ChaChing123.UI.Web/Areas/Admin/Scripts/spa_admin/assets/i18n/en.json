@@ -65,8 +65,14 @@
       "customers": {
         "MAIN": "Khách Hàng"
       },
+      "title_templates": {
+        "MAIN": "Mẫu Tiêu Đề"
+      },
+      "sub_title_templates": {
+        "MAIN": "Mẫu Tiêu Đề Phụ"
+      },
       "configurations": {
-        "MAIN":  "Cấu hình"
+        "MAIN": "Cấu hình"
       },
       "element": {
         "MAIN": "UI Elements",
