@@ -98,14 +98,27 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                     }
                 });
             };
+
+            $scope.deleteOrder = function (size) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'myModalDeleteDetailsOrder.html',
+                    controller: 'ModalDeleteDetailsOrderCtrl',
+                    size: size,
+                    resolve: {
+                        items: function () {
+                            $scope.orderID = size.target.attributes.data.value;
+                            return $scope.orderID;
+                        }
+                    }
+                });
+            };
         }
 
         $scope.OrderManage = {
             init: function () {
                 loadOrderList();
                 manageOrderList();
-            },
-
+            }
         };
 
         $scope.OrderManage.init();
@@ -118,16 +131,88 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
         $scope.AccountTypeList = {};
         $scope.AffiliateStatusList = {};
         $scope.orderID = 0;
+        $scope.orderID = items ? items : 0;
 
         $scope.ok = function () {
 
         };
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancle');
         };
 
+        function approveOrderForm() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        $scope.order = {
+                            "ContractNo": $scope.orderID,
+                            "CreatedDate": "",
+                            "CustomerAccount": "",
+                            "CustomerName": "",
+                            "CustomerEmail": "",
+                            "CustomerPhone": "",
+                            "PaymentStatus": 0,
+                            "PaymentStatusName": "",
+                            "AccountType": 0,
+                            "AccountTypeName": "",
+                            "CustomerAmount": 0,
+                            "AffiliateAmount": 0,
+                            "AffiliateAccount": "",
+                            "AffiliateName": "",
+                            "AffiliateStatus": $scope.order.AffiliateStatus,
+                            "AffiliateStatusName": $scope.order.AffiliateStatusName
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        orderService.EditOrderDetails($scope.order, function (result) {
+                            if (result.data && result.data.StatusCode == 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode == 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
         function loadOrderDetails() {
-            $scope.orderID = items;
+            //1. call an API to get order details by ID
             $scope.order = {
                 "ContractNo": "95774698",
                 "CreatedDate": "2020-01-19 18:06:23",
@@ -177,10 +262,14 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
                 loadAccountTypeList();
                 loadAffiliateStatus();
                 loadOrderDetails();
+            },
+            edit: function () {
+                approveOrderForm();
             }
         };
 
         $scope.ModalEditOrderManager.init();
+        $scope.ModalEditOrderManager.edit();
     }]);
 
 app.controller('ModalViewDetailsOrderCtrl', ["$scope", "$uibModalInstance", "items", "orderService", "notificationService",
@@ -224,4 +313,41 @@ app.controller('ModalViewDetailsOrderCtrl', ["$scope", "$uibModalInstance", "ite
         };
 
         $scope.ModalEditOrderManager.init();
+    }]);
+
+app.controller('ModalDeleteDetailsOrderCtrl', ["$scope", "$localStorage", "$uibModalInstance", "items", "orderService", "notificationService",
+    function ($scope, $localStorage, $uibModalInstance, items, orderService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
+        $scope.orderID = 0;
+
+        $scope.ok = function () {
+            var ID = items;
+
+            var order = {
+                "ID": ID,
+                "SessionKey": sessionKey
+            };
+
+            orderService.DeleteOrderDetails(order, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode == 0) {
+                    notificationService.displaySuccess('Xóa Đơn Hàng Thành Công');
+                    $uibModalInstance.dismiss('cancel');
+                    $window.location.reload();
+                }
+                else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                    }, 2000);
+                }
+            });
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancle');
+        };
     }]);

@@ -12,11 +12,25 @@
         //var baseUrl = 'http://localhost:8002';
 
         var service = {
-            GetOrderList: GetOrderList
+            GetOrderList: GetOrderList,
+            EditOrderDetails: EditOrderDetails,
+            DeleteOrderDetails: DeleteOrderDetails
         };
 
-        function GetOrderList(memberObj, completed) {
-            apiService.post(baseUrl + '/GetOrderList/', memberObj,
+        function GetOrderList(orderObj, completed) {
+            apiService.post(baseUrl + '/GetOrderList/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function EditOrderDetails(orderObj, completed) {
+            apiService.post(baseUrl + '/EditOrderDetails/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function DeleteOrderDetails(memberObj, completed) {
+            apiService.post(baseUrl + '/DeleteOrderDetails/', orderObj,
                 completed,
                 getOrderListFailed);
         }
