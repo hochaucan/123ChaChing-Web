@@ -1,0 +1,29 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <!-- end: PAGE TITLE -->
+    <!-- start: TABS -->
+    <!-- /// controller:  'DocumentMasterController' -  localtion: assets/js/controllers/documentCtrl.js /// -->
+    <div>
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div ng-controller="DocumentMasterController">
+                        <uib-tabset active="active">
+                            <uib-tab ng-repeat="t in tabs"
+                                     heading="{{t.heading}}"
+                                     select="go(t.route)"
+                                     active="t.active">
+                            </uib-tab>
+                        </uib-tabset>
+                        <div ui-view></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
