@@ -2,7 +2,7 @@
 
 namespace NextTech.ChaChing123.Common.Models
 {
-   public class BODocumentsItem1DTO
+   public class BODocumentsItemDTO
     {
         public int ID { get; set; }
 
@@ -14,10 +14,11 @@ namespace NextTech.ChaChing123.Common.Models
 
         public int Active { get; set; }
 
+        public string SessionKey { get; set; }
         public int Type { get; set; }
         public int IsAdvanced { get; set; }
 
-        private BODocumentsItem1DTO()
+        private BODocumentsItemDTO()
         {
             ID = -1;
             Order = 0;
@@ -26,6 +27,7 @@ namespace NextTech.ChaChing123.Common.Models
             Active = 1;
             Title = string.Empty;
             Description = string.Empty;
+            SessionKey = string.Empty;
         }
     }
 }

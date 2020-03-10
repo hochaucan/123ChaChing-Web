@@ -119,8 +119,10 @@ namespace NextTech.ChaChing123.Business
         #region [Documents]
         // Get All Documents
         ResultDTO GetAllDocuments(RequestDTO obj);
+        ResultDTO GetAllDocumentsByAccount(RequestDTO obj);
         // Add Item
         ResultDTO AddDocuments(BODocumentsItemDTO obj);
+        
         // Update Item By ID
         ResultDTO UpdateDocumentsByID(BODocumentsItemDTO obj);
         // Delete Item By ID
@@ -130,6 +132,8 @@ namespace NextTech.ChaChing123.Business
         #region [Document]
         // Get All Document
         ResultDTO GetAllDocument(RequestDTO obj);
+        ResultDTO GetDocumentInfoByID(RequestDTO obj);
+        
         // Add Item
         ResultDTO AddDocument(BODocumentItemDTO obj);
         // Update Item By ID

@@ -43,6 +43,8 @@ namespace NextTech.ChaChing123.Business
         ResultDTO GetLeadsDetailByAccount(RegisterLeadBySoloPageDTO obj);
         ResultDTO GetAllLeadsByAccount(LeadsDTO obj);
         ResultDTO SummaryLeadsReportByAccount(SummaryRequestDTO obj);
+        ResultDTO SummaryLeadsChartByAccount(SummaryRequestDTO obj);
+        
         #endregion
     }
 }
