@@ -907,7 +907,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        [AllowAnonymous]
+        [Route("GetAllDocumentsByAccount")]
+        [HttpPost]
+        public HttpResponseMessage GetAllDocumentsByAccount(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllDocumentsByAccount(obj));
+                return response;
+            });
+        }
+        
         [AllowAnonymous]
         [Route("AddDocuments")]
         [HttpPost]
@@ -961,7 +973,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-
+        [AllowAnonymous]
+        [Route("GetDocumentInfoByID")]
+        [HttpPost]
+        public HttpResponseMessage GetDocumentInfoByID(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetDocumentInfoByID(obj));
+                return response;
+            });
+        }
+        
         [AllowAnonymous]
         [Route("AddDocument")]
         [HttpPost]

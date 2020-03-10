@@ -498,6 +498,71 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
 
         }
+
+        public static ResultDTO SummaryLeadsChartByAccount(this IEntityBaseRepository<Account> repository, SummaryRequestDTO obj)
+        {
+
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            LeadsChartOfMonthDTO LeadsChart = new LeadsChartOfMonthDTO();
+            int fag = 0;
+            LeadsChart.EnrolledItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("LeadType", fag),
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).ToList<LeadsOfMonthDTO>();
+            fag++;
+            var errorCode1 = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            LeadsChart.ColdItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                       new SqlParameter("LeadType", fag),
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode1).ToList<LeadsOfMonthDTO>();
+            fag++;
+            var errorCode2 = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            LeadsChart.WarmItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("LeadType", fag),
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode2).ToList<LeadsOfMonthDTO>();
+            fag++;
+            var errorCode3 = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            LeadsChart.HotItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("LeadType", fag),
+                        new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
+                        new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode3).ToList<LeadsOfMonthDTO>();
+
+            result.Details = LeadsChart;
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+
+        }
+
+        
         #endregion
         //public static ResultDTO AddTokenPush.
 
