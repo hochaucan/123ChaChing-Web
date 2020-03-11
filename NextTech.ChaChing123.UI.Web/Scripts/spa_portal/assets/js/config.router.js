@@ -241,6 +241,34 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Khóa Học'
             }
+        }).state('app.response', {
+            url: '/response',
+            templateUrl: "Scripts/spa_portal/assets/views/response.html",
+            title: 'Trả Lời Nhanh',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.now', {
+            url: '/now',
+            templateUrl: "Scripts/spa_portal/assets/views/response_now.html",
+            title: 'Trả Lời Nhanh',
+            ncyBreadcrumb: {
+                label: 'Trả Lời Nhanh'
+            }
+            //resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.script', {
+            url: '/script',
+            templateUrl: "Scripts/spa_portal/assets/views/response_script.html",
+            title: 'Nhắn Tin Theo Kịch Bản',
+            ncyBreadcrumb: {
+                label: 'Nhắn Tin Theo Kịch Bản'
+            }
+        }).state('app.response.rebuttal', {
+            url: '/rebuttal',
+            templateUrl: "Scripts/spa_portal/assets/views/response_rebuttal.html",
+            title: 'Xử Lý Sự Từ Chối',
+            ncyBreadcrumb: {
+                label: 'Xử Lý Sự Từ Chối'
+            }
+            //resolve: loadSequence('ngTable', 'ngTableSoloPageListCtrl')
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',
