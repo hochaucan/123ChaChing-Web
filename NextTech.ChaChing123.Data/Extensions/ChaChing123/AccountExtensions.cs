@@ -356,11 +356,12 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddLeadsByAccount] @Name,@Email,@Phone,@SoloID,@LeadsType,@Notes,@SessionKey,@errorCode out",
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddLeadsByAccount] @Name,@Email,@Phone,@FunnalID,@SoloID,@LeadsType,@Notes,@SessionKey,@errorCode out",
                         new SqlParameter("Name", DB.SafeSQL(obj.Name)),
                         new SqlParameter("Email", DB.SafeSQL(obj.Email)),
                         new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
                         new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),
+                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnalID)),
                         new SqlParameter("LeadsType", obj.LeadsType),
                         new SqlParameter("Notes", DB.SafeSQL(obj.Notes)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),

@@ -18,10 +18,12 @@ namespace NextTech.ChaChing123.Common.Models
         public string AffialateName { get; set; }
         public int Status { get; set; }
         public string StatusName { get; set; }
-        public string Link { get; set; }
+        public string SoloLink { get; set; }
         public string Notes { get; set; }
-        public string PageName { get; set; }
-        
+        public string SoloPageName { get; set; }
+        public string FunnalLink { get; set; }
+        public string FunnalPageName { get; set; }
+
         private LeadsItemDTO()
         {
             ID = -1;
@@ -34,9 +36,11 @@ namespace NextTech.ChaChing123.Common.Models
             AffialateName = string.Empty;
             Status = -1;
             StatusName = string.Empty;
-            Link = string.Empty;
+            SoloLink = string.Empty;
             Notes = string.Empty;
-            PageName = string.Empty;
+            SoloPageName = string.Empty;
+            FunnalPageName = string.Empty;
+            FunnalLink = string.Empty;
         }
     }
 }

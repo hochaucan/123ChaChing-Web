@@ -543,11 +543,12 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_FO_RegisterLeadBySoloPage] @Name,@Email,@Phone,@SoloID,@errorCode out",
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_FO_RegisterLeadBySoloPage] @Name,@Email,@Phone,@FunnalID,@SoloID,@errorCode out",
                         new SqlParameter("Name", DB.SafeSQL(obj.Name)),
                         new SqlParameter("Email", DB.SafeSQL(obj.Email)),
                         new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
-                        new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),
+                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnalID)),
+                        new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),                        
                         errorCode);
 
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
