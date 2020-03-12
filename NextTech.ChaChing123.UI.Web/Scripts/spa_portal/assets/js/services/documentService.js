@@ -11,10 +11,8 @@
         //var baseUrl = 'http://localhost:1494';
 
         var service = {
-            GetAllDocuments: GetAllDocuments,
-            AddDocuments: AddDocuments,
-            UpdateDocumentsByID: UpdateDocumentsByID,
-            DeleteDocumentsByID: DeleteDocumentsByID
+            GetAllDocuments: GetAllDocuments, // Get all document categories
+            GetAllDocument: GetAllDocument // Get all related documents for a specific category
         };
 
         function GetAllDocuments(entity, completed) {
@@ -24,22 +22,8 @@
             );
         }
 
-        function AddDocuments(entity, completed) {
-            apiService.post(baseUrl + '/api/Admin/AddDocuments/', entity,
-                completed,
-                entityFailed
-            );
-        }
-
-        function UpdateDocumentsByID(entity, completed) {
-            apiService.post(baseUrl + '/api/Admin/UpdateDocumentsByID/', entity,
-                completed,
-                leadsFailed
-            );
-        }
-
-        function DeleteDocumentsByID(entity, completed) {
-            apiService.post(baseUrl + '/api/Admin/DeleteDocumentsByID/', entity,
+        function GetAllDocument(entity, completed) {
+            apiService.post(baseUrl + '/api/Admin/GetAllDocument/', entity,
                 completed,
                 entityFailed
             );

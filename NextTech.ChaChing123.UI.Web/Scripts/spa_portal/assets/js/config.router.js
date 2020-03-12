@@ -206,6 +206,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",
             title: 'Sửa Khách Hàng',
             resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.documents', {
+            url: '/documents',
+            templateUrl: "Scripts/spa_portal/assets/views/document.html",
+            title: 'Tài Liệu',
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.document', {
             url: '/document',
             templateUrl: "Scripts/spa_portal/assets/views/document.html",

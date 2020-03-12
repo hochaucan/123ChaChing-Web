@@ -280,6 +280,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\leadListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mainCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\subtitleTemplateListCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentCategoryCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\titleTemplateListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\orderListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\memberListCtrl.js" />
@@ -322,6 +323,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\fileUploadService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\leadService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\subtitleTemplateService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\documentCategoryService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\titleTemplateService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\orderService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\membershipService.js" />

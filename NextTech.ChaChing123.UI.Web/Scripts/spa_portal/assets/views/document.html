@@ -13,13 +13,55 @@
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-controller="DocumentMasterController">
                         <uib-tabset active="active">
-                            <uib-tab ng-repeat="t in tabs"
-                                     heading="{{t.heading}}"
-                                     select="go(t.route)"
-                                     active="t.active">
+                            <uib-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" active="tab.active" ng-click="getDocuments(tab.id)">
+                                <div class="row" ng-if="tab.order == '1' || tab.order == '2' || tab.order == '3'">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="panel panel-transparent">
+                                            <div class="panel-heading">
+                                                <div class="panel-title">
+                                                    <h3 class="over-title margin-bottom-15"><span class="text-bold">{{tab.heading}}</span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6" ng-repeat="document in documentContent">
+                                                        <div class="thumbnail">
+                                                            <div class="caption">
+                                                                <h4>{{document.Title}}</h4>
+                                                            </div>
+                                                            <iframe width="424" height="238" ng-src="{{document.Link}}" frameborder="0" allowfullscreen></iframe>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="tab.order == '4'">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="panel panel-transparent">
+                                            <div class="panel-heading">
+                                                <div class="panel-title">
+                                                    <h3 class="over-title margin-bottom-15"><span class="text-bold">{{tab.heading}}</span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6" ng-repeat="document in documentContent">
+                                                        <div class="thumbnail">
+                                                            <div class="caption">
+                                                                <h4>{{document.Title}}</h4>
+                                                            </div>
+                                                            <img src="{{document.ImagePath}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </uib-tab>
                         </uib-tabset>
-                        <div ui-view></div>
                     </div>
                 </div>
             </div>
