@@ -1,0 +1,64 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <!-- start: VACCORDION -->
+    <div class="row">
+        <!-- /// controller:  'vAccordionCtrl' -  localtion: assets/js/controllers/responseRebuttalCtrl.js /// -->
+        <div ng-controller="responseRebuttalvAccordionCtrl">
+            <div class="col-md-12">
+                <div class="panel panel-transparent">
+                    <div class="panel-body">
+                        <v-accordion class="vAccordion--default" control="firstAccordionControl">
+                            <v-pane ng-repeat="pane in panes" expanded="$first">
+                                <v-pane-header>
+                                    <h5>{{ pane.header }}</h5>
+                                </v-pane-header>
+                                <v-pane-content>
+                                    <p>
+                                        {{ pane.content }}
+                                    </p>
+                                    <p>
+                                        <button class="btn btn-wide btn-primary">
+                                            Nhắn Tin
+                                        </button>
+                                        <button class="btn btn-wide btn-primary" ng-click="updateRebuttalContent($event)">
+                                            Sửa
+                                        </button>
+                                    </p>
+                                </v-pane-content>
+                            </v-pane>
+                        </v-accordion>
+                    </div>
+                </div>
+            </div>
+            <script type="text/ng-template" id="myModalupdateRebuttalContent.html">
+                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                <form class="form-addnewlead-request" name="FormAddNewLead" id="FormAddNewLead" novalidate="" ng-submit="form.submit(FormAddNewLead)">
+                    <div class="modal-header">
+                        <span class="modal-title text-bold">Sửa Nội Dung Xử Lý Bị Từ Chối</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="leadNotes">
+                                Ghi Chú
+                            </label>
+                            <input type="text" class="form-control" id="leadNotes" name="Notes" ng-model="rebuttal.Notes" placeholder="Xử Lý Sự Từ Chối">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Hoàn Tất
+                        </button>
+                    </div>
+                </form>
+            </script>
+        </div>
+    </div>
+    <!-- end: VACCORDION -->
+</body>
+</html>
