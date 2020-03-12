@@ -9,6 +9,7 @@ namespace NextTech.ChaChing123.Common.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string SoloID { get; set; }
+        public string FunnalID { get; set; }
         public string Notes { get; set; }
         public int LeadsType { get; set; }
         public string SessionKey { get; set; }
@@ -21,7 +22,8 @@ namespace NextTech.ChaChing123.Common.Models
             Email = string.Empty;
             Phone = string.Empty;
             SoloID = "0";
-            Notes= string.Empty;
+            FunnalID = "0";            
+            Notes = string.Empty;
             SessionKey = string.Empty;
         }
     }
