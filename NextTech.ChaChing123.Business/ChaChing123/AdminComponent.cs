@@ -859,6 +859,23 @@ namespace NextTech.ChaChing123.Business
 
             return errorCode;
         }
+        public ResultDTO GetAllDocumentsByAccount(RequestDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetAllDocumentsByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllDocumentsByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+        }
+        
         // Add Item
         public ResultDTO AddDocuments(BODocumentsItemDTO obj)
         {
@@ -930,6 +947,23 @@ namespace NextTech.ChaChing123.Business
 
             return errorCode;
         }
+        public ResultDTO GetDocumentInfoByID(RequestDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetDocumentInfoByID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetDocumentInfoByID", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+        }
+        
         // Add Item
         public ResultDTO AddDocument(BODocumentItemDTO obj)
         {

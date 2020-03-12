@@ -352,6 +352,27 @@ namespace NextTech.ChaChing123.Business
             return rsInfo;
 
         }
+        public ResultDTO SummaryLeadsChartByAccount(SummaryRequestDTO obj)
+        {
+            ResultDTO rsInfo = new ResultDTO();
+            try
+            {
+                obj.StartList = Utilities.Common.GeStartListByYear(obj.YearList);
+                obj.EndList = Utilities.Common.GeEndListByYear(obj.YearList);
+                rsInfo = _repository.SummaryLeadsChartByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("SummaryLeadsChartByAccount", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                rsInfo.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                rsInfo.StatusMsg = ex.Message.ToString();
+            }
+
+            return rsInfo;
+
+        }
+        
+
         #endregion
 
         #endregion

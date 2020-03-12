@@ -311,12 +311,31 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<BOAccountInfo2DTO>("EXEC [dbo].[sp_BO_GetAffiliateList]  @AccountName,@SessionKey,@errorCode out",
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<BOAccountInfo2DTO>("EXEC [dbo].[sp_BO_GetAffiliateListByAccount]  @AccountName,@SessionKey,@Count out,@errorCode out",
                         new SqlParameter("AccountName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode).ToList<BOAccountInfo2DTO>();
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
+                    count,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOAccountInfo2DTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
             return result;
         }
         // No.13
@@ -355,14 +374,27 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<BOAccountInfo2DTO>("EXEC [dbo].[sp_BO_GetWithDrawalInfoByAccount]  @AccountName,@SessionKey,@Count out,@errorCode out",
+            try
+            {
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<BOWithDrawallInfoDTO>("EXEC [dbo].[sp_BO_GetWithDrawalInfoByAccount]  @AccountName,@SessionKey,@Count out,@errorCode out",
                         new SqlParameter("AccountName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         count,
-                        errorCode).ToList<BOAccountInfo2DTO>();
-
-            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            result.SetContentMsg();
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOWithDrawallInfoDTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
 
             return result;
         }
@@ -1339,10 +1371,47 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOResponseDto>("EXEC [dbo].[sp_BO_Documents_GetAll] @SessionKey, @Count out, @errorCode out",
+                Items.Items = dbContext.Database.SqlQuery<BODocumentsItem1DTO>("EXEC [dbo].[sp_BO_Documents_GetAll] @SessionKey, @Count out, @errorCode out",
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
-                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOResponseDto>();
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BODocumentsItem1DTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
+
+            return result;
+        }
+        // Get All by account
+        public static ResultDTO GetAllDocumentsByAccount(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<BODocumentsItem1DTO>("EXEC [dbo].[sp_FO_Documents_GetAll] @SessionKey, @Count out, @errorCode out",
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    count,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BODocumentsItem1DTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
@@ -1372,14 +1441,15 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             try
             {
-                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_Documents_Add] @Title,@Description,@Order,@Active,@SessionKey, @errorCode out",
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_Documents_Add] @Title,@Description,@Order,@Type,@Active,@IsAdvanced,@SessionKey, @errorCode out",
               new SqlParameter("Title", DB.SafeSQL(obj.Title)),
               new SqlParameter("Description", DB.SafeSQL(obj.Description)),
               new SqlParameter("Order", obj.Order),
+              new SqlParameter("Type", obj.Type),
               new SqlParameter("Active", obj.Active),
+              new SqlParameter("IsAdvanced", obj.IsAdvanced),
               new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
               errorCode);
-
 
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
@@ -1405,12 +1475,14 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             try
             {
-                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_Documents_Add] @ID,@Title,@Description,@Order,@Active,@SessionKey, @errorCode out",
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_Documents_Update] @ID,@Title,@Description,@Order,@Type,@Active,@IsAdvanced,@SessionKey, @errorCode out",
               new SqlParameter("ID", obj.ID),
               new SqlParameter("Title", DB.SafeSQL(obj.Title)),
               new SqlParameter("Description", DB.SafeSQL(obj.Description)),
               new SqlParameter("Order", obj.Order),
+              new SqlParameter("Type", obj.Type),
               new SqlParameter("Active", obj.Active),
+              new SqlParameter("IsAdvanced", obj.IsAdvanced),
               new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
               errorCode);
 
@@ -1454,6 +1526,7 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
+       
         #endregion
 
         #region [Document]
@@ -1474,10 +1547,11 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOResponseDto>("EXEC [dbo].[sp_BO_Document_GetAll] @SessionKey, @Count out, @errorCode out",
+                Items.Items = dbContext.Database.SqlQuery<BODocumentItem1DTO>("EXEC [dbo].[sp_BO_Document_GetAll] @DocsID,@SessionKey, @Count out, @errorCode out",
+                    new SqlParameter("DocsID", obj.ID),
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
-                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOResponseDto>();
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BODocumentItem1DTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
@@ -1494,6 +1568,34 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
+        public static ResultDTO GetDocumentInfoByID(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                result.Details = dbContext.Database.SqlQuery<BODocumentItem1DTO>("EXEC [dbo].[sp_BO_Document_GetInfoByID] @ID,@SessionKey, @errorCode out",
+                    new SqlParameter("ID", obj.ID),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    errorCode).FirstOrDefault<BODocumentItem1DTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+               
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
+
+            return result;
+        }
+
         // Add Item
         public static ResultDTO AddDocument(this IEntityBaseRepository<Admin> repository, BODocumentItemDTO obj)
         {

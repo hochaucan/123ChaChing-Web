@@ -47,6 +47,10 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\LeadsChartOfMonthDto.cs" />
+    <Compile Include="DTO\ChaChing123\BODocument1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BODocuments1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOWithDrawallInfoDto.cs" />
     <Compile Include="DTO\ChaChing123\BOCommentDto.cs" />
     <Compile Include="DTO\ChaChing123\BOScriptItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOResponseDto.cs" />

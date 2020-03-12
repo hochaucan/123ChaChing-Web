@@ -480,6 +480,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+        [AllowAnonymous]
+        [Route("SummaryLeadsChartByAccount")]
+        [HttpPost]
+        public HttpResponseMessage SummaryLeadsChartByAccount(HttpRequestMessage request, SummaryRequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.SummaryLeadsChartByAccount(obj));
+                return response;
+            });
+        }
+        
         #endregion
     }
 }
