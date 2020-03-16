@@ -39,6 +39,7 @@ app.constant('JS_REQUIRES', {
         'ngTableMemberListCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/memberListCtrl.js',
         'ngTableOrderListCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/orderListCtrl.js',
         'ngTableLeadListCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/leadListCtrl.js',
+        'ngTableDocumentManagerCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/documentManagerCtrl.js',
         'cropCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/cropCtrl.js',
         'asideCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/asideCtrl.js',
         'toasterCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/toasterCtrl.js',

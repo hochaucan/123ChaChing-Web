@@ -10,11 +10,11 @@
         <div class="container-fluid container-fullw bg-white">
             <div class="row">
                 <div class="col-md-12">
-                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-controller="DocumentMasterController">
-                        <uib-tabset active="active">
-                            <uib-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" active="tab.active" ng-click="getDocuments(tab.id)">
-                                <div class="row" ng-if="tab.order == '1' || tab.order == '2' || tab.order == '3'">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <uib-tabset class="tabbable">
+                            <uib-tab ng-repeat="tab in tabs" heading="{{tab.heading}}" active="tab.active" select="getDocumentContentByID(tab)">
+                                <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="panel panel-transparent">
                                             <div class="panel-heading">
@@ -29,7 +29,8 @@
                                                             <div class="caption">
                                                                 <h4>{{document.Title}}</h4>
                                                             </div>
-                                                            <iframe width="424" height="238" ng-src="{{document.Link}}" frameborder="0" allowfullscreen></iframe>
+                                                            <iframe ng-if="tab.type == '1'" width="424" height="238" ng-src="{{document.Link}}" frameborder="0" allowfullscreen></iframe>
+                                                            <img ng-if="tab.type == '2'" src="{{document.ImagePath}}" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -37,22 +38,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" ng-if="tab.order == '4'">
+                                <div class="row" ng-if="tab.order == '1'">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                                     <div class="col-sm-12 col-md-12">
                                         <div class="panel panel-transparent">
                                             <div class="panel-heading">
                                                 <div class="panel-title">
-                                                    <h3 class="over-title margin-bottom-15"><span class="text-bold">{{tab.heading}}</span></h3>
+                                                    <h3 class="over-title margin-bottom-15"><span class="text-bold">Tài Liệu Đính Kèm</span></h3>
                                                 </div>
                                             </div>
                                             <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-6" ng-repeat="document in documentContent">
-                                                        <div class="thumbnail">
-                                                            <div class="caption">
-                                                                <h4>{{document.Title}}</h4>
-                                                            </div>
-                                                            <img src="{{document.ImagePath}}" alt="">
+                                                <div class="media" ng-repeat="document in documentContentAttachments">
+                                                    <a class="media-left" href="#">
+                                                        <img src="{{document.ImagePath}}" alt="" class="media-object">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <div class="col-md-10">
+                                                            <p>
+                                                                {{document.Title}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <h4 class="media-heading text-right"><a data="{{document.ID}}" ng-click="viewDocumentDetails($event)">Xem Thêm</a></h4>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -60,6 +67,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script type="text/ng-template" id="myModalViewAttachedDocumentDetails.html">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                    <div class="modal-header">
+                                        <span class="modal-title text-bold">Chi Tiết Tài Liệu Đính Kèm</span>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <p class="text-left">
+                                                            <span class="text-bold text-uppercase">{{documentDetails.Title}}</span>
+                                                        </p>
+                                                        <p>
+                                                            {{documentDetails.Content}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </script>
                             </uib-tab>
                         </uib-tabset>
                     </div>
