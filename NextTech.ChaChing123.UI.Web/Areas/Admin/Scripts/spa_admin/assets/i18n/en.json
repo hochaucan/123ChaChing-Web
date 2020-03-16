@@ -71,6 +71,9 @@
       "sub_title_templates": {
         "MAIN": "Mẫu Tiêu Đề Phụ"
       },
+      "documents": {
+        "MAIN": "Tài Liệu"
+      },
       "configurations": {
         "MAIN": "Cấu hình"
       },

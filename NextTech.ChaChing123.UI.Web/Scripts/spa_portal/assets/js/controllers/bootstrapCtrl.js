@@ -138,7 +138,11 @@ app.controller('AlertDemoCtrl', ["$scope", function ($scope) {
         title: 'Dynamic Title 2',
         content: 'Dynamic content 2',
         disabled: false
-    }];
+        }];
+
+    $scope.firstTabContent = {
+        content: 'This is first tab content'
+    };
 
     $scope.alertMe = function () {
         setTimeout(function () {

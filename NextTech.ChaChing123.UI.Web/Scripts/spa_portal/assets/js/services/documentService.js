@@ -12,7 +12,8 @@
 
         var service = {
             GetAllDocuments: GetAllDocuments, // Get all document categories
-            GetAllDocument: GetAllDocument // Get all related documents for a specific category
+            GetAllDocument: GetAllDocument, // Get all related documents for a specific category
+            GetDocumentInfoByID: GetDocumentInfoByID
         };
 
         function GetAllDocuments(entity, completed) {
@@ -24,6 +25,13 @@
 
         function GetAllDocument(entity, completed) {
             apiService.post(baseUrl + '/api/Admin/GetAllDocument/', entity,
+                completed,
+                entityFailed
+            );
+        }
+
+        function GetDocumentInfoByID(entity, completed) {
+            apiService.post(baseUrl + '/api/Admin/GetDocumentInfoByID/', entity,
                 completed,
                 entityFailed
             );

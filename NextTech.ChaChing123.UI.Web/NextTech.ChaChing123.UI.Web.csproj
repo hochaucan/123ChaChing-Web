@@ -281,6 +281,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mainCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\subtitleTemplateListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentCategoryCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\titleTemplateListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\orderListCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\memberListCtrl.js" />
@@ -289,6 +290,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\selectCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\sweetAlertCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\toasterCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\uploadResourceCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\uploadCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\userCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\userLoginCtrl.js" />
@@ -320,6 +322,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\documentService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\fileUploadService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\leadService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\subtitleTemplateService.js" />
@@ -348,6 +351,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\login_signin.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\order_edit_modal.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\sub_title_template_list.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\document_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\title_template_list.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\order_list.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\pages_user_profile.html" />
