@@ -3,11 +3,8 @@
  * controllers for ng-table
  * Simple table with sorting and filtering on AngularJS
  */
-var baseUrl = 'https://api.123chaching.app';
-var resourceUploaderPath = "";
-var imageUploaderPath = "";
 
-app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "documentService", "membershipService", "notificationService",
+app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "documentService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, documentService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.documents = {};
@@ -23,12 +20,12 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
                         var entity = {};
 
                         entity = {
-                            "ID": 3,
                             "SessionKey": sessionKey
                         };
 
                         // Load the data from the API
-                        documentService.GetAllDocument(entity, function (result) {
+                        $scope.showSpinner = true;
+                        documentService.GetAllDocuments(entity, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -57,8 +54,8 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
         function manageDocumentActions() {
             $scope.addDocument = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalAddEditDocument.html',
-                    controller: 'ModalAddEditDocumentCtrl',
+                    templateUrl: 'myModalAddEditDocumentCategory.html',
+                    controller: 'ModalAddEditDocumentCategoryCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -70,8 +67,8 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
 
             $scope.editDocument = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalAddEditDocument.html',
-                    controller: 'ModalAddEditDocumentCtrl',
+                    templateUrl: 'myModalAddEditDocumentCategory.html',
+                    controller: 'ModalAddEditDocumentCategoryCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -84,8 +81,8 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
 
             $scope.viewDetailsDocument = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalViewDetailsDocument.html',
-                    controller: 'ModalViewDetailsDocumentCtrl',
+                    templateUrl: 'myModalViewDetailsDocumentCategory.html',
+                    controller: 'ModalViewDetailsDocumentCategoryCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -98,8 +95,8 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
 
             $scope.deleteDocument = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalDeleteDocument.html',
-                    controller: 'ModalDeleteDocumentCtrl',
+                    templateUrl: 'myModalDeleteDocumentCategory.html',
+                    controller: 'ModalDeleteDocumentCategoryCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -121,7 +118,7 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
         $scope.DocumentManager.init();
     }]);
 
-app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "membershipService", "notificationService",
+app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, documentService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
@@ -131,7 +128,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.isShowImageUpload = false;
         //$scope.isShowResourceUpload = false;
 
-        $scope.documentHeading = "Thêm Mới Tài Liệu";
+        $scope.documentHeading = "Thêm Mới Danh Mục Tài Liệu";
         $scope.documentID = 0;
         if (items === undefined)
             items = 0;
@@ -139,9 +136,9 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.documentID = items ? items : 0;
 
         if ($scope.documentID === 0)
-            $scope.documentHeading = "Thêm Mới Tài Liệu";
+            $scope.documentHeading = "Thêm Mới Danh Mục Tài Liệu";
         else
-            $scope.documentHeading = "Cập Nhật Tài Liệu";
+            $scope.documentHeading = "Cập Nhật Danh Mục Tài Liệu";
 
         $scope.ok = function () {
 
@@ -180,26 +177,20 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                             $scope.entity = {
                                 "ID": $scope.documentID,
                                 "Title": $scope.entity.Title,
-                                "Content": $scope.entity.Content,
-                                "ImagePath": imageUploaderPath,
-                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
-                                "ResourcePath": resourceUploaderPath,
-                                "Style": "1",
-                                "DocumentsID": $scope.entity.DocumentsID,
+                                "Description": $scope.entity.Description,
                                 "Order": $scope.entity.Order,
+                                "Type": $scope.entity.Type,
+                                "IsAdvanced": "1",
                                 "SessionKey": sessionKey
                             };
 
                             $scope.showSpinner = true;
                             // Load the data from the API
-                            documentService.UpdateDocumentByID($scope.entity, function (result) {
+                            documentService.UpdateDocumentsByID($scope.entity, function (result) {
                                 if (result.data && result.data.StatusCode === 17) {
                                     membershipService.checkMemberAuthorization();
                                 }
 
-                                // Reset image/resource path
-                                imageUploaderPath = "";
-                                resourceUploaderPath = "";
                                 if (result.data && result.data.StatusCode === 0) {
                                     notificationService.displaySuccess(result.data.StatusMsg);
                                     $timeout(function () {
@@ -218,26 +209,20 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                         } else {
                             $scope.entity = {
                                 "Title": $scope.entity.Title,
-                                "Content": $scope.entity.Content,
-                                "ImagePath": imageUploaderPath,
-                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
-                                "ResourcePath": resourceUploaderPath,
-                                "Style": "1",
-                                "DocumentsID": $scope.entity.DocumentsID,
+                                "Description": $scope.entity.Description,
                                 "Order": $scope.entity.Order,
+                                "Type": $scope.entity.Type,
+                                "IsAdvanced": "1",
                                 "SessionKey": sessionKey
                             };
 
                             $scope.showSpinner = true;
                             // Load the data from the API
-                            documentService.AddDocument($scope.entity, function (result) {
+                            documentService.AddDocuments($scope.entity, function (result) {
                                 if (result.data && result.data.StatusCode === 17) {
                                     membershipService.checkMemberAuthorization();
                                 }
 
-                                // Reset image/resource path
-                                imageUploaderPath = "";
-                                resourceUploaderPath = "";
                                 if (result.data && result.data.StatusCode === 0) {
                                     notificationService.displaySuccess(result.data.StatusMsg);
                                     $timeout(function () {
@@ -259,52 +244,36 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
             };
         }
 
-        function loadDocumentCategories() {
-            var entity = {
-                SessionKey: sessionKey
-            };
-
-            $scope.showSpinner = true;
-            documentService.GetAllDocuments(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
+        function loadDocumentCategoryTypes() {
+            $scope.documentCategories = [
+                {
+                    ID: 1,
+                    Title: "Video"
+                },
+                {
+                    ID: 2,
+                    Title: "Hình Ảnh"
+                },
+                {
+                    ID: 3,
+                    Title: "Tài Liệu"
                 }
-
-                if (result.data && result.data.StatusCode === 0) {
-                    //$scope.titles = result.data.Details;
-                    $scope.documentCategories = result.data.Details.Items;
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-                else {
-                    notificationService.displayError(result.data.StatusMsg);
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
+            ];
         }
 
         function loadDocumentDetails() {
             var entity = {
-                ID: $scope.documentID,
                 SessionKey: sessionKey
             };
 
             $scope.showSpinner = true;
-            documentService.GetDocumentInfoByID(entity, function (result) {
+            documentService.GetAllDocumentsByAccount(entity, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
 
                 if (result.data && result.data.StatusCode === 0) {
                     $scope.entity = result.data.Details;
-
-                    $scope.documentCategoryID = result.data.Details.DocumentsID;
-                    showHideUploader($scope.documentCategoryID);
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -318,45 +287,13 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
             });
         }
 
-        function showHideUploader(documentCategoryID) {
-            var categoryType = 0;
-            angular.forEach($scope.documentCategories, function (category, index) {
-                if (documentCategoryID === category.ID) {
-                    categoryType = category.Type;
-                    return;
-                }
-            });
-
-            if (categoryType === 1) { // Video
-                $scope.isShowLinkDestination = true; // Show Link Area
-                $scope.isShowImageUpload = false;
-                //$scope.isShowResourceUpload = false;
-            }
-
-            if (categoryType === 2) { // Image
-                $scope.isShowImageUpload = true; // Show Image Uploader Area
-                $scope.isShowLinkDestination = false;
-                //$scope.isShowResourceUpload = false;
-            }
-
-            if (categoryType === 3) { // Material
-                $scope.isShowLinkDestination = true;
-                $scope.isShowImageUpload = true;
-                //$scope.isShowResourceUpload = true; // Show Resource Uploader Area
-            }
-        }
-
-        $scope.showHideUploaderBox = function () {
-            showHideUploader($scope.entity.DocumentsID);
-        };
-
         $scope.ModalAddEditDocumentManager = {
             edit: function () {
-                loadDocumentCategories();
+                loadDocumentCategoryTypes();
                 loadDocumentDetails();
             },
             add: function () {
-                loadDocumentCategories();
+                loadDocumentCategoryTypes();
             },
             handleAddAndEditDocument: function () {
                 addEditDocumentForm();
@@ -372,7 +309,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.ModalAddEditDocumentManager.handleAddAndEditDocument();
     }]);
 
-app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "notificationService",
+app.controller('ModalViewDetailsDocumentCategoryCtrl', ["$scope", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "notificationService",
     function ($scope, $localStorage, $timeout, $uibModalInstance, items, documentService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
@@ -382,7 +319,7 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
         $scope.isShowLinkDestination = false;
         $scope.isShowImageUpload = false;
         //$scope.isShowResourceUpload = false;
-        $scope.documentHeading = "Chi Tiết Tài Liệu";
+        $scope.documentHeading = "Chi Tiết Danh Mục Tài Liệu";
 
         $scope.ok = function () {
 
@@ -391,54 +328,38 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
             $uibModalInstance.dismiss('cancel');
         };
 
-        function loadDocumentCategories() {
-            var entity = {
-                SessionKey: sessionKey
-            };
-
-            $scope.showSpinner = true;
-            documentService.GetAllDocuments(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
+        function loadDocumentCategoryTypes() {
+            $scope.documentCategories = [
+                {
+                    ID: 1,
+                    Title: "Video"
+                },
+                {
+                    ID: 2,
+                    Title: "Hình Ảnh"
+                },
+                {
+                    ID: 3,
+                    Title: "Tài Liệu"
                 }
-
-                if (result.data && result.data.StatusCode === 0) {
-                    //$scope.titles = result.data.Details;
-                    $scope.documentCategories = result.data.Details.Items;
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-                else {
-                    notificationService.displayError(result.data.StatusMsg);
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
+            ];
         }
 
         function loadDocumentDetails() {
             $scope.documentID = items;
             if ($scope.documentID > 0) {
                 var entity = {
-                    ID: $scope.documentID,
                     SessionKey: sessionKey
                 };
 
                 $scope.showSpinner = true;
-                documentService.GetDocumentInfoByID(entity, function (result) {
+                documentService.GetAllDocumentsByAccount(entity, function (result) {
                     if (result.data && result.data.StatusCode === 17) {
                         membershipService.checkMemberAuthorization();
                     }
 
                     if (result.data && result.data.StatusCode === 0) {
                         $scope.entity = result.data.Details;
-
-                        $scope.documentCategoryID = result.data.Details.DocumentsID;
-                        showHideUploader($scope.documentCategoryID);
 
                         $timeout(function () {
                             $scope.showSpinner = false;
@@ -453,36 +374,9 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
             }
         }
 
-        function showHideUploader(documentCategoryID) {
-            var categoryType = 0;
-            angular.forEach($scope.documentCategories, function (category, index) {
-                if (documentCategoryID === category.ID) {
-                    categoryType = category.Type;
-                }
-            });
-
-            if (categoryType === 1) { // Video
-                $scope.isShowLinkDestination = true; // Show Link Area
-                $scope.isShowImageUpload = false;
-                //$scope.isShowResourceUpload = false;
-            }
-
-            if (categoryType === 2) { // Image
-                $scope.isShowImageUpload = true; // Show Image Uploader Area
-                $scope.isShowLinkDestination = false;
-                //$scope.isShowResourceUpload = false;
-            }
-
-            if (categoryType === 3) { // Material
-                $scope.isShowLinkDestination = true;
-                $scope.isShowImageUpload = true;
-                $scope.isShowResourceUpload = true; // Show Resource Uploader Area
-            }
-        }
-
         $scope.ModalDocumentDetailsManager = {
             init: function () {
-                loadDocumentCategories();
+                loadDocumentCategoryTypes();
                 loadDocumentDetails();
             }
         };
@@ -490,7 +384,7 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
         $scope.ModalDocumentDetailsManager.init();
     }]);
 
-app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "membershipService", "notificationService",
+app.controller('ModalDeleteDocumentCategoryCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "documentService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, documentService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.orderID = 0;
@@ -504,13 +398,13 @@ app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage",
             };
 
             $scope.showSpinner = true;
-            documentService.DeleteDocumentByID(title, function (result) {
+            documentService.DeleteDocumentsByID(title, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
 
                 if (result.data && result.data.StatusCode === 0) {
-                    notificationService.displaySuccess('Xóa Tài Liệu Thành Công');
+                    notificationService.displaySuccess('Xóa Danh Mục Tài Liệu Thành Công');
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -531,129 +425,3 @@ app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage",
             $uibModalInstance.dismiss('cancel');
         };
     }]);
-
-app.controller('ResourceUploaderCtrl', ["$scope", "$timeout", "$localStorage", "notificationService", function ($scope, $timeout, $localStorage, notificationService) {
-    // GET THE FILE INFORMATION.
-    $scope.getFileDetails = function (e) {
-        $scope.showSpinner = true;
-        $scope.files = [];
-        $scope.$apply(function () {
-
-            // STORE THE FILE OBJECT IN AN ARRAY.
-            for (var i = 0; i < e.files.length; i++) {
-                $scope.files.push(e.files[i]);
-            }
-        });
-
-        //FILL FormData WITH FILE DETAILS.
-        var SessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
-        var data = new FormData();
-
-        for (var i in $scope.files) {
-            data.append("uploadedFile", $scope.files[i]);
-            if ($scope.files[i].name) {
-                data.append("SessionKey", SessionKey);
-                break;
-            }
-        }
-
-        // ADD LISTENERS.
-        var objXhr = new XMLHttpRequest();
-        $scope.showSpinner = true;
-        objXhr.addEventListener("progress", updateProgress, false);
-        objXhr.addEventListener("load", transferComplete, false);
-
-        // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-        objXhr.send(data);
-    };
-
-    // UPDATE PROGRESS BAR.
-    function updateProgress(e) {
-        if (e.lengthComputable) {
-            //document.getElementById('pro').setAttribute('value', e.loaded);
-            //document.getElementById('pro').setAttribute('max', e.total);
-        }
-    }
-
-    // CONFIRMATION.
-    function transferComplete(e) {
-        //notificationService.displaySuccess("Upload file thành công");
-        var result = JSON.parse(e.target.response);
-        if (result.StatusCode === 0) {
-            resourceUploaderPath = result.Details;
-            notificationService.displaySuccess("Upload tài liệu thành công");
-
-            $timeout(function () {
-                $scope.showSpinner = false;
-            }, 1000);
-        }
-        else {
-            notificationService.displaySuccess(result.StatusMsg);
-            $scope.showSpinner = false;
-        }
-    }
-}]);
-
-app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "notificationService", function ($scope, $timeout, $localStorage, notificationService) {
-    // GET THE FILE INFORMATION.
-    $scope.getFileDetails = function (e) {
-        $scope.showSpinner = true;
-        $scope.files = [];
-        $scope.$apply(function () {
-
-            // STORE THE FILE OBJECT IN AN ARRAY.
-            for (var i = 0; i < e.files.length; i++) {
-                $scope.files.push(e.files[i]);
-            }
-        });
-
-        //FILL FormData WITH FILE DETAILS.
-        var SessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
-        var data = new FormData();
-
-        for (var i in $scope.files) {
-            data.append("uploadedFile", $scope.files[i]);
-            if ($scope.files[i].name) {
-                data.append("SessionKey", SessionKey);
-                break;
-            }
-        }
-
-        // ADD LISTENERS.
-        var objXhr = new XMLHttpRequest();
-        $scope.showSpinner = true;
-        objXhr.addEventListener("progress", updateProgress, false);
-        objXhr.addEventListener("load", transferComplete, false);
-
-        // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-        objXhr.send(data);
-    };
-
-    // UPDATE PROGRESS BAR.
-    function updateProgress(e) {
-        if (e.lengthComputable) {
-            //document.getElementById('pro').setAttribute('value', e.loaded);
-            //document.getElementById('pro').setAttribute('max', e.total);
-        }
-    }
-
-    // CONFIRMATION.
-    function transferComplete(e) {
-        //notificationService.displaySuccess("Upload file thành công");
-        var result = JSON.parse(e.target.response);
-        if (result.StatusCode === 0) {
-            imageUploaderPath = result.Details;
-            notificationService.displaySuccess("Upload hình ảnh thành công");
-
-            $timeout(function () {
-                $scope.showSpinner = false;
-            }, 1000);
-        }
-        else {
-            notificationService.displaySuccess(result.StatusMsg);
-            $scope.showSpinner = false;
-        }
-    }
-}]);

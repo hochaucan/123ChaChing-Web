@@ -171,15 +171,34 @@ app.controller('DocumentMasterController', ["$scope", "$sce", "$uibModal", "$sta
             }
         };
 
-        $scope.viewDocumentDetails = function (size) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalViewAttachedDocumentDetails.html',
-                controller: 'ModalViewAttachedDocumentDetailsCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        return size.target.attributes.data.value;
+        $scope.viewDocumentDetails = function (documentID) {
+            $scope.showSpinner = true;
+            // Load the data from the API
+            var entity = {
+                ID: documentID,
+                SessionKey: sessionKey
+            };
+
+            $scope.showSpinner = true;
+            documentService.GetDocumentInfoByID(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    var url = result.data.Details.Link;
+                    if (url && url.length > 0) {
+                        $window.open(url + '/', '_blank');
                     }
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
                 }
             });
         };

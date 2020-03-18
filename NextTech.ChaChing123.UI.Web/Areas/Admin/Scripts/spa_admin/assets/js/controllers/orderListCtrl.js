@@ -138,7 +138,7 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
 
         function approveOrderForm() {
@@ -281,7 +281,7 @@ app.controller('ModalViewDetailsOrderCtrl', ["$scope", "$uibModalInstance", "ite
 
         };
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
 
         function loadOrderDetails() {
@@ -348,6 +348,6 @@ app.controller('ModalDeleteDetailsOrderCtrl', ["$scope", "$localStorage", "$uibM
             });
         };
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
     }]);
