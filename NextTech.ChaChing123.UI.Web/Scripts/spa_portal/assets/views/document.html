@@ -50,7 +50,7 @@
                                             <div class="panel-body">
                                                 <div class="media" ng-repeat="document in documentContentAttachments">
                                                     <a class="media-left" href="#">
-                                                        <img src="{{document.ImagePath}}" alt="" class="media-object">
+                                                        <img src="{{document.ImagePath}}" alt="" class="media-object" style="width: 64px;">
                                                     </a>
                                                     <div class="media-body">
                                                         <div class="col-md-10">
@@ -59,7 +59,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="col-md-2">
-                                                            <h4 class="media-heading text-right"><a data="{{document.ID}}" ng-click="viewDocumentDetails($event)">Xem Thêm</a></h4>
+                                                            <h4 class="media-heading text-right"><a ng-click="viewDocumentDetails(document.ID)">Xem Thêm</a></h4>
                                                         </div>
                                                     </div>
                                                 </div>

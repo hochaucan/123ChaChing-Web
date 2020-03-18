@@ -6,7 +6,7 @@
 <section id="page-title">
     <div class="row">
         <div class="col-sm-8">
-            <h1 class="mainTitle">Quản Lý Mẫu Tiêu Đề</h1>
+            <h1 class="mainTitle">Quản Lý Tài Liệu</h1>
         </div>
         <div ncy-breadcrumb=""></div>
     </div>
@@ -21,7 +21,7 @@
                     <div class="panel-heading">
                         <p>
                             <button class="btn btn-primary" ng-click="addDocument(0)">
-                                Thêm Mới Tiêu Đề
+                                Thêm Mới Tài Liệu
                             </button>
                         </p>
                     </div>
@@ -30,9 +30,9 @@
                             <tbody>
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
-                                    <td data-title="&#39;Khách Hàng&#39;">{{document.Title}}</td>
+                                    <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
                                     <td data-title="&#39;Ngày Tạo&#39;">{{document.CreatedDate}}</td>
-                                    <td data-title="&#39;Email&#39;">{{document.Order}}</td>
+                                    <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a ng-click="viewDetailsDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">
@@ -59,15 +59,15 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.ID.$dirty && FormAddEditDocument.ID.$invalid, 'has-success':FormAddEditDocument.ID.$valid}">
-                                        <label for="Title">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.DocumentsID.$dirty && FormAddEditDocument.DocumentsID.$invalid, 'has-success':FormAddEditDocument.DocumentsID.$valid}">
+                                        <label for="DocumentsID">
                                             Danh Mục Tài Liệu <span class="symbol required"></span>
                                         </label>
-                                        <select ng-model="entity.DocumentsID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="" ng-change="showHideUploaderBox()">
+                                        <select id="DocumentsID" name="DocumentsID" ng-model="entity.DocumentsID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="" ng-change="showHideUploaderBox()">
                                             <option value="" disabled="">Chọn Danh Mục Tài Liệu</option>
                                         </select>
                                         <input type="hidden" name="DocumentCategoryID" ng-value="entity.DocumentsID" />
-                                        <span class="error text-small block" ng-if="FormAddEditDocument.ID.$dirty && FormAddEditDocument.ID.$invalid">Danh Mục là bắt buộc.</span>
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.DocumentsID.$dirty && FormAddEditDocument.DocumentsID.$invalid">Danh Mục là bắt buộc.</span>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Title.$dirty && FormAddEditDocument.Title.$invalid, 'has-success':FormAddEditDocument.Title.$valid}">
                                         <label for="Title">
@@ -76,7 +76,7 @@
                                         <input type="text" class="form-control" id="Title" name="Title" ng-model="entity.Title" placeholder="Tiêu Đề" required="">
                                         <span class="error text-small block" ng-if="FormAddEditDocument.Title.$dirty && FormAddEditDocument.Title.$invalid">Tiêu đề là bắt buộc.</span>
                                     </div>
-                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Title.$dirty && FormAddEditDocument.Title.$invalid, 'has-success':FormAddEditDocument.Title.$valid}">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Content.$dirty && FormAddEditDocument.Content.$invalid, 'has-success':FormAddEditDocument.Content.$valid}">
                                         <label for="Content">
                                             Nội Dung <span class="symbol required"></span>
                                         </label>
@@ -116,7 +116,7 @@
                                     </div>
                                     <!--END IMAGE UPLOADING-->
                                     <!--START FILE UPLOADING-->
-                                    <div class="form-group" ng-if="isShowResourceUpload">
+                                    <!--<div class="form-group" ng-if="isShowResourceUpload">
                                         <div class="row" ng-controller="ResourceUploaderCtrl">
                                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                                             <div class="col-md-6">
@@ -125,14 +125,13 @@
                                                     <div class="panel-body">
                                                         <span class="btn btn-primary btn-o btn-file">
                                                             Chọn Tài Liệu Upload
-                                                            <!--<input type="file" nv-file-select="" uploader="uploader">-->
                                                             <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <!--END FILE UPLOADING-->
                                 </div>
                                 <div class="modal-footer">
@@ -142,18 +141,96 @@
                                 </div>
                             </form>
                         </script>
-                        <script type="text/ng-template" id="myModalDeleteTitle.html">
+                        <script type="text/ng-template" id="myModalViewDetailsDocument.html">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <div class="modal-header">
-                                <span class="modal-title text-bold">Xóa Tiêu Đề</span>
+                                <span class="modal-title text-bold">{{documentHeading}}</span>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <input type="hidden" class="form-control" id="titleID" name="titleID" value="">
-                                    <p>Bạn muốn xóa tiêu đề này không?</p>
+                                    <label for="DocumentsID">
+                                        Danh Mục Tài Liệu
+                                    </label>
+                                    <select id="DocumentsID" name="DocumentsID" ng-model="entity.DocumentsID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="" ng-change="showHideUploaderBox()">
+                                        <option value="" disabled="">Chọn Danh Mục Tài Liệu</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Title">
+                                        Tiêu Đề
+                                    </label>
+                                    <input type="text" class="form-control" id="Title" name="Title" ng-model="entity.Title" placeholder="Tiêu Đề" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Content">
+                                        Nội Dung
+                                    </label>
+                                    <input type="text" class="form-control" id="Content" name="Content" ng-model="entity.Content" placeholder="Nội Dung" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Content">
+                                        Thứ Tự Hiển Thị
+                                    </label>
+                                    <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" readonly>
+                                </div>
+                                <div class="form-group" ng-if="isShowLinkDestination">
+                                    <label for="Content">
+                                        Link Đích
+                                    </label>
+                                    <input type="text" class="form-control" id="Link" name="Link" ng-model="entity.Link" placeholder="Điền Link Đích Tại Đây">
+                                </div>
+                                <!--START IMAGE UPLOADING-->
+                                <div class="form-group" ng-if="isShowImageUpload">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Hình Ảnh</h5>
+                                            <div class="panel panel-white">
+                                                <div class="panel-body">
+                                                    <div class="media">
+                                                        <a class="media-left" href="#">
+                                                            <img src="{{entity.ImagePath}}" alt="" class="media-object">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--END IMAGE UPLOADING-->
+                                <!--START FILE UPLOADING-->
+                                <div class="form-group" ng-if="isShowResourceUpload">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Tài Liệu</h5>
+                                            <div class="panel panel-white">
+                                                <div class="panel-body">
+                                                    <input type="text" class="form-control" id="Link" name="Link" ng-model="entity.Link" placeholder="Điền Link Đích Tại Đây">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--END FILE UPLOADING-->
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Đóng</button>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="myModalDeleteDocument.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Xóa Tài Liệu</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="documentID" name="documentID" value="">
+                                    <p>Bạn muốn xóa tài liệu này không?</p>
                                 </div>
                             </div>
                             <div class="modal-footer">

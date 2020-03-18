@@ -237,6 +237,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Mẫu Tiêu Đề Phụ'
             }
             //resolve: loadSequence('ngTable', 'ngTableSubTitleListCtrl')
+        }).state('app.documentcategory', {
+            url: '/documentcategory',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Danh Mục Tài Liệu',
+            ncyBreadcrumb: {
+                label: 'Danh Mục Tài Liệu'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.documentcategory.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/documentcategory_manager.html",
+            title: 'Quản Lý Danh Mục Tài Liệu',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Danh Mục Tài Liệu'
+            },
+            resolve: loadSequence('ngTable', 'ngTableDocumentCategoryManagerCtrl')
         }).state('app.document', {
             url: '/document',
             template: '<div ui-view class="fade-in-up"></div>',

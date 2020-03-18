@@ -190,7 +190,7 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         };
 
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
 
         function addEditTitleTemplateForm() {
@@ -312,7 +312,7 @@ app.controller('ModalViewDetailsTitleCtrl', ["$scope", "$uibModalInstance", "ite
 
         };
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
 
         function loadOrderDetails() {
@@ -366,6 +366,6 @@ app.controller('ModalDeleteTitleCtrl', ["$scope", "$window", "$localStorage", "$
             });
         };
         $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancle');
+            $uibModalInstance.dismiss('cancel');
         };
     }]);

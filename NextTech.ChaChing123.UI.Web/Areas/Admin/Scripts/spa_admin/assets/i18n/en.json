@@ -74,6 +74,9 @@
       "documents": {
         "MAIN": "Tài Liệu"
       },
+      "document_categories": {
+        "MAIN": "Danh Mục Tài Liệu"
+      },
       "configurations": {
         "MAIN": "Cấu hình"
       },
