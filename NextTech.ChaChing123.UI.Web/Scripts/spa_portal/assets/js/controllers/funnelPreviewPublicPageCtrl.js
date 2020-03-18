@@ -78,7 +78,8 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location",
                             "Name": ($scope.lead.name) ? $scope.lead.name : "",
                             "Email": ($scope.lead.email) ? $scope.lead.email : "",
                             "Phone": ($scope.lead.phone) ? $scope.lead.phone : "",
-                            "SoloID": soloID
+                            "SoloID": soloID,
+                            "FunnelID": funnelID
                         };
 
                         destinationURL = angular.element('#refLink').val();

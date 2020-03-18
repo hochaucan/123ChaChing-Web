@@ -6,18 +6,20 @@
 var baseUrl = 'https://api.123chaching.app';
 app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "notificationService",
     function ($scope, $sce, $window, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, notificationService) {
-        var ID = 0;
+        var soloID = 0;
+        var funnelID = 0;
         var UserName = "";
         var SessionKey = "";
         var destinationURL = "";
         $scope.isShowVideoSource = false;
         $scope.isShowImageSource = false;
+
         $scope.lead = {};
         var soloPageObj = {};
 
         var locationURL = $location.url().split('/');
         if (locationURL[3]) {
-            ID = locationURL[3];
+            soloID = locationURL[3];
         }
 
         if (locationURL[4] && locationURL[4].length > 0) {
@@ -62,7 +64,8 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                                 "Name": ($scope.lead.name) ? $scope.lead.name : "",
                                 "Email": ($scope.lead.email) ? $scope.lead.email : "",
                                 "Phone": ($scope.lead.phone) ? $scope.lead.phone : "",
-                                "SoloID": ID
+                                "SoloID": soloID,
+                                "FunnelID": funnelID
                             };
 
                             destinationURL = angular.element('#refLink').val();
@@ -71,17 +74,17 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                             $scope.showSpinner = true;
                             // Load the data from the API
                             editorService.RegisterLeadBySoloPage(leadRes, function (result) {
-                                if (result.data && result.data.StatusCode == 17) {
+                                if (result.data && result.data.StatusCode === 17) {
                                     membershipService.checkMemberAuthorization();
                                 }
 
-                                if (result.data && result.data.StatusCode == 0) {
+                                if (result.data && result.data.StatusCode === 0) {
                                     notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         if (destinationURL && destinationURL.length > 0) {
                                             indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
-                                            if (indexOfHttps == -1) {
+                                            if (indexOfHttps === -1) {
                                                 destinationURL = 'http://' + destinationURL;
                                             }
 
@@ -105,13 +108,13 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                 $scope.soloPageDetails = {};
 
                 soloPageObj = {
-                    "ID": ID,
+                    "ID": soloID,
                     "UserName": UserName,
                     "SessionKey": SessionKey
                 };
 
                 soloPageService.loadSoloPage(soloPageObj, function (result) {
-                    if (result.data && result.data.StatusCode == 17) {
+                    if (result.data && result.data.StatusCode === 17) {
                         membershipService.checkMemberAuthorization();
                     }
 
@@ -158,11 +161,11 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
             },
             publicSoloPage: function () {
                 soloPageObj = {
-                    "ID": ID
+                    "ID": soloID
                 };
 
                 editorService.GetDetailSoloPageByID(soloPageObj, function (result) {
-                    if (result.data && result.data.StatusCode == 17) {
+                    if (result.data && result.data.StatusCode === 17) {
                         membershipService.checkMemberAuthorization();
                     }
 
