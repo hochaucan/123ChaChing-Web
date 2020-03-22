@@ -29,7 +29,7 @@ app.controller('DocumentMasterController', ["$scope", "$sce", "$uibModal", "$sta
             };
 
             $scope.showSpinner = true;
-            documentService.GetAllDocuments(entity, function (result) {
+            documentService.GetAllDocumentsByAccount(entity, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
@@ -98,7 +98,7 @@ app.controller('DocumentMasterController', ["$scope", "$sce", "$uibModal", "$sta
 
             $scope.showSpinner = true;
             $scope.documentContent = [];
-            documentService.GetAllDocument(entity, function (result) {
+            documentService.GetAllDocumentByCatID(entity, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
@@ -139,7 +139,7 @@ app.controller('DocumentMasterController', ["$scope", "$sce", "$uibModal", "$sta
 
             $scope.showSpinner = true;
             $scope.documentContentAttachments = [];
-            documentService.GetAllDocument(entity, function (result) {
+            documentService.GetAllDocumentByCatID(entity, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }

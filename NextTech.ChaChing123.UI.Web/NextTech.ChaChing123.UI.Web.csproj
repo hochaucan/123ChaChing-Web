@@ -274,6 +274,9 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\cropCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\dashboardCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentCategoryManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseRebuttalManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseScriptManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseNowManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\dynamicTableCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\iconsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\inboxCtrl.js" />
@@ -323,6 +326,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\responseService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\documentService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\fileUploadService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\leadService.js" />
@@ -338,6 +342,9 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\charts.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_script_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_now_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\form_elements.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\form_file_upload.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\form_image_cropping.html" />

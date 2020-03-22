@@ -7,6 +7,7 @@
     <div class="row">
         <!-- /// controller:  'vAccordionCtrl' -  localtion: assets/js/controllers/responseScriptCtrl.js /// -->
         <div ng-controller="responseScriptvAccordionCtrl">
+            <circle-spinner ng-show="showSpinner"></circle-spinner>
             <div class="col-md-12">
                 <div class="panel panel-transparent">
                     <div class="panel-body">
@@ -18,6 +19,14 @@
                                 <v-pane-content>
                                     <p>
                                         {{ pane.content }}
+                                    </p>
+                                    <p>
+                                        <!--<button class="btn btn-wide btn-primary">
+                                            Nhắn Tin
+                                        </button>-->
+                                        <button class="btn btn-wide btn-primary" ng-click="updateRebuttalContent($event)">
+                                            Sửa
+                                        </button>
                                     </p>
                                 </v-pane-content>
                             </v-pane>

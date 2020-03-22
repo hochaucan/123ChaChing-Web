@@ -217,7 +217,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
 
         $scope.soloPageManager.init();
 
-        if (ID > 0 && UserName.length > 0 && SessionKey.length > 0) {
+        if (soloID > 0 && UserName.length > 0 && SessionKey.length > 0) {
             $scope.soloPageManager.previewSoloPage();
         } else {
             $scope.soloPageManager.publicSoloPage();

@@ -14,11 +14,33 @@
         var service = {
             GetOrderList: GetOrderList,
             EditOrderDetails: EditOrderDetails,
-            DeleteOrderDetails: DeleteOrderDetails
+            DeleteOrderDetails: DeleteOrderDetails,
+
+            GetAccountInfo: GetAccountInfo,
+            UpdatePaymentState: UpdatePaymentState,
+            UpdatePaymentAffiliateState: UpdatePaymentAffiliateState
         };
 
         function GetOrderList(orderObj, completed) {
             apiService.post(baseUrl + '/GetOrderList/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function GetAccountInfo(orderObj, completed) {
+            apiService.post(baseUrl + '/GetAccountInfo/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function UpdatePaymentState(orderObj, completed) {
+            apiService.post(baseUrl + '/UpdatePaymentState/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function UpdatePaymentAffiliateState(orderObj, completed) {
+            apiService.post(baseUrl + '/UpdatePaymentAffiliateState/', orderObj,
                 completed,
                 getOrderListFailed);
         }

@@ -77,6 +77,15 @@
       "document_categories": {
         "MAIN": "Danh Mục Tài Liệu"
       },
+      "responseNow": {
+        "MAIN": "Trả Lời Nhanh"
+      },
+      "responseScript": {
+        "MAIN": "Nhắn Tin Theo Kịch Bản"
+      },
+      "responseRebuttal": {
+        "MAIN": "Xử Lý Sự Từ Chối"
+      },
       "configurations": {
         "MAIN": "Cấu hình"
       },

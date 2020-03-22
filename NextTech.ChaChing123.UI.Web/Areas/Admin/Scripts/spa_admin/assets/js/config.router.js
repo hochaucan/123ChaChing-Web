@@ -269,6 +269,62 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Tài Liệu'
             },
             resolve: loadSequence('ngTable', 'ngTableDocumentManagerCtrl')
+        }).state('app.response', {
+            url: '/response',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Trả Lời Nhanh',
+            ncyBreadcrumb: {
+                label: 'Trả Lời Nhanh'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.now', {
+            url: '/now',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Trả Lời Nhanh',
+            ncyBreadcrumb: {
+                label: 'Trả Lời Nhanh'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.now.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/response_now_manager.html",
+            title: 'Quản Lý Trả Lời Nhanh',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Trả Lời Nhanh'
+            },
+            resolve: loadSequence('ngTable', 'ngTableResponseNowManagerCtrl')
+        }).state('app.response.script', {
+            url: '/script',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Nhắn Tin Theo Kịch Bản',
+            ncyBreadcrumb: {
+                label: 'Nhắn Tin Theo Kịch Bản'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.script.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/response_script_manager.html",
+            title: 'Quản Lý Nhắn Tin Theo Kịch Bản',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Nhắn Tin Theo Kịch Bản'
+            },
+            resolve: loadSequence('ngTable', 'ngTableResponseScriptManagerCtrl')
+        }).state('app.response.rebuttal', {
+            url: '/rebuttal',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Xử Lý Sự Từ Chối',
+            ncyBreadcrumb: {
+                label: 'Xử Lý Sự Từ Chối'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.response.rebuttal.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/response_rebuttal_manager.html",
+            title: 'Quản Lý Xử Lý Sự Từ Chối',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Xử Lý Sự Từ Chối'
+            },
+            resolve: loadSequence('ngTable', 'ngTableResponseRebuttalManagerCtrl')
         }).state('app.configuration', {
             url: "/configuration",
             templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration.html",
