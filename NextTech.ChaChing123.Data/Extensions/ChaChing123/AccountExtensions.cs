@@ -213,66 +213,6 @@ namespace NextTech.ChaChing123.Data.Extensions
             }
             return result;
         }
-
-       
-        //public static ResultDTO LockAccount(this IEntityBaseRepository<Account> repository, LockAccountDTO obj)
-        //{
-        //    var result = new ResultDTO();
-        //    var dbContext = new ApplicationContext();
-
-        //    var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-        //    {
-        //        Direction = System.Data.ParameterDirection.Output
-        //    };
-
-        //    try
-        //    {
-        //        result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAccount] @UserName, @SessionKey,@IsLock, @errorCode out",
-        //            new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-        //            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-        //             new SqlParameter("IsLock", obj.IsLock),
-        //            errorCode);
-        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-        //        result.SetContentMsg();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-        //        result.SetContentMsg();
-        //    }
-
-        //    return result;
-        //}
-
-        //public static ResultDTO LockAffilate(this IEntityBaseRepository<Account> repository, LockAffilateDTO obj)
-        //{
-        //    var result = new ResultDTO();
-        //    var dbContext = new ApplicationContext();
-
-        //    var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-        //    {
-        //        Direction = System.Data.ParameterDirection.Output
-        //    };
-
-        //    try
-        //    {
-        //        result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_LockAffilate] @UserName, @SessionKey,@IsLockAffilate, @errorCode out",
-        //             new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-        //            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-        //             new SqlParameter("IsLockAffilate", obj.IsLockAffilate),
-        //            errorCode);
-        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-        //        result.SetContentMsg();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-        //        result.SetContentMsg();
-        //    }
-
-        //    return result;
-        //}
-
         public static ResultDTO GetAccountInfo(this IEntityBaseRepository<Account> repository, RequestDTO obj)
         {
             var result = new ResultDTO();
@@ -346,6 +286,7 @@ namespace NextTech.ChaChing123.Data.Extensions
         }
 
 
+
         #region Leads        
         public static ResultDTO AddLeadsByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
         {
@@ -361,7 +302,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                         new SqlParameter("Email", DB.SafeSQL(obj.Email)),
                         new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
                         new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),
-                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnalID)),
+                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnelID)),
                         new SqlParameter("LeadsType", obj.LeadsType),
                         new SqlParameter("Notes", DB.SafeSQL(obj.Notes)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
@@ -512,8 +453,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             };
             LeadsChartOfMonthDTO LeadsChart = new LeadsChartOfMonthDTO();
             int fag = 0;
-            LeadsChart.EnrolledItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+            LeadsChart.EnrolledItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@FunnalID,@SoloID,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
                         new SqlParameter("LeadType", fag),
+                        new SqlParameter("FunnalID", obj.FunnalID),
+                        new SqlParameter("SoloID", obj.SoloID),
                         new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
                         new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
@@ -524,8 +467,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            LeadsChart.ColdItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
-                       new SqlParameter("LeadType", fag),
+            LeadsChart.ColdItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@FunnalID,@SoloID,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+                        new SqlParameter("LeadType", fag),
+                        new SqlParameter("FunnalID", obj.FunnalID),
+                        new SqlParameter("SoloID", obj.SoloID),
                         new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
                         new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
@@ -536,8 +481,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            LeadsChart.WarmItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+            LeadsChart.WarmItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@FunnalID,@SoloID,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
                         new SqlParameter("LeadType", fag),
+                        new SqlParameter("FunnalID", obj.FunnalID),
+                        new SqlParameter("SoloID", obj.SoloID),
                         new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
                         new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
@@ -548,8 +495,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            LeadsChart.HotItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
+            LeadsChart.HotItems = dbContext.Database.SqlQuery<LeadsOfMonthDTO>("EXEC [dbo].[sp_SummaryLeadsChartByAccount] @LeadType,@FunnalID,@SoloID,@StartList,@EndList, @UserName,@SessionKey,@errorCode out",
                         new SqlParameter("LeadType", fag),
+                        new SqlParameter("FunnalID", obj.FunnalID),
+                        new SqlParameter("SoloID", obj.SoloID),
                         new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
                         new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
@@ -563,8 +512,99 @@ namespace NextTech.ChaChing123.Data.Extensions
 
         }
 
-        
+
         #endregion
+        
+        public static ResultDTO UpdateMailChimpInfoByAccount(this IEntityBaseRepository<Account> repository, MailChimpRequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateMailChimpInfoByAccount] @DataCenter,@APIKey,@ListID,@SessionKey,@errorCode out",
+                       new SqlParameter("DataCenter", obj.DataCenter),
+                       new SqlParameter("APIKey", obj.APIKey),
+                       new SqlParameter("ListID", obj.ListID),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO GetMailChimpInfoByAccount(this IEntityBaseRepository<Account> repository, RequestDTO obj)
+        {
+
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            result.Details = dbContext.Database.SqlQuery<MailChimpResponseDTO>("EXEC [dbo].[sp_GetMailChimpInfoByAccount] @SessionKey,@errorCode out",
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).ToList<MailChimpResponseDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+
+        }
+
+        public static ResultDTO UpdateBanner(this IEntityBaseRepository<Account> repository, RequestUpdateDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var oldFileName = new SqlParameter("@OldFileName", System.Data.SqlDbType.NVarChar, 200)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateBanner] @FileName, @SessionKey,@OldFileName out, @errorCode out",
+                         new SqlParameter("FileName", obj.FileName),
+                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                         oldFileName,
+                         errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            result.Details = oldFileName.Value.ToString();
+
+            return result;
+        }
+
+        public static ResultDTO GetBannerLink(this IEntityBaseRepository<Account> repository, RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var bannarLink = new SqlParameter("@BannarLink", System.Data.SqlDbType.NVarChar, 200)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_GetBannerLink] @SessionKey,@BannarLink out,@errorCode out",
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        bannarLink,
+                        errorCode).FirstOrDefault<LeadsItemDTO>();
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            result.Details = bannarLink;
+            return result;
+        }
+        
         //public static ResultDTO AddTokenPush.
 
 

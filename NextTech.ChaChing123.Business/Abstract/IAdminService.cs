@@ -132,6 +132,7 @@ namespace NextTech.ChaChing123.Business
         #region [Document]
         // Get All Document
         ResultDTO GetAllDocument(RequestDTO obj);
+        ResultDTO GetAllDocumentByCatID(RequestDTO obj);        
         ResultDTO GetDocumentInfoByID(RequestDTO obj);
         
         // Add Item

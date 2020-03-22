@@ -134,8 +134,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<SoloPageItem2DTO>("EXEC [dbo].[sp_GetAllPublicSoloPage] @UserName,@SessionKey,@errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+            result.Details = dbContext.Database.SqlQuery<SoloPageItem2DTO>("EXEC [dbo].[sp_GetAllPublicSoloPage] @SessionKey,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         errorCode).ToList<SoloPageItem2DTO>();
 
@@ -543,14 +542,13 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_FO_RegisterLeadBySoloPage] @Name,@Email,@Phone,@FunnalID,@SoloID,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<MailChimpResponse1DTO>("EXEC [dbo].[sp_FO_RegisterLeadBySoloPage] @Name,@Email,@Phone,@FunnalID,@SoloID,@errorCode out",
                         new SqlParameter("Name", DB.SafeSQL(obj.Name)),
                         new SqlParameter("Email", DB.SafeSQL(obj.Email)),
                         new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
-                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnalID)),
-                        new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),                        
-                        errorCode);
-
+                        new SqlParameter("FunnalID", DB.SafeSQL(obj.FunnelID)),
+                        new SqlParameter("SoloID", DB.SafeSQL(obj.SoloID)),
+                        errorCode).FirstOrDefault<MailChimpResponse1DTO>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
 

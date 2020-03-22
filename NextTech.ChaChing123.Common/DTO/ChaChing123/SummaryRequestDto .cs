@@ -14,6 +14,10 @@ namespace NextTech.ChaChing123.Common.Models
 
         public string YearList { get; set; }
 
+        public int FunnalID { get; set; }
+
+        public int SoloID { get; set; }
+
         private SummaryRequestDTO()
         {
             UserName = string.Empty;
@@ -21,6 +25,8 @@ namespace NextTech.ChaChing123.Common.Models
             StartList = string.Empty;
             EndList = string.Empty;
             YearList = string.Empty;
+            SoloID = 0;
+            FunnalID = 0;
         }
     }
 }
