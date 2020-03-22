@@ -697,6 +697,23 @@ namespace NextTech.ChaChing123.Business
 
             return errorCode;
         }
+
+        public ResultDTO GetQuickRepliesInfoByID(RequestDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetQuickRepliesInfoByID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetQuickRepliesInfoByID", ActionType.Delete, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+        }
         #endregion
 
         #region [Script]
@@ -859,6 +876,8 @@ namespace NextTech.ChaChing123.Business
 
             return errorCode;
         }
+        
+        
         public ResultDTO GetAllDocumentsByAccount(RequestDTO obj)
         {
             ResultDTO errorCode = new ResultDTO();
@@ -941,6 +960,22 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("GetAllDocument", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+        }
+        public ResultDTO GetAllDocumentByCatID(RequestDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetAllDocumentByCatID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllDocumentByCatID", ActionType.GetData, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }

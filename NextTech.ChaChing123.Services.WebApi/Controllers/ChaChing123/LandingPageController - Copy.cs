@@ -313,7 +313,6 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 {
                     MailChimpResponse1DTO objOlala = (MailChimpResponse1DTO)result.Details;
                     AddSubscribe(objOlala.APIKey, objOlala.DataCenter, objOlala.ListID, obj.Email, objOlala.PageName, obj.Name,obj.Phone, obj.SessionKey);
-                    result.Details = string.Empty;
                 }
                 response = request.CreateResponse(HttpStatusCode.OK, result);
                 return response;
@@ -327,35 +326,39 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             Business.Utilities.AppLog.WriteLog("AddSubscribe", ActionType.Add, content, sessionKey);
             try
             {
-                SubscribeClassCreatedByMe subscribeRequest = new SubscribeClassCreatedByMe();
-                subscribeRequest.email_address =email;
-                subscribeRequest.status = SubscriberStatus.subscribed.ToString();
+                SubscribeClassCreatedByMe subscribeRequest = new SubscribeClassCreatedByMe
+                {
+                    email_address = email,
+                    status = PageName
+                };
                 subscribeRequest.merge_fields = new MergeFieldClassCreatedByMe();
                 subscribeRequest.merge_fields.FNAME = name;
-                subscribeRequest.merge_fields.LNAME = "-";
+                subscribeRequest.merge_fields.LNAME = "123";
                 subscribeRequest.merge_fields.PHONE = phone;
-                
+
                 using (HttpClient client = new HttpClient())
                 {
                     var uri = "https://" + dataCenter + ".api.mailchimp.com/";
                     var endpoint = "3.0/lists/" + listID + "/members";
+
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes("anystring" + ":" + apiKey)));
                     client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                     client.BaseAddress = new Uri(uri);
-                    
+
                     HttpResponseMessage response = client.PostAsJsonAsync(endpoint, subscribeRequest).Result;
-                    if ((!response.IsSuccessStatusCode))
+                    var errorResponse = response.Content.ReadAsStringAsync();
+                    if ((response.IsSuccessStatusCode))
                     {
-                        Business.Utilities.AppLog.WriteLog("AddSubscribe", ActionType.Add, response.Content.ReadAsStringAsync().Result,string.Empty);
+                        //TODO       
                     }
                 }
+
             }
             catch (Exception ex)
             {
                 result.StatusCode = 9999;
                 result.Details = ex.Message;
                 result.SetContentMsg();
-                Business.Utilities.AppLog.WriteLog("Exception: AddSubscribe ", ActionType.Add, ex.Message, string.Empty);
             }
         }
 

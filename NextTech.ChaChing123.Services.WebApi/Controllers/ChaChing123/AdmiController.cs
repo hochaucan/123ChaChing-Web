@@ -974,6 +974,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         [AllowAnonymous]
+        [Route("GetAllDocumentByCatID")]
+        [HttpPost]
+        public HttpResponseMessage GetAllDocumentByCatID(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllDocumentByCatID(obj));
+                return response;
+            });
+        }
+        
+        [AllowAnonymous]
         [Route("GetDocumentInfoByID")]
         [HttpPost]
         public HttpResponseMessage GetDocumentInfoByID(HttpRequestMessage request, RequestDTO obj)

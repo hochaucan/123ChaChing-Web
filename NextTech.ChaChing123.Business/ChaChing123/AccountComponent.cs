@@ -371,10 +371,81 @@ namespace NextTech.ChaChing123.Business
             return rsInfo;
 
         }
-        
+
 
         #endregion
 
+        
+        public ResultDTO UpdateMailChimpInfoByAccount(MailChimpRequestDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.UpdateMailChimpInfoByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateMailChimpInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+
+            return result;
+
+        }
+
+        public ResultDTO GetMailChimpInfoByAccount(RequestDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.GetMailChimpInfoByAccount(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetMailChimpInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+
+            return result;
+
+        }
+
+        public ResultDTO UpdateBanner(RequestUpdateDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.UpdateBanner(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateBanner", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO GetBannerLink(RequestDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.GetBannerLink(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetBannerLink", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+
+            return result;
+
+        }
         #endregion
 
     }
