@@ -4,8 +4,8 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "orderService", "notificationService",
-    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, orderService, notificationService) {
+app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "orderService", "membershipService", "notificationService",
+    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, orderService, membershipService, notificationService) {
         $scope.members = {};
         $scope.orderID = 0;
 
@@ -124,14 +124,24 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
         $scope.OrderManage.init();
     }]);
 
-app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "orderService", "notificationService",
-    function ($scope, $uibModalInstance, items, orderService, notificationService) {
+app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.order = {};
+        $scope.orderAffiliate = {};
         $scope.PaymentStatusList = {};
         $scope.AccountTypeList = {};
         $scope.AffiliateStatusList = {};
-        $scope.orderID = 0;
-        $scope.orderID = items ? items : 0;
+        $scope.AffiliateAccount = "";
+        $scope.AffiliateName = "";
+        $scope.ContractNo = "";
+        var customerInfo = items ? items : "";
+        var customerSplit = customerInfo.split('|');
+        if (customerSplit.length > 0) {
+            $scope.AffiliateAccount = customerSplit[0];
+            $scope.AffiliateName = customerSplit[1];
+            $scope.ContractNo = customerSplit[2];
+        }
 
         $scope.ok = function () {
 
@@ -166,37 +176,26 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
                         return;
 
                     } else {
-                        $scope.order = {
-                            "ContractNo": $scope.orderID,
-                            "CreatedDate": "",
-                            "CustomerAccount": "",
-                            "CustomerName": "",
-                            "CustomerEmail": "",
-                            "CustomerPhone": "",
-                            "PaymentStatus": 0,
-                            "PaymentStatusName": "",
-                            "AccountType": 0,
-                            "AccountTypeName": "",
-                            "CustomerAmount": 0,
-                            "AffiliateAmount": 0,
-                            "AffiliateAccount": "",
-                            "AffiliateName": "",
-                            "AffiliateStatus": $scope.order.AffiliateStatus,
-                            "AffiliateStatusName": $scope.order.AffiliateStatusName
+                        var entity = {
+                            "UserName": $scope.AffiliateAccount,
+                            "ContractNo": $scope.ContractNo,
+                            "PaymentState": $scope.order.AffiliateStatus,
+                            "SessionKey": sessionKey
                         };
 
                         $scope.showSpinner = true;
                         // Load the data from the API
-                        orderService.EditOrderDetails($scope.order, function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
+                        orderService.UpdatePaymentAffiliateState(entity, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
 
-                            if (result.data && result.data.StatusCode == 0) {
+                            if (result.data && result.data.StatusCode === 0) {
                                 notificationService.displaySuccess(result.data.StatusMsg);
                                 $timeout(function () {
                                     $scope.showSpinner = false;
                                     $uibModalInstance.dismiss('cancel');
+                                    $window.location.reload();
                                 }, 1000);
                             } else {
                                 notificationService.displayError(result.data.StatusMsg);
@@ -211,26 +210,37 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$uibModalInstance", "items", "o
             };
         }
 
+
         function loadOrderDetails() {
-            //1. call an API to get order details by ID
-            $scope.order = {
-                "ContractNo": "95774698",
-                "CreatedDate": "2020-01-19 18:06:23",
-                "CustomerAccount": "0981108894",
-                "CustomerName": "Nguyen Van C",
-                "CustomerEmail": "nguyentran87@gmail.com",
-                "CustomerPhone": "0981108894",
-                "PaymentStatus": 2,
-                "PaymentStatusName": "Ðã thanh toán",
-                "AccountType": 2,
-                "AccountTypeName": "Nâng cao",
-                "CustomerAmount": 8997000,
-                "AffiliateAmount": 4498500,
-                "AffiliateAccount": "0973730111",
-                "AffiliateName": "Hồ Châu Cần",
-                "AffiliateStatus": 2,
-                "AffiliateStatusName": "Đã duyệt"
+            var entity =
+            {
+                "UserName": $scope.AffiliateAccount,
+                "SessionKey": sessionKey
             };
+
+            $scope.showSpinner = true;
+            //1. call an API to get order details by ID
+            orderService.GetAccountInfo(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.order = result.data.Details;
+
+                    $scope.orderAffiliate = {
+                        AffiliateName: $scope.AffiliateName
+                    };
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
         }
 
         function loadPaymentStatus() {

@@ -32,11 +32,8 @@
                                 <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
                                 <td class="center">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
-                                            <i class="fa fa-pencil" data="{{order.ContractNo}}"></i>
-                                        </a>
-                                        <a ng-click="deleteOrder($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
-                                            <i class="fa fa-times fa fa-white" data="{{order.ContractNo}}"></i>
+                                        <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Phê Duyệt">
+                                            <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -47,56 +44,50 @@
                         <circle-spinner ng-show="showSpinner"></circle-spinner>
                         <form class="form-addnewlead-request" name="FormEditOrder" id="FormEditOrder" novalidate="" ng-submit="form.submit(FormEditOrder)">
                             <div class="modal-header">
-                                <span class="modal-title text-bold">Cập Nhật Đơn Hàng</span>
+                                <span class="modal-title text-bold">Phê Duyệt Đơn Hàng</span>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="CustomerName">
-                                        Tên Khách Hàng
+                                    <label for="AffiliateName">
+                                        Họ Tên Đại Sứ
                                     </label>
-                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="order.CustomerName" readonly>
+                                    <input type="text" class="form-control" id="AffiliateName" name="AffiliateName" ng-model="orderAffiliate.AffiliateName" placeholder="Tên Khách Hàng" readonly>
                                 </div>
-                                <div class="form-group">
-                                    <label for="PaymentStatus">
-                                        Thanh Toán
-                                    </label>
-                                    <input type="text" class="form-control" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatusName" placeholder="order.PaymentStatusName" readonly>
-                                </div>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label for="AccountType">
                                         Loại Tài Khoản
                                     </label>
-                                    <input type="text" class="form-control" id="AccountType" name="AccountType" ng-model="order.AccountTypeName" placeholder="order.AccountTypeName" readonly>
+                                    <input type="text" class="form-control" id="AccountTypeName" name="AccountTypeName" ng-model="order.AccountTypeName" placeholder="Loại Tài Khoản" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerAmount">
                                         Tổng Tiền
                                     </label>
-                                    <input type="text" class="form-control" id="CustomerAmount" name="CustomerAmount" ng-model="order.CustomerAmount" placeholder="Tổng Tiền" readonly>
+                                    <input type="text" class="form-control" id="Amount" name="Amount" ng-model="order.Amount" placeholder="Tổng Tiền" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="AffiliateAmount">
                                         Hoa Hồng
                                     </label>
-                                    <input type="text" class="form-control" id="AffiliateAmount" name="AffiliateAmount" ng-model="order.AffiliateAmount" placeholder="Hoa Hồng" readonly>
+                                    <input type="text" class="form-control" id="ApprovedAmount" name="ApprovedAmount" ng-model="order.ApprovedAmount" placeholder="Hoa Hồng" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="AffiliateName">
                                         Đại Sứ
                                     </label>
                                     <input type="text" class="form-control" id="AffiliateName" name="AffiliateName" ng-model="order.AffiliateName" placeholder="Đại Sứ" readonly>
-                                </div>
+                                </div>-->
                                 <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
                                     <label for="AccountType">
-                                        Tình Trạng <span class="symbol required"></span>
+                                        Phê Duyệt <span class="symbol required"></span>
                                     </label>
-                                    <select id="AccountType" class="form-control black" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
-                                        <option value="" disabled="">Chọn Tình Trạng</option>
+                                    <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                        <option value="" disabled="">Chọn Trạng Thái Phê Duyệt</option>
                                     </select>
-                                    <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Tình Trạng là bắt buộc.</span>
+                                    <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Phê Duyệt là bắt buộc.</span>
                                 </div>
                             </div>
                             <div class="modal-footer">

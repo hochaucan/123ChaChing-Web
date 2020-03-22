@@ -12,12 +12,28 @@
 
         var service = {
             GetAllDocuments: GetAllDocuments, // Get all document categories
+            GetAllDocumentsByAccount: GetAllDocumentsByAccount,
             GetAllDocument: GetAllDocument, // Get all related documents for a specific category
-            GetDocumentInfoByID: GetDocumentInfoByID
+            GetDocumentInfoByID: GetDocumentInfoByID,
+            GetAllDocumentByCatID: GetAllDocumentByCatID
         };
 
         function GetAllDocuments(entity, completed) {
             apiService.post(baseUrl + '/api/Admin/GetAllDocuments/', entity,
+                completed,
+                entityFailed
+            );
+        }
+
+        function GetAllDocumentsByAccount(entity, completed) {
+            apiService.post(baseUrl + '/api/Admin/GetAllDocumentsByAccount/', entity,
+                completed,
+                entityFailed
+            );
+        }
+
+        function GetAllDocumentByCatID(entity, completed) {
+            apiService.post(baseUrl + '/api/Admin/GetAllDocumentByCatID/', entity,
                 completed,
                 entityFailed
             );

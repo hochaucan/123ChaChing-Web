@@ -6,9 +6,7 @@
         .factory('responseService', Service);
 
     function Service(apiService, notificationService) {
-
         var baseUrl = 'https://api.123chaching.app/api/Admin/';
-        //var baseUrl = 'http://localhost:1494';
 
         var service = {
             // Quick Reply

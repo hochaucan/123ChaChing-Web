@@ -119,7 +119,7 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location",
             };
 
             funnelsService.GetFunnalDetailsPublicPage(soloPageObj, function (result) {
-                if (result.data && result.data.StatusCode == 17) {
+                if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
 
@@ -127,7 +127,7 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location",
                     $location.path('/error/404');
                 }
 
-                if (result.data && result.data.StatusCode == 0) {
+                if (result.data && result.data.StatusCode === 0) {
                     $scope.soloPageDetails = result.data.Details.SoloObj;
                     document.body.style.backgroundImage = "url('" + result.data.Details.SoloObj.BackgroundPath + "')";
 
