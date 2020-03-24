@@ -122,20 +122,22 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, responseService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
-        $scope.documentCategories = {};
-        $scope.documentCategoryID = 0;
-        $scope.isShowLinkDestination = false;
-        $scope.isShowImageUpload = false;
-        //$scope.isShowResourceUpload = false;
-
         $scope.documentHeading = "Thêm Mới Xử Lý Sự Từ Chối";
-        $scope.documentID = 0;
-        if (items === undefined)
-            items = 0;
+        var documentID = 0;
+        var responseTitle = "";
+        var responseContent = "";
+        var responseOrder = "";
 
-        $scope.documentID = items ? items : 0;
+        var responseRow = items ? items : "";
+        var parts = responseRow.split('|');
+        if (parts.length > 0) {
+            documentID = parts[0];
+            responseTitle = parts[1];
+            responseContent = parts[2];
+            responseOrder = parts[3];
+        }
 
-        if ($scope.documentID === 0)
+        if (documentID === 0)
             $scope.documentHeading = "Thêm Mới Xử Lý Sự Từ Chối";
         else
             $scope.documentHeading = "Cập Nhật Xử Lý Sự Từ Chối";
@@ -173,9 +175,9 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                         return;
 
                     } else {
-                        if ($scope.documentID > 0) {
+                        if (documentID > 0) {
                             $scope.entity = {
-                                "ID": $scope.documentID,
+                                "ID": documentID,
                                 "Title": $scope.entity.Title,
                                 "Content": $scope.entity.Content,
                                 "Order": $scope.entity.Order,
@@ -241,30 +243,14 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         }
 
         function loadDocumentDetails() {
-            var entity = {
-                ID: $scope.documentID,
-                SessionKey: sessionKey
-            };
-
-            $scope.showSpinner = true;
-            responseService.GetRebuttalsByID(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
-                }
-
-                if (result.data && result.data.StatusCode === 0) {
-                    $scope.entity = result.data.Details;
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                } else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
+            if (documentID > 0) {
+                $scope.entity = {
+                    ID: documentID,
+                    Title: responseTitle,
+                    Content: responseContent,
+                    Order: responseOrder
+                };
+            }
         }
 
         $scope.ModalAddEditDocumentManager = {
@@ -276,7 +262,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
             }
         };
 
-        if ($scope.documentID > 0) {
+        if (documentID > 0) {
             $scope.ModalAddEditDocumentManager.edit();
         }
         $scope.ModalAddEditDocumentManager.handleAddAndEditDocument();
@@ -286,12 +272,19 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
     function ($scope, $localStorage, $timeout, $uibModalInstance, items, responseService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
-        $scope.documentID = 0;
-        $scope.documentCategories = {};
-        $scope.documentCategoryID = 0;
-        $scope.isShowLinkDestination = false;
-        $scope.isShowImageUpload = false;
-        //$scope.isShowResourceUpload = false;
+        var documentID = 0;
+        var responseTitle = "";
+        var responseContent = "";
+        var responseOrder = "";
+
+        var responseRow = items ? items : "";
+        var parts = responseRow.split('|');
+        if (parts.length > 0) {
+            documentID = parts[0];
+            responseTitle = parts[1];
+            responseContent = parts[2];
+            responseOrder = parts[3];
+        }
         $scope.documentHeading = "Chi Tiết Tài Liệu";
 
         $scope.ok = function () {
@@ -302,32 +295,13 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
         };
 
         function loadDocumentDetails() {
-            $scope.documentID = items;
-            if ($scope.documentID > 0) {
-                var entity = {
-                    ID: $scope.documentID,
-                    SessionKey: sessionKey
+            if (documentID > 0) {
+                $scope.entity = {
+                    ID: documentID,
+                    Title: responseTitle,
+                    Content: responseContent,
+                    Order: responseOrder
                 };
-
-                $scope.showSpinner = true;
-                responseService.GetRebuttalsByID(entity, function (result) {
-                    if (result.data && result.data.StatusCode === 17) {
-                        membershipService.checkMemberAuthorization();
-                    }
-
-                    if (result.data && result.data.StatusCode === 0) {
-                        $scope.entity = result.data.Details;
-
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 1000);
-                    } else {
-                        notificationService.displayError(result.data.StatusMsg);
-                        $timeout(function () {
-                            $scope.showSpinner = false;
-                        }, 1000);
-                    }
-                });
             }
         }
 
@@ -354,7 +328,7 @@ app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage",
             };
 
             $scope.showSpinner = true;
-            responseService.DeleteQuickRepliesByID(title, function (result) {
+            responseService.DeleteRebuttalsByID(title, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
