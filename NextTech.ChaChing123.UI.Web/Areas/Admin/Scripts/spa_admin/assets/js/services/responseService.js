@@ -12,21 +12,21 @@
             // Quick Reply
             GetAllQuickReplies: GetAllQuickReplies,
             AddQuickReplies: AddQuickReplies,
-            GetQuickRepliesByID: GetQuickRepliesByID, // missing
+            GetQuickRepliesByID: GetQuickRepliesByID,
             UpdateQuickRepliesByID: UpdateQuickRepliesByID,
             DeleteQuickRepliesByID: DeleteQuickRepliesByID,
 
             // Scritp
             GetAllScript: GetAllScript,
             AddScript: AddScript,
-            GetScriptByID: GetScriptByID, // missing
+            GetScriptByID: GetScriptByID,
             UpdateScriptByID: UpdateScriptByID,
             DeleteScriptByID: DeleteScriptByID,
 
             // Rebuttal
             GetAllRebuttals: GetAllRebuttals,
             AddRebuttals: AddRebuttals,
-            GetRebuttalsByID: GetRebuttalsByID, // missing
+            GetRebuttalsByID: GetRebuttalsByID,
             UpdateRebuttalsByID: UpdateRebuttalsByID,
             DeleteRebuttalsByID: DeleteRebuttalsByID
         };
