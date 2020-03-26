@@ -3,8 +3,8 @@
  * controllers for ng-table
  * Simple table with sorting and filtering on AngularJS
  */
-app.controller('ResponseRebuttalManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "responseService", "membershipService", "notificationService",
-    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, responseService, membershipService, notificationService) {
+app.controller('NotificationManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "noticeService", "membershipService", "notificationService",
+    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, noticeService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.documents = {};
         $scope.documentID = 0;
@@ -25,7 +25,7 @@ app.controller('ResponseRebuttalManagerCtrl', ["$scope", "$uibModal", "$localSto
                         };
 
                         // Load the data from the API
-                        responseService.GetAllRebuttals(entity, function (result) {
+                        noticeService.GetAllNotification(entity, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -118,11 +118,11 @@ app.controller('ResponseRebuttalManagerCtrl', ["$scope", "$uibModal", "$localSto
         $scope.DocumentManager.init();
     }]);
 
-app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "responseService", "membershipService", "notificationService",
-    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, responseService, membershipService, notificationService) {
+app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "noticeService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, noticeService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
-        $scope.documentHeading = "Thêm Mới Xử Lý Sự Từ Chối";
+        $scope.documentHeading = "Thêm Mới Thông Báo";
         var documentID = 0;
         var responseTitle = "";
         var responseContent = "";
@@ -141,9 +141,9 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         }
 
         if (documentID === 0)
-            $scope.documentHeading = "Thêm Mới Xử Lý Sự Từ Chối";
+            $scope.documentHeading = "Thêm Mới Thông Báo";
         else
-            $scope.documentHeading = "Cập Nhật Xử Lý Sự Từ Chối";
+            $scope.documentHeading = "Cập Nhật Thông Báo";
 
         $scope.ok = function () {
 
@@ -189,7 +189,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
 
                             $scope.showSpinner = true;
                             // Load the data from the API
-                            responseService.UpdateRebuttalsByID($scope.entity, function (result) {
+                            noticeService.UpdateNotificationByID($scope.entity, function (result) {
                                 if (result.data && result.data.StatusCode === 17) {
                                     membershipService.checkMemberAuthorization();
                                 }
@@ -219,7 +219,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
 
                             $scope.showSpinner = true;
                             // Load the data from the API
-                            responseService.AddRebuttals($scope.entity, function (result) {
+                            noticeService.AddNotification($scope.entity, function (result) {
                                 if (result.data && result.data.StatusCode === 17) {
                                     membershipService.checkMemberAuthorization();
                                 }
@@ -271,8 +271,8 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.ModalAddEditDocumentManager.handleAddAndEditDocument();
     }]);
 
-app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$timeout", "$uibModalInstance", "items", "responseService", "notificationService",
-    function ($scope, $localStorage, $timeout, $uibModalInstance, items, responseService, notificationService) {
+app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$timeout", "$uibModalInstance", "items", "noticeService", "notificationService",
+    function ($scope, $localStorage, $timeout, $uibModalInstance, items, noticeService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
         var documentID = 0;
@@ -288,7 +288,7 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
             responseContent = parts[2];
             responseOrder = parts[3];
         }
-        $scope.documentHeading = "Chi Tiết Tài Liệu";
+        $scope.documentHeading = "Chi Tiết Thông Báo";
 
         $scope.ok = function () {
 
@@ -317,8 +317,8 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
         $scope.ModalDocumentDetailsManager.init();
     }]);
 
-app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "responseService", "membershipService", "notificationService",
-    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, responseService, membershipService, notificationService) {
+app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "noticeService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, noticeService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.orderID = 0;
 
@@ -331,7 +331,7 @@ app.controller('ModalDeleteDocumentCtrl', ["$scope", "$window", "$localStorage",
             };
 
             $scope.showSpinner = true;
-            responseService.DeleteRebuttalsByID(title, function (result) {
+            noticeService.DeleteNotificationByID(title, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }

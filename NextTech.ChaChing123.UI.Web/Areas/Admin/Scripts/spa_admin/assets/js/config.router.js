@@ -325,6 +325,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Xử Lý Sự Từ Chối'
             },
             resolve: loadSequence('ngTable', 'ngTableResponseRebuttalManagerCtrl')
+        }).state('app.notification', {
+            url: '/notification',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Thông Báo',
+            ncyBreadcrumb: {
+                label: 'Thông Báo'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.notification.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/notification_manager.html",
+            title: 'Quản Lý Thông Báo',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Thông Báo'
+            },
+            resolve: loadSequence('ngTable', 'ngTableNotificationManagerCtrl')
         }).state('app.configuration', {
             url: "/configuration",
             templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration.html",

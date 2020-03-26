@@ -128,13 +128,16 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         var responseContent = "";
         var responseOrder = "";
 
+        var parts = [];
         var responseRow = items ? items : "";
-        var parts = responseRow.split('|');
-        if (parts.length > 0) {
-            documentID = parts[0];
-            responseTitle = parts[1];
-            responseContent = parts[2];
-            responseOrder = parts[3];
+        if (items !== undefined) {
+            parts = responseRow.split('|');
+            if (parts.length > 0) {
+                documentID = parts[0];
+                responseTitle = parts[1];
+                responseContent = parts[2];
+                responseOrder = parts[3];
+            }
         }
 
         if (documentID === 0)

@@ -67,7 +67,7 @@
         <!-- end: REPLY -->
         <!-- start: NOTIFICATION -->
         <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="userData.isUserLoggedIn">
-            <a href="#/notification" class="dropdown-toggle" uib-dropdown-toggle="">
+            <a ui-sref="app.notification.all" class="dropdown-toggle" uib-dropdown-toggle="">
                 <div class="item-content">
                     <div class="item-icon">
                         <i class="fa fa-bell"></i>
@@ -81,7 +81,7 @@
         <!-- end: NOTIFICATION -->
         <!-- start DOCUMENT -->
         <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="userData.isUserLoggedIn">
-            <a ui-sref="app.documents"  class="dropdown-toggle" uib-dropdown-toggle="">
+            <a ui-sref="app.documents" class="dropdown-toggle" uib-dropdown-toggle="">
                 <div class="item-content">
                     <div class="item-icon">
                         <i class="fa fa-volume-down"></i>

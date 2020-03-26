@@ -44,6 +44,7 @@ app.constant('JS_REQUIRES', {
         'ngTableResponseNowManagerCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/responseNowManagerCtrl.js',
         'ngTableResponseScriptManagerCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/responseScriptManagerCtrl.js',
         'ngTableResponseRebuttalManagerCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/responseRebuttalManagerCtrl.js',
+        'ngTableNotificationManagerCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/notificationManagerCtrl.js',
         'cropCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/cropCtrl.js',
         'asideCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/asideCtrl.js',
         'toasterCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/toasterCtrl.js',

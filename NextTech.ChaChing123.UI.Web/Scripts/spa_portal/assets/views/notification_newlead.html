@@ -1,0 +1,33 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <!-- start: VACCORDION -->
+    <div class="row">
+        <!-- /// controller:  'vAccordionCtrl' -  localtion: assets/js/controllers/responseNowCtrl.js /// -->
+        <div ng-controller="NotificationNewLeadController">
+            <circle-spinner ng-show="showSpinner"></circle-spinner>
+            <div class="col-md-12">
+                <div class="panel panel-transparent">
+                    <div class="panel-body no-padding">
+                        <div class="panel-scroll height-200" perfect-scrollbar="" wheel-propagation="false" suppress-scroll-x="true">
+                            <table class="table no-margin">
+                                <tbody>
+                                    <tr ng-repeat="notification in notifications">
+                                        <td>
+                                            <h4>{{notification.Title}}</h4>
+                                            <p>{{notification.Content}}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: VACCORDION -->
+</body>
+</html>
