@@ -30,6 +30,13 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string GetData = "GetData";
 
     }
+    public enum SubscriberStatus
+    {
+        subscribed,
+        unsubscribed,
+        cleaned,
+        pending
+    }
 
     /// <summary>
     /// Enum RetCode
@@ -67,6 +74,8 @@ namespace NextTech.ChaChing123.Common.Constants
         ECS0028 = 28,
         ECS0029 = 29,
         ECS0030 = 30,
+        ECS0031 = 31,
+        ECS0032 = 32,
         ECS9999 = 9999,
     }
 
@@ -104,6 +113,8 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0028 = "File upload không hợp lệ.";
         public const string ECS0029 = "Trạng thái không hợp lệ. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
         public const string ECS0030 = "Dữu liệu đang được sử dụng. Vui lòng liên hệ quản trị để biết thêm chi tiết.";
+        public const string ECS0031 = "Quản trị viên không được truy cập chức năng này.";
+        public const string ECS0032 = "Chức năng này chỉ dành cho quản trị viên.";
         public const string ECS9999 = "Lỗi không xác định.";
     }
 
@@ -111,5 +122,19 @@ namespace NextTech.ChaChing123.Common.Constants
     {
         public const string AvatarFolder = "https://api.123chaching.app/UploadFile/AvatarImages/";
         public const string LandingPagePath = "https://api.123chaching.app/UploadFile/LandingPage/";
+        public const string BannerFolder = "https://api.123chaching.app/UploadFile/Banner/";
+    }
+
+    public class SubscribeClassCreatedByMe
+    {
+        public string email_address { get; set; }
+        public string status { get; set; }
+        public MergeFieldClassCreatedByMe merge_fields { get; set; }
+    }
+    public class MergeFieldClassCreatedByMe
+    {
+        public string FNAME { get; set; }
+        public string LNAME { get; set; }
+        public string PHONE { get; set; }
     }
 }

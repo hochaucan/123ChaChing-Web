@@ -4,11 +4,10 @@
 /// <revision history>Version: 1.0.1</revision history>
 /// </summary>
 
-
-
 namespace NextTech.ChaChing123.Services.WebApi.Controllers
 {
     using NextTech.ChaChing123.Common.Models;
+    using NextTech.ChaChing123.Core.Models;
     using NextTech.ChaChing123.Data.Infrastructure;
     using System.Net;
     using System.Net.Http;
@@ -23,7 +22,10 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
     using System.Web;
     using System;
     using System.Configuration;
-    
+    using Newtonsoft.Json;
+    using System.IO;
+    using System.Text;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Class AccountController.
@@ -174,7 +176,87 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                return response;
            });
        }
+
+
+        [AllowAnonymous]
+        [Route("subscribeAddress")]
+        [HttpPost]
+        public HttpResponseMessage subscribeAddress(HttpRequestMessage request, LoginModel obj)
+        {
+            string apiKey = "abe362507a1c96a3f0360c9361d622be-us4"; //your API KEY created by you.
+            string dataCenter = "us4";
+            string listID = "c4904aa1c4";
+            string method = "lists/" + listID + "/members/";
+            var subscribeRequest = new
+            {
+                email_address = "olala111@yahoo.com",
+                status = "Olala",
+                phone="0919880980",
+                merge_fields = new
+                {
+                    FNAME = "firstname",
+                    LNAME = "lastname"
+                }
+            };
+
+            var rs= CallMailChimpApi(method, JsonConvert.SerializeObject(subscribeRequest), dataCenter, apiKey);
+
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                ResultDTO result = new ResultDTO();
+                result.Details = rs;
+                return response = request.CreateResponse(HttpStatusCode.OK, result); ;
+            });
+        }
         
+
+        private string CallMailChimpApi(string method, string requestJson,string dataCenter, string key)
+        {
+            var endpoint = String.Format("https://{0}.api.mailchimp.com/3.0/{1}", dataCenter, method);
+            byte[] dataStream = Encoding.UTF8.GetBytes(requestJson);
+            var responsetext = string.Empty;
+            WebRequest request = HttpWebRequest.Create(endpoint);
+            WebResponse response = null;
+            try
+            {
+                request.ContentType = "application/json";
+                SetBasicAuthHeader(request, "anystring", key);  // BASIC AUTH
+                request.Method = "POST";
+                request.ContentLength = dataStream.Length;
+                Stream newstream = request.GetRequestStream();
+
+                newstream.Write(dataStream, 0, dataStream.Length);
+                newstream.Close();
+
+                response = request.GetResponse();
+
+                // get the result
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    JsonSerializer json = new JsonSerializer();
+                    JObject content = JObject.Parse(reader.ReadToEnd());
+                    responsetext = reader.ReadToEnd();
+                }
+                response.Close();
+            }
+
+            catch (Exception )
+            {
+                using (var sr = new StreamReader(response.GetResponseStream()))
+                {
+                    responsetext = sr.ReadToEnd();
+                }
+            }
+            return responsetext;
+        }
+        public void SetBasicAuthHeader(WebRequest request, string username, string password)
+        {
+            string auth = username + ":" + password;
+            auth = Convert.ToBase64String(Encoding.Default.GetBytes(auth));
+            request.Headers["Authorization"] = "Basic " + auth;
+        }
+
        [AllowAnonymous]
        [Route("Register")]
        [HttpPost]
@@ -377,6 +459,10 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                         response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateAvatar(olalaObj));
                         return response;
                     });
+
+                    //result.StatusCode = 0;
+                    //result.SetContentMsg();
+                    //result.Details = tempFileName;
                 }
             }
             catch (Exception ex)
@@ -490,124 +576,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        [AllowAnonymous]
-        [Route("UpdateMailChimpInfoByAccount")]
-        [HttpPost]
-        public HttpResponseMessage UpdateMailChimpInfoByAccount(HttpRequestMessage request, MailChimpRequestDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateMailChimpInfoByAccount(obj));
-                return response;
-            });
-        }
-        [AllowAnonymous]
-        [Route("GetMailChimpInfoByAccount")]
-        [HttpPost]
-        public HttpResponseMessage GetMailChimpInfoByAccount(HttpRequestMessage request, RequestDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetMailChimpInfoByAccount(obj));
-                return response;
-            });
-        }
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("UpdateBannes")]
-        public HttpResponseMessage UpdateBannes(HttpRequestMessage request)
-        {
-            ResultDTO result = new ResultDTO();
-            try
-            {
-                var requestContext = HttpContext.Current.Request;
-                var pathFolder = System.Web.Hosting.HostingEnvironment.MapPath(Common.GetConfigValue("PathBannesFolder"));
-                string sessionKey = requestContext.Form.Get("SessionKey");
-                result = Common.CheckLogin(sessionKey);
-                if (result.StatusCode != 0)
-                {
-                    return CreateHttpResponse(request, () =>
-                    {
-                        var response = request.CreateResponse(HttpStatusCode.OK, result);
-                        return response;
-                    });
-                }
-                if (requestContext.Files.Count < 1)
-                {
-                    result.StatusCode = int.Parse(RetCodeMsg.ECS0028, 0);
-                    result.SetContentMsg();
-                }
-                else
-                {
-                    string fileName = requestContext.Files[0].FileName;
-                    string ext = System.IO.Path.GetExtension(fileName);
-                    string originalFileName = System.IO.Path.GetFileName(fileName);
-
-                    //To save file, use SaveAs method
-                    if (System.IO.File.Exists(pathFolder + originalFileName))
-                    {
-                        System.IO.File.Delete(pathFolder + originalFileName);
-                    }
-
-                    //File will be saved in application root
-                    requestContext.Files[0].SaveAs(pathFolder + originalFileName);
-                    RequestUpdateDTO olalaObj = new RequestUpdateDTO();
-                    olalaObj.SessionKey = sessionKey;
-                    olalaObj.FileName = originalFileName;
-                    return CreateHttpResponse(request, () =>
-                    {
-                        HttpResponseMessage response;
-                        ResultDTO rs = _service.UpdateBanner(olalaObj);
-                        response = request.CreateResponse(HttpStatusCode.OK, rs);
-                        try
-                        {
-                            if (rs != null && rs.Details != null && rs.Details.ToString() != string.Empty && rs.Details.ToString().ToLower() != originalFileName.ToLower())
-                            {
-                                if (System.IO.File.Exists(pathFolder + rs.Details))
-                                {
-                                    System.IO.File.Delete(pathFolder + rs.Details);
-                                }
-                            }
-                        }
-                        catch (Exception) { }
-                        return response;
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                result.StatusCode = 9999;
-                result.Details = ex.Message;
-
-                return CreateHttpResponse(request, () =>
-                {
-                    var response = request.CreateResponse(HttpStatusCode.OK, result);
-                    return response;
-                });
-            }
-
-            return CreateHttpResponse(request, () =>
-            {
-                var response = request.CreateResponse(HttpStatusCode.OK, result);
-                return response;
-            });
-        }
-        [AllowAnonymous]
-        [Route("GetBannerLink")]
-        [HttpPost]
-        public HttpResponseMessage GetBannerLink(HttpRequestMessage request, RequestDTO obj)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetBannerLink(obj));
-                return response;
-            });
-        }
-
-
+        
         #endregion
     }
 }

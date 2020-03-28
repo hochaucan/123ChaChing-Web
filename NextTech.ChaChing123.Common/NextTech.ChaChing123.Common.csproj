@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml">
-      <HintPath>..\packages\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity.Design" />
@@ -67,6 +64,10 @@
     <Compile Include="DTO\ChaChing123\LeadsOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />
+    <Compile Include="DTO\ChaChing123\MailChimpResponse1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\MailChimpResponseDto.cs" />
+    <Compile Include="DTO\ChaChing123\MailChimpRequestDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestUpdateDto.cs" />
     <Compile Include="DTO\ChaChing123\WithdrawalDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestUpdateAvatarDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestAccountTypeDto.cs" />
