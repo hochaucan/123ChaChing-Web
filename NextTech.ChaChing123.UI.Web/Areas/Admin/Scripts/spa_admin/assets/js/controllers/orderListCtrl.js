@@ -87,8 +87,8 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
 
             $scope.editOrder = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalEditOrder.html',
-                    controller: 'ModalEditOrderCtrl',
+                    templateUrl: 'myModalUpdateAffiliatePaymentStatus.html',
+                    controller: 'ModalUpdateAffiliatePaymentStatusCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -274,7 +274,7 @@ app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStor
         $scope.ModalUpdatePaymentStatusManager.edit();
     }]);
 
-app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
+app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.order = {};
