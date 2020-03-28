@@ -275,6 +275,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\dashboardCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentCategoryManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseRebuttalManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\notificationManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseScriptManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseNowManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\dynamicTableCtrl.js" />
@@ -326,6 +327,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\noticeService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\responseService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\documentService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\fileUploadService.js" />
@@ -343,6 +345,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\notification_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_script_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_now_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\form_elements.html" />
@@ -528,8 +531,12 @@
     <Content Include="Scripts\spa_portal\assets\images\clippy.svg" />
     <Content Include="Scripts\spa_portal\assets\images\default-user.png" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentCourseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentAdvancedMarketingCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\notificationSystemCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\notificationAllCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\notificationCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentMasterCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentGeneralMarketingCtrl.js" />
@@ -552,12 +559,17 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\userProfileCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseNowCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\noticeService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\responseService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\documentService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\leadService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\funnelsService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
+    <Content Include="Scripts\spa_portal\assets\views\notification.html" />
+    <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />
+    <Content Include="Scripts\spa_portal\assets\views\notification_system.html" />
+    <Content Include="Scripts\spa_portal\assets\views\notification_all.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_rebuttal.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_script.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_now.html" />

@@ -273,7 +273,32 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Xử Lý Sự Từ Chối'
             }
-            //resolve: loadSequence('ngTable', 'ngTableSoloPageListCtrl')
+        }).state('app.notification', {
+            url: '/notification',
+            templateUrl: "Scripts/spa_portal/assets/views/notification.html",
+            title: 'Thông Báo',
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.notification.all', {
+            url: '/all',
+            templateUrl: "Scripts/spa_portal/assets/views/notification_all.html",
+            title: 'Tất Cả',
+            ncyBreadcrumb: {
+                label: 'Tất Cả'
+            }
+        }).state('app.notification.system', {
+            url: '/system',
+            templateUrl: "Scripts/spa_portal/assets/views/notification_system.html",
+            title: 'Hệ Thống',
+            ncyBreadcrumb: {
+                label: 'Hệ Thống'
+            }
+        }).state('app.notification.newlead', {
+            url: '/newlead',
+            templateUrl: "Scripts/spa_portal/assets/views/notification_newlead.html",
+            title: 'Cá Nhân',
+            ncyBreadcrumb: {
+                label: 'Cá Nhân'
+            }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',

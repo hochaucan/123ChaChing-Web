@@ -86,6 +86,9 @@
       "responseRebuttal": {
         "MAIN": "Xử Lý Sự Từ Chối"
       },
+      "notification": {
+        "MAIN":  "Thông Báo"
+      },
       "configurations": {
         "MAIN": "Cấu hình"
       },

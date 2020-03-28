@@ -71,6 +71,20 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                 });
         }
         function manageOrderList() {
+            $scope.updatePaymentStatus = function (size) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'myModalUpdatePaymentStatus.html',
+                    controller: 'ModalUpdatePaymentStatusCtrl',
+                    size: size,
+                    resolve: {
+                        items: function () {
+                            $scope.orderID = size.target.attributes.data.value;
+                            return $scope.orderID;
+                        }
+                    }
+                });
+            };
+
             $scope.editOrder = function (size) {
                 var modalInstance = $uibModal.open({
                     templateUrl: 'myModalEditOrder.html',
@@ -124,6 +138,142 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
         $scope.OrderManage.init();
     }]);
 
+app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
+        $scope.order = {};
+        $scope.PaymentStatusList = {};
+        $scope.AccountTypeList = {};
+        $scope.CustomerAccount = "";
+        $scope.CustomerName = "";
+        $scope.ContractNo = "";
+        $scope.PaymentState = "";
+
+        var customerInfo = items ? items : "";
+        var customerSplit = customerInfo.split('|');
+        if (customerSplit.length > 0) {
+            $scope.CustomerAccount = customerSplit[0];
+            $scope.CustomerName = customerSplit[1];
+            $scope.ContractNo = customerSplit[2];
+            $scope.PaymentState = customerSplit[3];
+        }
+
+        $scope.ok = function () {
+
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        function updatePaymentStatusForm() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var entity = {
+                            "UserName": $scope.CustomerAccount,
+                            "PaymentState": $scope.order.PaymentStatus,
+                            "ContractNo": $scope.ContractNo,
+                            "SessionKey": sessionKey
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        orderService.UpdatePaymentState(entity, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                    $window.location.reload();
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
+
+        function loadOrderDetails() {
+            $scope.showSpinner = true;
+
+            if ($scope.CustomerAccount && $scope.CustomerAccount.length > 0) {
+
+                $timeout(function () {
+                    $scope.order = {
+                        "CustomerAccount": $scope.CustomerAccount,
+                        "CustomerName": $scope.CustomerName,
+                        "PaymentStatus": $scope.PaymentState,
+                        "ContractNo": $scope.ContractNo
+                    };
+
+                    $scope.showSpinner = false;
+                }, 1000);
+            }
+        }
+
+        function loadPaymentStatus() {
+            $scope.PaymentStatusList = [
+                { PaymentStatus: 1, PaymentStatusName: 'Chưa thanh toán' },
+                { PaymentStatus: 2, PaymentStatusName: 'Ðã thanh toán' },
+                { PaymentStatus: 3, PaymentStatusName: 'Hoàn Tiền' }
+            ];
+        }
+
+        function loadAccountTypeList() {
+            $scope.AccountTypeList = [
+                { AccountType: 1, AccountTypeName: 'Cơ Bản' },
+                { AccountType: 2, AccountTypeName: 'Nâng Cao' }
+            ];
+        }
+
+        $scope.ModalUpdatePaymentStatusManager = {
+            init: function () {
+                loadPaymentStatus();
+                loadAccountTypeList();
+                loadOrderDetails();
+            },
+            edit: function () {
+                updatePaymentStatusForm();
+            }
+        };
+
+        $scope.ModalUpdatePaymentStatusManager.init();
+        $scope.ModalUpdatePaymentStatusManager.edit();
+    }]);
+
 app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
@@ -135,12 +285,14 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$ti
         $scope.AffiliateAccount = "";
         $scope.AffiliateName = "";
         $scope.ContractNo = "";
+        $scope.AffiliateStatus = 0;
         var customerInfo = items ? items : "";
         var customerSplit = customerInfo.split('|');
         if (customerSplit.length > 0) {
             $scope.AffiliateAccount = customerSplit[0];
             $scope.AffiliateName = customerSplit[1];
             $scope.ContractNo = customerSplit[2];
+            $scope.AffiliateStatus = customerSplit[3];
         }
 
         $scope.ok = function () {
@@ -179,7 +331,7 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$ti
                         var entity = {
                             "UserName": $scope.AffiliateAccount,
                             "ContractNo": $scope.ContractNo,
-                            "PaymentState": $scope.order.AffiliateStatus,
+                            "AffiliateState": $scope.order.AffiliateStatus,
                             "SessionKey": sessionKey
                         };
 
@@ -212,50 +364,20 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$ti
 
 
         function loadOrderDetails() {
-            var entity =
-            {
-                "UserName": $scope.AffiliateAccount,
-                "SessionKey": sessionKey
-            };
-
             $scope.showSpinner = true;
-            //1. call an API to get order details by ID
-            orderService.GetAccountInfo(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
-                }
+            if ($scope.AffiliateAccount && $scope.AffiliateAccount.length > 0) {
 
-                if (result.data && result.data.StatusCode === 0) {
-                    $scope.order = result.data.Details;
-
-                    $scope.orderAffiliate = {
-                        AffiliateName: $scope.AffiliateName
+                $timeout(function () {
+                    $scope.order = {
+                        "AffiliateAccount": $scope.AffiliateAccount,
+                        "AffiliateName": $scope.AffiliateName,
+                        "AffiliateStatus": $scope.AffiliateStatus,
+                        "ContractNo": $scope.ContractNo
                     };
 
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                } else {
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
-        }
-
-        function loadPaymentStatus() {
-            $scope.PaymentStatusList = [
-                { PaymentStatus: 1, PaymentStatusName: 'Chưa thanh toán' },
-                { PaymentStatus: 2, PaymentStatusName: 'Ðã thanh toán' },
-                { PaymentStatus: 3, PaymentStatusName: 'Hoàn Tiền' }
-            ];
-        }
-
-        function loadAccountTypeList() {
-            $scope.AccountTypeList = [
-                { AccountType: 1, AccountTypeName: 'Cơ Bản' },
-                { AccountType: 2, AccountTypeName: 'Nâng Cao' }
-            ];
+                    $scope.showSpinner = false;
+                }, 1000);
+            }
         }
 
         function loadAffiliateStatus() {
@@ -268,8 +390,6 @@ app.controller('ModalEditOrderCtrl', ["$scope", "$window", "$localStorage", "$ti
 
         $scope.ModalEditOrderManager = {
             init: function () {
-                loadPaymentStatus();
-                loadAccountTypeList();
                 loadAffiliateStatus();
                 loadOrderDetails();
             },
