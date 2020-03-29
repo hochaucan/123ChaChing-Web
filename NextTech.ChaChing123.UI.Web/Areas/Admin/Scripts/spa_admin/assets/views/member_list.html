@@ -30,6 +30,11 @@
                             <td data-title="&#39;Đăng Ký&#39;">{{member.CreatedDate}}</td>
                             <td data-title="&#39;Tái Tục&#39;">{{member.RenewalNo}}</td>
                             <td data-title="&#39;Ghi Chú&#39;">{{member.Note}}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a ng-href="#/app/member/details/{{member.UserName}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết Thành Viên">Chi Tiết</a>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
