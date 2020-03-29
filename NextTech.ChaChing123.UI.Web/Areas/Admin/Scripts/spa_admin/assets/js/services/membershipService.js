@@ -17,21 +17,49 @@
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
             isUserLoggedIn: isUserLoggedIn,
-            GetAccountList: GetAccountList,
             checkMemberAuthorization: checkMemberAuthorization,
+            GetAccountInfo: GetAccountInfo,
+            GetAccountList: GetAccountList,
+            GetAffiliateList: GetAffiliateList,
+            GetWithDrawallInfoByAccount: GetWithDrawallInfoByAccount,
+            SetPasswodForAccount: SetPasswodForAccount
         };
+
+        function SetPasswodForAccount(memberObj, completed) {
+            apiService.post(baseUrl + '/SetPasswodForAccount/', memberObj,
+                completed,
+                entityFailed);
+        }
+
+
+        function GetAffiliateList(memberObj, completed) {
+            apiService.post(baseUrl + '/GetAffiliateList/', memberObj,
+                completed,
+                entityFailed);
+        }
+
+        function GetWithDrawallInfoByAccount(memberObj, completed) {
+            apiService.post(baseUrl + '/GetWithDrawallInfoByAccount/', memberObj,
+                completed,
+                entityFailed);
+        }
 
         function GetAccountList(memberObj, completed) {
             apiService.post(baseUrl + '/GetAccountList/', memberObj,
                 completed,
-                loginFailed);
+                entityFailed);
         }
 
+        function GetAccountInfo(entity, completed) {
+            apiService.post(baseUrl + '/GetAccountInfo/', entity,
+                completed,
+                entityFailed);
+        }
 
         function Login(user, completed) {
             apiService.post(baseUrl + '/Login/', user,
             completed,
-            loginFailed);
+            entityFailed);
         }
 
         function register(user, completed) {
@@ -53,7 +81,7 @@
             $http.defaults.headers.common.Authorization = '';
         }
 
-        function loginFailed(response) {
+        function entityFailed(response) {
             if (response.data) {
                 notificationService.displayError(response.data.Message);
             }

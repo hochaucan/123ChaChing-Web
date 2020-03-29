@@ -1,0 +1,200 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">Thành Viên</h1>
+            </div>
+            <div ncy-breadcrumb=""></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw" ng-controller="MasterMemberDetailsCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <div ng-controller="MemberDetailsCtrl">
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><h3>THÔNG TIN CƠ BẢN</h3></td>
+                                                <td><h4><a ng-click="accessUserAccount(member.UserName)"><i class="fa fa-share-square-o"></i> {{member.CreatedDate}}</a></h4></td>
+                                                <td><span class="label label-warning" ng-click="upgradeOrDowngradeUser(member.ID)"> Nâng Cao</span></td>
+                                                <td><span class="label label-success" ng-click="lockOrUnlockUser(member.ID)"> Hoạt Động</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-register" name="MemberInfoForm" id="MemberInfoForm" novalidate="" ng-submit="form.submit(MemberInfoForm)">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="FullName">
+                                                Họ và tên
+                                            </label>
+                                            <input type="text" class="form-control" id="FullName" name="FullName" ng-model="member.FullName" placeholder="Họ Và Tên" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="Email">
+                                                Email
+                                            </label>
+                                            <input type="email" class="form-control" id="Email" name="Email" ng-model="member.Email" placeholder="Địa chỉ email" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="RefCode">
+                                                Mã giới thiệu
+                                            </label>
+                                            <input type="text" class="form-control" id="RefCode" name="RefCode" ng-model="member.RefCode" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="RenewalNo">
+                                                Số Lần Tái Tục
+                                            </label>
+                                            <input type="text" class="form-control" id="RenewalNo" name="RenewalNo" ng-model="member.RenewalNo" placeholder="Số lần tái tục" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="UserName">
+                                                Tên Đăng Nhập
+                                            </label>
+                                            <input type="text" class="form-control" id="UserName" name="UserName" ng-model="member.UserName" placeholder="Số Điện Thoại hoặc Tên Đăng Nhập" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="boxRegisterPhone">
+                                                Số điện thoại
+                                            </label>
+                                            <input type="text" class="form-control" id="boxRegisterPhone" name="Phone" ng-model="member.Phone" placeholder="Số điện thoại" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="boxRegisterPassword">
+                                                Tạo Mới Mật Khẩu
+                                            </label>
+                                            <input type="password" class="form-control" id="boxRegisterPassword" name="Password" ng-model="member.Password" placeholder="Tạo Mới Mật Khẩu" required="">
+                                            <span class="error text-small block" ng-if="MemberInfoForm.Password.$dirty && MemberInfoForm.Password.$invalid">Mật Khẩu Tạo Mới là bắt buộc.</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="boxRegisterNote">
+                                                Ghi Chú
+                                            </label>
+                                            <input type="text" class="form-control" id="boxRegisterNote" name="Note" ng-model="member.Note" placeholder="Ghi Chú">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row text-right">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary text-right">
+                                            Cập Nhật
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <div ng-controller="AffiliateOperationCtrl">
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <table class="table">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><h3>HOẠT ĐỘNG ĐẠI SỨ</h3></td>
+                                                <td><span class="label label-success" ng-click="enableOrDisableAffiliate(affiliate.ID)"> Hoạt Động</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <table ng-table="tableParams" class="table table-striped">
+                                <tbody>
+                                    <tr ng-repeat="entity in $data">
+                                        <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                        <td data-title="&#39;Tên&#39;"><a>{{entity.FullName}}</a></td>
+                                        <td data-title="&#39;Email&#39;">{{entity.Email}}</td>
+                                        <td data-title="&#39;Số Điện Thoại&#39;">{{entity.Phone}}</td>
+                                        <td data-title="&#39;Loại&#39;">{{entity.AccountTypeName}}</td>
+                                        <td data-title="&#39;Lượt Giới Thiệu&#39;">{{entity.CashTypeName}}</td>
+                                        <td data-title="&#39;Tái Tục&#39;">{{entity.RenewalNo}}</td>
+                                        <td data-title="&#39;Hoa Hồng&#39;">{{entity.Amount}}</td>
+                                        <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
+                                        <td class="left">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
+                                                    <i class="fa fa-pencil" data="{{entity.UserName}}|{{entity.FullName}}|{{entity.ContractNo}}|{{order.PaymentStatusNo}}"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <div ng-controller="RequestWithDrawalCtrl">
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-heading">
+                            <h3>YÊU CẦU RÚT TIỀN</h3>
+                        </div>
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <table ng-table="tableParams" class="table table-striped">
+                                <tbody>
+                                    <tr ng-repeat="entity in withdralws">
+                                        <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                        <td data-title="&#39;Tên Đăng Nhập&#39;"><a>{{entity.UserName}}</a></td>
+                                        <td data-title="&#39;Tên&#39;">{{entity.FullName}}</td>
+                                        <td data-title="&#39;Tên Ngân Hàng&#39;">{{entity.BeneBankName}}</td>
+                                        <td data-title="&#39;Số Tài Khoản&#39;">{{entity.BeneAccountNo}}</td>
+                                        <td data-title="&#39;Ghi Chú&#39;">{{entity.CashTypeName}}</td>
+                                        <td data-title="&#39;Số Tiền&#39;">{{entity.RenewalNo}}</td>
+                                        <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
+                                        <td class="left">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
+                                                    <i class="fa fa-pencil" data="{{entity.UserName}}|{{entity.FullName}}"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body>
+</html>

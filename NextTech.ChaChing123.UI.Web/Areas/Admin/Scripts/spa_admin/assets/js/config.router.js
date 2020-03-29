@@ -173,6 +173,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Thành Viên'
             },
             resolve: loadSequence('ngTable', 'ngTableMemberListCtrl')
+        }).state('app.member.detais', {
+            url: '/details/:username',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/member_details.html",
+            title: 'Chi Tiết Thành Viên',
+            ncyBreadcrumb: {
+                label: 'Chi Tiết Thành Viên'
+            },
+            resolve: loadSequence('ngTable', 'ngTableMemberListCtrl')
         }).state('app.order', {
             url: '/order',
             template: '<div ui-view class="fade-in-up"></div>',

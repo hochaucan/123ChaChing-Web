@@ -274,6 +274,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\cropCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\dashboardCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\documentCategoryManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\memberDetailsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseRebuttalManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\notificationManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\responseScriptManagerCtrl.js" />
@@ -344,6 +345,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\charts.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\member_details.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\notification_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_script_manager.html" />
