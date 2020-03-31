@@ -38,7 +38,7 @@ app.controller('ReponseController', ["$scope", "$state", "$window", "$location",
         //});
 
         $scope.tabs.forEach(function (tab, index) {
-            if (tab.route == routURL) {
+            if (tab.route === routURL) {
                 $scope.active = index;
                 return;
             }

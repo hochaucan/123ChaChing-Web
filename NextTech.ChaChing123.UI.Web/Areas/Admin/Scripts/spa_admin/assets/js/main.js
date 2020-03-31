@@ -30,7 +30,7 @@ app.run(['$rootScope', '$state', '$stateParams',
                 isSidebarClosed: false, // true if you want to initialize the template with closed sidebar
                 isFooterFixed: false, // true if you want to initialize the template with fixed footer
                 theme: 'theme-1', // indicate the theme chosen for your project
-                logo: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/images/logo.png', // relative path of the project logo
+                logo: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/images/logo.png' // relative path of the project logo
             }
         };
         $rootScope.user = {

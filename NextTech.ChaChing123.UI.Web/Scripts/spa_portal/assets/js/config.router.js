@@ -57,7 +57,9 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/signin',
             templateUrl: "Scripts/spa_portal/assets/views/login_login.html",
             resolve: { isAuthenticated: isAuthenticated }
-            //controller: 'loginCtrl'
+        }).state('app.dologin', {
+            url: '/dologin/:username/:sessionkey',
+            templateUrl: "Scripts/spa_portal/assets/views/login_login.html"
         }).state('app.login.forgot', {
             url: '/forgot',
             templateUrl: "Scripts/spa_portal/assets/views/login_forgot.html"

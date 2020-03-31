@@ -28,8 +28,8 @@ app.controller('MasterMemberDetailsCtrl', ["$scope", "$localStorage", "$location
 
     }]);
 
-app.controller('MemberDetailsCtrl', ["$scope", "$window", "$localStorage", "$timeout", "membershipService", "notificationService",
-    function ($scope, $window, $localStorage, $timeout, membershipService, notificationService) {
+app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "membershipService", "notificationService",
+    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, membershipService, notificationService) {
         $scope.member = {};
 
         function loadMemberDetails() {
@@ -86,14 +86,14 @@ app.controller('MemberDetailsCtrl', ["$scope", "$window", "$localStorage", "$tim
 
                     } else {
                         var entity = {
-                            "AccountName": username,
-                            "NewPassword": $scope.member.Password,
-                            "SessionKey": sessionKey
+                            "UserName": username,
+                            "SessionKey": sessionKey,
+                            "IsLock": $scope.member.IsLock
                         };
 
                         $scope.showSpinner = true;
                         // Load the data from the API
-                        membershipService.SetPasswodForAccount(entity, function (result) {
+                        membershipService.LockAccount(entity, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -117,7 +117,36 @@ app.controller('MemberDetailsCtrl', ["$scope", "$window", "$localStorage", "$tim
         }
 
         $scope.accessUserAccount = function (username) {
-            notificationService.displayInfo('This feature is processing. Please get back it later');
+            //http://localhost:1484/#/app/dologin/dangminh/4324234dfasdfsdafs54543
+            var urlBuilder = $rootScope.baseUrl.url + '#/app/dologin/' + username + '/' + sessionKey;
+
+            $window.open(urlBuilder, '_blank');
+        };
+
+        $scope.lockOrUnlockUser = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalLockOrUnlockUser.html',
+                controller: 'ModalLockOrUnlockUserCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return size.target.attributes.data.value;
+                    }
+                }
+            });
+        };
+
+        $scope.upgradeOrDowngradeUser = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalUpgradeOrDowngradeUser.html',
+                controller: 'ModalUpgradeOrDowngradeUserCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return size.target.attributes.data.value;
+                    }
+                }
+            });
         };
 
         $scope.MemberDetailsManager = {
@@ -132,10 +161,6 @@ app.controller('MemberDetailsCtrl', ["$scope", "$window", "$localStorage", "$tim
     }]);
 app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
     function ($scope, $localStorage, $timeout, ngTableParams, membershipService, notificationService) {
-        console.log('AffiliateOperationCtrl');
-        console.log(username);
-        console.log(sessionKey);
-
         $scope.affiliates = {};
         function loadAffiliateOperation() {
             $scope.tableParams = new ngTableParams({
@@ -204,10 +229,6 @@ app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout",
 
 app.controller('RequestWithDrawalCtrl', ["$scope", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
     function ($scope, $localStorage, $timeout, ngTableParams, membershipService, notificationService) {
-        console.log('RequestWithDrawalCtrl');
-        console.log(username);
-        console.log(sessionKey);
-
         $scope.withdrawals = {};
 
         function loadRequestWithDrawal() {
@@ -273,4 +294,104 @@ app.controller('RequestWithDrawalCtrl', ["$scope", "$localStorage", "$timeout", 
 
         $scope.MemberDetailsManager.init();
 
+    }]);
+
+app.controller('ModalLockOrUnlockUserCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, membershipService, notificationService) {
+        var username = "";
+        var isLock = 0;
+
+        var memberInfo = items ? items : "";
+        var memberSplit = memberInfo.split('|');
+        if (memberSplit.length > 0) {
+            username = memberSplit[0];
+            isLock = memberSplit[1];
+        }
+
+        $scope.ok = function () {
+
+
+            var entity = {
+                "UserName": username,
+                "SessionKey": sessionKey,
+                "IsLock": isLock === "0" ? 1 : 0
+            };
+
+            $scope.showSpinner = true;
+            // Load the data from the API
+            membershipService.LockAccount(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    notificationService.displaySuccess(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                    }, 1000);
+                }
+            });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }]);
+
+app.controller('ModalUpgradeOrDowngradeUserCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, membershipService, notificationService) {
+        var username = "";
+        var accountType = 0;
+
+        var memberInfo = items ? items : "";
+        var memberSplit = memberInfo.split('|');
+        if (memberSplit.length > 0) {
+            username = memberSplit[0];
+            accountType = memberSplit[1];
+        }
+
+        $scope.ok = function () {
+
+
+            var entity = {
+                "UserName": username,
+                "SessionKey": sessionKey,
+                "AccountType": accountType === "1" ? 2 : 1
+            };
+
+            $scope.showSpinner = true;
+            // Load the data from the API
+            membershipService.ChangeAccountType(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    notificationService.displaySuccess(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                    }, 1000);
+                }
+            });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
     }]);

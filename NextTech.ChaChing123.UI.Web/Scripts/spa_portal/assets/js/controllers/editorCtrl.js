@@ -27,7 +27,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
         $scope.formTypeVal = 1;
         $scope.saveMethod = 1;
         $scope.buttonColor = "";
-        $scope.IsAdvanceAccount = (accountType == 2) ? true : false;
+        $scope.IsAdvanceAccount = accountType === 2 ? true : false;
         $scope.editor = {};
         $scope.titles = {};
         $scope.subtitles = {};
@@ -204,12 +204,14 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
             $scope.isShareCodeHidden = true;
             $scope.isThankYouContentHidden = true;
 
-            if (formTypeVal == 5) {
+            // is Used for Share Code Purpose
+            if (formTypeVal === 5) {
                 $scope.isThankYouContentHidden = true;
                 $scope.isShareCodeHidden = $scope.isShareCodeHidden ? false : true;
             }
 
-            if (formTypeVal == 4) {
+            // Page Thanks
+            if (formTypeVal === 4) {
                 $scope.isShareCodeHidden = true;
                 $scope.isThankYouContentHidden = $scope.isThankYouContentHidden ? false : true;
             }
@@ -286,7 +288,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                         "UseShareCode": $scope.editor.UseShareCode,
                         "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
-                        "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature
+                        "IsAdvance": accountType === 2 ? 1 : 0,
                         "Status": $scope.saveMethod,
                         "AutoresponderCodes": ($scope.editor.AutoresponderCodes) ? $scope.editor.AutoresponderCodes : "",
                         "TrackingCode": ($scope.editor.TrackingCode) ? $scope.editor.TrackingCode : "",
@@ -307,7 +309,7 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
                             "UseShareCode": "",
                             "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.formTypeVal,
-                            "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 2 : 1, // one of those are NOT equal NULL then customer is using advanced feature,
+                            "IsAdvance": accountType === 2 ? 1 : 0,
                             "Status": $scope.saveMethod,
                             "AutoresponderCodes": ($scope.editor.AutoresponderCodes) ? $scope.editor.AutoresponderCodes : "",
                             "TrackingCode": ($scope.editor.TrackingCode) ? $scope.editor.TrackingCode : "",

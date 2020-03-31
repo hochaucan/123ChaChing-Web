@@ -33,8 +33,8 @@
                                     </div>
                                 </td>
                                 <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
-                                <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount}}</td>
-                                <td data-title="&#39;Hoa Hồng&#39;">{{order.AffiliateAmount}}</td>
+                                <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount | number}} Đ</td>
+                                <td data-title="&#39;Hoa Hồng&#39;">{{order.AffiliateAmount | number}} Đ</td>
                                 <td data-title="&#39;Đại Sứ&#39;"><a>{{order.AffiliateName}}</a></td>
                                 <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
                                 <td class="center">

@@ -159,7 +159,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         "UseShareCode": $scope.editor.UseShareCode,
                         "ThankYouContent": "",
                         "FromType": $scope.formTypeVal,
-                        "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 1 : 0, // one of those are NOT equal NULL then customer is using advanced feature
+                        "IsAdvance": accountType === 2 ? 1 : 0,
                         "Status": $scope.saveMethod,
                         "AutoresponderCodes": ($scope.editor.AutoresponderCodes) ? $scope.editor.AutoresponderCodes : "",
                         "TrackingCode": ($scope.editor.TrackingCode) ? $scope.editor.TrackingCode : "",
@@ -181,7 +181,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                             "UseShareCode": "",
                             "ThankYouContent": $scope.editor.ThankYouContent,
                             "FromType": $scope.editor.FromType,
-                            "IsAdvance": ($scope.editor.AutoresponderCodes != null || $scope.editor.TrackingCode != null) ? 2 : 1, // one of those are NOT equal NULL then customer is using advanced feature,
+                            "IsAdvance": accountType === 2 ? 1 : 0,
                             "Status": $scope.saveMethod,
                             "AutoresponderCodes": ($scope.editor.AutoresponderCodes) ? $scope.editor.AutoresponderCodes : "",
                             "TrackingCode": ($scope.editor.TrackingCode) ? $scope.editor.TrackingCode : "",
