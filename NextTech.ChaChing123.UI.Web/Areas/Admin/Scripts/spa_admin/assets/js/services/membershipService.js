@@ -22,8 +22,22 @@
             GetAccountList: GetAccountList,
             GetAffiliateList: GetAffiliateList,
             GetWithDrawallInfoByAccount: GetWithDrawallInfoByAccount,
-            SetPasswodForAccount: SetPasswodForAccount
+            SetPasswodForAccount: SetPasswodForAccount,
+            LockAccount: LockAccount,
+            ChangeAccountType: ChangeAccountType
         };
+
+        function ChangeAccountType(memberObj, completed) {
+            apiService.post(baseUrl + '/ChangeAccountType/', memberObj,
+                completed,
+                entityFailed);
+        }
+
+        function LockAccount(memberObj, completed) {
+            apiService.post(baseUrl + '/LockAccount/', memberObj,
+                completed,
+                entityFailed);
+        }
 
         function SetPasswodForAccount(memberObj, completed) {
             apiService.post(baseUrl + '/SetPasswodForAccount/', memberObj,

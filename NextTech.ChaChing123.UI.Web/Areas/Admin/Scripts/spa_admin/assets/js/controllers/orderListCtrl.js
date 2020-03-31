@@ -230,7 +230,6 @@ app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStor
             $scope.showSpinner = true;
 
             if ($scope.CustomerAccount && $scope.CustomerAccount.length > 0) {
-
                 $timeout(function () {
                     $scope.order = {
                         "CustomerAccount": $scope.CustomerAccount,
@@ -241,21 +240,26 @@ app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStor
 
                     $scope.showSpinner = false;
                 }, 1000);
+
             }
+            console.log('1.loadOrderDetails');
+            console.log($scope.order);
         }
 
         function loadPaymentStatus() {
             $scope.PaymentStatusList = [
-                { PaymentStatus: 1, PaymentStatusName: 'Chưa thanh toán' },
-                { PaymentStatus: 2, PaymentStatusName: 'Ðã thanh toán' },
-                { PaymentStatus: 3, PaymentStatusName: 'Hoàn Tiền' }
+                { PaymentStatus: "1", PaymentStatusName: 'Chưa thanh toán' },
+                { PaymentStatus: "2", PaymentStatusName: 'Ðã thanh toán' },
+                { PaymentStatus: "3", PaymentStatusName: 'Hoàn Tiền' }
             ];
+            console.log('2.loadPaymentStatus');
+            console.log($scope.PaymentStatusList);
         }
 
         function loadAccountTypeList() {
             $scope.AccountTypeList = [
-                { AccountType: 1, AccountTypeName: 'Cơ Bản' },
-                { AccountType: 2, AccountTypeName: 'Nâng Cao' }
+                { AccountType: "1", AccountTypeName: 'Cơ Bản' },
+                { AccountType: "2", AccountTypeName: 'Nâng Cao' }
             ];
         }
 
@@ -382,9 +386,9 @@ app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$
 
         function loadAffiliateStatus() {
             $scope.AffiliateStatusList = [
-                { AffiliateStatus: 1, AffiliateStatusName: 'Đang Duyệt' },
-                { AffiliateStatus: 2, AffiliateStatusName: 'Đã Duyệt' },
-                { AffiliateStatus: 3, AffiliateStatusName: 'Hủy' }
+                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' },
+                { AffiliateStatus: "2", AffiliateStatusName: 'Đã Duyệt' },
+                { AffiliateStatus: "3", AffiliateStatusName: 'Hủy' }
             ];
         }
 

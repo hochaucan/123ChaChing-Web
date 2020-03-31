@@ -8,7 +8,7 @@ var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
-app.controller('ReponseController', ["$scope", "$state", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
+app.controller('NotificationController', ["$scope", "$state", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "notificationService",
     function ($scope, $state, $window, $location, $localStorage, $timeout, membershipService, editorService, notificationService) {
         $scope.active = false;
         var taxIndex = 0;

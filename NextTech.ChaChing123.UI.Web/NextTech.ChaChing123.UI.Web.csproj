@@ -506,6 +506,8 @@
     <Content Include="Content\Document\UserManual\3-kinh-doanh-online-dot-pha.png" />
     <Content Include="Content\Resources\Images\1.png" />
     <Content Include="Content\Resources\Images\35013-quick9.png" />
+    <Content Include="Content\Resources\Images\lifestyle95.jpg" />
+    <Content Include="Content\Resources\Images\pool.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

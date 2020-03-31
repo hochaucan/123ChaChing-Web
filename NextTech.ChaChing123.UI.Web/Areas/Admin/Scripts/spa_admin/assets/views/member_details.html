@@ -28,9 +28,28 @@
                                         <tbody>
                                             <tr>
                                                 <td><h3>THÔNG TIN CƠ BẢN</h3></td>
-                                                <td><h4><a ng-click="accessUserAccount(member.UserName)"><i class="fa fa-share-square-o"></i> {{member.CreatedDate}}</a></h4></td>
-                                                <td><span class="label label-warning" ng-click="upgradeOrDowngradeUser(member.ID)"> Nâng Cao</span></td>
-                                                <td><span class="label label-success" ng-click="lockOrUnlockUser(member.ID)"> Hoạt Động</span></td>
+                                                <td><h4>
+                                                    <a ng-click="accessUserAccount(member.UserName)">
+                                                    <i class="fa fa-share-square-o"></i> {{member.CreatedDate}}
+                                                    </a>
+                                                    </h4>
+                                                </td>
+                                                <td>
+                                                    <a class="label label-info" ng-if="member.AccountType == '1'">
+                                                        <i class="ti-stats-up" ng-click="upgradeOrDowngradeUser($event)" data="{{member.UserName}}|{{member.AccountType}}"></i> {{member.AccountTypeName}}
+                                                    </a>
+                                                    <a class="label label-primary" ng-if="member.AccountType == '2'">
+                                                        <i class="ti-stats-up" ng-click="upgradeOrDowngradeUser($event)" data="{{member.UserName}}|{{member.AccountType}}"></i> {{member.AccountTypeName}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a class="label label-success" ng-if="member.IsLock == '0'">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockUser($event)" data="{{member.UserName}}|{{member.IsLock}}"></i> Hoạt Động
+                                                    </a>
+                                                    <a class="label label-danger" ng-if="member.IsLock == '1'">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockUser($event)" data="{{member.UserName}}|{{member.IsLock}}"></i> Không Hoạt Động
+                                                    </a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -104,6 +123,40 @@
                                 </div>
                             </form>
                         </div>
+                        <script type="text/ng-template" id="myModalLockOrUnlockUser.html">
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Khóa/Mở User</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <p>Bạn muốn Khóa/Mở User Này Không?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">Đồng Ý!</button>
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không Đồng Ý</button>
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="myModalUpgradeOrDowngradeUser.html">
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Nâng Cấp/Hạ Cấp User</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <p>Bạn muốn Nâng Cấp/Hạ Cấp User Này Không?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">Đồng Ý!</button>
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không Đồng Ý</button>
+                            </div>
+                        </script>
                     </div>
                 </div>
             </div>
@@ -141,11 +194,11 @@
                                         <td data-title="&#39;Loại&#39;">{{entity.AccountTypeName}}</td>
                                         <td data-title="&#39;Lượt Giới Thiệu&#39;">{{entity.CashTypeName}}</td>
                                         <td data-title="&#39;Tái Tục&#39;">{{entity.RenewalNo}}</td>
-                                        <td data-title="&#39;Hoa Hồng&#39;">{{entity.Amount}}</td>
+                                        <td data-title="&#39;Hoa Hồng&#39;">{{entity.Amount | number}} Đ</td>
                                         <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
                                         <td class="left">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
+                                                <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
                                                     <i class="fa fa-pencil" data="{{entity.UserName}}|{{entity.FullName}}|{{entity.ContractNo}}|{{order.PaymentStatusNo}}"></i>
                                                 </a>
                                             </div>

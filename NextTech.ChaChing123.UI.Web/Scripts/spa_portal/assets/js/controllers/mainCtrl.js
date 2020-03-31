@@ -176,6 +176,8 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                         $scope.username = $localStorage.currentUser.username;
                         $scope.fullname = $localStorage.currentUser.fullname;
                         $scope.myavatar = $localStorage.currentUser.myavatar;
+                    } else {
+                        //membershipService.saveCredentials(result.data.Details);
                     }
                 }
 

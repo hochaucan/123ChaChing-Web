@@ -20,8 +20,15 @@
             isAuthenticated: isAuthenticated,
             checkMemberAuthorization: checkMemberAuthorization,
             EditAccount: EditAccount,
-            GetAccountInfo: GetAccountInfo
+            GetAccountInfo: GetAccountInfo,
+            SetDefautAccount: SetDefautAccount
         };
+
+        function SetDefautAccount(user, completed) {
+            apiService.post(baseUrl + '/api/Admin/SetDefautAccount/', user,
+                completed,
+                loginFailed);
+        }
 
         function login(user, completed) {
             apiService.post(baseUrl + '/api/Account/login', user,
