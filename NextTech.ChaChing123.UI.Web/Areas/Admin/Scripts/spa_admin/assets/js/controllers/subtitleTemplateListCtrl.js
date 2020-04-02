@@ -102,8 +102,8 @@ app.controller('ngTableSubTitleTemplateListCtrl', ["$scope", "$uibModal", "$loca
         function manageTitleTemplateList() {
             $scope.addTitle = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalAddEditTitle.html',
-                    controller: 'ModalAddEditTitleCtrl',
+                    templateUrl: 'myModalAddEditSubTitle.html',
+                    controller: 'ModalAddEditSubTitleCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -115,8 +115,8 @@ app.controller('ngTableSubTitleTemplateListCtrl', ["$scope", "$uibModal", "$loca
 
             $scope.editTitle = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalAddEditTitle.html',
-                    controller: 'ModalAddEditTitleCtrl',
+                    templateUrl: 'myModalAddEditSubTitle.html',
+                    controller: 'ModalAddEditSubTitleCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -129,8 +129,8 @@ app.controller('ngTableSubTitleTemplateListCtrl', ["$scope", "$uibModal", "$loca
 
             $scope.viewDetailsTitle = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalViewDetailsTitle.html',
-                    controller: 'ModalViewDetailsTitleCtrl',
+                    templateUrl: 'myModalViewDetailsSubTitle.html',
+                    controller: 'ModalViewDetailsSubTitleCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -143,8 +143,8 @@ app.controller('ngTableSubTitleTemplateListCtrl', ["$scope", "$uibModal", "$loca
 
             $scope.deleteTitle = function (size) {
                 var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalDeleteTitle.html',
-                    controller: 'ModalDeleteTitleCtrl',
+                    templateUrl: 'myModalDeleteSubTitle.html',
+                    controller: 'ModalDeleteSubTitleCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -166,7 +166,7 @@ app.controller('ngTableSubTitleTemplateListCtrl', ["$scope", "$uibModal", "$loca
         $scope.TitleTemplateManage.init();
     }]);
 
-app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "subtitleTemplateService", "membershipService", "notificationService",
+app.controller('ModalAddEditSubTitleCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "subtitleTemplateService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, subtitleTemplateService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
@@ -174,13 +174,17 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         $scope.PaymentStatusList = {};
         $scope.AccountTypeList = {};
         $scope.AffiliateStatusList = {};
-        $scope.titleID = 0;
-        if (items === undefined)
-            items = 0;
+        $scope.ID = 0;
+        $scope.Title = "";
 
-        $scope.titleID = items ? items : 0;
+        var itemsInfo = items ? items : "";
+        var itemsSplit = itemsInfo.split('|');
+        if (itemsSplit.length > 0) {
+            $scope.ID = itemsSplit[0];
+            $scope.Title = itemsSplit[1];
+        }
 
-        if ($scope.titleID == 0)
+        if ($scope.ID == 0)
             $scope.titleHeading = "Thêm Mới Tiêu Đề Phụ";
         else
             $scope.titleHeading = "Cập Nhật Tiêu Đề Phụ";
@@ -218,9 +222,9 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
                         return;
 
                     } else {
-                        if ($scope.titleID > 0) {
+                        if ($scope.ID > 0) {
                             $scope.entity = {
-                                "ID": $scope.titleID,
+                                "ID": $scope.ID,
                                 "Title": $scope.entity.Title,
                                 "SessionKey": sessionKey
                             };
@@ -237,6 +241,7 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         $uibModalInstance.dismiss('cancel');
+                                        $window.location.reload();
                                     }, 1000);
                                 } else {
                                     notificationService.displayError(result.data.StatusMsg);
@@ -281,12 +286,17 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         }
 
         function loadTitleDetails() {
-            //1. call an API to get order details by ID
-            if ($scope.titleID > 0) {
-                $scope.entity = {
-                    "ID": 1,
-                    "Title": "This is test"
-                };
+            $scope.showSpinner = true;
+
+            if ($scope.ID > 0) {
+                $timeout(function () {
+                    $scope.entity = {
+                        "ID": $scope.ID,
+                        "Title": $scope.Title
+                    };
+
+                    $scope.showSpinner = false;
+                }, 1000);
             }
         }
 
@@ -303,7 +313,7 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         $scope.ModalEditOrderManager.handleAddAndEditTitle();
     }]);
 
-app.controller('ModalViewDetailsTitleCtrl', ["$scope", "$uibModalInstance", "items", "subtitleTemplateService", "notificationService",
+app.controller('ModalViewDetailsSubTitleCtrl', ["$scope", "$uibModalInstance", "items", "subtitleTemplateService", "notificationService",
     function ($scope, $uibModalInstance, items, subtitleTemplateService, notificationService) {
         $scope.order = {};
         $scope.orderID = 0;
@@ -333,7 +343,7 @@ app.controller('ModalViewDetailsTitleCtrl', ["$scope", "$uibModalInstance", "ite
         $scope.ModalEditOrderManager.init();
     }]);
 
-app.controller('ModalDeleteTitleCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "subtitleTemplateService", "membershipService", "notificationService",
+app.controller('ModalDeleteSubTitleCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "subtitleTemplateService", "membershipService", "notificationService",
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, subtitleTemplateService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.orderID = 0;
@@ -352,9 +362,12 @@ app.controller('ModalDeleteTitleCtrl', ["$scope", "$window", "$localStorage", "$
                 }
 
                 if (result.data && result.data.StatusCode == 0) {
-                    notificationService.displaySuccess('Xóa Tiêu Đề Thành Công');
-                    $uibModalInstance.dismiss('cancel');
-                    $window.location.reload();
+                    notificationService.displaySuccess('Xóa Tiêu Đề Phụ Thành Công');
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
                 }
                 else {
                     notificationService.displayError(result.data.StatusMsg);

@@ -33,7 +33,7 @@
                                                     <img id="ibcform" src="Content/Resources/Images/35013-quick9.png" alt="solo image" class="img-responsive">
                                                 </a>
                                                 <div class="pageTitle">
-                                                    <span ng-if="myPage.Status == '2'">{{myPage.Link}}</span>
+                                                    <a ng-if="myPage.Status == '2'" href="{{myPage.Link}}" target="_blank"><i class="fa fa-circle"></i> {{myPage.Link}}</a>
                                                     <div style="float:right">
                                                         <i class="fa fa-share shareQuick iconQuick" ng-click="shareSoloPageCode($event)" data-name="ibcform" data-id="{{myPage.ShareCode}}" data="{{myPage.ShareCode}}" style="color: rgb(76, 138, 23); cursor: pointer;margin-right:5px"></i>
                                                         <a ng-href="#/app/editor2/solo/edit/{{myPage.ID}}"><i class="fa fa-pencil iconQuick"></i></a>

@@ -174,13 +174,17 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         $scope.PaymentStatusList = {};
         $scope.AccountTypeList = {};
         $scope.AffiliateStatusList = {};
-        $scope.titleID = 0;
-        if (items === undefined)
-            items = 0;
+        $scope.ID = 0;
+        $scope.Title = "";
 
-        $scope.titleID = items ? items : 0;
+        var itemsInfo = items ? items : "";
+        var itemsSplit = itemsInfo.split('|');
+        if (itemsSplit.length > 0) {
+            $scope.ID = itemsSplit[0];
+            $scope.Title = itemsSplit[1];
+        }
 
-        if ($scope.titleID == 0)
+        if ($scope.ID == 0)
             $scope.titleHeading = "Thêm Mới Tiêu Đề";
         else
             $scope.titleHeading = "Cập Nhật Tiêu Đề";
@@ -218,9 +222,9 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
                         return;
 
                     } else {
-                        if ($scope.titleID > 0) {
+                        if ($scope.ID > 0) {
                             $scope.entity = {
-                                "ID": $scope.titleID,
+                                "ID": $scope.ID,
                                 "Title": $scope.entity.Title,
                                 "SessionKey": sessionKey
                             };
@@ -237,6 +241,7 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         $uibModalInstance.dismiss('cancel');
+                                        $window.location.reload();
                                     }, 1000);
                                 } else {
                                     notificationService.displayError(result.data.StatusMsg);
@@ -281,12 +286,17 @@ app.controller('ModalAddEditTitleCtrl', ["$scope", "$window", "$localStorage", "
         }
 
         function loadTitleDetails() {
-            //1. call an API to get order details by ID
-            if ($scope.titleID > 0) {
-                $scope.entity = {
-                    "ID": 1,
-                    "Title": "This is test"
-                };
+            $scope.showSpinner = true;
+
+            if ($scope.ID > 0) {
+                $timeout(function () {
+                    $scope.entity = {
+                        "ID": $scope.ID,
+                        "Title": $scope.Title
+                    };
+
+                    $scope.showSpinner = false;
+                }, 1000);
             }
         }
 
@@ -353,8 +363,11 @@ app.controller('ModalDeleteTitleCtrl', ["$scope", "$window", "$localStorage", "$
 
                 if (result.data && result.data.StatusCode == 0) {
                     notificationService.displaySuccess('Xóa Tiêu Đề Thành Công');
-                    $uibModalInstance.dismiss('cancel');
-                    $window.location.reload();
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
                 }
                 else {
                     notificationService.displayError(result.data.StatusMsg);

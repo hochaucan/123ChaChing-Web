@@ -18,35 +18,102 @@
             <div class="col-md-12">
                 <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
                 <div ng-controller="ngTableOrderListCtrl">
-                    <table ng-table="tableParams" class="table table-striped">
-                        <tbody>
-                            <tr ng-repeat="order in $data">
-                                <td data-title="&#39;Mã ĐH&#39;">#{{order.ContractNo}}</td>
-                                <td data-title="&#39;Ngày&#39;">{{order.CreatedDate}}</td>
-                                <td data-title="&#39;Khách Hàng&#39;"><a>{{order.CustomerName}}</a></td>
-                                <td data-title="&#39;Thanh Toán&#39;"><span ng-class="[getClassForPayMentStatus(order.PaymentStatus), 'b']"> {{order.PaymentStatusName}}</span></td>
-                                <td class="left">
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
-                                            <i class="fa fa-pencil" data="{{order.CustomerAccount}}|{{order.CustomerName}}|{{order.ContractNo}}|{{order.PaymentStatus}}"></i>
-                                        </a>
+                    <div class="row">
+                        <div class="panel panel-white">
+                            <div class="panel-body">
+                                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                <form class="ng-pristine ng-valid" name="FormOrderSearching" id="FormOrderSearching" novalidate="" ng-submit="form.submit(FormOrderSearching)">
+                                    <div class="input-group well">
+                                        <input type="text" class="form-control" id="KeyWord" name="KeyWord" ng-model="order.KeyWord" placeholder="Tên, Email, Số Điện Thoại">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fa fa-search"></i> Tìm Kiếm
+                                            </button>
+                                        </span>
                                     </div>
-                                </td>
-                                <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
-                                <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount | number}} Đ</td>
-                                <td data-title="&#39;Hoa Hồng&#39;">{{order.AffiliateAmount | number}} Đ</td>
-                                <td data-title="&#39;Đại Sứ&#39;"><a>{{order.AffiliateName}}</a></td>
-                                <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
-                                <td class="center">
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Đại Sứ">
-                                            <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}|{{order.AffiliateStatus}}"></i>
-                                        </a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-white">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="panel-body">
+                                <div class="col-md-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="PaymentStatus">
+                                            Thanh Toán
+                                        </label>
+                                        <select class="form-control black" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatus" ng-options="payment.PaymentStatus as payment.PaymentStatusName for payment in PaymentStatusList">
+                                            <option value="">Tất Cả</option>
+                                        </select>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </div>
+                                <div class="col-md-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="Affiliates">
+                                            Đại Sứ
+                                        </label>
+                                        <select class="form-control black" id="Affiliates" name="Affiliates" ng-model="order.UserName" ng-options="affiliate.UserName as affiliate.FullName for affiliate in Affiliates">
+                                            <option value="">Tất Cả</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="AffiliateStatus">
+                                            Tình Trạng
+                                        </label>
+                                        <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="order.AffiliateStatus" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                            <option value="">Tất Cả</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-md-12">
+                                    <div class="form-group text-right margin-top-30">
+                                        <label for="">
+                                        </label>
+                                        <a class="btn btn-wide btn-primary" ng-click="doFilterOrder()"><i class="ti-filter"></i> Áp Dụng Bộ Lọc</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                        <table ng-table="tableParams" class="table table-striped">
+                                            <tbody>
+                                                <tr ng-repeat="order in $data">
+                                                    <td data-title="&#39;Mã ĐH&#39;">#{{order.ContractNo}}</td>
+                                                    <td data-title="&#39;Ngày&#39;">{{order.CreatedDate}}</td>
+                                                    <td data-title="&#39;Khách Hàng&#39;"><a>{{order.CustomerName}}</a></td>
+                                                    <td data-title="&#39;Thanh Toán&#39;"><span ng-class="[getClassForPayMentStatus(order.PaymentStatus), 'b']"> {{order.PaymentStatusName}}</span></td>
+                                                    <td class="left">
+                                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                            <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
+                                                                <i class="fa fa-pencil" data="{{order.CustomerAccount}}|{{order.CustomerName}}|{{order.ContractNo}}|{{order.PaymentStatus}}"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
+                                                    <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount | number}} Đ</td>
+                                                    <td data-title="&#39;Hoa Hồng&#39;">{{order.AffiliateAmount | number}} Đ</td>
+                                                    <td data-title="&#39;Đại Sứ&#39;"><a>{{order.AffiliateName}}</a></td>
+                                                    <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
+                                                    <td class="center">
+                                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                            <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Đại Sứ">
+                                                                <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}|{{order.AffiliateStatus}}"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <script type="text/ng-template" id="myModalUpdatePaymentStatus.html">
                         <circle-spinner ng-show="showSpinner"></circle-spinner>
                         <form class="form-addnewlead-request" name="FormUpdatePaymentStatus" id="FormUpdatePaymentStatus" novalidate="" ng-submit="form.submit(FormUpdatePaymentStatus)">

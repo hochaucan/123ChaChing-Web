@@ -11,6 +11,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
         var UserName = "";
         var SessionKey = "";
         var destinationURL = "";
+        var formType = 0;
         $scope.isShowVideoSource = false;
         $scope.isShowImageSource = false;
 
@@ -68,36 +69,45 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                                 "FunnelID": funnelID
                             };
 
-                            destinationURL = angular.element('#refLink').val();
                             var indexOfHttps = -1;
+                            destinationURL = angular.element('#refLink').val();
+                            formType = angular.element('#formTypeID').val();
 
-                            $scope.showSpinner = true;
-                            // Load the data from the API
-                            editorService.RegisterLeadBySoloPage(leadRes, function (result) {
-                                if (result.data && result.data.StatusCode === 17) {
-                                    membershipService.checkMemberAuthorization();
+                            if (formType != undefined && formType == 4 && destinationURL.length > 0) {
+                                indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
+                                if (indexOfHttps === -1) {
+                                    destinationURL = 'http://' + destinationURL;
                                 }
+                                $window.open(destinationURL, '_blank');
+                            } else {
+                                $scope.showSpinner = true;
+                                // Load the data from the API
+                                editorService.RegisterLeadBySoloPage(leadRes, function (result) {
+                                    if (result.data && result.data.StatusCode === 17) {
+                                        membershipService.checkMemberAuthorization();
+                                    }
 
-                                if (result.data && result.data.StatusCode === 0) {
-                                    notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
-                                    $timeout(function () {
-                                        $scope.showSpinner = false;
-                                        if (destinationURL && destinationURL.length > 0) {
-                                            indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
-                                            if (indexOfHttps === -1) {
-                                                destinationURL = 'http://' + destinationURL;
+                                    if (result.data && result.data.StatusCode === 0) {
+                                        notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
+                                        $timeout(function () {
+                                            $scope.showSpinner = false;
+                                            if (destinationURL && destinationURL.length > 0) {
+                                                indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
+                                                if (indexOfHttps === -1) {
+                                                    destinationURL = 'http://' + destinationURL;
+                                                }
+
+                                                $window.open(destinationURL, '_blank');
                                             }
-
-                                            $window.open(destinationURL, '_blank');
-                                        }
-                                    }, 1000);
-                                } else {
-                                    notificationService.displayError(result.data.StatusMsg);
-                                    $timeout(function () {
-                                        $scope.showSpinner = false;
-                                    }, 2000);
-                                }
-                            });
+                                        }, 1000);
+                                    } else {
+                                        notificationService.displayError(result.data.StatusMsg);
+                                        $timeout(function () {
+                                            $scope.showSpinner = false;
+                                        }, 2000);
+                                    }
+                                });
+                            }
                         }
 
                     }
@@ -132,7 +142,7 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                         $scope.Title = result.data.Details.Title;
                         $scope.SubTitle = result.data.Details.SubTitle;
                         $scope.ButtonName = result.data.Details.ButtonName;
-                        $scope.ButtonColor = result.data.Details.ButtonColor;           
+                        $scope.ButtonColor = result.data.Details.ButtonColor;
                         
                         fullResourcePath = result.data.Details.ResourcePath;
                         if (fullResourcePath.length > 0) {

@@ -77,8 +77,8 @@
                                         <label for="Content">
                                             Thứ Tự Hiển Thị <span class="symbol required"></span>
                                         </label>
-                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="">
-                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc.</span>
+                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="" ng-pattern="/^[0-9]*$/">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc và phải là số.</span>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
