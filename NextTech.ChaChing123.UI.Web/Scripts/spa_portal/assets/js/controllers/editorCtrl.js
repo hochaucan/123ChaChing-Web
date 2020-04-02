@@ -205,13 +205,13 @@ app.controller('TabsEditorCtrl', ["$scope", "$window", "$location", "$localStora
             $scope.isThankYouContentHidden = true;
 
             // is Used for Share Code Purpose
-            if (formTypeVal === 5) {
+            if (formTypeVal == 5) {
                 $scope.isThankYouContentHidden = true;
                 $scope.isShareCodeHidden = $scope.isShareCodeHidden ? false : true;
             }
 
             // Page Thanks
-            if (formTypeVal === 4) {
+            if (formTypeVal == 4) {
                 $scope.isShareCodeHidden = true;
                 $scope.isThankYouContentHidden = $scope.isThankYouContentHidden ? false : true;
             }

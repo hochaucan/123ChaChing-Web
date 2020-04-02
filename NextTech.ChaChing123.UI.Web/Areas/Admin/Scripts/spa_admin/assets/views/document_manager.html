@@ -31,13 +31,10 @@
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
-                                    <td data-title="&#39;Ngày Tạo&#39;">{{document.CreatedDate}}</td>
+                                    <td data-title="&#39;Danh Mục&#39;">{{document.DocumentsID}}-Category name will be replaced by categogy ID in API</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
-                                    <td class="center">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a ng-click="viewDetailsDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">
-                                                <i class="fa fa-info" data="{{document.ID}}"></i>
-                                            </a>
+                                    <td data-title="&#39;Hành Động&#39;" class="center">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">                                            
                                             <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
                                                 <i class="fa fa-pencil" data="{{document.ID}}"></i>
                                             </a>
@@ -87,8 +84,8 @@
                                         <label for="Content">
                                             Thứ Tự Hiển Thị <span class="symbol required"></span>
                                         </label>
-                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="">
-                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc.</span>
+                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="" ng-pattern="/^[0-9]*$/">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc và phải là số.</span>
                                     </div>
                                     <div class="form-group" ng-if="isShowLinkDestination">
                                         <label for="Content">

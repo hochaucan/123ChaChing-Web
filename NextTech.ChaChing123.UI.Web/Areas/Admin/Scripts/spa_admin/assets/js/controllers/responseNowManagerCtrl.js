@@ -122,11 +122,13 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
     function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, responseService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.entity = {};
+        $scope.types = {};
         $scope.documentHeading = "Thêm Mới Trả Lời Nhanh";
         var documentID = 0;
         var responseTitle = "";
         var responseContent = "";
         var responseOrder = "";
+        var responseType = "";
 
         var parts = [];
         var responseRow = items ? items : "";
@@ -137,6 +139,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                 responseTitle = parts[1];
                 responseContent = parts[2];
                 responseOrder = parts[3];
+                responseType = parts[4];
             }
         }
 
@@ -184,6 +187,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                                 "Title": $scope.entity.Title,
                                 "Content": $scope.entity.Content,
                                 "Order": $scope.entity.Order,
+                                "Type": $scope.entity.Type,
                                 "SessionKey": sessionKey
                             };
 
@@ -214,6 +218,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                                 "Title": $scope.entity.Title,
                                 "Content": $scope.entity.Content,
                                 "Order": $scope.entity.Order,
+                                "Type": $scope.entity.Type,
                                 "SessionKey": sessionKey
                             };
 
@@ -245,22 +250,38 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
             };
         }
 
+        function loadTypes() {
+            $scope.types = [
+                {
+                    Type: "1",
+                    Title: "SMS"
+                },
+                {
+                    Type: "2",
+                    Title: "Email"
+                }
+            ];
+        }
+
         function loadDocumentDetails() {
             if (documentID > 0) {
                 $scope.entity = {
                     ID: documentID,
                     Title: responseTitle,
                     Content: responseContent,
-                    Order: responseOrder
+                    Order: responseOrder,
+                    Type: responseType
                 };
             }
         }
 
         $scope.ModalAddEditDocumentManager = {
             edit: function () {
+                loadTypes();
                 loadDocumentDetails();
             },
             handleAddAndEditDocument: function () {
+                loadTypes();
                 addEditDocumentForm();
             }
         };

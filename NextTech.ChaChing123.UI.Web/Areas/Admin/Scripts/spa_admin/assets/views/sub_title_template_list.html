@@ -34,7 +34,7 @@
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a ng-click="editTitle($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
-                                                <i class="fa fa-pencil" data="{{entity.ID}}"></i>
+                                                <i class="fa fa-pencil" data="{{entity.ID}}|{{entity.Title}}"></i>
                                             </a>
                                             <a ng-click="deleteTitle($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
                                                 <i class="fa fa-times fa fa-white" data="{{entity.ID}}"></i>
@@ -44,7 +44,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <script type="text/ng-template" id="myModalAddEditTitle.html">
+                        <script type="text/ng-template" id="myModalAddEditSubTitle.html">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <form class="form-addnewlead-request" name="FormAddEditTitle" id="FormAddEditTitle" novalidate="" ng-submit="form.submit(FormAddEditTitle)">
                                 <div class="modal-header">
@@ -69,7 +69,7 @@
                                 </div>
                             </form>
                         </script>
-                        <script type="text/ng-template" id="myModalDeleteTitle.html">
+                        <script type="text/ng-template" id="myModalDeleteSubTitle.html">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <div class="modal-header">
                                 <span class="modal-title text-bold">Xóa Tiêu Đề Phụ</span>

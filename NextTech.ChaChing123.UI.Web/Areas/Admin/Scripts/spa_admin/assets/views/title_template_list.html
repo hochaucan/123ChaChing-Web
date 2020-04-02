@@ -34,7 +34,7 @@
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a ng-click="editTitle($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
-                                                <i class="fa fa-pencil" data="{{entity.ID}}"></i>
+                                                <i class="fa fa-pencil" data="{{entity.ID}}|{{entity.Title}}"></i>
                                             </a>
                                             <a ng-click="deleteTitle($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
                                                 <i class="fa fa-times fa fa-white" data="{{entity.ID}}"></i>

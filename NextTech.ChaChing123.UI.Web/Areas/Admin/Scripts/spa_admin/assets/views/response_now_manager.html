@@ -35,11 +35,8 @@
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a ng-click="viewDetailsDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">
-                                                <i class="fa fa-info" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.Order}}"></i>
-                                            </a>
                                             <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
-                                                <i class="fa fa-pencil" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.Order}}"></i>
+                                                <i class="fa fa-pencil" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.Order}}|{{document.Type}}"></i>
                                             </a>
                                             <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
                                                 <i class="fa fa-times fa fa-white" data="{{document.ID}}"></i>
@@ -77,8 +74,18 @@
                                         <label for="Content">
                                             Thứ Tự Hiển Thị <span class="symbol required"></span>
                                         </label>
-                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="">
-                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc.</span>
+                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="" ng-pattern="/^[0-9]*$/">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc và phải là số.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Type.$dirty && FormAddEditDocument.Type.$invalid, 'has-success':FormAddEditDocument.Type.$valid}">
+                                        <label for="Type">
+                                            Loại <span class="symbol required"></span>
+                                        </label>
+                                        <select id="Type" name="Type" ng-model="entity.Type" class="form-control black" ng-options="option.Type as option.Title for option in types" required="">
+                                            <option value="">Chọn Loại Trả Lời Nhanh</option>
+                                        </select>
+                                        <input type="hidden" name="ID" ng-value="entity.ID" />
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Type.$dirty && FormAddEditDocument.Type.$invalid">Loại trả lời nhanh là bắt buộc.</span>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

@@ -18,8 +18,16 @@
 
             GetAccountInfo: GetAccountInfo,
             UpdatePaymentState: UpdatePaymentState,
-            UpdatePaymentAffiliateState: UpdatePaymentAffiliateState
+            UpdatePaymentAffiliateState: UpdatePaymentAffiliateState,
+            GetAffialateList: GetAffialateList
         };
+
+        function GetAffialateList(orderObj, completed) {
+            apiService.post(baseUrl + '/GetAffialateList/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
 
         function GetOrderList(orderObj, completed) {
             apiService.post(baseUrl + '/GetOrderList/', orderObj,

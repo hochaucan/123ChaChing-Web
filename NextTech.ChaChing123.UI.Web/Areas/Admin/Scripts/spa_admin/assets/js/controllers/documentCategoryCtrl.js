@@ -4,7 +4,7 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-app.controller('ngTableTitleTemplateListCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "titleTemplateService", "membershipService", "notificationService",
+app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "titleTemplateService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, titleTemplateService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.members = {};

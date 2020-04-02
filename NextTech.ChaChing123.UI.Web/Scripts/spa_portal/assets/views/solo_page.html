@@ -101,25 +101,39 @@
             </div>
         </div>
         <div ng-if="soloPageDetails.FromType=='4'">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-6">
-                    <div class="t-box">
-                        <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
-                        <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+            <div class="row padding-top">
+                <div class="col-md-7 padding-top-30">
+                    <div id="video_1" ng-if="isShowVideoSource">
+                        <iframe width="560" height="315" ng-src="{{VideoSource}}"
+                                frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="k-panel" style="background-color: white !important;">
-                        <div class="row">
-                            <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>{{soloPageDetails.ThankYouContent}}</span></span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="k-h1"><span id="relno-1" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(0, 0, 0);"><span><span> </span></span></span></div>
-                            </div>
-                            <div class="col-md-12">
-                                <img id="relno-4" class="imgUp hover maxH imageLeft2" data-imgno="2" src="/Content/Resources/Images/lifestyle95.jpg" style="max-width: 708px; box-shadow: none; cursor: initial; left: auto; top: auto;">
-                            </div>
+                    <div id="image_1" ng-if="isShowImageSource">
+                        <div class="col-md-8 col-md-offset-4">
+                            <img src="{{ImageSource}}" alt="offce" class="img-responsive">
                         </div>
                     </div>
+                </div>
+                <div class="col-md-5">
+                    <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
+                    <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
+                    <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
+                        <div class="k-panel" style="background-color: white !important;">
+                            <div class="row">
+                                <div class="k-h2"><span id="relno-3" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(38, 92, 138);"><span>{{soloPageDetails.ThankYouContent}}</span></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="k-h1"><span id="relno-1" class="editable hover" style="box-shadow: none; cursor: initial; color: rgb(0, 0, 0);"><span><span> </span></span></span></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <img id="relno-4" class="imgUp hover maxH imageLeft2" data-imgno="2" src="/Content/Resources/Images/lifestyle95.jpg" style="max-width: 708px; box-shadow: none; cursor: initial; left: auto; top: auto;">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="formTypeID" name="formTypeID" value="{{formType}}" />
+                        <input type="hidden" id="refLink" name="refLink" value="{{soloPageDetails.RefLink}}" />
+                        <button ng-if="soloPageDetails.RefLink && soloPageDetails.RefLink.length > 0" type="submit" id="text_3" class="editable-button-text btn submit-btn t-btn color-background" style="background-color:{{soloPageDetails.ButtonColor}};">{{soloPageDetails.ButtonName}}.</button>
+                    </form>
                 </div>
             </div>
         </div>

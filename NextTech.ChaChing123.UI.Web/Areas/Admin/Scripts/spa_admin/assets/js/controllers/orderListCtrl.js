@@ -6,28 +6,45 @@
 
 app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "orderService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, orderService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.members = {};
+        $scope.PaymentStatusList = {};
+        $scope.Affiliates = {};
+        $scope.AffiliateStatusList = {};
+
         $scope.orderID = 0;
 
-        function loadOrderList() {
+        function loadOrderList(filter) {
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 10 // count per page
             }, {
                     getData: function ($defer, params) {
-                        var memberObj = {};
-                        var sessionkey = ($localStorage.currentUserAdmin) ? $localStorage.currentUserAdmin.token : "";
+                        var filterObj = {};
+                        var keyword = "";
+                        var paymentStatus = "";
+                        var affiliate = "";
+                        var affiliateStatus = "";
 
-                        memberObj = {
-                            "UserName": "admin",
-                            "KeyWord": "",
+                        if (filter !== undefined) {
+                            keyword = (filter.KeyWord && filter.KeyWord.length > 0) ? filter.KeyWord : "";
+                            paymentStatus = (filter.PaymentStatus && filter.PaymentStatus.length > 0) ? filter.PaymentStatus : "";
+                            affiliate = (filter.UserName && filter.UserName.length > 0) ? filter.UserName : "";
+                            affiliateStatus = (filter.AffiliateStatus && filter.AffiliateStatus.length > 0) ? filter.AffiliateStatus : "";
+                        }
+
+                        filterObj = {
                             "PageIndex": params.page(),
                             "PageCount": params.count(),
-                            "SessionKey": sessionkey
+                            "KeyWord": keyword,
+                            "PaymentState": paymentStatus,
+                            "AffiliateState": affiliateStatus,
+                            "AffiliateAccount": affiliate,
+                            "SessionKey": sessionKey
                         };
 
                         // Load the data from the API
-                        orderService.GetOrderList(memberObj, function (result) {
+                        orderService.GetOrderList(filterObj, function (result) {
                             if (result.data && result.data.StatusCode == 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -70,6 +87,7 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                     }
                 });
         }
+
         function manageOrderList() {
             $scope.updatePaymentStatus = function (size) {
                 var modalInstance = $uibModal.open({
@@ -126,10 +144,104 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                     }
                 });
             };
+
+            $scope.doFilterOrder = function () {
+                var filter = {
+                    "PaymentStatus": $scope.order.PaymentStatus,
+                    "UserName": $scope.order.UserName,
+                    "AffiliateStatus": $scope.order.AffiliateStatus
+                };
+
+                loadOrderList(filter);
+            };
+        }
+
+        function doSearchingOrder() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var filter = {
+                            "KeyWord": $scope.order.KeyWord
+                        };
+
+                        loadOrderList(filter);
+                    }
+                }
+            };
+        }
+
+        function loadFilter() {
+            loadPaymentStatus();
+            loadAffiliates();
+            loadAffiliateStatus();
+        }
+
+        function loadPaymentStatus() {
+            $scope.PaymentStatusList = [
+                { PaymentStatus: "1", PaymentStatusName: 'Chưa thanh toán' },
+                { PaymentStatus: "2", PaymentStatusName: 'Ðã thanh toán' },
+                { PaymentStatus: "3", PaymentStatusName: 'Hoàn Tiền' }
+            ];
+        }
+
+        function loadAffiliates() {
+            var entity = {
+                "SessionKey": sessionKey
+            };
+            $scope.showSpinner = true;
+            // Load the data from the API
+            orderService.GetAffialateList(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.Affiliates = result.data.Details;
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
+        }
+
+        function loadAffiliateStatus() {
+            $scope.AffiliateStatusList = [
+                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' },
+                { AffiliateStatus: "2", AffiliateStatusName: 'Đã Duyệt' },
+                { AffiliateStatus: "3", AffiliateStatusName: 'Hủy' }
+            ];
         }
 
         $scope.OrderManage = {
             init: function () {
+                doSearchingOrder();
+                loadFilter();
                 loadOrderList();
                 manageOrderList();
             }
@@ -242,8 +354,6 @@ app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStor
                 }, 1000);
 
             }
-            console.log('1.loadOrderDetails');
-            console.log($scope.order);
         }
 
         function loadPaymentStatus() {
@@ -252,8 +362,6 @@ app.controller('ModalUpdatePaymentStatusCtrl', ["$scope", "$window", "$localStor
                 { PaymentStatus: "2", PaymentStatusName: 'Ðã thanh toán' },
                 { PaymentStatus: "3", PaymentStatusName: 'Hoàn Tiền' }
             ];
-            console.log('2.loadPaymentStatus');
-            console.log($scope.PaymentStatusList);
         }
 
         function loadAccountTypeList() {
