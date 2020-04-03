@@ -285,8 +285,6 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
 
-
-
         #region Leads        
         public static ResultDTO AddLeadsByAccount(this IEntityBaseRepository<Account> repository, RegisterLeadBySoloPageDTO obj)
         {

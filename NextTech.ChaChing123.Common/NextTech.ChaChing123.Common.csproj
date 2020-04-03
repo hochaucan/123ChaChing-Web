@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOIntroPageItem1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOQuickRepliesItem1Dto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsChartOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\BODocument1Dto.cs" />
     <Compile Include="DTO\ChaChing123\BODocuments1Dto.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="DTO\ChaChing123\BOBlockTabMarketingItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BODocumentDto.cs" />
     <Compile Include="DTO\ChaChing123\BODocumentsDto.cs" />
+    <Compile Include="DTO\ChaChing123\LeadsFilterDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />

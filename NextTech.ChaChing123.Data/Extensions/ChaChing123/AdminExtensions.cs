@@ -32,7 +32,8 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
             BODataListDTO Items = new BODataListDTO();
-            Items.Items = dbContext.Database.SqlQuery<BOAccountItemDTO>("EXEC [dbo].[sp_BO_GetAccountList] @SessionKey, @Count out,@errorCode out",
+            Items.Items = dbContext.Database.SqlQuery<BOAccountItemDTO>("EXEC [dbo].[sp_BO_GetAccountList] @KeyWord,@SessionKey, @Count out,@errorCode out",
+                        new SqlParameter("KeyWord", DB.SafeSQL(obj.KeyWord)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         count,
                         errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOAccountItemDTO>();
@@ -63,9 +64,12 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOOrderItemDto>("EXEC [dbo].[sp_BO_GetOrderList] @UserName,@SessionKey, @Count out, @errorCode out",
-                    new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                Items.Items = dbContext.Database.SqlQuery<BOOrderItemDto>("EXEC [dbo].[sp_BO_GetOrderList] @SessionKey,@KeyWord,@PaymentState,@AffiliateState,@AffiliateAccount, @Count out, @errorCode out",
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    new SqlParameter("KeyWord", DB.SafeSQL(obj.KeyWord)),
+                    new SqlParameter("PaymentState", DB.SafeSQL(obj.PaymentState)),
+                    new SqlParameter("AffiliateState", DB.SafeSQL(obj.AffiliateState)),
+                    new SqlParameter("AffiliateAccount", DB.SafeSQL(obj.AffiliateAccount)),
                     count,
                     errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOOrderItemDto>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
@@ -284,10 +288,10 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             try
             {
-                result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_LockAffialate] @UserName, @SessionKey,@IsLockAffilate, @errorCode out",
+                result.StatusCode = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_LockAffialate] @UserName, @SessionKey,@IsLockAffialate, @errorCode out",
                      new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                     new SqlParameter("IsLockAffilate", obj.IsLockAffilate),
+                     new SqlParameter("IsLockAffialate", obj.IsLockAffialate),
                     errorCode);
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
@@ -907,7 +911,7 @@ namespace NextTech.ChaChing123.Data.Extensions
 
 
         #region Leads
-        public static ResultDTO GetAllLeads(this IEntityBaseRepository<Admin> repository, LeadsDTO obj)
+        public static ResultDTO GetAllLeads(this IEntityBaseRepository<Admin> repository, LeadsFilterModel obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -924,12 +928,14 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
 
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_BO_GetAllLeads] @UserName, @SessionKey,@LeadType, @Count out, @errorCode out",
-                               new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                               new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                                new SqlParameter("LeadType", DB.SafeSQL(obj.LeadType)),
-                                count,
-                                errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<LeadsItemDTO>();
+                Items.Items = dbContext.Database.SqlQuery<LeadsItemDTO>("EXEC [dbo].[sp_BO_GetAllLeads] @KeyWord,@LeadType,@LeadStatus,@AffiliateAccount, @SessionKey,@Count out, @errorCode out",
+                    new SqlParameter("KeyWord", DB.SafeSQL(obj.KeyWord)),
+                    new SqlParameter("LeadType", DB.SafeSQL(obj.LeadType)),
+                    new SqlParameter("LeadStatus", DB.SafeSQL(obj.LeadStatus)),
+                    new SqlParameter("AffiliateAccount", DB.SafeSQL(obj.AffiliateAccount)),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    count,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<LeadsItemDTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
@@ -968,10 +974,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOResponseDto>("EXEC [dbo].[sp_BO_QuickReplies_GetAll] @SessionKey, @Count out, @errorCode out",
+                Items.Items = dbContext.Database.SqlQuery<BOQuickRepliesItem1DTO>("EXEC [dbo].[sp_BO_QuickReplies_GetAll] @SessionKey, @Count out, @errorCode out",
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
-                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOResponseDto>();
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOQuickRepliesItem1DTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
@@ -1001,11 +1007,12 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             try
             {
-                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_QuickReplies_Add] @Title,@Content,@Order,@Active,@SessionKey, @errorCode out",
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_QuickReplies_Add] @Title,@Content,@Order,@Active,@Type,@SessionKey, @errorCode out",
                new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                new SqlParameter("Content", DB.SafeSQL(obj.Content)),
                new SqlParameter("Order", obj.Order),
                new SqlParameter("Active", obj.Active),
+               new SqlParameter("Type", obj.Type),
                new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                errorCode);
 
@@ -1033,12 +1040,13 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             try
             {
-                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_QuickReplies_Update] @ID,@Title,@Content,@Order,@Active,@SessionKey, @errorCode out",
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_QuickReplies_Update] @ID,@Title,@Content,@Order,@Active,@Type,@SessionKey, @errorCode out",
                  new SqlParameter("ID", obj.ID),
                  new SqlParameter("Title", DB.SafeSQL(obj.Title)),
                  new SqlParameter("Content", DB.SafeSQL(obj.Content)),
                  new SqlParameter("Order", obj.Order),
                  new SqlParameter("Active", obj.Active),
+                 new SqlParameter("Type", obj.Type),
                  new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                  errorCode);
 
@@ -1095,10 +1103,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             };
             try
             {
-                result.Details = dbContext.Database.SqlQuery<BODocumentItem1DTO>("EXEC [dbo].[sp_BO_QuickReplies_GetInfoByID] @ID,@SessionKey, @errorCode out",
+                result.Details = dbContext.Database.SqlQuery<BOQuickRepliesItem1DTO>("EXEC [dbo].[sp_BO_QuickReplies_GetInfoByID] @ID,@SessionKey, @errorCode out",
                     new SqlParameter("ID", obj.ID),
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                    errorCode).FirstOrDefault<BODocumentItem1DTO>();
+                    errorCode).FirstOrDefault<BOQuickRepliesItem1DTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
 
@@ -2143,10 +2151,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOResponseDto>("EXEC [dbo].[sp_BO_IntroPage_GetAll] @SessionKey, @Count out, @errorCode out",
+                Items.Items = dbContext.Database.SqlQuery<BOIntroPageItem1DTO>("EXEC [dbo].[sp_BO_IntroPage_GetAll] @SessionKey, @Count out, @errorCode out",
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
-                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOResponseDto>();
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOIntroPageItem1DTO>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
