@@ -13,6 +13,7 @@ namespace NextTech.ChaChing123.Common.Models
         public int Order { get; set; }
 
         public int Active { get; set; }
+        public int Type { get; set; }
 
         public string SessionKey { get; set; }
         
@@ -21,6 +22,7 @@ namespace NextTech.ChaChing123.Common.Models
             ID = -1;
             Order = 0;
             Active = 1;
+            Type = 0;
             Title = string.Empty;
             Content = string.Empty;
             SessionKey = string.Empty;

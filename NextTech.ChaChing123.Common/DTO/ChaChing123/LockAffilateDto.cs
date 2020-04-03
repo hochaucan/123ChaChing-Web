@@ -9,11 +9,11 @@ namespace NextTech.ChaChing123.Common.Models
 
         public string SessionKey { get; set; }
 
-        public int IsLockAffilate { get; set; }
+        public int IsLockAffialate { get; set; }
 
         private LockAffilateDTO()
         {
-            IsLockAffilate = 0;
+            IsLockAffialate = 0;
             UserName = string.Empty;
             SessionKey = string.Empty;
         }

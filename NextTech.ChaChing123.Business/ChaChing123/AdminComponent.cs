@@ -610,7 +610,7 @@ namespace NextTech.ChaChing123.Business
 
         #region Leads
         
-        public ResultDTO GetAllLeads(LeadsDTO obj)
+        public ResultDTO GetAllLeads(LeadsFilterModel obj)
         {
             ResultDTO errorCode = new ResultDTO();
             try

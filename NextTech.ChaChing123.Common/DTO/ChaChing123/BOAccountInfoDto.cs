@@ -23,7 +23,7 @@ namespace NextTech.ChaChing123.Common.Models
         public decimal Amount { get; set; }
         public decimal WithdrawalAmount { get; set; }
         public int RequestWithDrawallNumber { get; set; }
-
+        public decimal TotalAmount { get; set; }
         private BOAccountInfoDTO()
         {
             FullName = string.Empty;
@@ -42,6 +42,7 @@ namespace NextTech.ChaChing123.Common.Models
             PendingAmount = 0;
             Amount = 0;
             WithdrawalAmount = 0;
+            TotalAmount = 0;
             RequestWithDrawallNumber = 0;
             AccountTypeName = string.Empty;
             StatusName = string.Empty;

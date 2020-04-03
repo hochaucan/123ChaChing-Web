@@ -498,6 +498,10 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
+                if (obj != null && obj.APIKey != null&& obj.APIKey.Split('-').Length>1)
+                {
+                    obj.DataCenter = obj.APIKey.Split('-')[1];
+                }
                 response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateMailChimpInfoByAccount(obj));
                 return response;
             });
@@ -544,13 +548,13 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                     string fileName = requestContext.Files[0].FileName;
                     string ext = System.IO.Path.GetExtension(fileName);
                     string originalFileName = System.IO.Path.GetFileName(fileName);
-
+                    result.Details = ConfigSystem.BannerFolder + originalFileName;
                     //To save file, use SaveAs method
                     if (System.IO.File.Exists(pathFolder + originalFileName))
                     {
                         System.IO.File.Delete(pathFolder + originalFileName);
                     }
-
+                    
                     //File will be saved in application root
                     requestContext.Files[0].SaveAs(pathFolder + originalFileName);
                     RequestUpdateDTO olalaObj = new RequestUpdateDTO();
@@ -575,6 +579,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                         return response;
                     });
                 }
+               
             }
             catch (Exception ex)
             {

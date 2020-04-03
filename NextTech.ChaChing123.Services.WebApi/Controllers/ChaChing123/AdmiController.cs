@@ -301,6 +301,22 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
+                if (string.IsNullOrEmpty(obj.PaymentState) || obj.PaymentState == "-1")
+                {
+                    obj.PaymentState = "1,2,3";
+                }
+                if (string.IsNullOrEmpty(obj.AffiliateState) || obj.AffiliateState == "-1")
+                {
+                    obj.AffiliateState = "1,2,3";
+                }
+                if (string.IsNullOrEmpty(obj.AffiliateAccount) || obj.AffiliateAccount == "-1")
+                {
+                    obj.AffiliateAccount = "";
+                }
+                if (string.IsNullOrEmpty(obj.KeyWord))
+                {
+                    obj.KeyWord = "";
+                }
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetOrderList(obj));
                 return response;
             });
@@ -718,14 +734,26 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("GetAllLeads")]
         [HttpPost]
-        public HttpResponseMessage GetAllLeads(HttpRequestMessage request, LeadsDTO obj)
+        public HttpResponseMessage GetAllLeads(HttpRequestMessage request, LeadsFilterModel obj)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response = null;
-                if (obj.LeadType == "-1")
+                if (string.IsNullOrEmpty(obj.KeyWord))
+                {
+                    obj.KeyWord = "";
+                }
+                if (string.IsNullOrEmpty(obj.LeadType) || obj.LeadType == "-1")
                 {
                     obj.LeadType = "0,1,2,3";
+                }
+                if (string.IsNullOrEmpty(obj.LeadStatus) || obj.LeadStatus == "-1")
+                {
+                    obj.LeadStatus = "0,1,2";
+                }
+                if (string.IsNullOrEmpty(obj.AffiliateAccount))
+                {
+                    obj.AffiliateAccount = "";
                 }
                 response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllLeads(obj));
                 return response;
