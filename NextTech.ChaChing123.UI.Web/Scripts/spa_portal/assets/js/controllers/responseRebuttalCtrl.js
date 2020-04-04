@@ -78,6 +78,19 @@
                 });
             };
 
+            $scope.showLead = function (size) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'myModalShowLead.html',
+                    controller: 'ModalShowRebuttalLeadCtrl',
+                    size: size,
+                    resolve: {
+                        items: function () {
+                            return $scope.items;
+                        }
+                    }
+                });
+            };
+
             $scope.ResponseManager = {
                 init: function () {
                     loadDocumentsWithNgTable();
@@ -172,3 +185,70 @@ app.controller('ModalUpdateRebuttalContentCtrl', ["$scope", "$window", "$locatio
 
         $scope.LeadsManager.init();
     }]);
+
+(function (angular) {
+    app.controller('ModalShowRebuttalLeadCtrl', ["$scope", "$localStorage", "$timeout", "responseService", "leadService", "membershipService", "notificationService",
+        function ($scope, $localStorage, $timeout, responseService, leadService, membershipService, notificationService) {
+            var sessionKey = $localStorage.currentUser ? $localStorage.currentUser.token : "";
+            $scope.coldLeads = [];
+            $scope.warmLeads = [];
+            $scope.hotLeads = [];
+
+            function loadAllLeadByAccount() {
+                // Load the data from the API
+                var entity = {};
+
+                entity = {
+                    "LeadType": "-1",
+                    "PageIndex": "1",
+                    "PageCount": "1000",
+                    "SessionKey": sessionKey
+                };
+
+                $scope.showSpinner = true;
+                leadService.GetAllLeadsByAccount(entity, function (result) {
+                    if (result.data && result.data.StatusCode === 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
+                    if (result.data && result.data.StatusCode === 0) {
+                        var itemsResult = result.data.Details.Items;
+                        angular.forEach(itemsResult, function (item, index) {
+                            //1. build list cold lead
+                            if (item.LeadType == 1)
+                                $scope.coldLeads.push(item);
+
+                            //2. build list warm lead
+                            if (item.LeadType == 2)
+                                $scope.warmLeads.push(item);
+
+                            //3. build list hot lead
+                            if (item.LeadType == 3)
+                                $scope.hotLeads.push(item);
+                        });
+
+                        console.log($scope.coldLeads);
+                        console.log($scope.warmLeads);
+                        console.log($scope.hotLeads);
+
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 1000);
+                    } else {
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 1000);
+                        notificationService.displayError(result.data.StatusMsg);
+                    }
+                });
+            }
+
+            $scope.ResponseManager = {
+                init: function () {
+                    loadAllLeadByAccount();
+                }
+            };
+
+            $scope.ResponseManager.init();
+        }]);
+})(angular);

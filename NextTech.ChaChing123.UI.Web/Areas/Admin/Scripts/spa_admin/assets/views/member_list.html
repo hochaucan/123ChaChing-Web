@@ -18,26 +18,52 @@
 		<div class="col-md-12">
 			<!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
             <div ng-controller="ngTableMemberListCtrl">
-                <table ng-table="tableParams" class="table table-striped">
-                    <tbody>
-                        <tr ng-repeat="member in $data">
-                            <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
-                            <td data-title="&#39;Tên&#39;"><a>{{member.FullName}}</a></td>
-                            <td data-title="&#39;Email&#39;">{{member.Email}}</td>
-                            <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
-                            <td data-title="&#39;Loại&#39;">{{member.AccountTypeName}}</td>
-                            <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(member.Status), 'b']">{{member.StatusName}}</span></td>
-                            <td data-title="&#39;Đăng Ký&#39;">{{member.CreatedDate}}</td>
-                            <td data-title="&#39;Tái Tục&#39;">{{member.RenewalNo}}</td>
-                            <td data-title="&#39;Ghi Chú&#39;">{{member.Note}}</td>
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a ng-href="#/app/member/details/{{member.UserName}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết Thành Viên">Chi Tiết</a>
+                <div class="row">
+                    <div class="panel panel-white">
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="ng-pristine ng-valid" name="FormMemberSearching" id="FormMemberSearching" novalidate="" ng-submit="form.submit(FormMemberSearching)">
+                                <div class="input-group well">
+                                    <input type="text" class="form-control" id="KeyWord" name="KeyWord" ng-model="member.KeyWord" placeholder="Tên, Email, Số Điện Thoại">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-search"></i> Tìm Kiếm
+                                        </button>
+                                    </span>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-white">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <table ng-table="tableParams" class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="member in $data">
+                                            <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                            <td data-title="&#39;Tên&#39;"><a>{{member.FullName}}</a></td>
+                                            <td data-title="&#39;Email&#39;">{{member.Email}}</td>
+                                            <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
+                                            <td data-title="&#39;Loại&#39;">{{member.AccountTypeName}}</td>
+                                            <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(member.Status), 'b']">{{member.StatusName}}</span></td>
+                                            <td data-title="&#39;Đăng Ký&#39;">{{member.CreatedDate}}</td>
+                                            <td data-title="&#39;Tái Tục&#39;">{{member.RenewalNo}}</td>
+                                            <td data-title="&#39;Ghi Chú&#39;">{{member.Note}}</td>
+                                            <td class="center">
+                                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                    <a ng-href="#/app/member/details/{{member.UserName}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết Thành Viên">Chi Tiết</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 		</div>
 	</div>

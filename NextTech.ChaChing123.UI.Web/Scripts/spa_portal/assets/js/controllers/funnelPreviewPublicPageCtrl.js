@@ -4,13 +4,14 @@
 */
 
 var baseUrl = 'https://api.123chaching.app';
-app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "funnelsService", "notificationService",
-    function ($scope, $window, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, funnelsService, notificationService) {
+app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$location", "$localStorage", "$timeout", "membershipService", "editorService", "soloPageService", "funnelsService", "notificationService",
+    function ($scope, $sce, $window, $location, $localStorage, $timeout, membershipService, editorService, soloPageService, funnelsService, notificationService) {
         var funnelID = 0;
         var soloID = 0;
         var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
         var funnelView = "";
+        var formType = 0;
         $scope.isNextFunnel = false;
         $scope.nextFunnelPage = "";
         $scope.lead = {};
@@ -82,30 +83,40 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location",
                             "FunnelID": funnelID
                         };
 
+                        var indexOfHttps = -1;
                         destinationURL = angular.element('#refLink').val();
+                        formType = angular.element('#formTypeID').val();
 
-                        $scope.showSpinner = true;
-                        // Load the data from the API
-                        editorService.RegisterLeadBySoloPage(leadRes, function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
-                                membershipService.checkMemberAuthorization();
+                        if (formType != undefined && formType == 4 && destinationURL.length > 0) {
+                            indexOfHttps = destinationURL.indexOf('http') || destinationURL.indexOf('https');
+                            if (indexOfHttps === -1) {
+                                destinationURL = 'http://' + destinationURL;
                             }
+                            $window.open(destinationURL, '_blank');
+                        } else {
+                            $scope.showSpinner = true;
+                            // Load the data from the API
+                            editorService.RegisterLeadBySoloPage(leadRes, function (result) {
+                                if (result.data && result.data.StatusCode == 17) {
+                                    membershipService.checkMemberAuthorization();
+                                }
 
-                            if (result.data && result.data.StatusCode == 0) {
-                                notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                    if (destinationURL && destinationURL.length > 0) {
-                                        $window.open(destinationURL, '_blank');
-                                    }
-                                }, 1000);
-                            } else {
-                                notificationService.displayError(result.data.StatusMsg);
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 2000);
-                            }
-                        });
+                                if (result.data && result.data.StatusCode == 0) {
+                                    notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                        if (destinationURL && destinationURL.length > 0) {
+                                            $window.open(destinationURL, '_blank');
+                                        }
+                                    }, 1000);
+                                } else {
+                                    notificationService.displayError(result.data.StatusMsg);
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 2000);
+                                }
+                            });
+                        }
                     }
 
                 }
@@ -129,6 +140,32 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$window", "$location",
 
                 if (result.data && result.data.StatusCode === 0) {
                     $scope.soloPageDetails = result.data.Details.SoloObj;
+
+                    $scope.formType = $scope.soloPageDetails.FromType;
+                    $scope.Title = $scope.soloPageDetails.Title;
+                    $scope.SubTitle = $scope.soloPageDetails.SubTitle;
+                    $scope.ButtonName = $scope.soloPageDetails.ButtonName;
+                    $scope.ButtonColor = $scope.soloPageDetails.ButtonColor;
+
+                    var findWatchIndex = -1;
+                    var fullResourcePath = "";
+                    fullResourcePath = $scope.soloPageDetails.ResourcePath;
+                    if (fullResourcePath.length > 0) {
+                        var linkImage = fullResourcePath.match(/\.(jpeg|jpg|gif|png)$/) != null;
+                        if (linkImage) { // Display Image
+                            $scope.isShowImageSource = true;
+                            $scope.ImageSource = fullResourcePath;
+                        } else { // Diplay Video
+                            $scope.isShowVideoSource = true;
+                            findWatchIndex = fullResourcePath.indexOf('watch?v=');
+                            if (findWatchIndex != -1) {
+                                fullResourcePath = fullResourcePath.replace('watch?v=', 'embed/');
+                            }
+
+                            $scope.VideoSource = $sce.trustAsResourceUrl(fullResourcePath);
+                        }
+                    }
+
                     document.body.style.backgroundImage = "url('" + result.data.Details.SoloObj.BackgroundPath + "')";
 
                     var nextSoloID = result.data.Details.SoloObj.NextSoloID;

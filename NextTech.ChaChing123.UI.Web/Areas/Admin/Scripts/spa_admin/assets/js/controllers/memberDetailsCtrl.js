@@ -6,6 +6,9 @@
 
 var username = "";
 var sessionKey = "";
+var totalAmount = 0;
+var pendingAmount = 0;
+var approvedAmount = 0;
 
 app.controller('MasterMemberDetailsCtrl', ["$scope", "$localStorage", "$location", "$timeout", "membershipService", "notificationService",
     function ($scope, $localStorage, $location, $timeout, membershipService, notificationService) {
@@ -28,9 +31,13 @@ app.controller('MasterMemberDetailsCtrl', ["$scope", "$localStorage", "$location
 
     }]);
 
-app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "membershipService", "notificationService",
-    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, membershipService, notificationService) {
+app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "membershipService", "notificationService",
+    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, membershipService, notificationService) {
         $scope.member = {};
+        $scope.affiliates = {};
+        $scope.totalAffiliateAmount = 0;
+        $scope.pendingAffiliateAmount = 0;
+        $scope.approvedAffilateAmount = 0;
 
         function loadMemberDetails() {
             var entity = {
@@ -48,6 +55,11 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 if (result.data && result.data.StatusCode === 0) {
                     notificationService.displaySuccess(result.data.StatusMsg);
                     $scope.member = result.data.Details;
+
+                    $scope.totalAffiliateAmount = result.data.Details.TotalAmount;
+                    $scope.pendingAffiliateAmount = result.data.Details.PendingAmount;
+                    $scope.approvedAffilateAmount = result.data.Details.ApprovedAmount;
+
                     $timeout(function () {
                         $scope.showSpinner = false;
                     }, 1000);
@@ -136,6 +148,19 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
             });
         };
 
+        $scope.lockOrUnlockAffiliateAccount = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalLockOrUnlockAffiliateAccount.html',
+                controller: 'ModalLockOrUnlockAffiliateAccountCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return size.target.attributes.data.value;
+                    }
+                }
+            });
+        };
+
         $scope.upgradeOrDowngradeUser = function (size) {
             var modalInstance = $uibModal.open({
                 templateUrl: 'myModalUpgradeOrDowngradeUser.html',
@@ -149,19 +174,20 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
             });
         };
 
-        $scope.MemberDetailsManager = {
-            init: function () {
-                loadMemberDetails();
-                updateMemberDetailsForm();
-            }
+        $scope.updatePaymentStatus = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalRequestUpdatePaymentStatusForAffiliate.html',
+                controller: 'ModalRequestUpdatePaymentStatusForAffiliateCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        $scope.orderID = size.target.attributes.data.value;
+                        return $scope.orderID;
+                    }
+                }
+            });
         };
 
-        $scope.MemberDetailsManager.init();
-
-    }]);
-app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
-    function ($scope, $localStorage, $timeout, ngTableParams, membershipService, notificationService) {
-        $scope.affiliates = {};
         function loadAffiliateOperation() {
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
@@ -176,6 +202,7 @@ app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout",
                         };
 
                         // Load the data from the API
+                        $scope.showSpinner = true;
                         membershipService.GetAffiliateList(entity, function (result) {
                             // Later when working on member authentication and authorization, then we will use the following comment
                             if (result.data && result.data.StatusCode === 17) {
@@ -206,6 +233,9 @@ app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout",
                                     else if (StatusOfAccount === 6) // Hoàn trả
                                         return "badge badge-danger label label-danger";
                                 };
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;
@@ -217,9 +247,18 @@ app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout",
                 });
         }
 
+        function loadAffilateAmountReport() {
+            $scope.totalAffiliateAmount = totalAmount;
+            $scope.pendingAffiliateAmount = pendingAmount;
+            $scope.approvedAffilateAmount = approvedAmount;
+        }
+
         $scope.MemberDetailsManager = {
             init: function () {
+                loadMemberDetails();
                 loadAffiliateOperation();
+                loadAffilateAmountReport();
+                updateMemberDetailsForm();
             }
         };
 
@@ -227,8 +266,136 @@ app.controller('AffiliateOperationCtrl', ["$scope", "$localStorage", "$timeout",
 
     }]);
 
-app.controller('RequestWithDrawalCtrl', ["$scope", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
-    function ($scope, $localStorage, $timeout, ngTableParams, membershipService, notificationService) {
+app.controller('ModalRequestUpdatePaymentStatusForAffiliateCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
+        $scope.order = {};
+        $scope.orderAffiliate = {};
+        $scope.PaymentStatusList = {};
+        $scope.AccountTypeList = {};
+        $scope.AffiliateStatusList = {};
+        $scope.AffiliateAccount = "";
+        $scope.AffiliateName = "";
+        $scope.ContractNo = "";
+        $scope.AffiliateStatus = 0;
+        var customerInfo = items ? items : "";
+        var customerSplit = customerInfo.split('|');
+        if (customerSplit.length > 0) {
+            $scope.AffiliateAccount = customerSplit[0];
+            $scope.AffiliateName = customerSplit[1];
+            $scope.ContractNo = customerSplit[2];
+            $scope.AffiliateStatus = customerSplit[3];
+        }
+
+        $scope.ok = function () {
+
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        function approveOrderForm() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var entity = {
+                            "UserName": $scope.AffiliateAccount,
+                            "ContractNo": $scope.ContractNo,
+                            "AffiliateState": $scope.order.AffiliateStatus,
+                            "SessionKey": sessionKey
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        orderService.UpdatePaymentAffiliateState(entity, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                    $window.location.reload();
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
+
+        function loadOrderDetails() {
+            $scope.showSpinner = true;
+            if ($scope.AffiliateAccount && $scope.AffiliateAccount.length > 0) {
+
+                $timeout(function () {
+                    $scope.order = {
+                        "AffiliateAccount": $scope.AffiliateAccount,
+                        "AffiliateName": $scope.AffiliateName,
+                        "AffiliateStatus": $scope.AffiliateStatus,
+                        "ContractNo": $scope.ContractNo
+                    };
+
+                    $scope.showSpinner = false;
+                }, 1000);
+            }
+        }
+
+        function loadAffiliateStatus() {
+            $scope.AffiliateStatusList = [
+                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' },
+                { AffiliateStatus: "2", AffiliateStatusName: 'Đã Duyệt' },
+                { AffiliateStatus: "3", AffiliateStatusName: 'Hủy' }
+            ];
+        }
+
+        $scope.ModalEditOrderManager = {
+            init: function () {
+                loadAffiliateStatus();
+                loadOrderDetails();
+            },
+            edit: function () {
+                approveOrderForm();
+            }
+        };
+
+        $scope.ModalEditOrderManager.init();
+        $scope.ModalEditOrderManager.edit();
+    }]);
+
+app.controller('RequestWithDrawalCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
+    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, membershipService, notificationService) {
         $scope.withdrawals = {};
 
         function loadRequestWithDrawal() {
@@ -286,6 +453,20 @@ app.controller('RequestWithDrawalCtrl', ["$scope", "$localStorage", "$timeout", 
                 });
         }
 
+        $scope.requestWithDrawall = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalRequestWithDrawal.html',
+                controller: 'ModalRequestWithDrawalCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        $scope.orderID = size.target.attributes.data.value;
+                        return $scope.orderID;
+                    }
+                }
+            });
+        };
+
         $scope.MemberDetailsManager = {
             init: function () {
                 loadRequestWithDrawal();
@@ -320,6 +501,54 @@ app.controller('ModalLockOrUnlockUserCtrl', ["$scope", "$window", "$localStorage
             $scope.showSpinner = true;
             // Load the data from the API
             membershipService.LockAccount(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    notificationService.displaySuccess(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                    }, 1000);
+                }
+            });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }]);
+
+app.controller('ModalLockOrUnlockAffiliateAccountCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, membershipService, notificationService) {
+        var username = "";
+        var isLock = 0;
+
+        var memberInfo = items ? items : "";
+        var memberSplit = memberInfo.split('|');
+        if (memberSplit.length > 0) {
+            username = memberSplit[0];
+            isLock = memberSplit[1];
+        }
+
+        $scope.ok = function () {
+            var entity = {
+                "UserName": username,
+                "SessionKey": sessionKey,
+                "IsLockAffialate": isLock === "0" ? "1" : "0"
+            };
+
+            $scope.showSpinner = true;
+            // Load the data from the API
+            membershipService.LockAffialate(entity, function (result) {
                 if (result.data && result.data.StatusCode === 17) {
                     membershipService.checkMemberAuthorization();
                 }
@@ -394,4 +623,132 @@ app.controller('ModalUpgradeOrDowngradeUserCtrl', ["$scope", "$window", "$localS
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
+    }]);
+
+app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "orderService", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, orderService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
+        $scope.member = {};
+        $scope.orderAffiliate = {};
+        $scope.PaymentStatusList = {};
+        $scope.AccountTypeList = {};
+        $scope.AffiliateStatusList = {};
+
+        $scope.ContractNo = "";
+        $scope.AffiliateAccount = "";
+        $scope.AffiliateName = "";
+        $scope.AffiliateStatus = 0;
+
+        var customerInfo = items ? items : "";
+        var customerSplit = customerInfo.split('|');
+        if (customerSplit.length > 0) {
+            $scope.ContractNo = customerSplit[0];
+            $scope.AffiliateAccount = customerSplit[1];
+            $scope.AffiliateName = customerSplit[2];
+            $scope.AffiliateStatus = customerSplit[3];
+        }
+
+        $scope.ok = function () {
+
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        function approveOrderForm() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var entity = {
+                            "AccountName": $scope.AffiliateAccount,
+                            "ContractNo": $scope.ContractNo,
+                            "Status": $scope.member.AffiliateStatus,
+                            "SessionKey": sessionKey
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        membershipService.ApprovetWithDrawallInfoByAccount(entity, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                    $window.location.reload();
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $uibModalInstance.dismiss('cancel');
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
+
+        function loadWithDrawalDetails() {
+            $scope.showSpinner = true;
+            if ($scope.AffiliateAccount && $scope.AffiliateAccount.length > 0) {
+
+                $timeout(function () {
+                    $scope.member = {
+                        "ContractNo": $scope.ContractNo,
+                        "AffiliateAccount": $scope.AffiliateAccount,
+                        "AffiliateName": $scope.AffiliateName,
+                        "AffiliateStatus": $scope.AffiliateStatus
+                    };
+
+                    $scope.showSpinner = false;
+                }, 1000);
+            }
+        }
+
+        function loadAffiliateStatus() {
+            $scope.AffiliateStatusList = [
+                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' }
+            ];
+        }
+
+        $scope.ModalEditOrderManager = {
+            init: function () {
+                loadAffiliateStatus();
+                loadWithDrawalDetails();
+            },
+            edit: function () {
+                approveOrderForm();
+            }
+        };
+
+        $scope.ModalEditOrderManager.init();
+        $scope.ModalEditOrderManager.edit();
     }]);

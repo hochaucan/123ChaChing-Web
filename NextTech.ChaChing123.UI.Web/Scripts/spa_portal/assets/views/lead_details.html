@@ -1,0 +1,161 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">Xem Chi Tiết Khách Hàng</h1>
+            </div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw" ng-controller="MasterLeadDetailsCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
+                <div ng-controller="LeadDetailsCtrl">
+                    <div class="panel panel-white no-radius">
+                        <div class="panel-body">
+                            <!-- start: USER TABSET -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-white">
+                                        <div class="panel-body">
+                                            <p class="text-left">
+                                                <span class="text-bold text-uppercase">{{lead.Name}}</span>
+                                            </p>
+                                            <p>
+                                                <span class="text-bold text-uppercase">{{lead.CreatedDate}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <h3>
+                                                <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <section ng-controller="TabController as tab">
+                                    <ul class="nav nav-pills">
+                                        <li ng-class="{active:tab.isSet(1)}"><a ng-click="tab.setTab(1)">Chi Tiết</a></li>
+                                        <li ng-class="{active:tab.isSet(2)}"><a ng-click="tab.setTab(2)">Ghi Chú</a></li>
+                                    </ul>
+                                    <div ng-show="tab.isSet(1)">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">                                                       
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colspan="3">Thông Tin Khách Hàng</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Tên</td>
+                                                                    <td>
+                                                                        <span>{{lead.Name}}</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email</td>
+                                                                    <td>
+                                                                        {{lead.Email}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Điện Thoại</td>
+                                                                    <td>{{lead.Phone}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nguồn</td>
+                                                                    <td>
+                                                                        <table class="table table-condensed" ng-if="lead.FunnalPageName.length > 0 && lead.SoloPageName.length > 0">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th colspan="2"></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><span class="text-bold">Tên Funnel</span></td>
+                                                                                    <td>
+                                                                                        {{lead.FunnalPageName}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><span class="text-bold">Link Funnel</span></td>
+                                                                                    <td>
+                                                                                        {{lead.FunnalLink}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <table class="table table-condensed" ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length > 0">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th colspan="2"></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><span class="text-bold">Tên Solo</span></td>
+                                                                                    <td>
+                                                                                        {{lead.SoloPageName}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td><span class="text-bold">Link Solo</span></td>
+                                                                                    <td>
+                                                                                        {{lead.SoloLink}}
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="row">
+                                                            <div>
+                                                                <h3>Đánh Giá</h3>
+                                                                <div class="col-sm-12">
+                                                                    <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="tab.isSet(2)">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <p class="text-left">
+                                                            <span class="text-bold text-uppercase">{{lead.Notes}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body>
+</html>

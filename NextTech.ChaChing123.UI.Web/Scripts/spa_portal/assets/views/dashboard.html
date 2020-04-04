@@ -59,15 +59,9 @@
                 <div class="col-xs-12 col-sm-8">
                     <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
                     <div class="panel panel-white no-radius" id="visits">
-                        <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
-                            <div class="panel-body">
-                                <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                                <div ng-controller="VisitsCtrl" class="height-350">
-                                    <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
-                                    <div class="margin-top-20">
-                                        <div tc-chartjs-legend="" chart-legend="chart1" class="inline pull-left"></div>
-                                    </div>
-                                </div>
+                        <div class="col-sm-12">
+                            <div ng-controller="LeadHistoryCtrl" class="height-350">
+                                <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
                             </div>
                         </div>
                     </div>

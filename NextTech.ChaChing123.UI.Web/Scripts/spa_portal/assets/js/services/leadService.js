@@ -17,8 +17,16 @@
             UpdateLeadsByAccount: UpdateLeadsByAccount,
             UpdateLeadsTypeByAccount: UpdateLeadsTypeByAccount,
             GetLeadsDetailByAccount: GetLeadsDetailByAccount,
-            SummaryLeadsReportByAccount: SummaryLeadsReportByAccount
+            SummaryLeadsReportByAccount: SummaryLeadsReportByAccount,
+            SummaryLeadsChartByAccount: SummaryLeadsChartByAccount
         };
+
+        function SummaryLeadsChartByAccount(leads, completed) {
+            apiService.post(baseUrl + '/api/Account/SummaryLeadsChartByAccount/', leads,
+                completed,
+                leadsFailed
+            );
+        }
 
         function GetAllLeads(leads, completed) {
             apiService.post(baseUrl + '/api/Admin/GetAllLeads/', leads,

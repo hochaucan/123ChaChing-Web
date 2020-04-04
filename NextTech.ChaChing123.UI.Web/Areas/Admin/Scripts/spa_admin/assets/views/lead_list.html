@@ -17,22 +17,86 @@
         <div class="container-fluid container-fullw bg-white">
             <div class="row">
                 <div class="col-md-12">
-                    <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-white no-radius" ng-controller="ngTableLeadListCtrl">
-                        <div class="panel-body">
-                            <table ng-table="tableParams" class="table table-striped">
-                                <tbody>
-                                    <tr ng-repeat="member in $data">
-                                        <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
-                                        <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
-                                        <td data-title="&#39;Khách Hàng&#39;">{{member.Name}}</td>
-                                        <td data-title="&#39;Email&#39;">{{member.Email}}</td>
-                                        <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
-                                        <td data-title="&#39;Phân Loại&#39;"><span ng-class="[getClassForLeadsType(member.LeadType), 'b']"> {{member.TypeName}}</span> </td>
-                                        <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForLeadStatus(member.Status), 'b']"> {{member.StatusName}}</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div ng-controller="ngTableLeadListCtrl">
+                        <div class="row">
+                            <div class="panel panel-white">
+                                <div class="panel-body">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                    <form class="ng-pristine ng-valid" name="FormCustomerSearching" id="FormCustomerSearching" novalidate="" ng-submit="form.submit(FormCustomerSearching)">
+                                        <div class="input-group well">
+                                            <input type="text" class="form-control" id="KeyWord" name="KeyWord" ng-model="customer.KeyWord" placeholder="Tên, Email, Số Điện Thoại">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fa fa-search"></i> Tìm Kiếm
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-white">
+                                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-md-12">
+                                            <div class="form-group">
+                                                <label for="PaymentStatus">
+                                                    Đánh Giá
+                                                </label>
+                                                <select class="form-control black" id="PaymentStatus" name="PaymentStatus" ng-model="lead.LeadType" ng-options="option.LeadType as option.LeadTypeName for option in leadTypes">
+                                                    <option value="">Tất Cả</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-md-12">
+                                            <div class="form-group">
+                                                <label for="LeadName">
+                                                    Khách Hàng
+                                                </label>
+                                                <select class="form-control black" id="LeadName" name="LeadName" ng-model="lead.AffiliateAccount" ng-options="option.AffialateID as option.AffialateName for option in affiliates">
+                                                    <option value="">Tất Cả</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-md-12">
+                                            <div class="form-group">
+                                                <label for="LeadStatus">
+                                                    Tình Trạng
+                                                </label>
+                                                <select class="form-control black" id="LeadStatus" name="LeadStatus" ng-model="lead.LeadStatus" ng-options="option.Status as option.StatusName for option in leadStatus">
+                                                    <option value="">Tất Cả</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-md-12">
+                                            <div class="form-group text-right margin-top-30">
+                                                <label for=""></label>
+                                                <a class="btn btn-wide btn-primary" ng-click="doFilterOrder()"><i class="ti-filter"></i> Áp Dụng Bộ Lọc</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                            <table ng-table="tableParams" class="table table-striped">
+                                                <tbody>
+                                                    <tr ng-repeat="member in $data">
+                                                        <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                                        <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
+                                                        <td data-title="&#39;Khách Hàng&#39;">{{member.Name}}</td>
+                                                        <td data-title="&#39;Email&#39;">{{member.Email}}</td>
+                                                        <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
+                                                        <td data-title="&#39;Phân Loại&#39;"><span ng-class="[getClassForLeadsType(member.LeadType), 'b']"> {{member.TypeName}}</span> </td>
+                                                        <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForLeadStatus(member.Status), 'b']"> {{member.StatusName}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

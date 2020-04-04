@@ -24,8 +24,17 @@
             GetWithDrawallInfoByAccount: GetWithDrawallInfoByAccount,
             SetPasswodForAccount: SetPasswodForAccount,
             LockAccount: LockAccount,
-            ChangeAccountType: ChangeAccountType
+            LockAffialate: LockAffialate,
+            ChangeAccountType: ChangeAccountType,
+            ApprovetWithDrawallInfoByAccount: ApprovetWithDrawallInfoByAccount
         };
+
+        function ApprovetWithDrawallInfoByAccount(memberObj, completed) {
+            apiService.post(baseUrl + '/ApprovetWithDrawallInfoByAccount/', memberObj,
+                completed,
+                entityFailed);
+        }
+
 
         function ChangeAccountType(memberObj, completed) {
             apiService.post(baseUrl + '/ChangeAccountType/', memberObj,
@@ -35,6 +44,12 @@
 
         function LockAccount(memberObj, completed) {
             apiService.post(baseUrl + '/LockAccount/', memberObj,
+                completed,
+                entityFailed);
+        }
+
+        function LockAffialate(memberObj, completed) {
+            apiService.post(baseUrl + '/LockAffialate/', memberObj,
                 completed,
                 entityFailed);
         }
