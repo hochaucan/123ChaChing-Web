@@ -80,7 +80,7 @@ namespace NextTech.ChaChing123.Business
         #endregion
 
         #region Leads
-        ResultDTO GetAllLeads(LeadsDTO obj);
+        ResultDTO GetAllLeads(LeadsFilterModel obj);
         #endregion
 
         #region [QuickReplies]

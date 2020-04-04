@@ -322,9 +322,17 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         }
         public void AddSubscribe(string apiKey, string dataCenter, string listID, string email, string PageName, string name,string phone, string sessionKey)
         {
-            ResultDTO result = new ResultDTO();
             string content = apiKey + "/" + dataCenter + "/" + listID + "/" + email + "/" + PageName + "/" + name + ".";
             Business.Utilities.AppLog.WriteLog("AddSubscribe", ActionType.Add, content, sessionKey);
+            if (string.IsNullOrEmpty(apiKey) ||
+                string.IsNullOrEmpty(dataCenter) ||
+                string.IsNullOrEmpty(listID) ||
+                string.IsNullOrEmpty(email)
+                ) {
+                return;
+            }
+            ResultDTO result = new ResultDTO();
+            
             try
             {
                 SubscribeClassCreatedByMe subscribeRequest = new SubscribeClassCreatedByMe();
@@ -334,7 +342,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 subscribeRequest.merge_fields.FNAME = name;
                 subscribeRequest.merge_fields.LNAME = "-";
                 subscribeRequest.merge_fields.PHONE = phone;
-                
+
                 using (HttpClient client = new HttpClient())
                 {
                     var uri = "https://" + dataCenter + ".api.mailchimp.com/";
@@ -457,4 +465,5 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         }       
     }
 }
+
 

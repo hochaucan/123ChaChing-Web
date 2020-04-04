@@ -16,6 +16,8 @@ namespace NextTech.ChaChing123.Common.Models
 
         public int DocumentsID { get; set; }
 
+        public string DocumentsName { get; set; }
+
         public int Order { get; set; }
 
         public int Active { get; set; }
@@ -30,6 +32,7 @@ namespace NextTech.ChaChing123.Common.Models
             ImagePath = string.Empty;
             Link = string.Empty;
             ResourcePath = string.Empty;
+            DocumentsName = string.Empty;            
             Style = -1;
             DocumentsID = -1;
         }

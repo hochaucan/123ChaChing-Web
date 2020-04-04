@@ -2,10 +2,10 @@
 
 namespace NextTech.ChaChing123.Common.Models
 {
-   public class LeadsDTO
+    public class LeadsDTO
     {
         public string UserName { get; set; }
-        public string LeadType { get; set; }        
+        public string LeadType { get; set; }
 
         public string SessionKey { get; set; }
 
@@ -22,4 +22,6 @@ namespace NextTech.ChaChing123.Common.Models
             SessionKey = string.Empty;
         }
     }
+   
 }
+    
