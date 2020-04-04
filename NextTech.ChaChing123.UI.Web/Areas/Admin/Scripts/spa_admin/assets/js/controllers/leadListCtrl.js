@@ -11,28 +11,46 @@ var baseUrl = 'https://api.123chaching.app';
 app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$location", "$localStorage", "$timeout", "ngTableParams", "leadService", "membershipService", "notificationService",
     function ($scope, $uibModal, $window, $location, $localStorage, $timeout, ngTableParams, leadService, membershipService, notificationService) {
         var sessionKey = ($localStorage.currentUserAdmin) ? $localStorage.currentUserAdmin.token : "";
-        $scope.showSpinner = false;
-        $scope.leads = {};
+        $scope.showSpinner = true;
+        $scope.leadTypes = {};
+        $scope.affiliates = [];
+        $scope.leadStatus = {};
         $scope.leadID = 0;
 
-        function loadLeads() {
+        function loadLeads(filter) {
             $scope.members = {};
 
+            $scope.showSpinner = true;
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 10 // count per page
             }, {
                     getData: function ($defer, params) {
-                        var memberObj = {};
+                        var filterObj = {};
+                        var keyword = "";
+                        var leadType = "";
+                        var leadStatus = "";
+                        var affiliateAccount = "";
 
-                        memberObj = {
+                        if (filter !== undefined) {
+                            keyword = (filter.KeyWord && filter.KeyWord.length > 0) ? filter.KeyWord : "";
+                            leadType = (filter.LeadType && filter.LeadType.length > 0) ? filter.LeadType : "";
+                            leadStatus = (filter.LeadStatus && filter.LeadStatus.length > 0) ? filter.LeadStatus : "";
+                            affiliateAccount = (filter.AffiliateAccount && filter.AffiliateAccount.length > 0) ? filter.AffiliateAccount : "";
+                        }
+
+                        filterObj = {
+                            "KeyWord": keyword,
+                            "LeadType": leadType,
+                            "LeadStatus": leadStatus,
+                            "AffiliateAccount": affiliateAccount,
                             "PageIndex": params.page(),
                             "PageCount": params.count(),
                             "SessionKey": sessionKey
                         };
 
                         // Load the data from the API
-                        leadService.GetAllLeads(memberObj, function (result) {
+                        leadService.GetAllLeads(filterObj, function (result) {
                             if (result.data && result.data.StatusCode == 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -67,6 +85,10 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                                     else if (LeadStatus == 2) // Nâng cao
                                         return "badge badge-warning label label-warning";
                                 };
+
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;
@@ -78,8 +100,131 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                 });
         }
 
+        function doSearchingCustomer() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var filter = {
+                            "KeyWord": $scope.customer.KeyWord
+                        };
+
+                        loadLeads(filter);
+                    }
+                }
+            };
+        }
+
+        $scope.doFilterOrder = function () {
+            var filter = {
+                "LeadType": $scope.lead.LeadType,
+                "AffiliateAccount": $scope.lead.AffiliateAccount,
+                "LeadStatus": $scope.lead.LeadStatus,
+            };
+
+            loadLeads(filter);
+        };
+
+        function loadLeadType() {
+            $scope.leadTypes = [
+                { LeadType: "1", LeadTypeName: 'Lạnh' },
+                { LeadType: "2", LeadTypeName: 'Ấm' },
+                { LeadType: "3", LeadTypeName: 'Nóng' }
+            ];
+        }
+
+        function loadAffiliate() {
+            $scope.showSpinner = true;
+
+            var entity = {
+                "SessionKey": sessionKey
+            };
+
+            // Load the data from the API
+            leadService.GetAllLeads(entity, function (result) {
+                if (result.data && result.data.StatusCode == 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode == 0) {
+                    var leads = result.data.Details.Items;
+                    var leadArr = [];
+
+                    angular.forEach(leads, function (item, index) {
+                        if (item.AffialateName.length > 0) {
+                            var lead = {
+                                AffialateID: item.AffialateName,
+                                AffialateName: item.AffialateName
+                            };
+                            leadArr.push(lead);
+                        }
+                    });
+
+                    console.log(leadArr);
+                    var leadArrResult = removeDuplicates(leadArr, 'AffialateName');
+                    console.log(leadArrResult);
+                    $scope.affiliates = leadArrResult;
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                    notificationService.displayError(result.data.StatusMsg);
+                }
+            });
+        }
+
+        function removeDuplicates(originalArray, prop) {
+            var newArray = [];
+            var lookupObject = {};
+
+            for (var i in originalArray) {
+                lookupObject[originalArray[i][prop]] = originalArray[i];
+            }
+
+            for (i in lookupObject) {
+                newArray.push(lookupObject[i]);
+            }
+            return newArray;
+        }
+
+        function loadLeadStatus() {
+            $scope.leadStatus = [
+                { Status: "0", StatusName: 'Chưa dùng' },
+                { Status: "1", StatusName: 'Cơ bản' },
+                { Status: "2", StatusName: 'Nâng cao' }
+            ];
+        }
+
         $scope.LeadManager = {
             init: function () {
+                loadLeadType();
+                loadAffiliate();
+                loadLeadStatus();
+                doSearchingCustomer();
                 loadLeads();
             }
         };

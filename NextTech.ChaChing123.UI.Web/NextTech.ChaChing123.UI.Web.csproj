@@ -535,6 +535,8 @@
     <Content Include="Scripts\spa_portal\assets\images\clippy.svg" />
     <Content Include="Scripts\spa_portal\assets\images\default-user.png" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentCourseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentAdvancedMarketingCtrl.js" />
@@ -570,6 +572,7 @@
     <Content Include="Scripts\spa_portal\assets\js\services\funnelsService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
+    <Content Include="Scripts\spa_portal\assets\views\lead_details.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_system.html" />

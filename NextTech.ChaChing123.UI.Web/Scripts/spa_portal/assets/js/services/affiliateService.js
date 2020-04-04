@@ -15,7 +15,7 @@
             getLinkAffiliate: getLinkAffiliate,
             trackIncome: trackIncome,
             getAffiliateCommission: getAffiliateCommission,
-            add: add,
+            RequestWithDrawall: RequestWithDrawall,
             getWalletInfoByAccount: getWalletInfoByAccount,
             GetAfiliateAlertByAccount: GetAfiliateAlertByAccount,
             GetSummaryReportByAccount: GetSummaryReportByAccount,
@@ -30,8 +30,8 @@
             );
         }
 
-        function add(affiliate, completed) {
-            apiService.post(baseUrl + '/api/withrawalrequest/add/', affiliate,
+        function RequestWithDrawall(affiliate, completed) {
+            apiService.post(baseUrl + '/api/affiliate/RequestWithDrawall/', affiliate,
                 completed,
                 affiliateFailed
             );

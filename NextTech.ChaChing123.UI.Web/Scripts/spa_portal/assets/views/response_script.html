@@ -22,14 +22,115 @@
                                     </p>
                                     <p>
                                         <!--<button class="btn btn-wide btn-primary">
-                                            Nhắn Tin
-                                        </button>-->
-                                        <a ng-href="" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                            Nhắn Tin
+                        </button>-->
+                                        <a ng-click="showLead()" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
                                     </p>
                                 </v-pane-content>
                             </v-pane>
                         </v-accordion>
                     </div>
+                    <script type="text/ng-template" id="myModalShowLead.html">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <div class="modal-body">
+                            <div>
+                                <!-- start: Lead -->
+                                <uib-tabset class="tabbable">
+                                    <!-- start: TAB COLD -->
+                                    <uib-tab heading="Lạnh">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="lead in coldLeads">
+                                                                    <td>
+                                                                        <p>{{lead.Name}}</p>
+                                                                        <p>{{lead.CreatedDate}}</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                    <!-- end: TAB COLD -->
+                                    <!-- start: TAB WARM -->
+                                    <uib-tab heading="Ấm">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="lead in warmLeads">
+                                                                    <td>
+                                                                        <p>{{lead.Name}}</p>
+                                                                        <p>{{lead.CreatedDate}}</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                    <!-- end: TAB WARM -->
+                                    <!-- start: TAB HOT -->
+                                    <uib-tab heading="Nóng">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-white">
+                                                    <div class="panel-body">
+                                                        <table class="table table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colspan="2"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="lead in hotLeads">
+                                                                    <td>
+                                                                        <p>{{lead.Name}}</p>
+                                                                        <p>{{lead.CreatedDate}}</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                    <!-- end: TAB HOT -->
+                                </uib-tabset>
+                                <!-- end: LEAD -->
+                            </div>
+                        </div>
+                    </script>
                 </div>
             </div>
         </div>

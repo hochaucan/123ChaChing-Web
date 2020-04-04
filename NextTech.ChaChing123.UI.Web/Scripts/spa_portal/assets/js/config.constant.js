@@ -44,6 +44,7 @@ app.constant('JS_REQUIRES', {
         'sweetAlertCtrl': 'Scripts/spa_portal/assets/js/controllers/sweetAlertCtrl.js',
         'mapsCtrl': 'Scripts/spa_portal/assets/js/controllers/mapsCtrl.js',
         'chartsCtrl': 'Scripts/spa_portal/assets/js/controllers/chartsCtrl.js',
+        'leadDetailsCtrl': 'Scripts/spa_portal/assets/js/controllers/leadDetailsCtrl.js',
         'calendarCtrl': 'Scripts/spa_portal/assets/js/controllers/calendarCtrl.js',
         'nestableCtrl': 'Scripts/spa_portal/assets/js/controllers/nestableCtrl.js',
         'userCtrl': ['Scripts/spa_portal/assets/js/controllers/userCtrl.js'],

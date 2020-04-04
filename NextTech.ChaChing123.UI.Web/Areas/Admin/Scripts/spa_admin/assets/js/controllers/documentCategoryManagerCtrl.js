@@ -10,6 +10,7 @@ app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localSto
         $scope.documents = {};
         $scope.documentID = 0;
         $scope.documentCategoryID = 0;
+        $scope.showSpinner = true;
 
         function loadDocumentsWithNgTable() {
             $scope.tableParams = new ngTableParams({
@@ -40,6 +41,10 @@ app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localSto
 
                                 // Return the customers to ngTable
                                 $defer.resolve(result.data.Details.Items);
+
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;
@@ -180,7 +185,7 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
                                 "Description": $scope.entity.Description,
                                 "Order": $scope.entity.Order,
                                 "Type": $scope.entity.Type,
-                                "IsAdvanced": "1",
+                                "IsAdvanced": "0",
                                 "SessionKey": sessionKey
                             };
 
@@ -212,7 +217,7 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
                                 "Description": $scope.entity.Description,
                                 "Order": $scope.entity.Order,
                                 "Type": $scope.entity.Type,
-                                "IsAdvanced": "1",
+                                "IsAdvanced": "0",
                                 "SessionKey": sessionKey
                             };
 

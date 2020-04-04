@@ -16,12 +16,12 @@
     <!-- /// controller:  'TabsEditorCtrl' -  localtion: assets/js/controllers/funnelCtrl.js /// -->
     <div>
         <div class="container-fluid container-fullw bg-white">
-            <div class="row">
+            <div class="row" ng-controller="ngTableLeadListCtrl">
                 <div class="col-md-4">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-white no-radius" ng-controller="LeadAddEditCtrl">
+                    <div class="panel panel-white no-radius">
                         <div class="panel-heading border-light">
-                            <h4><a class="btn btn-sm btn-primary" ng-click="addNewLead()">Thêm Khách Hàng</a></h4>
+                            <h4><a class="btn btn-primary btn-block" ng-click="addNewLead()">Thêm Khách Hàng</a></h4>
                         </div>
                         <script type="text/ng-template" id="myModalAddNewLead.html">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
@@ -61,8 +61,8 @@
                                         </label>
                                         <select id="leadLeadsType" class="form-control black" name="LeadsType" ng-model="lead.LeadsType" required="">
                                             <option value="" disabled="">Chọn Loại Khách Hàng</option>
-                                            <option value="1">Ấm</option>
-                                            <option value="2">Nóng</option>
+                                            <option value="1">Nóng</option>
+                                            <option value="2">Ấm</option>
                                             <option value="3">Lạnh</option>
                                         </select>
                                     </div>
@@ -80,16 +80,55 @@
                                 </div>
                             </form>
                         </script>
-                        <div class="panel-body no-padding">
-                            <div class="padding-10">
-                                <h4>Bộ Lọc</h4>
+                        <div class="panel-body border-bottom">
+                            <h4>Bộ Lọc</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="text-bold">Tất Cả Khách Hàng</span></td>
+                                        <td>
+                                            {{TotalLeadRecordCount}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="radio clip-radio radio-primary">
+                                <input type="radio" id="radioAll" name="LeadType" ng-model="lead.LeadType" ng-change="filterLead(-1)" value="-1">
+                                <label for="radioAll">
+                                    Tất cả
+                                </label>
+                            </div>
+                            <div class="radio clip-radio radio-primary">
+                                <input type="radio" id="radioHot" name="LeadType" ng-model="lead.LeadType" ng-change="filterLead(1)" value="1">
+                                <label for="radioHot">
+                                    Nóng
+                                </label>
+                            </div>
+                            <div class="radio clip-radio radio-primary">
+                                <input type="radio" id="radioWarm" name="LeadType" ng-model="lead.LeadType" ng-change="filterLead(2)" value="2">
+                                <label for="radioWarm">
+                                    Ấm
+                                </label>
+                            </div>
+                            <div class="radio clip-radio radio-primary">
+                                <input type="radio" id="radioCold" name="LeadType" ng-model="lead.LeadType" ng-change="filterLead(3)" value="3">
+                                <label for="radioCold">
+                                    Lạnh
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
-                    <div class="panel panel-white no-radius" ng-controller="ngTableLeadListCtrl">
+                    <div class="panel panel-white no-radius">
                         <div class="panel-body">
                             <table ng-table="tableParams" class="table table-striped">
                                 <tbody>
@@ -99,10 +138,19 @@
                                         <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
                                         <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
                                         <td data-title="&#39;Chi Tiết&#39;">
-                                            <input type="button" class="btn btn-primary btn-o btn-sm" id="editRowBtn4" value="Chi Tiết" data-id="{{member.ID}}" data="{{member.ID}}" ng-click="viewLeadDetails($event)">
+                                            <!--<input type="button" class="btn btn-primary btn-o btn-sm" id="editRowBtn4" value="Chi Tiết" data-id="{{member.ID}}" data="{{member.ID}}" ng-click="viewLeadDetails($event)">-->
+                                            <a ng-href="#/app/lead/details/{{member.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">Chi Tiết</a>
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <!--<div ng-controller="ChartCtrl1">
+                                        <h3>Đánh Giá</h3>
+                                        <div class="col-sm-6">
+                                            <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                                        </div>
+                                    </div>-->
+                                </tfoot>
                             </table>
                             <script type="text/ng-template" id="myModalViewLeadDetails.html">
                                 <circle-spinner ng-show="showSpinner"></circle-spinner>
@@ -166,18 +214,62 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Nguồn</td>
-                                                                            <td></td>
+                                                                            <td>
+                                                                                <table class="table table-condensed" ng-if="lead.FunnalPageName.length > 0 && lead.SoloPageName.length > 0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th colspan="2"></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td><span class="text-bold">Tên Funnel</span></td>
+                                                                                            <td>
+                                                                                                {{lead.FunnalPageName}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><span class="text-bold">Link Funnel</span></td>
+                                                                                            <td>
+                                                                                                {{lead.FunnalLink}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <table class="table table-condensed" ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length > 0">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th colspan="2"></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td><span class="text-bold">Tên Solo</span></td>
+                                                                                            <td>
+                                                                                                {{lead.SoloPageName}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><span class="text-bold">Link Solo</span></td>
+                                                                                            <td>
+                                                                                                {{lead.SoloLink}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <table class="table table-condensed">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th colspan="3">Đánh Giá</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody></tbody>
-                                                                </table>
+                                                                <div class="row">
+                                                                    <!-- /// controller:  'ChartCtrl1' -  localtion: assets/js/controllers/chartsCtrl.js /// -->
+                                                                    <div>
+                                                                        <h3>Đánh Giá</h3>
+                                                                        <div class="col-sm-12">
+                                                                            <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

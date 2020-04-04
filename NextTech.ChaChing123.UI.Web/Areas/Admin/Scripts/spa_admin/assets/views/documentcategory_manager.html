@@ -26,19 +26,16 @@
                         </p>
                     </div>
                     <div class="panel-body">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
                         <table ng-table="tableParams" class="table table-striped">
                             <tbody>
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Description}}</td>
-                                    <td data-title="&#39;Ngày Tạo&#39;">{{document.CreatedDate}}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a ng-click="viewDetailsDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">
-                                                <i class="fa fa-info" data="{{document.ID}}"></i>
-                                            </a>
                                             <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
                                                 <i class="fa fa-pencil" data="{{document.ID}}"></i>
                                             </a>
@@ -133,7 +130,7 @@
                                     <select id="ID" name="ID" ng-model="entity.ID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="" ng-change="showHideUploaderBox()">
                                         <option value="" disabled="">Chọn Loại Danh Mục Tài Liệu</option>
                                     </select>
-                                </div> 
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary btn-o" ng-click="cancel()">Đóng</button>

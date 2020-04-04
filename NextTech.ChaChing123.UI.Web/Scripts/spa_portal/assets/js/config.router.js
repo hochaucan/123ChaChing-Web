@@ -36,7 +36,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.home', {
             url: "/home",
             templateUrl: "Scripts/spa_portal/assets/views/dashboard.html",
-            resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
+            resolve: loadSequence('chartjs', 'tc.chartjs', 'leadDetailsCtrl'),
             title: 'Home',
             ncyBreadcrumb: {
                 label: 'Home'
@@ -197,7 +197,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/manage',
             templateUrl: "Scripts/spa_portal/assets/views/lead.html",
             title: 'Khách Hàng',
-            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
+            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl', 'chartjs', 'tc.chartjs')
+        }).state('app.lead.details', {
+            url: '/details/:id',
+            templateUrl: "Scripts/spa_portal/assets/views/lead_details.html",
+            title: 'Chi Tiết Khách Hàng',
+            resolve: loadSequence('chartjs', 'tc.chartjs', 'leadDetailsCtrl')
         }).state('app.lead.add', {
             url: '/add',
             templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",

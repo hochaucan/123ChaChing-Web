@@ -204,6 +204,9 @@ app.controller('AffiliateGetLinkCtrl', ["$scope", "$uibModal", "affiliateService
 
 app.controller('ModalInstanceCtrl1', ["$scope", "$timeout", "$localStorage", "$uibModalInstance", "items", "membershipService", "affiliateService", "notificationService",
     function ($scope, $timeout, $localStorage, $uibModalInstance, items, membershipService, affiliateService, notificationService) {
+        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+        var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
         $scope.ok = function () {
 
         };
@@ -237,21 +240,20 @@ app.controller('ModalInstanceCtrl1', ["$scope", "$timeout", "$localStorage", "$u
                     //your code for submit
 
                     var affiliate = {};
-                    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-                    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
 
                     affiliate = {
-                        "ContractNo": sessionkey,
+                        "UserName": username,
                         "BeneAccountName": $scope.affiliate.BeneAccountName,
                         "BeneBankName": $scope.affiliate.BeneBankName,
                         "BeneAccountNo": $scope.affiliate.BeneAccountNo,
                         "Amount": $scope.affiliate.Amount,
-                        "Remarks": $scope.affiliate.Remarks
+                        "Remarks": $scope.affiliate.Remarks,
+                        "SessionKey": sessionkey
                     };
 
                     $scope.showSpinner = true;
                     // Load the data from the API
-                    affiliateService.add(affiliate, function (result) {
+                    affiliateService.RequestWithDrawall(affiliate, function (result) {
                         if (result.data && result.data.StatusCode == 17) {
                             membershipService.checkMemberAuthorization();
                         }

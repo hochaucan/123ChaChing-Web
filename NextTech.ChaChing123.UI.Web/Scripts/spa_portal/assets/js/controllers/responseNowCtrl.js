@@ -4,8 +4,8 @@
   * AngularJS multi-level accordion component.
 */
 (function (angular) {
-    app.controller('responseNowvAccordionCtrl', ["$scope", "$localStorage", "$timeout", "responseService", "membershipService", "notificationService",
-        function ($scope, $localStorage, $timeout, responseService, membershipService, notificationService) {
+    app.controller('responseNowvAccordionCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "responseService", "membershipService", "notificationService",
+        function ($scope, $uibModal, $localStorage, $timeout, responseService, membershipService, notificationService) {
             var sessionKey = $localStorage.currentUser ? $localStorage.currentUser.token : "";
             $scope.panes = [];
             $scope.documentID = 0;
@@ -49,9 +49,11 @@
                             //1. Initialize a tab array
                             var pane = [];
                             //2. Build pane content
-                            pane.header = item.Title;
-                            pane.content = item.Content;
-                            $scope.panes.push(pane);
+                            if (item.Type === 2) { // only get item with type which is 2 - Email
+                                pane.header = item.Title;
+                                pane.content = item.Content;
+                                $scope.panes.push(pane);
+                            }
                         });
 
                         $timeout(function () {
@@ -70,6 +72,19 @@
                 var modalInstance = $uibModal.open({
                     templateUrl: 'myModalupdateRebuttalContent.html',
                     controller: 'ModalUpdateResponseContentCtrl',
+                    size: size,
+                    resolve: {
+                        items: function () {
+                            return $scope.items;
+                        }
+                    }
+                });
+            };
+
+            $scope.showLead = function (size) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'myModalShowLead.html',
+                    controller: 'ModalShowLeadCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -173,3 +188,70 @@ app.controller('ModalUpdateResponseContentCtrl', ["$scope", "$window", "$locatio
 
         $scope.LeadsManager.init();
     }]);
+
+(function (angular) {
+    app.controller('ModalShowLeadCtrl', ["$scope", "$localStorage", "$timeout", "responseService", "leadService", "membershipService", "notificationService",
+        function ($scope, $localStorage, $timeout, responseService, leadService, membershipService, notificationService) {
+            var sessionKey = $localStorage.currentUser ? $localStorage.currentUser.token : "";
+            $scope.coldLeads = [];
+            $scope.warmLeads = [];
+            $scope.hotLeads = [];
+
+            function loadAllLeadByAccount() {
+                // Load the data from the API
+                var entity = {};
+
+                entity = {
+                    "LeadType": "-1",
+                    "PageIndex": "1",
+                    "PageCount": "1000",
+                    "SessionKey": sessionKey
+                };
+
+                $scope.showSpinner = true;
+                leadService.GetAllLeadsByAccount(entity, function (result) {
+                    if (result.data && result.data.StatusCode === 17) {
+                        membershipService.checkMemberAuthorization();
+                    }
+
+                    if (result.data && result.data.StatusCode === 0) {
+                        var itemsResult = result.data.Details.Items;
+                        angular.forEach(itemsResult, function (item, index) {
+                            //1. build list cold lead
+                            if (item.LeadType == 1)
+                                $scope.coldLeads.push(item);
+
+                            //2. build list warm lead
+                            if (item.LeadType == 2)
+                                $scope.warmLeads.push(item);
+
+                            //3. build list hot lead
+                            if (item.LeadType == 3)
+                                $scope.hotLeads.push(item);
+                        });
+
+                        console.log($scope.coldLeads);
+                        console.log($scope.warmLeads);
+                        console.log($scope.hotLeads);
+
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 1000);
+                    } else {
+                        $timeout(function () {
+                            $scope.showSpinner = false;
+                        }, 1000);
+                        notificationService.displayError(result.data.StatusMsg);
+                    }
+                });
+            }
+
+            $scope.ResponseManager = {
+                init: function () {
+                    loadAllLeadByAccount();
+                }
+            };
+
+            $scope.ResponseManager.init();
+        }]);
+})(angular);
