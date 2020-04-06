@@ -49,6 +49,9 @@ namespace NextTech.ChaChing123.Business
         ResultDTO GetMailChimpInfoByAccount(RequestDTO obj);
         ResultDTO UpdateBanner(RequestUpdateDTO obj);
         ResultDTO GetBannerLink(RequestDTO obj);
+        ResultDTO GetMerchantInfo(SubmitPaymentDTO obj);
+        ResultDTO RegisterForgetPassword(ForgetPasswordModel obj);
+        ResultDTO ActiveAccountByForgetPassword(ForgetPasswordModel obj);
         #endregion
     }
 }

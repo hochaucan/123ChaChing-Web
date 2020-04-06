@@ -184,6 +184,10 @@ namespace NextTech.ChaChing123.Common.Models
             {
                 this.statusMsg = RetCodeMsg.ECS0033;
             }
+            else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS0034))
+            {
+                this.statusMsg = RetCodeMsg.ECS0034;
+            }
             else if (this.StatusCode == ConvertErrorCodeToInt(RetCode.ECS9999))
             {
                 this.statusMsg = RetCodeMsg.ECS9999;

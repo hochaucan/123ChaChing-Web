@@ -1547,8 +1547,45 @@ namespace NextTech.ChaChing123.Business
         }
         #endregion
 
+        #region contactinfo
+        public ResultDTO GetAllContactInfo(RequestDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetAllContactInfo(obj);
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetAllContactInfo", ActionType.Logout, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO AddContactInfo(RequestContactInfoDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.AddContactInfo(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("AddContactInfo", ActionType.Logout, ex.Message.ToString(), "system");
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        #endregion
         //ONStep 3:
-        
+
 
         #endregion
 

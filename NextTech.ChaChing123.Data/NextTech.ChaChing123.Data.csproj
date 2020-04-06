@@ -63,6 +63,7 @@
     <Compile Include="Extensions\ChaChing123\AccountExtensions.cs" />
     <Compile Include="Extensions\ChaChing123\AffiliateExtensions.cs" />
     <Compile Include="Extensions\ChaChing123\CommonExtensions.cs" />
+    <Compile Include="Extensions\ChaChing123\CashTransExtensions.cs" />
     <Compile Include="Extensions\ChaChing123\LogInfoExtensions.cs" />
     <Compile Include="Infrastructure\DbFactory.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />

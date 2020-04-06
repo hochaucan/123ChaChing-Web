@@ -45,7 +45,12 @@
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
     <Compile Include="DTO\ChaChing123\BOIntroPageItem1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOCommissionReportObjDto.cs" />
+    <Compile Include="DTO\ChaChing123\BOCommissionReportItemDto.cs" />
+    <Compile Include="DTO\ChaChing123\BORevenueObjDto.cs" />
+    <Compile Include="DTO\ChaChing123\BORevenueItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOQuickRepliesItem1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\ForgetPasswordModel.cs" />
     <Compile Include="DTO\ChaChing123\LeadsChartOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\BODocument1Dto.cs" />
     <Compile Include="DTO\ChaChing123\BODocuments1Dto.cs" />
@@ -70,6 +75,11 @@
     <Compile Include="DTO\ChaChing123\MailChimpResponse1Dto.cs" />
     <Compile Include="DTO\ChaChing123\MailChimpResponseDto.cs" />
     <Compile Include="DTO\ChaChing123\MailChimpRequestDto.cs" />
+    <Compile Include="DTO\ChaChing123\MerchantInfoDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestContactInfoDto.cs" />
+    <Compile Include="DTO\ChaChing123\ResultNLModel.cs" />
+    <Compile Include="DTO\ChaChing123\SubmitPaymentDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestPammentToNLDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestUpdateDto.cs" />
     <Compile Include="DTO\ChaChing123\WithdrawalDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestUpdateAvatarDto.cs" />
