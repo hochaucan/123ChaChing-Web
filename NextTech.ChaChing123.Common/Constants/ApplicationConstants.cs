@@ -77,6 +77,7 @@ namespace NextTech.ChaChing123.Common.Constants
         ECS0031 = 31,
         ECS0032 = 32,
         ECS0033 = 33,
+        ECS0034 = 34,
         ECS9999 = 9999,
     }
 
@@ -117,6 +118,7 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0031 = "Quản trị viên không được truy cập chức năng này.";
         public const string ECS0032 = "Chức năng này chỉ dành cho quản trị viên.";
         public const string ECS0033 = "Tài khoản đang bị khóa quyền đại sứ.";
+        public const string ECS0034 = "Dữ liệu hợp lệ";
         public const string ECS9999 = "Lỗi không xác định.";
     }
 

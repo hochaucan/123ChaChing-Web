@@ -223,18 +223,6 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
-        //[AllowAnonymous]
-        //[HttpGet]
-        //[Route("GetAccountInfo/{id:int}")]
-        //public HttpResponseMessage GetAccountInfo(HttpRequestMessage request, Account obj)
-        //{
-        //    return CreateHttpResponse(request, () =>
-        //    {
-        //        HttpResponseMessage response = null;
-        //        response = request.CreateResponse(HttpStatusCode.OK, _service.GetAccountInfo(obj.ID));
-        //        return response;
-        //    });
-        //}
 
         [AllowAnonymous]
         [HttpPost]
@@ -398,7 +386,6 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
 
-        #region Leads
         [AllowAnonymous]
         [Route("AddLeadsByAccount")]
         [HttpPost]
@@ -518,6 +505,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("UpdateBannes")]
@@ -599,6 +587,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+
         [AllowAnonymous]
         [Route("GetBannerLink")]
         [HttpPost]
@@ -611,8 +600,158 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 return response;
             });
         }
+        
+        #region Ngan Luong
+        [AllowAnonymous]
+        [Route("SubmitPaymentToNL")]
+        [HttpPost]
+        public HttpResponseMessage SubmitPaymentToNL(HttpRequestMessage request, SubmitPaymentDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            if (obj==null
+                ||string.IsNullOrEmpty(obj.OptionPayment)
+                //|| string.IsNullOrEmpty(obj.BankCode)
+                || (obj.Amount < 0)
+                || string.IsNullOrEmpty(obj.FullName)
+                || string.IsNullOrEmpty(obj.Email)
+                || string.IsNullOrEmpty(obj.Phone)
+                || string.IsNullOrEmpty(obj.SessionKey)
+                )
+            {
+                result.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0034);
+                result.SetContentMsg();
+                return request.CreateResponse(HttpStatusCode.OK, result);
+            }
 
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
 
+                result = _service.GetMerchantInfo(obj);
+                
+                if (result.StatusCode == Common.ConvertErrorCodeToInt(RetCode.ECS0000))
+                {
+                    RequestMerchantInfoDTO requestObj = (RequestMerchantInfoDTO)result.Details;
+                    RequestPaymentToNL pushData = new RequestPaymentToNL()
+                    {
+                        APILink = requestObj.ApiLink,
+                        Merchant_id = requestObj.merchant_id,
+                        Merchant_password = requestObj.merchant_password,
+                        Receiver_email = requestObj.receiver_email,
+                        Payment_method = obj.OptionPayment,
+                        return_url = requestObj.ReturnUrl,
+                        cancel_url = requestObj.CancelUrl,
+                        Order_code = requestObj.ContractNo,
+                        Total_amount = obj.Amount.ToString(),
+                        cur_code = "vnd",
+                        bank_code = obj.BankCode,
+                        fee_shipping = "0",
+                        Discount_amount = "0",
+                        Buyer_fullname = obj.FullName,
+                        Buyer_email = obj.Email,
+                        Buyer_mobile = obj.Phone
+                    };
+
+                    APICheckoutV31 objNLChecout = new APICheckoutV31();
+                    ResponseInfo resResult = objNLChecout.GetUrlCheckout(pushData);
+                    CashTrans.CashLog(objNLChecout.GetParamPost(pushData).Replace("&", "&amp;"), resResult.Error_code, resResult.Token, resResult.Description, resResult.Checkout_url, requestObj.ContractNo, obj.SessionKey);
+
+                    if (resResult != null && !string.IsNullOrEmpty(resResult.Error_code))
+                    {
+                        ResultNLModel rsNL = new ResultNLModel();
+                        rsNL.ErrorCode = resResult.Error_code;
+                        if (rsNL.ErrorCode == "00")
+                        {
+                            rsNL.Description = resResult.Checkout_url;
+                        }
+                        else
+                        {
+                            rsNL.Description = (resResult.Description == null) ? string.Empty : resResult.Description;
+                        }
+                        result.Details = rsNL;
+                    }
+                    response = request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    response = request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult ReceiveReturnUrlByNL(HttpRequestMessage request, int error_code, string token, string order_code, int order_id)
+        {
+            // TODO: pending
+            CashTrans.UpdateCashInfoByNL(error_code, token, order_code, order_id);
+            string url = "https://123chaching.app/#/app/login/signin";
+            System.Uri uri = new System.Uri(url);
+            return Redirect(uri);
+
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        public IHttpActionResult ReceiveCancelUrlByNL(HttpRequestMessage request, int error_code, string token, string order_code, int order_id)
+        {
+            CashTrans.UpdateCashInfoByNL(error_code, token, order_code, order_id);
+            // TODO: pending
+            string url = "https://123chaching.app/#/app/login/signin";
+            System.Uri uri = new System.Uri(url);
+            return Redirect(uri);
+        }
+
+        [AllowAnonymous]
+        [Route("GetTransactionDetail")]
+        [HttpPost]
+        public HttpResponseMessage GetTransactionDetail(HttpRequestMessage request, ResponseInfo obj)
+        {
+            ResultDTO result = new ResultDTO();
+            // TODO: pending
+            //String Token = obj.Token;
+            ////result = _service.GetMerchantInfo(obj);
+            //RequestCheckOrder info = new RequestCheckOrder();
+            //info.Merchant_id = "xxx";
+            //info.Merchant_password = "xxxx";
+            //info.Token = Token;
+            //info.APILink = "https://sandbox.nganluong.vn:8088/nl35/checkout.api.nganluong.post.php";
+            //APICheckoutV31 objNLChecout = new APICheckoutV31();
+            //ResponseCheckOrder olalaCheck = objNLChecout.GetTransactionDetail(info);
+            //string a = olalaCheck.errorCode + olalaCheck.payerName;
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, result);
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("RegisterForgetPassword")]
+        [HttpPost]
+        public HttpResponseMessage RegisterForgetPassword(HttpRequestMessage request, ForgetPasswordModel obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.RegisterForgetPassword(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("ActiveAccountByForgetPassword")]
+        [HttpPost]
+        public HttpResponseMessage ActiveAccountByForgetPassword(HttpRequestMessage request, ForgetPasswordModel obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.ActiveAccountByForgetPassword(obj));
+                return response;
+            });
+        }
         #endregion
     }
 }

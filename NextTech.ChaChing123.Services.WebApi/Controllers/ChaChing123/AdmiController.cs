@@ -1442,8 +1442,49 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         #endregion
+
+        #region ContactInfo
+        [AllowAnonymous]
+        [Route("GetAllContactInfo")]
+        [HttpPost]
+        public HttpResponseMessage GetAllContactInfo(HttpRequestMessage request, RequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllContactInfo(obj));
+                return response;
+            });
+        }
+        [AllowAnonymous]
+        [Route("AddContactInfo")]
+        [HttpPost]
+        public HttpResponseMessage AddContactInfo(HttpRequestMessage request, RequestContactInfoDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            if (string.IsNullOrEmpty(obj.Name)
+                || string.IsNullOrEmpty(obj.Email)
+                || string.IsNullOrEmpty(obj.Phone)
+                || string.IsNullOrEmpty(obj.Content)
+                )
+            {
+                result.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0034);
+                result.SetContentMsg();
+                return request.CreateResponse(HttpStatusCode.OK, result);
+            }
+
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddContactInfo(obj));
+                return response;
+            });
+        }
+
+        #endregion
+
         //ONStep 1:
-        
+
 
 
     }
