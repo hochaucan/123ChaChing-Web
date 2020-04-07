@@ -1,0 +1,67 @@
+﻿<!-- saved from url=(0088)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/charts.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle" translate="sidebar.nav.mailchip.MAIN">Mail Chip</h1>
+            </div>
+            <div ncy-breadcrumb=""></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <div ng-controller="MasterMailChipConfigurationCtrl">
+        <!-- start: BAR CHART -->
+        <!-- end: BAR CHART -->
+        <!--Revenue  CHART -->
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading">
+                            <h5 class="over-title margin-bottom-15">Cập nhật Mail Chip</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div ng-controller="MailChipConfigurationCtrl">
+                                <div class="form-group">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                    <form class="form-addnewlead-request" name="FormMailChipUpdate" id="FormMailChipUpdate" novalidate="" ng-submit="form.submit(FormMailChipUpdate)">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title text-bold">Cập Nhật Mail Chip</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group" ng-class="{'has-error':FormMailChipUpdate.APIKey.$dirty && FormMailChipUpdate.APIKey.$invalid, 'has-success':FormMailChipUpdate.APIKey.$valid}">
+                                                <label for="APIKey">
+                                                    APIKey <span class="symbol required"></span>
+                                                </label>
+                                                <input type="text" class="form-control" id="APIKey" name="APIKey" ng-model="config.APIKey" placeholder="API Key" required="">
+                                                <span class="error text-small block" ng-if="FormMailChipUpdate.APIKey.$dirty && FormMailChipUpdate.APIKey.$invalid">API Key là bắt buộc.</span>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':FormMailChipUpdate.ListID.$dirty && FormMailChipUpdate.ListID.$invalid, 'has-success':FormMailChipUpdate.ListID.$valid}">
+                                                <label for="ListID">
+                                                    ListID <span class="symbol required"></span>
+                                                </label>
+                                                <input type="text" class="form-control" id="ListID" name="ListID" ng-model="config.ListID" placeholder="ListID" required="">
+                                                <span class="error text-small block" ng-if="FormAddNewLead.Email.$dirty && FormAddNewLead.Email.$invalid">ListID là bắt buộc.</span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary btn-block">
+                                                Hoàn Tất
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: Revenue CHART -->
+    </div>
+</body>
+</html>

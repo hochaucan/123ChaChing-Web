@@ -35,9 +35,12 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
     function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, membershipService, notificationService) {
         $scope.member = {};
         $scope.affiliates = {};
-        $scope.totalAffiliateAmount = 0;
-        $scope.pendingAffiliateAmount = 0;
-        $scope.approvedAffilateAmount = 0;
+        $scope.totalAffiliateAmount = 0; // total amount
+        $scope.pendingAffiliateAmount = 0; // the amount that is waiting for approval
+        $scope.approvedAffilateAmount = 0; // the amount that is already approved
+        $scope.withdrawalAmount = 0; // Total amount that already withdrawll
+        $scope.totalPockedAmount = 0; // Total amount that is inside your pocket
+        $scope.requestWithDrawallNumber = 0; // number of requests of withdrawlling
 
         function loadMemberDetails() {
             var entity = {
@@ -56,9 +59,12 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                     notificationService.displaySuccess(result.data.StatusMsg);
                     $scope.member = result.data.Details;
 
-                    $scope.totalAffiliateAmount = result.data.Details.TotalAmount;
-                    $scope.pendingAffiliateAmount = result.data.Details.PendingAmount;
-                    $scope.approvedAffilateAmount = result.data.Details.ApprovedAmount;
+                    $scope.totalAffiliateAmount = $scope.member.TotalAmount;
+                    $scope.pendingAffiliateAmount = $scope.member.PendingAmount;
+                    $scope.approvedAffilateAmount = $scope.member.ApprovedAmount;
+                    $scope.withdrawalAmount = $scope.member.WithdrawalAmount;
+                    $scope.totalPockedAmount = $scope.member.Amount;
+                    $scope.requestWithDrawallNumber = result.data.Details.RequestWithDrawallNumber;
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -735,7 +741,8 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
 
         function loadAffiliateStatus() {
             $scope.AffiliateStatusList = [
-                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' }
+                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' },
+                { AffiliateStatus: "2", AffiliateStatusName: 'Hoàn Tất' }
             ];
         }
 

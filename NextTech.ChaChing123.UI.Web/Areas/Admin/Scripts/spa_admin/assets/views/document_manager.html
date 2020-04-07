@@ -34,7 +34,7 @@
                                     <td data-title="&#39;Danh Mục&#39;">{{document.DocumentsName}}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td data-title="&#39;Hành Động&#39;" class="center">
-                                        <div class="visible-md visible-lg hidden-sm hidden-xs">                                            
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
                                                 <i class="fa fa-pencil" data="{{document.ID}}"></i>
                                             </a>
@@ -61,7 +61,7 @@
                                             Danh Mục Tài Liệu <span class="symbol required"></span>
                                         </label>
                                         <select id="DocumentsID" name="DocumentsID" ng-model="entity.DocumentsID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="" ng-change="showHideUploaderBox()">
-                                            <option value="" disabled="">Chọn Danh Mục Tài Liệu</option>
+                                            <option value="">Chọn Danh Mục Tài Liệu</option>
                                         </select>
                                         <input type="hidden" name="DocumentCategoryID" ng-value="entity.DocumentsID" />
                                         <span class="error text-small block" ng-if="FormAddEditDocument.DocumentsID.$dirty && FormAddEditDocument.DocumentsID.$invalid">Danh Mục là bắt buộc.</span>
@@ -99,13 +99,24 @@
                                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                                             <div class="col-md-6">
                                                 <h5>Upload Hình Ảnh</h5>
-                                                <div class="panel panel-white">
+                                                <div class="panel panel-default">
                                                     <div class="panel-body">
                                                         <span class="btn btn-primary btn-o btn-file">
                                                             Chọn Hình Ảnh Upload
                                                             <!--<input type="file" nv-file-select="" uploader="uploader">-->
                                                             <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                         </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="user-image">
+                                                            <div class="thumbnail">
+                                                                <img ng-src="{{imagePath}}" alt="">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

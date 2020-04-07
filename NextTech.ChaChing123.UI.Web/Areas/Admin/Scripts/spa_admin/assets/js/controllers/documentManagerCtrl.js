@@ -56,6 +56,7 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
         }
 
         function manageDocumentActions() {
+            $scope.items = [];
             $scope.addDocument = function (size) {
                 var modalInstance = $uibModal.open({
                     templateUrl: 'myModalAddEditDocument.html',
@@ -130,6 +131,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.documentCategoryID = 0;
         $scope.isShowLinkDestination = false;
         $scope.isShowImageUpload = false;
+        $scope.imagePath = "";
         //$scope.isShowResourceUpload = false;
 
         $scope.documentHeading = "Thêm Mới Tài Liệu";
@@ -275,6 +277,11 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                     //$scope.titles = result.data.Details;
                     $scope.documentCategories = result.data.Details.Items;
 
+                    // LOAD DOCUMENT DETAILS
+                    if ($scope.documentID > 0) {
+                        loadDocumentDetails();
+                    }
+
                     $timeout(function () {
                         $scope.showSpinner = false;
                     }, 1000);
@@ -304,12 +311,19 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
                 if (result.data && result.data.StatusCode === 0) {
                     $scope.entity = result.data.Details;
 
+                    // display thumbnail image on UI
+                    var imageSource = $scope.entity.ImagePath;
+                    if (imageSource.length > 0) {
+                        $scope.imagePath = imageSource;
+                        imageUploaderPath = imageSource;
+                    }
+
                     $scope.documentCategoryID = result.data.Details.DocumentsID;
                     showHideUploader($scope.documentCategoryID);
 
                     $timeout(function () {
                         $scope.showSpinner = false;
-                    }, 1000);
+                    }, 2000);
                 } else {
                     notificationService.displayError(result.data.StatusMsg);
                     $timeout(function () {
@@ -336,13 +350,13 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
 
             if (categoryType === 2) { // Image
                 $scope.isShowImageUpload = true; // Show Image Uploader Area
-                $scope.isShowLinkDestination = false;
+                $scope.isShowLinkDestination = true;
                 //$scope.isShowResourceUpload = false;
             }
 
             if (categoryType === 3) { // Material
-                $scope.isShowLinkDestination = true;
-                $scope.isShowImageUpload = true;
+                $scope.isShowLinkDestination = true; // Show Image Uploader Area
+                $scope.isShowImageUpload = true; // Show Link Area
                 //$scope.isShowResourceUpload = true; // Show Resource Uploader Area
             }
         }
@@ -354,7 +368,7 @@ app.controller('ModalAddEditDocumentCtrl', ["$scope", "$window", "$localStorage"
         $scope.ModalAddEditDocumentManager = {
             edit: function () {
                 loadDocumentCategories();
-                loadDocumentDetails();
+                //loadDocumentDetails();
             },
             add: function () {
                 loadDocumentCategories();
@@ -470,14 +484,14 @@ app.controller('ModalViewDetailsDocumentCtrl', ["$scope", "$localStorage", "$tim
 
             if (categoryType === 2) { // Image
                 $scope.isShowImageUpload = true; // Show Image Uploader Area
-                $scope.isShowLinkDestination = false;
+                $scope.isShowLinkDestination = true;
                 //$scope.isShowResourceUpload = false;
             }
 
             if (categoryType === 3) { // Material
                 $scope.isShowLinkDestination = true;
                 $scope.isShowImageUpload = true;
-                $scope.isShowResourceUpload = true; // Show Resource Uploader Area
+                //$scope.isShowResourceUpload = true; // Show Resource Uploader Area
             }
         }
 
@@ -600,6 +614,7 @@ app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "not
     // GET THE FILE INFORMATION.
     $scope.getFileDetails = function (e) {
         $scope.showSpinner = true;
+        $scope.imagePath = "";
         $scope.files = [];
         $scope.$apply(function () {
 
@@ -646,6 +661,8 @@ app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "not
         var result = JSON.parse(e.target.response);
         if (result.StatusCode === 0) {
             imageUploaderPath = result.Details;
+            $scope.imagePath = result.Details;
+            $scope.isCompletedImageUpload = true;
             notificationService.displaySuccess("Upload hình ảnh thành công");
 
             $timeout(function () {

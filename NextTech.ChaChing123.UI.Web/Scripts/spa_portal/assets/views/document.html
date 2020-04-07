@@ -30,7 +30,9 @@
                                                                 <h4>{{document.Title}}</h4>
                                                             </div>
                                                             <iframe ng-if="tab.type == '1'" width="424" height="238" ng-src="{{document.Link}}" frameborder="0" allowfullscreen></iframe>
-                                                            <img ng-if="tab.type == '2'" src="{{document.ImagePath}}" alt="">
+                                                            <a class="media-left" ng-href="{{document.Link}}" target="_blank">
+                                                                <img ng-if="tab.type == '2'" ng-src="{{document.ImagePath}}" alt="">
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -50,7 +52,7 @@
                                             <div class="panel-body">
                                                 <div class="media" ng-repeat="document in documentContentAttachments">
                                                     <a class="media-left" href="#">
-                                                        <img src="{{document.ImagePath}}" alt="" class="media-object" style="width: 64px;">
+                                                        <img ng-src="{{document.ImagePath}}" alt="" class="media-object" style="width: 64px;">
                                                     </a>
                                                     <div class="media-body">
                                                         <div class="col-md-10">
