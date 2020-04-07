@@ -219,7 +219,13 @@ namespace NextTech.ChaChing123.Business
         // Delete Item By ID
         ResultDTO DeleteAffiliateLinkByID(RequestViewDetaiDTO obj);
         #endregion
+
+        #region ContactInfo
+        ResultDTO GetAllContactInfo(RequestDTO obj);
+        ResultDTO AddContactInfo(RequestContactInfoDTO obj);
+
+        #endregion
         //ONStep 2:
-        
+
     }
 }

@@ -446,6 +446,69 @@ namespace NextTech.ChaChing123.Business
             return result;
 
         }
+        public ResultDTO GetMerchantInfo(SubmitPaymentDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.GetMerchantInfo(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("MerchantInfo", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+
+            return result;
+
+        }
+        public ResultDTO RegisterForgetPassword(ForgetPasswordModel obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                var lengthPass = int.Parse(Common.Utilities.Common.GetConfigValue("LengthPass"));
+                obj.ActiveKey = PasswordGenerator.generatePassword(lengthPass, false, true, false);
+                result = _repository.RegisterForgetPassword(obj);
+                if (int.Parse(result.StatusCode.ToString(), 0) == 0)
+                {
+                    ForgetPasswordModel pushData = new ForgetPasswordModel();
+                    pushData =(ForgetPasswordModel)result.Details;
+                    Common.Utilities.Common.SendMailOlala(obj.Email, Common.Utilities.Common.GetConfigValue("FWPSubject"), Common.Utilities.Common.GetConfigValue("FWPMessage").Replace("{0}", pushData.ActiveKey).Replace("{1}", pushData.Email).Replace("{2}", pushData.UserName));
+                }
+                result.Details = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("RegisterForgetPassword", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+                result.Details= string.Empty;
+            }
+
+            return result;
+
+        }
+
+        public ResultDTO ActiveAccountByForgetPassword(ForgetPasswordModel obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                obj.NewPassword = Common.Utilities.Common.StringToMD5Hash(obj.NewPassword);
+                result = _repository.ActiveAccountByForgetPassword(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("ActiveAccountByForgetPassword", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+
+            return result;
+
+        }
         #endregion
 
     }

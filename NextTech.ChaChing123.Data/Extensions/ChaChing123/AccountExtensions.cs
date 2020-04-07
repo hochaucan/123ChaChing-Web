@@ -602,7 +602,68 @@ namespace NextTech.ChaChing123.Data.Extensions
             result.Details = bannarLink;
             return result;
         }
-        
+
+        public static ResultDTO GetMerchantInfo(this IEntityBaseRepository<Account> repository, SubmitPaymentDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            result.Details = dbContext.Database.SqlQuery<RequestMerchantInfoDTO>("EXEC [dbo].[sp_GetMerchantInfo] @SessionKey,@errorCode out",
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).FirstOrDefault<RequestMerchantInfoDTO>();
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+        }
+
+
+        public static ResultDTO ActiveAccountByForgetPassword(this IEntityBaseRepository<Account> repository, ForgetPasswordModel obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            result.Details = dbContext.Database.SqlQuery<AccountInfoDTO>("EXEC [dbo].[ActiveAccountByForgetPassword] @UserName,@ActiveKey,@NewPassword,@errorCode out",
+                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("ActiveKey", DB.SafeSQL(obj.ActiveKey)),
+                        new SqlParameter("NewPassword", DB.SafeSQL(obj.NewPassword)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).FirstOrDefault<AccountInfoDTO>();
+
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+        }
+
+        public static ResultDTO RegisterForgetPassword(this IEntityBaseRepository<Account> repository, ForgetPasswordModel obj)
+        {
+            ApplicationContext dbContext;
+            dbContext = new ApplicationContext();
+            var result = new ResultDTO();
+
+            var ErrorCode = new SqlParameter("@ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            result.Details = dbContext.Database.SqlQuery<ForgetPasswordModel>("EXEC [dbo].[RegisterForgetPassword] @Email, @ActiveKey,@errorCode out",
+                        new SqlParameter("Email", obj.Email),
+                        new SqlParameter("ActiveKey", obj.ActiveKey),
+                        ErrorCode)
+                        .FirstOrDefault<ForgetPasswordModel>();
+            result.StatusCode = int.Parse(ErrorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            return result;
+        }
+
         //public static ResultDTO AddTokenPush.
 
 

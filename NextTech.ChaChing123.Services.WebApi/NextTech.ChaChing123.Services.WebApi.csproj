@@ -169,6 +169,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ChaChing123\APICheckoutV31.cs" />
     <Compile Include="Controllers\ChaChing123\LandingPageController.cs" />
     <Compile Include="Controllers\ChaChing123\AdmiController.cs" />
     <Compile Include="Controllers\ChaChing123\AccountController.cs" />

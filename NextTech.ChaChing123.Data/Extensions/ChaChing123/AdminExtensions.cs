@@ -381,11 +381,22 @@ namespace NextTech.ChaChing123.Data.Extensions
             try
             {
                 BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOWithDrawallInfoDTO>("EXEC [dbo].[sp_BO_GetWithDrawalInfoByAccount]  @AccountName,@SessionKey,@Count out,@errorCode out",
+                if (!string.IsNullOrEmpty(obj.UserName))
+                {
+                    Items.Items = dbContext.Database.SqlQuery<BOWithDrawallInfoDTO>("EXEC [dbo].[sp_BO_GetWithDrawalInfoByAccount]  @AccountName,@SessionKey,@Count out,@errorCode out",
                         new SqlParameter("AccountName", DB.SafeSQL(obj.UserName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                         count,
                     errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOWithDrawallInfoDTO>();
+                }
+                else
+                {
+                    Items.Items = dbContext.Database.SqlQuery<BOWithDrawallInfoDTO>("EXEC [dbo].[sp_BO_GetAllWithDrawalInfo] @SessionKey,@Count out,@errorCode out",
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        count,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOWithDrawallInfoDTO>();
+                }
+                
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
@@ -416,20 +427,38 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
+            var TotalAmount = new SqlParameter("TotalAmount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var PendingAmount = new SqlParameter("PendingAmount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var ApprovedAmount = new SqlParameter("ApprovedAmount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+         
             try
             {
-                //sp_BO_GetOrderList
-                BODataListDTO Items = new BODataListDTO();
-                Items.Items = dbContext.Database.SqlQuery<BOOrderItemDto>("EXEC [dbo].[sp_BO_SummaryRevenueReport] @UserName,@SessionKey, @Count out, @errorCode out",
+                BORevenueObjDto rsData = new BORevenueObjDto();
+                rsData.Items = dbContext.Database.SqlQuery<BORevenueItemDto>("EXEC [dbo].[sp_BO_SummaryRevenueReport] @SessionKey, @Count out,@TotalAmount out,@PendingAmount out,@ApprovedAmount out, @errorCode out",
                     new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                     count,
-                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOOrderItemDto>();
+                    TotalAmount,
+                    PendingAmount,
+                    ApprovedAmount,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BORevenueItemDto>();
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
                 if (result.StatusCode == 0)
                 {
-                    Items.Total = int.Parse(count.Value.ToString(), 0);
-                    result.Details = Items;
+                    rsData.Total = int.Parse(count.Value.ToString(), 0);
+                    rsData.TotalAmount =(TotalAmount == null)?0: decimal.Parse(TotalAmount.Value.ToString(), 0) ;
+                    rsData.PendingAmount = (PendingAmount == null) ? 0 : decimal.Parse(PendingAmount.Value.ToString(), 0);
+                    rsData.ApprovedAmount = (ApprovedAmount == null) ? 0 : decimal.Parse(ApprovedAmount.Value.ToString(), 0);
+                    result.Details = rsData;
                 }
             }
             catch (Exception ex)
@@ -451,14 +480,40 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_SummaryCommissionReport] @UserName,@SessionKey,@errorCode out",
-                        new SqlParameter("UserName", DB.SafeSQL(obj.UserName)),
-                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode);
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var TotalAmount = new SqlParameter("TotalAmount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var PendingAmount = new SqlParameter("PendingAmount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var Amount = new SqlParameter("Amount", System.Data.SqlDbType.Decimal)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            BOCommissionReportObjDto rsData = new BOCommissionReportObjDto();
+            rsData.Items = dbContext.Database.SqlQuery<BOCommissionReportItemDto>("EXEC [dbo].[sp_BO_SummaryCommissionReport] @SessionKey, @Count out,@TotalAmount out,@PendingAmount out,@Amount out, @errorCode out",
+                new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                count,
+                TotalAmount,
+                PendingAmount,
+                Amount,
+                errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<BOCommissionReportItemDto>();
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
-
+            if (result.StatusCode == 0)
+            {
+                rsData.Total = int.Parse(count.Value.ToString(), 0);
+                rsData.TotalAmount = (TotalAmount == null) ? 0 : decimal.Parse(TotalAmount.Value.ToString(), 0);
+                rsData.PendingAmount = (PendingAmount == null) ? 0 : decimal.Parse(PendingAmount.Value.ToString(), 0);
+                rsData.Amount = (Amount == null) ? 0 : decimal.Parse(Amount.Value.ToString(), 0);
+                result.Details = rsData;
+            }
             return result;
         }
         // No.17
@@ -492,7 +547,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.SqlQuery<AffiliateOfMonthDTO>("EXEC [dbo].[sp_BO_SumaryReportChart] @StartList,@EndList, @SessionKey,@errorCode out",
+            result.Details = dbContext.Database.SqlQuery<AffiliateOfMonthDTO>("EXEC [dbo].[sp_BO_SummaryReportChart] @StartList,@EndList, @SessionKey,@errorCode out",
                         new SqlParameter("StartList", DB.SafeSQL(obj.StartList)),
                         new SqlParameter("EndList", DB.SafeSQL(obj.EndList)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
@@ -2802,6 +2857,72 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
         #endregion
+
+        public static ResultDTO GetAllContactInfo(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                BODataListDTO Items = new BODataListDTO();
+                Items.Items = dbContext.Database.SqlQuery<RequestContactInfoDTO>("EXEC [dbo].[sp_BO_ContactInfo_GetAll] @SessionKey, @Count out, @errorCode out",
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    count,
+                    errorCode).Skip((obj.PageIndex - 1) * obj.PageCount).Take(obj.PageCount).ToList<RequestContactInfoDTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+                if (result.StatusCode == 0)
+                {
+                    Items.Total = int.Parse(count.Value.ToString(), 0);
+                    result.Details = Items;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
+
+            return result;
+        }
+        public static ResultDTO AddContactInfo(this IEntityBaseRepository<Admin> repository, RequestContactInfoDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            try
+            {
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_ContactInfo_Add] @Name,@Email,@Phone,@Content, @errorCode out",
+              new SqlParameter("Name", DB.SafeSQL(obj.Name)),
+              new SqlParameter("Email", DB.SafeSQL(obj.Email)),
+              new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
+              new SqlParameter("Content", DB.SafeSQL(obj.Content)),
+              errorCode);
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.Details = ex.Message;
+            }
+
+            return result;
+        }
     }
 }
 
