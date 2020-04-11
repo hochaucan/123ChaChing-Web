@@ -40,7 +40,16 @@ app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localSto
                                 params.total(totalRecordCount);
 
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.documents);
+
+                                $scope.getCategoryTypeName = function (type) {
+                                    if (type === 1) // Chưa thanh toán
+                                        return "Video";
+                                    else if (type === 2) // Ðã thanh toán
+                                        return "Hình Ảnh";
+                                    else if (type === 3) // Hoàn tiền
+                                        return "Tài Liệu";
+                                };
 
                                 $timeout(function () {
                                     $scope.showSpinner = false;

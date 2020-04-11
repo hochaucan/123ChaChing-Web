@@ -8,126 +8,132 @@
             <div class="col-sm-8">
                 <h1 class="mainTitle" translate="topbar.nav.LEAD_DETAILS">Chi Tiết Khách Hàng</h1>
             </div>
-            <div ncy-breadcrumb=""></div>
+            <!--<div ncy-breadcrumb=""></div>-->
+            <ol class="breadcrumb ng-isolate-scope">
+                <li class="ng-scope"><a href="#/app/lead/manage" class="ng-binding ng-scope">Khách Hàng</a></li>
+                <li class="ng-scope active"><span class="ng-binding ng-scope">Chi Tiết Khách Hàng</span></li>
+            </ol>
         </div>
     </section>
     <!-- end: PAGE TITLE -->
     <!-- start: INLINE EDIT EXAMPLE -->
-    <div class="container-fluid container-fullw" ng-controller="MasterLeadDetailsCtrl">
+    <div class="container-fluid container-fullw bg-white" ng-controller="MasterLeadDetailsCtrl">
         <div class="row">
             <div class="col-md-12">
                 <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableCtrl.js /// -->
                 <div ng-controller="LeadDetailsCtrl">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div class="panel panel-white no-radius">
+                        <div class="panel-heading">
+                            <p class="text-left">
+                                <span class="text-bold text-uppercase">{{lead.Name}}</span>
+                            </p>
+                            <p>
+                                <span class="text-bold text-uppercase">{{lead.CreatedDate}}</span>
+                            </p>
+                            <h3>
+                                <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                            </h3>
+                        </div>
                         <div class="panel-body">
-                            <!-- start: USER TABSET -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-white">
-                                        <div class="panel-body">
-                                            <p class="text-left">
-                                                <span class="text-bold text-uppercase">{{lead.Name}}</span>
-                                            </p>
-                                            <p>
-                                                <span class="text-bold text-uppercase">{{lead.CreatedDate}}</span>
-                                            </p>
-                                        </div>
-                                        <div class="panel-footer">
-                                            <h3>
-                                                <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <section ng-controller="TabController as tab">
-                                    <ul class="nav nav-pills">
-                                        <li ng-class="{active:tab.isSet(1)}"><a ng-click="tab.setTab(1)">Chi Tiết</a></li>
-                                        <li ng-class="{active:tab.isSet(2)}"><a ng-click="tab.setTab(2)">Ghi Chú</a></li>
-                                    </ul>
-                                    <div ng-show="tab.isSet(1)">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-white">
-                                                    <div class="panel-body">                                                       
-                                                        <table class="table table-condensed">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th colspan="3">Thông Tin Khách Hàng</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>Tên</td>
-                                                                    <td>
-                                                                        <span>{{lead.Name}}</span>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Email</td>
-                                                                    <td>
-                                                                        {{lead.Email}}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Điện Thoại</td>
-                                                                    <td>{{lead.Phone}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Nguồn</td>
-                                                                    <td>
-                                                                        <table class="table table-condensed" ng-if="lead.FunnalPageName.length > 0 && lead.SoloPageName.length > 0">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th colspan="2"></th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><span class="text-bold">Tên Funnel</span></td>
-                                                                                    <td>
-                                                                                        {{lead.FunnalPageName}}
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><span class="text-bold">Link Funnel</span></td>
-                                                                                    <td>
-                                                                                        {{lead.FunnalLink}}
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                        <table class="table table-condensed" ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length > 0">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th colspan="2"></th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><span class="text-bold">Tên Solo</span></td>
-                                                                                    <td>
-                                                                                        {{lead.SoloPageName}}
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td><span class="text-bold">Link Solo</span></td>
-                                                                                    <td>
-                                                                                        {{lead.SoloLink}}
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="row">
-                                                            <div>
-                                                                <h3>Đánh Giá</h3>
-                                                                <div class="col-sm-12">
-                                                                    <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                            <form class="form-updatelead-request" name="FormUpdateLead" id="FormUpdateLead" novalidate="" ng-submit="form.submit(FormUpdateLead)">
+                                <div class="modal-body">
+                                    <section ng-controller="TabController as tab">
+                                        <ul class="nav nav-pills">
+                                            <li ng-class="{active:tab.isSet(1)}"><a ng-click="tab.setTab(1)">Chi Tiết</a></li>
+                                            <li ng-class="{active:tab.isSet(2)}"><a ng-click="tab.setTab(2)">Ghi Chú</a></li>
+                                        </ul>
+                                        <div ng-show="tab.isSet(1)">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-white">
+                                                        <div class="panel-body">
+                                                            <h3>Thông Tin Khách Hàng</h3>
+                                                            <div class="form-group" ng-class="{'has-error':FormUpdateLead.Name.$dirty && FormUpdateLead.Name.$invalid, 'has-success':FormUpdateLead.Name.$valid}">
+                                                                <label for="leadName">
+                                                                    Tên
+                                                                </label>
+                                                                <input type="text" class="form-control" id="leadName" name="Name" ng-model="lead.Name" placeholder="Tên">
+                                                            </div>
+                                                            <div class="form-group" ng-class="{'has-error':FormUpdateLead.Email.$dirty && FormUpdateLead.Email.$invalid, 'has-success':FormUpdateLead.Email.$valid}">
+                                                                <label for="leadEmail">
+                                                                    Email <span class="symbol required"></span>
+                                                                </label>
+                                                                <input type="text" class="form-control" id="leadEmail" name="Email" ng-model="lead.Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Địa chỉ email" required="">
+                                                                <span class="error text-small block" ng-if="FormUpdateLead.Email.$dirty && FormUpdateLead.Email.$invalid">Email là bắt buộc.</span>
+                                                                <span class="error text-small block" ng-if="FormUpdateLead.Email.$error.pattern">Vui lòng cung cấp một địa chỉ email hợp lệ.!</span>
+                                                            </div>
+                                                            <div class="form-group" ng-class="{'has-error':FormUpdateLead.Phone.$dirty && FormUpdateLead.Phone.$invalid, 'has-success':FormUpdateLead.Phone.$valid}">
+                                                                <label for="leadPhone">
+                                                                    Số Điện Thoại
+                                                                </label>
+                                                                <input type="text" class="form-control" id="leadPhone" name="Phone" ng-model="lead.Phone" placeholder="Số Điện Thoại" ng-pattern="/^[0-9]*$/">
+                                                                <span class="error text-small block" ng-if="FormUpdateLead.Phone.$dirty && FormUpdateLead.Phone.$invalid">Số Điện Thoại và phải là số.</span>
+                                                            </div>
+                                                            <div class="form-group" ng-class="{'has-error':FormUpdateLead.LeadType.$dirty && FormUpdateLead.LeadType.$invalid, 'has-success':FormUpdateLead.LeadType.$valid}">
+                                                                <label for="LeadType">
+                                                                    Đánh Giá
+                                                                </label>
+                                                                <select class="form-control black" id="LeadType" name="LeadType" ng-model="lead.LeadType" ng-options="option.LeadTypeID as option.LeadTypeName for option in LeadTypes">
+                                                                    <option value="">Phân Loại Khách Hàng</option>
+                                                                </select>
+                                                            </div>
+                                                            <table class="table table-condensed">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Nguồn</td>
+                                                                        <td>
+                                                                            <table class="table table-condensed" ng-if="lead.FunnalPageName.length > 0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th colspan="2"></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td><span class="text-bold">Tên Funnel</span></td>
+                                                                                        <td>
+                                                                                            {{lead.FunnalPageName}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td><span class="text-bold">Link Funnel</span></td>
+                                                                                        <td>
+                                                                                            {{lead.FunnalLink}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <table class="table table-condensed" ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length > 0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th colspan="2"></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td><span class="text-bold">Tên Solo</span></td>
+                                                                                        <td>
+                                                                                            {{lead.SoloPageName}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td><span class="text-bold">Link Solo</span></td>
+                                                                                        <td>
+                                                                                            {{lead.SoloLink}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="row">
+                                                                <div>
+                                                                    <div class="col-sm-12">
+                                                                        <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -135,22 +141,30 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div ng-show="tab.isSet(2)">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="panel panel-white">
-                                                    <div class="panel-body">
-                                                        <p class="text-left">
-                                                            <span class="text-bold text-uppercase">{{lead.Notes}}</span>
-                                                        </p>
+                                        <div ng-show="tab.isSet(2)">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-white">
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <label for="leadNotes">
+                                                                    Ghi Chú
+                                                                </label>
+                                                                <input type="text" class="form-control" id="leadNotes" name="Notes" ng-model="lead.Notes" placeholder="Ghi Chú">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </section>
-                            </div>
+                                    </section>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Cập Nhật
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

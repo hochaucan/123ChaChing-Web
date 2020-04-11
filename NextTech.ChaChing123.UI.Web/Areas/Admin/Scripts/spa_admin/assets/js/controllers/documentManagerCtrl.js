@@ -10,7 +10,7 @@ var imageUploaderPath = "";
 app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "documentService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, documentService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
-        $scope.documents = {};
+        $scope.documents = [];
         $scope.documentID = 0;
         $scope.documentCategoryID = 0;
 
@@ -36,14 +36,52 @@ app.controller('DocumentManagerCtrl', ["$scope", "$uibModal", "$localStorage", "
 
                             if (result.data && result.data.StatusCode === 0) {
                                 //var data = result.data.Details.Items;
-                                $scope.documents = result.data.Details.Items;
+                                //$scope.documents = result.data.Details.Items;
+                                var documents = result.data.Details.Items;
+                                angular.forEach(documents, function (document, index) {
+                                    var documentBuilder = [];
+                                    var categoryName = "", categoryType = "", categoryTypeName = "";
+                                    var documentCategory = document.DocumentsName;
+                                    var parts = documentCategory.split('|');
+                                    if (parts.length > 0) {
+                                        categoryName = parts[0];
+                                        categoryType = parseInt(parts[1]);
+
+                                        if (categoryType === 1) { // Video
+                                            categoryTypeName = "Video";
+                                        }
+
+                                        if (categoryType === 2) { // Image
+                                            categoryTypeName = "Hình Ảnh";
+                                        }
+
+                                        if (categoryType === 3) { // Material
+                                            categoryTypeName = "Tài Liệu";
+                                        }
+                                    }
+
+                                    documentBuilder.ID = document.ID;
+                                    documentBuilder.Title = document.Title;
+                                    documentBuilder.Content = document.Content;
+                                    documentBuilder.ImagePath = document.ImagePath;
+                                    documentBuilder.Link = document.Link;
+                                    documentBuilder.ResourcePath = document.ResourcePath;
+                                    documentBuilder.Style = document.Style;
+                                    documentBuilder.DocumentsID = document.DocumentsID;
+                                    documentBuilder.CategoryName = categoryName;
+                                    documentBuilder.CategoryTypeName = categoryTypeName;
+                                    documentBuilder.Order = document.Order;
+                                    documentBuilder.Active = document.Active;
+                                    $scope.documents.push(documentBuilder);
+                                });
+
                                 var totalRecordCount = result.data.Details.Total;
 
                                 // Tell ngTable how many records we have (so it can set up paging)
                                 params.total(totalRecordCount);
 
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.documents);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;

@@ -56,7 +56,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 }
 
                 if (result.data && result.data.StatusCode === 0) {
-                    notificationService.displaySuccess(result.data.StatusMsg);
+                    //notificationService.displaySuccess(result.data.StatusMsg);
                     $scope.member = result.data.Details;
 
                     $scope.totalAffiliateAmount = $scope.member.TotalAmount;
@@ -104,14 +104,14 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
 
                     } else {
                         var entity = {
-                            "UserName": username,
-                            "SessionKey": sessionKey,
-                            "IsLock": $scope.member.IsLock
+                            "AccountName": username,
+                            "NewPassword": $scope.member.Password,
+                            "SessionKey": sessionKey
                         };
 
                         $scope.showSpinner = true;
                         // Load the data from the API
-                        membershipService.LockAccount(entity, function (result) {
+                        membershipService.SetPasswodForAccount(entity, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -148,7 +148,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -161,7 +161,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -174,7 +174,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -187,7 +187,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        $scope.orderID = size.target.attributes.data.value;
+                        $scope.orderID = size.currentTarget.attributes.data.value;
                         return $scope.orderID;
                     }
                 }
@@ -466,7 +466,7 @@ app.controller('RequestWithDrawalCtrl', ["$scope", "$uibModal", "$localStorage",
                 size: size,
                 resolve: {
                     items: function () {
-                        $scope.orderID = size.target.attributes.data.value;
+                        $scope.orderID = size.currentTarget.attributes.data.value;
                         return $scope.orderID;
                     }
                 }
@@ -688,8 +688,8 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
 
                     } else {
                         var entity = {
-                            "AccountName": $scope.AffiliateAccount,
                             "ContractNo": $scope.ContractNo,
+                            "AccountName": $scope.AffiliateAccount,
                             "Status": $scope.member.AffiliateStatus,
                             "SessionKey": sessionKey
                         };
@@ -741,8 +741,8 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
 
         function loadAffiliateStatus() {
             $scope.AffiliateStatusList = [
-                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' },
-                { AffiliateStatus: "2", AffiliateStatusName: 'Hoàn Tất' }
+                { AffiliateStatus: "2", AffiliateStatusName: 'Duyệt' },
+                { AffiliateStatus: "3", AffiliateStatusName: 'Hủy' }
             ];
         }
 

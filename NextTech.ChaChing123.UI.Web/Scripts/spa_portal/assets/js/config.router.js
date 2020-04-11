@@ -203,14 +203,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Quản Lý Khách Hàng'
             },
-            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl', 'chartjs', 'tc.chartjs')
+            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
         }).state('app.lead.details', {
             url: '/details/:id',
             templateUrl: "Scripts/spa_portal/assets/views/lead_details.html",
             title: 'Chi Tiết Khách Hàng',
-            ncyBreadcrumb: {
-                label: 'Chi Tiết Khách Hàng'
-            },
             resolve: loadSequence('chartjs', 'tc.chartjs', 'leadDetailsCtrl')
         }).state('app.lead.add', {
             url: '/add',

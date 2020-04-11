@@ -58,13 +58,12 @@
                                                 </td>
                                                 <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
                                                 <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount | number}} Đ</td>
-                                                <td data-title="&#39;Tổng Tiền&#39;">{{order.AffiliateAmount | number}} Đ</td>
-                                                <td data-title="&#39;Đại Sứ&#39;"><a>{{order.AffiliateName}}</a></td>
+                                                <td data-title="&#39;Đại Sứ&#39;"><a ng-href="#/app/member/details/{{order.AffiliateAccount}}">{{order.AffiliateName}}</a></td>
                                                 <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
                                                 <td class="center">
                                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                         <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Đại Sứ">
-                                                            <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}|{{order.AffiliateStatus}}"></i>
+                                                            <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}|{{order.AffiliateStatus}}|{{order.PaymentStatus}}|{{order.PaymentStatusName}}"></i>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -96,7 +95,7 @@
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>Phải Trả</td>
+                                                <td>Thực nhận</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -214,14 +213,17 @@
                                             <td data-title="&#39;Email&#39;">{{entity.Email}}</td>
                                             <td data-title="&#39;Số Điện Thoại&#39;">{{entity.Phone}}</td>
                                             <td data-title="&#39;Loại&#39;">{{entity.AccountTypeName}}</td>
-                                            <td data-title="&#39;Yêu Cầu Rút Tiền&#39;">{{entity.CashTypeName}}</td>
+                                            <td data-title="&#39;Yêu Cầu Rút Tiền&#39;">{{entity.RequestWithDrawallCount}}</td>
                                             <td data-title="&#39;Đang Duyệt&#39;">{{entity.PendingAmount | number}} Đ</td>
                                             <td data-title="&#39;Số Dư Ví&#39;">{{entity.Amount | number}} Đ</td>
                                             <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
-                                            <td class="left">
+                                            <td class="center">
                                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                    <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Phê Duyệt">
-                                                        <i class="fa fa-pencil" data="{{member.UserName}}|{{member.FullName}}|{{entity.ContractNo}}|{{entity.StatusNo}}"></i>
+                                                    <a class="label label-success" ng-if="entity.Status === 0">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Hoạt Động
+                                                    </a>
+                                                    <a class="label label-danger" ng-if="entity.Status === 1">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Không Hoạt Động
                                                     </a>
                                                 </div>
                                             </td>
@@ -267,6 +269,23 @@
                                     </tfoot>
                                 </table>
                             </div>
+                            <script type="text/ng-template" id="myModalLockOrUnlockAffiliateAccount.html">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">Khóa/Mở Tài Khoản</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <p>Bạn muốn Khóa/Mở User Này Không?</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="ok()">Đồng Ý!</button>
+                                    <button class="btn btn-primary btn-o" ng-click="cancel()">Không Đồng Ý</button>
+                                </div>
+                            </script>
                         </div>
                     </div>
                 </div>

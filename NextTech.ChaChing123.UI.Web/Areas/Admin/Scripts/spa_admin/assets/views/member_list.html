@@ -44,7 +44,7 @@
                                     <tbody>
                                         <tr ng-repeat="member in $data">
                                             <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
-                                            <td data-title="&#39;Tên&#39;"><a>{{member.FullName}}</a></td>
+                                            <td data-title="&#39;Tên&#39;"><a ng-href="#/app/member/details/{{member.UserName}}">{{member.FullName}}</a></td>
                                             <td data-title="&#39;Email&#39;">{{member.Email}}</td>
                                             <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
                                             <td data-title="&#39;Loại&#39;">{{member.AccountTypeName}}</td>

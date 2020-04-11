@@ -7,7 +7,6 @@
         <div class="row">
             <div class="col-sm-8">
                 <h1 class="mainTitle" translate="topbar.nav.LEAD">Khách Hàng</h1>
-                <span class="mainDescription">Quản Lý Khách Hàng</span>
             </div>
             <div ncy-breadcrumb=""></div>
         </div>
@@ -18,7 +17,7 @@
     <div>
         <div class="container-fluid container-fullw bg-white">
             <div class="row" ng-controller="ngTableLeadListCtrl">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div class="panel panel-white no-radius">
                         <div class="panel-heading border-light">
@@ -127,31 +126,51 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div class="panel panel-white no-radius">
                         <div class="panel-body">
                             <table ng-table="tableParams" class="table table-striped">
                                 <tbody>
-                                    <tr ng-repeat="member in $data">
-                                        <td data-title="&#39;Tên&#39;">{{member.Name}}</td>
-                                        <td data-title="&#39;Email&#39;">{{member.Email}}</td>
-                                        <td data-title="&#39;Số Điện Thoại&#39;">{{member.Phone}}</td>
-                                        <td data-title="&#39;Ngày Tạo&#39;">{{member.CreatedDate}}</td>
+                                    <tr ng-repeat="lead in $data">
+                                        <td data-title="&#39;Tên&#39;">{{lead.Name}}</td>
+                                        <td data-title="&#39;Email&#39;">{{lead.Email}}</td>
+                                        <td data-title="&#39;Nguồn&#39;">
+                                            <div ng-if="lead.FunnalPageName.length > 0">
+                                                <dl>
+                                                    <dt>
+                                                        <span class="text-bold">Tên Funnel</span>
+                                                    </dt>
+                                                    <dd>
+                                                        <a ng-href="{{lead.FunnalLink}}">{{lead.FunnalPageName}}</a>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length > 0">
+                                                <dl>
+                                                    <dt>
+                                                        <span class="text-bold">Tên Solo</span>
+                                                    </dt>
+                                                    <dd>
+                                                        <a ng-href="{{lead.SoloLink}}">{{lead.SoloPageName}}</a>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                            <div ng-if="lead.FunnalPageName.length === 0 && lead.SoloPageName.length === 0">
+                                                <dl>
+                                                    <dt>
+                                                        <span class="text-bold">Không Xác Định</span>
+                                                    </dt>
+                                                </dl>
+                                            </div>
+                                        </td>
+                                        <td data-title="&#39;Phân Loại&#39;"><span ng-class="[getClassForLeadsType(lead.LeadType), 'b']"> {{lead.TypeName}}</span> </td>
+                                        <td data-title="&#39;Ngày Tạo&#39;">{{lead.CreatedDate}}</td>
                                         <td data-title="&#39;Chi Tiết&#39;">
-                                            <!--<input type="button" class="btn btn-primary btn-o btn-sm" id="editRowBtn4" value="Chi Tiết" data-id="{{member.ID}}" data="{{member.ID}}" ng-click="viewLeadDetails($event)">-->
-                                            <a ng-href="#/app/lead/details/{{member.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">Chi Tiết</a>
+                                            <a ng-href="#/app/lead/details/{{lead.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Chi Tiết">Chi Tiết</a>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <!--<div ng-controller="ChartCtrl1">
-                                        <h3>Đánh Giá</h3>
-                                        <div class="col-sm-6">
-                                            <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
-                                        </div>
-                                    </div>-->
-                                </tfoot>
                             </table>
                             <script type="text/ng-template" id="myModalViewLeadDetails.html">
                                 <circle-spinner ng-show="showSpinner"></circle-spinner>

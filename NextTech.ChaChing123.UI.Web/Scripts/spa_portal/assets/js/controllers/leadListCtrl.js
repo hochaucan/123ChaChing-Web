@@ -59,8 +59,18 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                                 $scope.TotalLeadRecordCount = totalRecordCount;
 
                                 // Tell ngTable how many records we have (so it can set up paging)
-                                params.total(totalRecordCount);
+                                params.total($scope.leads);
 
+                                $scope.getClassForLeadsType = function (LeadStatus) {
+                                    if (LeadStatus == 0) // NA
+                                        return "badge badge-info";
+                                    else if (LeadStatus == 1) // Lạnh
+                                        return "badge badge-default";
+                                    else if (LeadStatus == 2) // Ấm
+                                        return "badge badge-warning";
+                                    else if (LeadStatus == 3) // Nóng
+                                        return "badge badge-danger";
+                                };
                                 // Return the customers to ngTable
                                 $defer.resolve(result.data.Details.Items);
                             } else {

@@ -42,9 +42,10 @@ app.controller('MasterLeadDetailsCtrl', ["$scope", "$localStorage", "$location",
 
     }]);
 
-app.controller('LeadDetailsCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "leadService", "membershipService", "notificationService",
-    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, leadService, membershipService, notificationService) {
+app.controller('LeadDetailsCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "$uibModal", "leadService", "membershipService", "notificationService",
+    function ($scope, $rootScope, $location, $window, $localStorage, $timeout, $uibModal, leadService, membershipService, notificationService) {
         $scope.lead = {};
+        $scope.LeadTypes = [];
 
         function loadLeadsDetails() {
             $scope.lead = {};
@@ -62,6 +63,8 @@ app.controller('LeadDetailsCtrl', ["$scope", "$rootScope", "$window", "$localSto
 
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.lead = result.data.Details;
+                    loadLeadTypes();
+
                     var funnelURL = result.data.Details.FunnalLink;
                     var funnelID = 0;
                     var soloURL = result.data.Details.SoloLink;
@@ -99,6 +102,14 @@ app.controller('LeadDetailsCtrl', ["$scope", "$rootScope", "$window", "$localSto
                     }, 1000);
                 }
             });
+        }
+
+        function loadLeadTypes() {
+            $scope.LeadTypes = [
+                { LeadTypeID: 1, LeadTypeName: 'Lạnh' },
+                { LeadTypeID: 2, LeadTypeName: 'Ấm' },
+                { LeadTypeID: 3, LeadTypeName: 'Nóng' }
+            ];
         }
 
         function loadLeadChart(entity) {
@@ -237,9 +248,75 @@ app.controller('LeadDetailsCtrl', ["$scope", "$rootScope", "$window", "$localSto
             });
         }
 
+        function updateLeadNotes() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var lead = {};
+                        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+                        var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+                        lead = {
+                            "ID": leadID,
+                            "Name": $scope.lead.Name,
+                            "Email": $scope.lead.Email,
+                            "Phone": $scope.lead.Phone,
+                            "LeadsType": $scope.lead.LeadType,
+                            "Notes": $scope.lead.Notes,
+                            "SessionKey": sessionkey
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        leadService.UpdateLeadsByAccount(lead, function (result) {
+                            if (result.data && result.data.StatusCode == 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode == 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                    $location.path('/app/lead/manage');
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
         $scope.LeadDetailsManager = {
             init: function () {
                 loadLeadsDetails();
+                updateLeadNotes();
             }
         };
 

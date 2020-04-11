@@ -31,7 +31,9 @@
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
-                                    <td data-title="&#39;Danh Mục&#39;">{{document.DocumentsName}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;">{{document.Content}}</td>
+                                    <td data-title="&#39;Tên Danh Mục&#39;">{{document.CategoryName}}</td>
+                                    <td data-title="&#39;Loại Danh Mục&#39;">{{document.CategoryTypeName}}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td data-title="&#39;Hành Động&#39;" class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">

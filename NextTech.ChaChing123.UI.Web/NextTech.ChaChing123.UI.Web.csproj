@@ -577,6 +577,7 @@
     <Content Include="Scripts\spa_portal\assets\js\services\funnelsService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
+    <Content Include="Scripts\spa_portal\assets\views\charts.html" />
     <Content Include="Scripts\spa_portal\assets\views\lead_details.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />

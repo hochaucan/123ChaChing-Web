@@ -83,8 +83,8 @@ app.controller('BarChartRevenueCtrl', ["$scope", function ($scope) {
 
 }]);
 
-app.controller('ngTableRevenueReportCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "orderService", "membershipService", "notificationService",
-    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, orderService, membershipService, notificationService) {
+app.controller('ngTableRevenueReportCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "revenueService", "orderService", "membershipService", "notificationService",
+    function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, revenueService, orderService, membershipService, notificationService) {
         $scope.members = {};
         $scope.totalAffiliateAmount = 0; // total amount
         $scope.pendingAffiliateAmount = 0; // the amount that is waiting for approval
@@ -103,25 +103,26 @@ app.controller('ngTableRevenueReportCtrl', ["$scope", "$uibModal", "$localStorag
                         };
 
                         // Load the data from the API
-                        orderService.GetOrderList(filterObj, function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
+                        revenueService.SummaryRevenueReport(filterObj, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
 
-                            if (result.data && result.data.StatusCode == 0) {
+                            if (result.data.StatusCode === 0 && result.data.Details) {
                                 //var data = result.data.Details.Items;
+
                                 $scope.members = result.data.Details.Items;
                                 var totalRecordCount = result.data.Details.Total;
 
-                                $scope.totalAffiliateAmount = 0;
-                                $scope.pendingAffiliateAmount = 0;
-                                $scope.approvedAffilateAmount = 0;
+                                $scope.totalAffiliateAmount = result.data.Details.TotalAmount;
+                                $scope.pendingAffiliateAmount = result.data.Details.PendingAmount;
+                                $scope.approvedAffilateAmount = result.data.Details.ApprovedAmount;
 
                                 // Tell ngTable how many records we have (so it can set up paging)
                                 params.total(totalRecordCount);
 
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.members);
 
                                 $scope.getClassForPayMentStatus = function (PaymentStatus) {
                                     if (PaymentStatus === 1) // Chưa thanh toán
@@ -339,6 +340,9 @@ app.controller('ModalUpdateAffiliatePaymentStatusRevenueReportCtrl', ["$scope", 
         $scope.AffiliateName = "";
         $scope.ContractNo = "";
         $scope.AffiliateStatus = 0;
+        $scope.PaymentState = 0;
+        $scope.PaymentStateName = "";
+
         var customerInfo = items ? items : "";
         var customerSplit = customerInfo.split('|');
         if (customerSplit.length > 0) {
@@ -346,6 +350,8 @@ app.controller('ModalUpdateAffiliatePaymentStatusRevenueReportCtrl', ["$scope", 
             $scope.AffiliateName = customerSplit[1];
             $scope.ContractNo = customerSplit[2];
             $scope.AffiliateStatus = customerSplit[3];
+            $scope.PaymentState = parseInt(customerSplit[4]);
+            $scope.PaymentStateName = customerSplit[5];
         }
 
         $scope.ok = function () {
@@ -381,6 +387,26 @@ app.controller('ModalUpdateAffiliatePaymentStatusRevenueReportCtrl', ["$scope", 
                         return;
 
                     } else {
+                        /* Background
+                         * Dai Su must not be approved when Customer has not settled payment yet
+                         * 
+                         * Payment Type Details
+                         * PaymentStatus = 1 : Chua Thanh Toan
+                         * PaymentStatus = 2: Da Thanh Toan
+                         * PaymentStatus = 3: Hoan Tien
+                         */
+
+                        if ($scope.PaymentState !== 2) { // not proceed the payment yet
+                            notificationService.displayWarning('Đại sứ chưa được phê duyệt đơn hàng này. Trạng thái của đơn hàng là ' + $scope.PaymentStateName);
+
+                            $timeout(function () {
+                                $uibModalInstance.dismiss('cancel');
+                            }, 1000);
+
+                            return;
+                        }
+
+
                         var entity = {
                             "UserName": $scope.AffiliateAccount,
                             "ContractNo": $scope.ContractNo,
@@ -455,8 +481,8 @@ app.controller('ModalUpdateAffiliatePaymentStatusRevenueReportCtrl', ["$scope", 
         $scope.ModalEditOrderManager.edit();
     }]);
 
-app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "membershipService", "notificationService",
-    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, membershipService, notificationService) {
+app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "revenueService", "membershipService", "notificationService",
+    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, revenueService, membershipService, notificationService) {
         $scope.member = {};
         $scope.affiliates = {};
         $scope.totalAffiliateAmount = 0; // total amount
@@ -472,13 +498,12 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
                         var entity = {
                             "PageIndex": params.page(),
                             "PageCount": params.count(),
-                            //"UserName": username, // DON'T have such username here
                             "SessionKey": sessionKey
                         };
 
                         // Load the data from the API
                         $scope.showSpinner = true;
-                        membershipService.GetAffiliateList(entity, function (result) {
+                        revenueService.SummaryCommissionReport(entity, function (result) {
                             // Later when working on member authentication and authorization, then we will use the following comment
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
@@ -489,9 +514,9 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
                                 $scope.affiliates = result.data.Details.Items;
                                 var totalRecordCount = result.data.Details.Total;
 
-                                $scope.totalAffiliateAmount = 0;
-                                $scope.pendingAffiliateAmount = 0;
-                                $scope.mustReturnAffilateAmount = 0;
+                                $scope.totalAffiliateAmount = result.data.Details.TotalAmount;
+                                $scope.pendingAffiliateAmount = result.data.Details.PendingAmount;
+                                $scope.mustReturnAffilateAmount = result.data.Details.Amount;
 
                                 // Tell ngTable how many records we have (so it can set up paging)
                                 params.total(totalRecordCount);
@@ -526,6 +551,19 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
                 });
         }
 
+        $scope.lockOrUnlockAffiliateAccount = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalLockOrUnlockAffiliateAccount.html',
+                controller: 'ModalLockOrUnlockAffiliateAccountRevenueReportCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return size.target.attributes.data.value;
+                    }
+                }
+            });
+        };
+
         $scope.RevenueComissionReportManager = {
             init: function () {
                 loadComissionReport();
@@ -534,6 +572,54 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
 
         $scope.RevenueComissionReportManager.init();
 
+    }]);
+
+app.controller('ModalLockOrUnlockAffiliateAccountRevenueReportCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, membershipService, notificationService) {
+        var username = "";
+        var isLock = 0;
+
+        var memberInfo = items ? items : "";
+        var memberSplit = memberInfo.split('|');
+        if (memberSplit.length > 0) {
+            username = memberSplit[0];
+            isLock = memberSplit[1];
+        }
+
+        $scope.ok = function () {
+            var entity = {
+                "UserName": username,
+                "SessionKey": sessionKey,
+                "IsLock": isLock === "0" ? 1 : 0
+            };
+
+            $scope.showSpinner = true;
+            // Load the data from the API
+            membershipService.LockAccount(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    notificationService.displaySuccess(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                        $window.location.reload();
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                        $uibModalInstance.dismiss('cancel');
+                    }, 1000);
+                }
+            });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
     }]);
 
 app.controller('ngTableRequestWithDrawRevenueReportCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "membershipService", "notificationService",
