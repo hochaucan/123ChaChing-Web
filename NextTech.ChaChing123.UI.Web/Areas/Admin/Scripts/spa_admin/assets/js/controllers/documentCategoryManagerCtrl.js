@@ -40,7 +40,16 @@ app.controller('DocumentCategoryManagerCtrl', ["$scope", "$uibModal", "$localSto
                                 params.total(totalRecordCount);
 
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.documents);
+
+                                $scope.getCategoryTypeName = function (type) {
+                                    if (type === 1) // Chưa thanh toán
+                                        return "Video";
+                                    else if (type === 2) // Ðã thanh toán
+                                        return "Hình Ảnh";
+                                    else if (type === 3) // Hoàn tiền
+                                        return "Tài Liệu";
+                                };
 
                                 $timeout(function () {
                                     $scope.showSpinner = false;
@@ -131,14 +140,25 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
         $scope.documentCategoryID = 0;
         $scope.isShowLinkDestination = false;
         $scope.isShowImageUpload = false;
-        //$scope.isShowResourceUpload = false;
-
         $scope.documentHeading = "Thêm Mới Danh Mục Tài Liệu";
-        $scope.documentID = 0;
-        if (items === undefined)
-            items = 0;
+        var documentID = 0;
+        var documentTitle = "";
+        var documentDescription = "";
+        var documentOrder = "";
+        var documentType = "";
 
-        $scope.documentID = items ? items : 0;
+        var parts = [];
+        var categoryRowInfo = items;
+        if (items !== undefined) {
+            parts = categoryRowInfo.split('|');
+            if (parts.length > 0) {
+                documentID = parts[0];
+                documentTitle = parts[1];
+                documentDescription = parts[2];
+                documentOrder = parts[3];
+                documentType = parts[4];
+            }
+        }
 
         if ($scope.documentID === 0)
             $scope.documentHeading = "Thêm Mới Danh Mục Tài Liệu";
@@ -178,9 +198,9 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
                         return;
 
                     } else {
-                        if ($scope.documentID > 0) {
+                        if (documentID > 0) {
                             $scope.entity = {
-                                "ID": $scope.documentID,
+                                "ID": documentID,
                                 "Title": $scope.entity.Title,
                                 "Description": $scope.entity.Description,
                                 "Order": $scope.entity.Order,
@@ -252,44 +272,30 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
         function loadDocumentCategoryTypes() {
             $scope.documentCategories = [
                 {
-                    ID: 1,
+                    ID: "1",
                     Title: "Video"
                 },
                 {
-                    ID: 2,
+                    ID: "2",
                     Title: "Hình Ảnh"
                 },
                 {
-                    ID: 3,
+                    ID: "3",
                     Title: "Tài Liệu"
                 }
             ];
         }
 
         function loadDocumentDetails() {
-            var entity = {
-                SessionKey: sessionKey
-            };
-
-            $scope.showSpinner = true;
-            documentService.GetAllDocumentsByAccount(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
-                }
-
-                if (result.data && result.data.StatusCode === 0) {
-                    $scope.entity = result.data.Details;
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                } else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
+            if (documentID > 0) {
+                $scope.entity = {
+                    ID: documentID,
+                    Title: documentTitle,
+                    Description: documentDescription,
+                    Order: documentOrder,
+                    Type: documentType
+                };
+            }
         }
 
         $scope.ModalAddEditDocumentManager = {
@@ -305,7 +311,7 @@ app.controller('ModalAddEditDocumentCategoryCtrl', ["$scope", "$window", "$local
             }
         };
 
-        if ($scope.documentID > 0) {
+        if (documentID > 0) {
             $scope.ModalAddEditDocumentManager.edit();
         }
         else {

@@ -268,6 +268,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\config\config-xeditable.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\asideCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\bootstrapCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\revenueCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chatCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\ckeditorCtrl.js" />
@@ -329,6 +330,8 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\noticeService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\mailChipService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\revenueService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\responseService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\documentService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\fileUploadService.js" />
@@ -341,6 +344,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\notificationService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\app.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\app_utilities_pricing.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration_mailchip.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\charts.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
@@ -537,6 +541,7 @@
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mailChipCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentCourseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentAdvancedMarketingCtrl.js" />
@@ -572,6 +577,7 @@
     <Content Include="Scripts\spa_portal\assets\js\services\funnelsService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
+    <Content Include="Scripts\spa_portal\assets\views\charts.html" />
     <Content Include="Scripts\spa_portal\assets\views\lead_details.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />

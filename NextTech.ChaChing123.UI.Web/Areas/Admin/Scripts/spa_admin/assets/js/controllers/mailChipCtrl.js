@@ -3,128 +3,26 @@
   * controller for User Profile Example
 */
 
-var backgroundPath = "";
-var resourcePath = "";
-var baseUrl = 'https://api.123chaching.app';
-//var baseUrl = 'http://localhost:1494';
+var sessionKey = "";
 
-app.controller('TabController', function () {
-    this.tab = 1;
-
-    this.setTab = function (tabId) {
-        this.tab = tabId;
-    };
-
-    this.isSet = function (tabId) {
-        return this.tab === tabId;
-    };
-});
-
-app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$location", "$localStorage", "$timeout", "ngTableParams", "leadService", "membershipService", "notificationService",
-    function ($scope, $uibModal, $window, $location, $localStorage, $timeout, ngTableParams, leadService, membershipService, notificationService) {
-        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-        $scope.showSpinner = false;
-        $scope.leads = {};
-        $scope.leadID = 0;
-        $scope.TotalLeadRecordCount = 0;
-
-        function loadLeads(filterType) {
-            $scope.members = {};
-
-            $scope.tableParams = new ngTableParams({
-                page: 1, // show first page
-                count: 10 // count per page
-            }, {
-                    getData: function ($defer, params) {
-                        var memberObj = {};
-
-                        memberObj = {
-                            "LeadType": filterType > 0 ? filterType.toString() : "-1",
-                            "PageIndex": params.page(),
-                            "PageCount": params.count(),
-                            "SessionKey": sessionKey
-                        };
-
-                        // Load the data from the API
-                        leadService.GetAllLeadsByAccount(memberObj, function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
-                                membershipService.checkMemberAuthorization();
-                            }
-
-                            if (result.data && result.data.StatusCode == 0) {
-                                //var data = result.data.Details.Items;
-                                $scope.leads = result.data.Details.Items;
-                                var totalRecordCount = result.data.Details.Total;
-                                $scope.TotalLeadRecordCount = totalRecordCount;
-
-                                // Tell ngTable how many records we have (so it can set up paging)
-                                params.total($scope.leads);
-
-                                $scope.getClassForLeadsType = function (LeadStatus) {
-                                    if (LeadStatus == 0) // NA
-                                        return "badge badge-info";
-                                    else if (LeadStatus == 1) // Lạnh
-                                        return "badge badge-default";
-                                    else if (LeadStatus == 2) // Ấm
-                                        return "badge badge-warning";
-                                    else if (LeadStatus == 3) // Nóng
-                                        return "badge badge-danger";
-                                };
-                                // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
-                            } else {
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 1000);
-                                notificationService.displayError(result.data.StatusMsg);
-                            }
-                        });
-                    }
-                });
+app.controller('MasterMailChipConfigurationCtrl', ["$scope", "$localStorage",
+    function ($scope, $localStorage) {
+        function initCommonInfoProcessing() {
+            sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         }
 
-        $scope.addNewLead = function (size) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalAddNewLead.html',
-                controller: 'ModalAddNewLeadCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        return $scope.items;
-                    }
-                }
-            });
-        };
-
-        $scope.viewLeadDetails = function (size) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalViewLeadDetails.html',
-                controller: 'ModalViewLeadDetailsCtrl',
-                size: size,
-                resolve: {
-                    items: function () {
-                        return size.target.attributes.data.value;
-                    }
-                }
-            });
-        };
-
-        $scope.filterLead = function (typeId) {
-            loadLeads(typeId);
-        };
-
-        $scope.LeadManager = {
+        $scope.RevenueReportManager = {
             init: function () {
-                loadLeads();
+                initCommonInfoProcessing();
             }
         };
 
-        $scope.LeadManager.init();
+        $scope.RevenueReportManager.init();
+
     }]);
 
-app.controller('ModalAddNewLeadCtrl', ["$scope", "$window", "$location", "$timeout", "$localStorage", "$uibModalInstance", "items", "ngTableParams", "leadService", "membershipService", "notificationService",
-    function ($scope, $window, $location, $timeout, $localStorage, $uibModalInstance, items, ngTableParams, leadService, membershipService, notificationService) {
+app.controller('MailChipConfigurationCtrl', ["$scope", "$window", "$location", "$timeout", "$localStorage", "mailChipService", "membershipService", "notificationService",
+    function ($scope, $window, $location, $timeout, $localStorage, mailChipService, membershipService, notificationService) {
         $scope.leads = {};
 
         $scope.ok = function () {
@@ -161,17 +59,14 @@ app.controller('ModalAddNewLeadCtrl', ["$scope", "$window", "$location", "$timeo
                     var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
 
                     lead = {
-                        "Name": $scope.lead.Name,
-                        "Email": $scope.lead.Email,
-                        "Phone": $scope.lead.Phone,
-                        "LeadsType": $scope.lead.LeadsType,
-                        "Notes": $scope.lead.Notes,
-                        "SessionKey": sessionkey
+                        "APIKey": $scope.config.APIKey,
+                        "ListID": $scope.config.ListID,
+                        "SessionKey": sessionKey
                     };
 
                     $scope.showSpinner = true;
                     // Load the data from the API
-                    leadService.AddLeadsByAccount(lead, function (result) {
+                    mailChipService.AddLeadsByAccount(lead, function (result) {
                         if (result.data && result.data.StatusCode == 17) {
                             membershipService.checkMemberAuthorization();
                         }

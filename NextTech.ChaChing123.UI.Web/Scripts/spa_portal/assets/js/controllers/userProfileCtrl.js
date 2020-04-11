@@ -20,6 +20,8 @@
                         $scope.noImage = true;
                     };
 
+                    $scope.imageUploaderPath = "";
+
                     $scope.userInfo = {
                         firstName: 'Chi',
                         lastName: 'Nguyen Huu',
@@ -53,17 +55,25 @@
 
                     $scope.showSpinner = true;
                     membershipService.GetAccountInfo(userLogin, function (result) {
-                        $scope.userInfo = result.data.Details;
-                        if (result.data && result.data.StatusCode == 17) {
+                        if (result.data && result.data.StatusCode === 17) {
                             membershipService.checkMemberAuthorization();
                         }
 
-                        if (result.data && result.data.StatusCode == 0) {
+                        if (result.data.StatusCode === 0 && result.data.Details) {
+                            $scope.userInfo = result.data.Details;
+
+                            // display thumbnail image on UI
+                            var imageSource = $scope.userInfo.AvatarPath;
+                            if (imageSource.length > 0) {
+                                $scope.imageUploaderPath = imageSource;
+                            }
+
+                            console.log($scope.imageUploaderPath);
+
                             $timeout(function () {
+                                $scope.imageUploaderPath = imageSource;
                                 $scope.showSpinner = false;
                             }, 2000);
-
-
                         } else {
 
                             $timeout(function () {
@@ -147,6 +157,9 @@
 app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$localStorage", "editorService", "notificationService",
     function ($scope, $rootScope, $timeout, $localStorage, editorService, notificationService) {
         // GET THE FILE INFORMATION.
+        $scope.myavatar = "";
+        $scope.imageUploaderPath = "";
+
         $scope.getFileDetails = function (e) {
 
             $scope.files = [];
@@ -157,11 +170,7 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
                     $scope.files.push(e.files[i]);
                 }
             });
-        };
 
-        // NOW UPLOAD THE FILES.
-        $scope.uploadFiles = function () {
-            $scope.showSpinner = true;
             //FILL FormData WITH FILE DETAILS.
             var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
             var data = new FormData();
@@ -169,7 +178,6 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
             for (var i in $scope.files) {
                 data.append("uploadedFile", $scope.files[i]);
                 if ($scope.files[i].name) {
-                    backgroundPath = $scope.files[i].name;
                     data.append("SessionKey", SessionKey);
                     break;
                 }
@@ -196,8 +204,10 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
         // CONFIRMATION.
         function transferComplete(e) {
             var result = JSON.parse(e.target.response);
-            if (result.StatusCode == 0) {
-                notificationService.displaySuccess("Upload file thành công");
+            if (result.StatusCode === 0) {
+                $scope.isCompletedImageUpload = true;
+                notificationService.displaySuccess("Upload hình ảnh thành công");
+                $scope.imageUploaderPath = result.Details;
 
                 $timeout(function () {
                     $scope.showSpinner = false;

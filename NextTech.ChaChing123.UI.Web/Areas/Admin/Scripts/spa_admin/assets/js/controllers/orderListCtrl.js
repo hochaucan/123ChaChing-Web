@@ -103,24 +103,10 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                 });
             };
 
-            $scope.editOrder = function (size) {
+            $scope.updatePaymentStatusForAffiliate = function (size) {
                 var modalInstance = $uibModal.open({
                     templateUrl: 'myModalUpdateAffiliatePaymentStatus.html',
                     controller: 'ModalUpdateAffiliatePaymentStatusCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            $scope.orderID = size.target.attributes.data.value;
-                            return $scope.orderID;
-                        }
-                    }
-                });
-            };
-
-            $scope.viewDetailsOrder = function (size) {
-                var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalViewDetailsOrder.html',
-                    controller: 'ModalViewDetailsOrderCtrl',
                     size: size,
                     resolve: {
                         items: function () {
@@ -398,6 +384,9 @@ app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$
         $scope.AffiliateName = "";
         $scope.ContractNo = "";
         $scope.AffiliateStatus = 0;
+        $scope.PaymentState = 0;
+        $scope.PaymentStateName = "";
+
         var customerInfo = items ? items : "";
         var customerSplit = customerInfo.split('|');
         if (customerSplit.length > 0) {
@@ -405,6 +394,8 @@ app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$
             $scope.AffiliateName = customerSplit[1];
             $scope.ContractNo = customerSplit[2];
             $scope.AffiliateStatus = customerSplit[3];
+            $scope.PaymentState = parseInt(customerSplit[4]);
+            $scope.PaymentStateName = customerSplit[5];
         }
 
         $scope.ok = function () {
@@ -440,6 +431,25 @@ app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$
                         return;
 
                     } else {
+                        /* Background
+                         * Dai Su must not be approved when Customer has not settled payment yet
+                         * 
+                         * Payment Type Details
+                         * PaymentStatus = 1 : Chua Thanh Toan
+                         * PaymentStatus = 2: Da Thanh Toan
+                         * PaymentStatus = 3: Hoan Tien
+                         */
+
+                        if ($scope.PaymentState !== 2) { // not proceed the payment yet
+                            notificationService.displayWarning('Đại sứ chưa được phê duyệt đơn hàng này. Trạng thái của đơn hàng là ' + $scope.PaymentStateName);
+
+                            $timeout(function () {
+                                $uibModalInstance.dismiss('cancel');
+                            }, 1000);
+
+                            return;
+                        }
+
                         var entity = {
                             "UserName": $scope.AffiliateAccount,
                             "ContractNo": $scope.ContractNo,
@@ -512,49 +522,6 @@ app.controller('ModalUpdateAffiliatePaymentStatusCtrl', ["$scope", "$window", "$
 
         $scope.ModalEditOrderManager.init();
         $scope.ModalEditOrderManager.edit();
-    }]);
-
-app.controller('ModalViewDetailsOrderCtrl', ["$scope", "$uibModalInstance", "items", "orderService", "notificationService",
-    function ($scope, $uibModalInstance, items, orderService, notificationService) {
-        $scope.order = {};
-        $scope.orderID = 0;
-
-        $scope.ok = function () {
-
-        };
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        function loadOrderDetails() {
-            $scope.orderID = items;
-            $scope.order = {
-                "ContractNo": "95774698",
-                "CreatedDate": "2020-01-19 18:06:23",
-                "CustomerAccount": "0981108894",
-                "CustomerName": "Nguyen Van C",
-                "CustomerEmail": "nguyentran87@gmail.com",
-                "CustomerPhone": "0981108894",
-                "PaymentStatus": 2,
-                "PaymentStatusName": "Ðã thanh toán",
-                "AccountType": 2,
-                "AccountTypeName": "Nâng cao",
-                "CustomerAmount": 8997000,
-                "AffiliateAmount": 4498500,
-                "AffiliateAccount": "0973730111",
-                "AffiliateName": "Hồ Châu Cần",
-                "AffiliateStatus": 2,
-                "AffiliateStatusName": "Đã duyệt"
-            };
-        }
-
-        $scope.ModalEditOrderManager = {
-            init: function () {
-                loadOrderDetails();
-            }
-        };
-
-        $scope.ModalEditOrderManager.init();
     }]);
 
 app.controller('ModalDeleteDetailsOrderCtrl', ["$scope", "$localStorage", "$uibModalInstance", "items", "orderService", "notificationService",

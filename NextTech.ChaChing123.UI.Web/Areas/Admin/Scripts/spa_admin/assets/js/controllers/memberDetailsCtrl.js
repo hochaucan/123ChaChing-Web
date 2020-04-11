@@ -35,9 +35,12 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
     function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, membershipService, notificationService) {
         $scope.member = {};
         $scope.affiliates = {};
-        $scope.totalAffiliateAmount = 0;
-        $scope.pendingAffiliateAmount = 0;
-        $scope.approvedAffilateAmount = 0;
+        $scope.totalAffiliateAmount = 0; // total amount
+        $scope.pendingAffiliateAmount = 0; // the amount that is waiting for approval
+        $scope.approvedAffilateAmount = 0; // the amount that is already approved
+        $scope.withdrawalAmount = 0; // Total amount that already withdrawll
+        $scope.totalPockedAmount = 0; // Total amount that is inside your pocket
+        $scope.requestWithDrawallNumber = 0; // number of requests of withdrawlling
 
         function loadMemberDetails() {
             var entity = {
@@ -53,12 +56,15 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 }
 
                 if (result.data && result.data.StatusCode === 0) {
-                    notificationService.displaySuccess(result.data.StatusMsg);
+                    //notificationService.displaySuccess(result.data.StatusMsg);
                     $scope.member = result.data.Details;
 
-                    $scope.totalAffiliateAmount = result.data.Details.TotalAmount;
-                    $scope.pendingAffiliateAmount = result.data.Details.PendingAmount;
-                    $scope.approvedAffilateAmount = result.data.Details.ApprovedAmount;
+                    $scope.totalAffiliateAmount = $scope.member.TotalAmount;
+                    $scope.pendingAffiliateAmount = $scope.member.PendingAmount;
+                    $scope.approvedAffilateAmount = $scope.member.ApprovedAmount;
+                    $scope.withdrawalAmount = $scope.member.WithdrawalAmount;
+                    $scope.totalPockedAmount = $scope.member.Amount;
+                    $scope.requestWithDrawallNumber = result.data.Details.RequestWithDrawallNumber;
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -98,14 +104,14 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
 
                     } else {
                         var entity = {
-                            "UserName": username,
-                            "SessionKey": sessionKey,
-                            "IsLock": $scope.member.IsLock
+                            "AccountName": username,
+                            "NewPassword": $scope.member.Password,
+                            "SessionKey": sessionKey
                         };
 
                         $scope.showSpinner = true;
                         // Load the data from the API
-                        membershipService.LockAccount(entity, function (result) {
+                        membershipService.SetPasswodForAccount(entity, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -142,7 +148,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -155,7 +161,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -168,7 +174,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -181,7 +187,7 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                 size: size,
                 resolve: {
                     items: function () {
-                        $scope.orderID = size.target.attributes.data.value;
+                        $scope.orderID = size.currentTarget.attributes.data.value;
                         return $scope.orderID;
                     }
                 }
@@ -460,7 +466,7 @@ app.controller('RequestWithDrawalCtrl', ["$scope", "$uibModal", "$localStorage",
                 size: size,
                 resolve: {
                     items: function () {
-                        $scope.orderID = size.target.attributes.data.value;
+                        $scope.orderID = size.currentTarget.attributes.data.value;
                         return $scope.orderID;
                     }
                 }
@@ -682,8 +688,8 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
 
                     } else {
                         var entity = {
-                            "AccountName": $scope.AffiliateAccount,
                             "ContractNo": $scope.ContractNo,
+                            "AccountName": $scope.AffiliateAccount,
                             "Status": $scope.member.AffiliateStatus,
                             "SessionKey": sessionKey
                         };
@@ -735,7 +741,8 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
 
         function loadAffiliateStatus() {
             $scope.AffiliateStatusList = [
-                { AffiliateStatus: "1", AffiliateStatusName: 'Đang Duyệt' }
+                { AffiliateStatus: "2", AffiliateStatusName: 'Duyệt' },
+                { AffiliateStatus: "3", AffiliateStatusName: 'Hủy' }
             ];
         }
 

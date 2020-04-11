@@ -39,7 +39,7 @@ app.controller('ResponseNowManagerCtrl', ["$scope", "$uibModal", "$localStorage"
                                 params.total(totalRecordCount);
 
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.documents);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;

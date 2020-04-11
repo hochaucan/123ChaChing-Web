@@ -32,12 +32,13 @@
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
-                                    <td data-title="&#39;Tiêu Đề&#39;">{{document.Description}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;">{{document.Description}}</td>
+                                    <td data-title="&#39;Loại Danh Mục&#39;">{{getCategoryTypeName(document.Type)}}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
                                             <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật">
-                                                <i class="fa fa-pencil" data="{{document.ID}}"></i>
+                                                <i class="fa fa-pencil" data="{{document.ID}}|{{document.Title}}|{{document.Description}}|{{document.Order}}|{{document.Type}}"></i>
                                             </a>
                                             <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa">
                                                 <i class="fa fa-times fa fa-white" data="{{document.ID}}"></i>

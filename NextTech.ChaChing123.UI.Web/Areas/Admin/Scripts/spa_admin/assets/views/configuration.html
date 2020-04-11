@@ -13,51 +13,363 @@
         </div>
     </section>
     <!-- end: PAGE TITLE -->
-    <!-- start: BAR CHART -->
-    <div class="container-fluid container-fullw">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="row">
-                    <!-- /// controller:  'ChartCtrl2' -  localtion: assets/js/controllers/chartsCtrl.js /// -->
-                    <div ng-controller="ChartCtrl2">
-                        <div class="col-sm-6">
-                            <canvas class="tc-chart" tc-chartjs-bar="" chart-options="options" chart-data="data" chart-legend="lineChart2"></canvas>
+    <div ng-controller="masterRevenueReport">
+        <!-- start: BAR CHART -->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <!-- /// controller:  'ChartCtrl2' -  localtion: assets/js/controllers/chartsCtrl.js /// -->
+                        <div ng-controller="BarChartRevenueCtrl">
+                            <div class="col-md-8">
+                                <canvas class="tc-chart" tc-chartjs-bar="" chart-options="options" chart-data="data" chart-legend="lineChart2"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end: BAR CHART -->
-    <!--Revenue  CHART -->
-    <div class="container-fluid container-fullw bg-white">
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="over-title margin-bottom-15">Thống Kê Doanh Thu</h5>
-                <hr />
+        <!-- end: BAR CHART -->
+        <!--Revenue  CHART -->
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading">
+                            <h5 class="over-title margin-bottom-15">Thống Kê Doanh Thu</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div ng-controller="ngTableRevenueReportCtrl">
+                                <div class="form-group">
+                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                    <table ng-table="tableParams" class="table table-striped">
+                                        <tbody>
+                                            <tr ng-repeat="order in $data">
+                                                <td data-title="&#39;Mã ĐH&#39;">#{{order.ContractNo}}</td>
+                                                <td data-title="&#39;Ngày&#39;">{{order.CreatedDate}}</td>
+                                                <td data-title="&#39;Khách Hàng&#39;"><a>{{order.CustomerName}}</a></td>
+                                                <td data-title="&#39;Thanh Toán&#39;"><span ng-class="[getClassForPayMentStatus(order.PaymentStatus), 'b']"> {{order.PaymentStatusName}}</span></td>
+                                                <td class="left">
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        <a ng-click="updatePaymentStatus($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật Tình Trạng Thanh Toán">
+                                                            <i class="fa fa-pencil" data="{{order.CustomerAccount}}|{{order.CustomerName}}|{{order.ContractNo}}|{{order.PaymentStatus}}"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td data-title="&#39;Loại&#39;">{{order.AccountTypeName}}</td>
+                                                <td data-title="&#39;Tổng Tiền&#39;">{{order.CustomerAmount | number}} Đ</td>
+                                                <td data-title="&#39;Đại Sứ&#39;"><a ng-href="#/app/member/details/{{order.AffiliateAccount}}">{{order.AffiliateName}}</a></td>
+                                                <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClassForAffiliateStatus(order.AffiliateStatus), 'b']"> {{order.AffiliateStatusName}}</span></td>
+                                                <td class="center">
+                                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                        <a ng-click="editOrder($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Đại Sứ">
+                                                            <i class="fa fa-pencil" data="{{order.AffiliateAccount}}|{{order.AffiliateName}}|{{order.ContractNo}}|{{order.AffiliateStatus}}|{{order.PaymentStatus}}|{{order.PaymentStatusName}}"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Tổng</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{totalAffiliateAmount | number}} Đ</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chờ Duyệt</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{pendingAffiliateAmount | number}} Đ</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thực nhận</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{{approvedAffilateAmount | number}} Đ</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/ng-template" id="myModalUpdatePaymentStatusRevenueReport.html">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <form class="form-addnewlead-request" name="FormUpdatePaymentStatus" id="FormUpdatePaymentStatus" novalidate="" ng-submit="form.submit(FormUpdatePaymentStatus)">
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Cập Nhật Tình Trạng Thanh Toán Đơn Hàng</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="CustomerName">
+                                        Họ Tên Khách Hàng
+                                    </label>
+                                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" ng-model="order.CustomerName" placeholder="Tên Khách Hàng" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="CustomerAccount">
+                                        Tên Đăng Nhập Khách Hàng
+                                    </label>
+                                    <input type="text" class="form-control" id="CustomerAccount" name="CustomerAccount" ng-model="order.CustomerAccount" placeholder="Loại Tài Khoản" readonly>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormUpdatePaymentStatus.PaymentStatus.$dirty && FormUpdatePaymentStatus.PaymentStatus.$invalid, 'has-success':FormUpdatePaymentStatus.PaymentStatus.$valid}">
+                                    <label for="PaymentStatus">
+                                        Tình Trạng <span class="symbol required"></span>
+                                    </label>
+                                    <select class="form-control black" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatus" required="" ng-options="payment.PaymentStatus as payment.PaymentStatusName for payment in PaymentStatusList">
+                                        <option value="" disabled="">Chọn Tình Trạng Thanh Toán</option>
+                                    </select>
+                                    <span class="error text-small block" ng-if="FormUpdatePaymentStatus.PaymentStatus.$dirty && FormUpdatePaymentStatus.PaymentStatus.$invalid">Chọn Tình Trạng Thanh Toán.</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Hoàn Tất
+                                </button>
+                            </div>
+                        </form>
+                    </script>
+                    <script type="text/ng-template" id="myModalUpdateAffiliatePaymentStatusRevenueReport.html">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <form class="form-addnewlead-request" name="FormEditOrder" id="FormEditOrder" novalidate="" ng-submit="form.submit(FormEditOrder)">
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Phê Duyệt Tình Trạng Thanh Toán Của Đại Sứ</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="AffiliateName">
+                                        Họ Tên Đại Sứ
+                                    </label>
+                                    <input type="text" class="form-control" id="AffiliateName" name="AffiliateName" ng-model="order.AffiliateName" placeholder="Tên Khách Hàng" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="AffiliateAccount">
+                                        Tên Đăng Nhập Đại Sứ
+                                    </label>
+                                    <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="order.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
+                                    <label for="AffiliateStatus">
+                                        Phê Duyệt Tình Trạng Thanh Toán <span class="symbol required"></span>
+                                    </label>
+                                    <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="order.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                        <option value="" disabled="">Chọn Tình Trạng Thanh Toán</option>
+                                    </select>
+                                    <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Phê Duyệt Tình Trạng Thanh Toán là bắt buộc.</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Hoàn Tất
+                                </button>
+                            </div>
+                        </form>
+                    </script>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- end: Revenue CHART -->
-    <!-- start: Commission CHART -->
-    <div class="container-fluid container-fullw">
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="over-title margin-bottom-15">Thống Kê Hoa Hồng</h5>
-                <hr />
+        <!-- end: Revenue CHART -->
+        <!-- start: Commission CHART -->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-controller="ngTableCommissionReportCtrl">
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h5 class="over-title margin-bottom-15">Thống Kê Hoa Hồng</h5>
+                            </div>
+                            <div class="panel-body">
+                                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                <table ng-table="tableParams" class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="entity in $data">
+                                            <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                            <td data-title="&#39;Tên&#39;"><a>{{entity.FullName}}</a></td>
+                                            <td data-title="&#39;Email&#39;">{{entity.Email}}</td>
+                                            <td data-title="&#39;Số Điện Thoại&#39;">{{entity.Phone}}</td>
+                                            <td data-title="&#39;Loại&#39;">{{entity.AccountTypeName}}</td>
+                                            <td data-title="&#39;Yêu Cầu Rút Tiền&#39;">{{entity.RequestWithDrawallCount}}</td>
+                                            <td data-title="&#39;Đang Duyệt&#39;">{{entity.PendingAmount | number}} Đ</td>
+                                            <td data-title="&#39;Số Dư Ví&#39;">{{entity.Amount | number}} Đ</td>
+                                            <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
+                                            <td class="center">
+                                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                    <a class="label label-success" ng-if="entity.Status === 0">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Hoạt Động
+                                                    </a>
+                                                    <a class="label label-danger" ng-if="entity.Status === 1">
+                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Không Hoạt Động
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>Tổng</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{totalAffiliateAmount | number}} Đ</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chờ Duyệt</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{pendingAffiliateAmount | number}} Đ</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số Dư</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{mustReturnAffilateAmount | number}} Đ</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <script type="text/ng-template" id="myModalLockOrUnlockAffiliateAccount.html">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">Khóa/Mở Tài Khoản</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <p>Bạn muốn Khóa/Mở User Này Không?</p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="ok()">Đồng Ý!</button>
+                                    <button class="btn btn-primary btn-o" ng-click="cancel()">Không Đồng Ý</button>
+                                </div>
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- end: Commission CHART -->
-    <!-- start: Withdraw request-->
-    <div class="container-fluid container-fullw">
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="over-title margin-bottom-15">Yêu Cầu Rút Tiền</h5>
-                <hr />
+        <!-- end: Commission CHART -->
+        <!-- start: Withdraw request-->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-controller="ngTableRequestWithDrawRevenueReportCtrl">
+                        <div class="panel panel-white">
+                            <div class="panel-heading">
+                                <h5 class="over-title margin-bottom-15">Yêu Cầu Rút Tiền</h5>
+                            </div>
+                            <div class="panel-body">
+                                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                <table ng-table="tableParams" class="table table-striped">
+                                    <tbody>
+                                        <tr ng-repeat="entity in $data">
+                                            <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                            <td data-title="&#39;Tên Đăng Nhập&#39;"><a>{{entity.UserName}}</a></td>
+                                            <td data-title="&#39;Tên&#39;">{{entity.FullName}}</td>
+                                            <td data-title="&#39;Tên Ngân Hàng&#39;">{{entity.BeneBankName}}</td>
+                                            <td data-title="&#39;Số Tài Khoản&#39;">{{entity.BeneAccountNo}}</td>
+                                            <td data-title="&#39;Ghi Chú&#39;">{{entity.Remarks}}</td>
+                                            <td data-title="&#39;Số Tiền&#39;">{{entity.Amount}}</td>
+                                            <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
+                                            <td class="left">
+                                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                                    <a ng-click="requestWithDrawall($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Phê Duyệt">
+                                                        <i class="fa fa-pencil" data="{{entity.FullName}}|{{entity.UserName}}|{{entity.Status}}"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <script type="text/ng-template" id="myModalRequestWithDrawalRevenueReport.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormEditOrder" id="FormEditOrder" novalidate="" ng-submit="form.submit(FormEditOrder)">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">Phê Duyệt Rút Tiền</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="AffiliateName">
+                                            Họ Tên Khách Hàng
+                                        </label>
+                                        <input type="text" class="form-control" id="AffiliateName" name="AffiliateName" ng-model="member.AffiliateName" placeholder="Tên Khách Hàng" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="AffiliateAccount">
+                                            Tên Đăng Nhập Khách Hàng
+                                        </label>
+                                        <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="member.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
+                                        <label for="AffiliateStatus">
+                                            Phê Duyệt <span class="symbol required"></span>
+                                        </label>
+                                        <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="member.AffiliateStatus" required="" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                            <option value="" disabled="">Chọn Tình Trạng Phê Duyệt</option>
+                                        </select>
+                                        <span class="error text-small block" ng-if="FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid">Phê Duyệt là bắt buộc.</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- end: Withdraw request -->
     </div>
-    <!-- end: Withdraw request -->
 </body>
 </html>

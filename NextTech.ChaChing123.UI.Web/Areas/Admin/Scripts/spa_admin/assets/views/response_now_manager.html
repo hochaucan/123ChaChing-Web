@@ -31,7 +31,8 @@
                                 <tr ng-repeat="document in $data">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
-                                    <td data-title="&#39;Nội Dung&#39;" width="50%">{{document.Content}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;">{{document.Content}}</td>
+                                    <td data-title="&#39;Loại Trả Lời Nhanh&#39;">{{document.Type === 1 ? "SMS" : "Email" }}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
