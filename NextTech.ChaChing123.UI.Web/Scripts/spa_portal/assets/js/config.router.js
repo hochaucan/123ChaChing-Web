@@ -192,12 +192,18 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             url: '/lead',
             template: '<div ui-view class="fade-in-up"></div>',
             title: 'Khách Hàng',
+            ncyBreadcrumb: {
+                label: 'Khách Hàng'
+            },
             resolve: { isAuthenticated: isAuthenticated }
         }).state('app.lead.manage', {
             url: '/manage',
             templateUrl: "Scripts/spa_portal/assets/views/lead.html",
-            title: 'Khách Hàng',
-            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl', 'chartjs', 'tc.chartjs')
+            title: 'Quản Lý Khách Hàng',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Khách Hàng'
+            },
+            resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
         }).state('app.lead.details', {
             url: '/details/:id',
             templateUrl: "Scripts/spa_portal/assets/views/lead_details.html",

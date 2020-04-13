@@ -350,12 +350,28 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             },
             resolve: loadSequence('ngTable', 'ngTableNotificationManagerCtrl')
         }).state('app.configuration', {
-            url: "/configuration",
-            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration.html",
-            resolve: loadSequence('chartjs', 'tc.chartjs', 'chartsCtrl'),
-            title: "Cấu Hình",
+            url: '/configuration',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Cấu Hình',
             ncyBreadcrumb: {
                 label: 'Cấu Hình'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.configuration.statistic', {
+            url: "/statistic",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration.html",
+            resolve: loadSequence('chartjs', 'tc.chartjs', 'ngTable', 'revenueCtrl'),
+            title: "Thống Kê",
+            ncyBreadcrumb: {
+                label: 'Thống Kê'
+            }
+        }).state('app.configuration.mailchip', {
+            url: "/mailchip",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/configuration_mailchip.html",
+            resolve: loadSequence('chartjs', 'tc.chartjs', 'ngTable', 'revenueCtrl'),
+            title: "Thống Kê",
+            ncyBreadcrumb: {
+                label: 'Thống Kê'
             }
         }).state('app.table.dynamic', {
             url: '/dynamic',

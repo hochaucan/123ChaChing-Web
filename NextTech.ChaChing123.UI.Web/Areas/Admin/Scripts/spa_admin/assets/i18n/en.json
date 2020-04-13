@@ -87,10 +87,13 @@
         "MAIN": "Xử Lý Sự Từ Chối"
       },
       "notification": {
-        "MAIN":  "Thông Báo"
+        "MAIN": "Thông Báo"
       },
       "configurations": {
         "MAIN": "Cấu hình"
+      },
+      "mailchip": {
+        "MAIN": "Mail Chip"
       },
       "element": {
         "MAIN": "UI Elements",

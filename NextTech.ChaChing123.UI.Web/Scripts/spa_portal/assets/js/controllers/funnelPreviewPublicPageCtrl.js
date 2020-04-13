@@ -130,9 +130,9 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
             };
 
             funnelsService.GetFunnalDetailsPublicPage(soloPageObj, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
-                }
+                //if (result.data && result.data.StatusCode === 17) {
+                //    membershipService.checkMemberAuthorization();
+                //}
 
                 if (!result.data.Details) {
                     $location.path('/error/404');
@@ -189,9 +189,9 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
             };
 
             funnelsService.GetFunnalDetailsPreviewPage(soloPageObj, function (result) {
-                if (result.data && result.data.StatusCode == 17) {
-                    membershipService.checkMemberAuthorization();
-                }
+                //if (result.data && result.data.StatusCode == 17) {
+                //    membershipService.checkMemberAuthorization();
+                //}
 
                 if (!result.data.Details) {
                     $location.path('/error/404');
@@ -199,6 +199,26 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
 
                 if (result.data && result.data.StatusCode == 0) {
                     $scope.soloPageDetails = result.data.Details.SoloObj;
+
+                    var findWatchIndex = -1;
+                    var fullResourcePath = "";
+                    fullResourcePath = $scope.soloPageDetails.ResourcePath;
+                    if (fullResourcePath.length > 0) {
+                        var linkImage = fullResourcePath.match(/\.(jpeg|jpg|gif|png)$/) != null;
+                        if (linkImage) { // Display Image
+                            $scope.isShowImageSource = true;
+                            $scope.ImageSource = fullResourcePath;
+                        } else { // Diplay Video
+                            $scope.isShowVideoSource = true;
+                            findWatchIndex = fullResourcePath.indexOf('watch?v=');
+                            if (findWatchIndex != -1) {
+                                fullResourcePath = fullResourcePath.replace('watch?v=', 'embed/');
+                            }
+
+                            $scope.VideoSource = $sce.trustAsResourceUrl(fullResourcePath);
+                        }
+                    }
+
                     document.body.style.backgroundImage = "url('" + result.data.Details.SoloObj.BackgroundPath + "')";
 
                     funnelsService.GetDetailFunnalPage({ ID: funnelID, UserName: username, SessionKey: sessionKey }, function (result) {

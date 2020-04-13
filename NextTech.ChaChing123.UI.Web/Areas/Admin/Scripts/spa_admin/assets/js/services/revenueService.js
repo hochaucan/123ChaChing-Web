@@ -3,7 +3,7 @@
 
     angular
         .module('ChaChingApp')
-        .factory('orderService', Service);
+        .factory('revenueService', Service);
 
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
@@ -19,15 +19,29 @@
             GetAccountInfo: GetAccountInfo,
             UpdatePaymentState: UpdatePaymentState,
             UpdatePaymentAffiliateState: UpdatePaymentAffiliateState,
-            GetAffialateList: GetAffialateList
+            GetAffialateList: GetAffialateList,
+
+            SummaryRevenueReport: SummaryRevenueReport,
+            SummaryCommissionReport: SummaryCommissionReport
         };
+
+        function SummaryCommissionReport(orderObj, completed) {
+            apiService.post(baseUrl + '/SummaryCommissionReport/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function SummaryRevenueReport(orderObj, completed) {
+            apiService.post(baseUrl + '/SummaryRevenueReport/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
 
         function GetAffialateList(orderObj, completed) {
             apiService.post(baseUrl + '/GetAffialateList/', orderObj,
                 completed,
                 getOrderListFailed);
         }
-
 
         function GetOrderList(orderObj, completed) {
             apiService.post(baseUrl + '/GetOrderList/', orderObj,

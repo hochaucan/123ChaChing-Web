@@ -95,7 +95,7 @@
                                         Thông tin tài khoản
                                     </legend>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group" ng-class="{'has-error':MyProfileForm.FullName.$dirty && MyProfileForm.FullName.$invalid, 'has-success':MyProfileForm.FullName.$valid}">
                                                 <label class="control-label" for="FullName">
                                                     Họ Tên <span class="symbol required"></span>
@@ -127,16 +127,22 @@
                                                     Upload Hình
                                                 </label>
                                                 <div flow-init="" flow-object="obj.flow">
-                                                    <div class="user-image" ng-controller="UploadMyProfileCtrl">
+                                                    <div class="" ng-controller="UploadMyProfileCtrl">
                                                         <circle-spinner ng-show="showSpinner"></circle-spinner>
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                             </div>
-                                                            <div class="pull-right">
-                                                                <button type="button" class="btn btn-primary  pull-right" ng-click="uploadFiles()">
-                                                                    <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
-                                                                </button>
+                                                            <div class="col-md-2">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-body">
+                                                                        <div class="user-image">
+                                                                            <div class="thumbnail">
+                                                                                <img ng-src="{{imageUploaderPath}}" alt="">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

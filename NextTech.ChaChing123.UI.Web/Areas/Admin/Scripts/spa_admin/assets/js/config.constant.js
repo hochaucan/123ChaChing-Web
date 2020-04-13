@@ -51,6 +51,7 @@ app.constant('JS_REQUIRES', {
         'sweetAlertCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/sweetAlertCtrl.js',
         'mapsCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/mapsCtrl.js',
         'chartsCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/chartsCtrl.js',
+        'revenueCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/revenueCtrl.js',
         'calendarCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/calendarCtrl.js',
         'nestableCtrl': virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/nestableCtrl.js',
         'validationCtrl': [virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/js/controllers/validationCtrl.js'],
