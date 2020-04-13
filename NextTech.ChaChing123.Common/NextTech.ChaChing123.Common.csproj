@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Constants\ApplicationConstants.cs" />
     <Compile Include="DTO\ChaChing123\Account1Dto.cs" />
+    <Compile Include="DTO\ChaChing123\BOAccountItem2Dto.cs" />
     <Compile Include="DTO\ChaChing123\BOIntroPageItem1Dto.cs" />
     <Compile Include="DTO\ChaChing123\BOCommissionReportObjDto.cs" />
     <Compile Include="DTO\ChaChing123\BOCommissionReportItemDto.cs" />
@@ -72,11 +73,16 @@
     <Compile Include="DTO\ChaChing123\LeadsOfMonthDto.cs" />
     <Compile Include="DTO\ChaChing123\LeadsItemDto.cs" />
     <Compile Include="DTO\ChaChing123\BOOrderListDto.cs" />
+    <Compile Include="DTO\ChaChing123\GetResponseConfigDto.cs" />
+    <Compile Include="DTO\ChaChing123\GetResponseConfigRequestDto.cs" />
     <Compile Include="DTO\ChaChing123\MailChimpResponse1Dto.cs" />
     <Compile Include="DTO\ChaChing123\MailChimpResponseDto.cs" />
     <Compile Include="DTO\ChaChing123\MailChimpRequestDto.cs" />
     <Compile Include="DTO\ChaChing123\MerchantInfoDto.cs" />
+    <Compile Include="DTO\ChaChing123\RequestCofigDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestContactInfoDto.cs" />
+    <Compile Include="DTO\ChaChing123\CampaignsDto.cs" />
+    <Compile Include="DTO\ChaChing123\ResponeConfigDto.cs" />
     <Compile Include="DTO\ChaChing123\ResultNLModel.cs" />
     <Compile Include="DTO\ChaChing123\SubmitPaymentDto.cs" />
     <Compile Include="DTO\ChaChing123\RequestPammentToNLDto.cs" />

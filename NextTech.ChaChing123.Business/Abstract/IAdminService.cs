@@ -41,7 +41,7 @@ namespace NextTech.ChaChing123.Business
         // No.12=>TODO
         ResultDTO GetAffiliateList(RequestDTO obj);
         // No.13
-        ResultDTO UpdateAccountInfo(RequestDTO obj);
+        ResultDTO UpdateAccountInfo(BOAccountItem2DTO obj);
         // No.14
         ResultDTO GetWithDrawallInfoByAccount(RequestDTO obj);
         // No.15
@@ -225,6 +225,9 @@ namespace NextTech.ChaChing123.Business
         ResultDTO AddContactInfo(RequestContactInfoDTO obj);
 
         #endregion
+
+        ResultDTO GetConfigValueByKeys(RequestConfigDTO obj);
+        ResultDTO UpdateConfigValueByKey (RequestConfigDTO obj);
         //ONStep 2:
 
     }

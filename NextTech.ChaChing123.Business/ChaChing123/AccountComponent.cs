@@ -375,42 +375,70 @@ namespace NextTech.ChaChing123.Business
 
         #endregion
 
-        
-        public ResultDTO UpdateMailChimpInfoByAccount(MailChimpRequestDTO obj)
+        public ResultDTO GetAllGetResponseInfoByAccount(RequestDTO obj)
         {
             ResultDTO result = new ResultDTO();
             try
             {
-                result = _repository.UpdateMailChimpInfoByAccount(obj);
+                result = _repository.GetAllGetResponseInfoByAccount(obj);
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("UpdateMailChimpInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                Utilities.AppLog.WriteLog("GetAllGetResponseInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 result.StatusMsg = ex.Message.ToString();
             }
-
             return result;
-
         }
 
-        public ResultDTO GetMailChimpInfoByAccount(RequestDTO obj)
+        public ResultDTO AddGetResponseInfoByAccount(GetResponseConfigRequestDTO obj)
         {
             ResultDTO result = new ResultDTO();
             try
             {
-                result = _repository.GetMailChimpInfoByAccount(obj);
+                result = _repository.AddGetResponseInfoByAccount(obj);
             }
             catch (Exception ex)
             {
-                Utilities.AppLog.WriteLog("GetMailChimpInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                Utilities.AppLog.WriteLog("AddGetResponseInfoByAccount", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
                 result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 result.StatusMsg = ex.Message.ToString();
             }
-
             return result;
-
         }
+
+        public ResultDTO UpdateGetResponseInfoByID(GetResponseConfigRequestDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.UpdateGetResponseInfoByID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateGetResponseInfoByID", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+            return result;
+        }
+
+        public ResultDTO DeleteGetResponseInfoByID(GetResponseConfigRequestDTO obj)
+        {
+            ResultDTO result = new ResultDTO();
+            try
+            {
+                result = _repository.DeleteGetResponseInfoByID(obj);
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("DeleteGetResponseInfoByID", ActionType.Update, ex.Message.ToString(), obj.SessionKey);
+                result.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                result.StatusMsg = ex.Message.ToString();
+            }
+            return result;
+        }
+
 
         public ResultDTO UpdateBanner(RequestUpdateDTO obj)
         {
