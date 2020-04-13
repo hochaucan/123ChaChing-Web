@@ -455,7 +455,7 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [AllowAnonymous]
         [Route("UpdateAccountInfo")]
         [HttpPost]
-        public HttpResponseMessage UpdateAccountInfo(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage UpdateAccountInfo(HttpRequestMessage request, BOAccountItem2DTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -1483,6 +1483,31 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
 
         #endregion
 
+        [AllowAnonymous]
+        [Route("GetConfigValueByKeys")]
+        [HttpPost]
+        public HttpResponseMessage GetConfigValueByKeys(HttpRequestMessage request, RequestConfigDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetConfigValueByKeys(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateConfigValueByKey")]
+        [HttpPost]
+        public HttpResponseMessage UpdateConfigValueByKey(HttpRequestMessage request, RequestConfigDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateConfigValueByKey(obj));
+                return response;
+            });
+        }
         //ONStep 1:
 
 

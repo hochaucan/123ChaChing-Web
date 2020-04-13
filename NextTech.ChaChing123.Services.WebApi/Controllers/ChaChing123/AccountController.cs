@@ -478,30 +478,52 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
         }
         [AllowAnonymous]
-        [Route("UpdateMailChimpInfoByAccount")]
+        [Route("GetAllGetResponseInfoByAccount")]
         [HttpPost]
-        public HttpResponseMessage UpdateMailChimpInfoByAccount(HttpRequestMessage request, MailChimpRequestDTO obj)
+        public HttpResponseMessage GetAllGetResponseInfoByAccount(HttpRequestMessage request, RequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
-                if (obj != null && obj.APIKey != null&& obj.APIKey.Split('-').Length>1)
-                {
-                    obj.DataCenter = obj.APIKey.Split('-')[1];
-                }
-                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateMailChimpInfoByAccount(obj));
+                response = request.CreateResponse(HttpStatusCode.OK, _service.GetAllGetResponseInfoByAccount(obj));
                 return response;
             });
         }
         [AllowAnonymous]
-        [Route("GetMailChimpInfoByAccount")]
+        [Route("AddGetResponseInfoByAccount")]
         [HttpPost]
-        public HttpResponseMessage GetMailChimpInfoByAccount(HttpRequestMessage request, RequestDTO obj)
+        public HttpResponseMessage AddGetResponseInfoByAccount(HttpRequestMessage request, GetResponseConfigRequestDTO obj)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
-                response = request.CreateResponse(HttpStatusCode.OK, _service.GetMailChimpInfoByAccount(obj));
+                response = request.CreateResponse(HttpStatusCode.OK, _service.AddGetResponseInfoByAccount(obj));
+                return response;
+            });
+        }
+
+        [AllowAnonymous]
+        [Route("UpdateGetResponseInfoByID")]
+        [HttpPost]
+        public HttpResponseMessage UpdateGetResponseInfoByID(HttpRequestMessage request, GetResponseConfigRequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.UpdateGetResponseInfoByID(obj));
+                return response;
+            });
+        }
+        
+        [AllowAnonymous]
+        [Route("DeleteGetResponseInfoByID")]
+        [HttpPost]
+        public HttpResponseMessage DeleteGetResponseInfoByID(HttpRequestMessage request, GetResponseConfigRequestDTO obj)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                response = request.CreateResponse(HttpStatusCode.OK, _service.DeleteGetResponseInfoByID(obj));
                 return response;
             });
         }

@@ -249,7 +249,7 @@ namespace NextTech.ChaChing123.Business
             return rsInfo;
         }
         // No.13
-        public ResultDTO UpdateAccountInfo(RequestDTO obj)
+        public ResultDTO UpdateAccountInfo(BOAccountItem2DTO obj)
         {
             ResultDTO rsInfo = new ResultDTO();
             try
@@ -1576,6 +1576,45 @@ namespace NextTech.ChaChing123.Business
             catch (Exception ex)
             {
                 Utilities.AppLog.WriteLog("AddContactInfo", ActionType.Logout, ex.Message.ToString(), "system");
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        #endregion
+
+        #region Config
+        public ResultDTO GetConfigValueByKeys(RequestConfigDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.GetConfigValueByKeys(obj);
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("GetConfigValueByKeys", ActionType.Logout, ex.Message.ToString(), obj.SessionKey);
+                errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
+                errorCode.StatusMsg = ex.Message.ToString();
+            }
+
+            return errorCode;
+
+        }
+        public ResultDTO UpdateConfigValueByKey(RequestConfigDTO obj)
+        {
+            ResultDTO errorCode = new ResultDTO();
+            try
+            {
+                errorCode = _repository.UpdateConfigValueByKey(obj);
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.AppLog.WriteLog("UpdateConfigValueByKey", ActionType.Logout, ex.Message.ToString(), obj.SessionKey);
                 errorCode.StatusCode = Utilities.Common.ConvertErrorCodeToInt(RetCode.ECS9999);
                 errorCode.StatusMsg = ex.Message.ToString();
             }

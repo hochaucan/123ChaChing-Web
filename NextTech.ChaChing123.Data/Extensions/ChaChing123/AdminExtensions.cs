@@ -343,24 +343,29 @@ namespace NextTech.ChaChing123.Data.Extensions
             return result;
         }
         // No.13
-        public static ResultDTO UpdateAccountInfo(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
+        public static ResultDTO UpdateAccountInfo(this IEntityBaseRepository<Admin> repository, BOAccountItem2DTO obj)
         {
             var result = new ResultDTO();
-            //var dbContext = new ApplicationContext();
+            var dbContext = new ApplicationContext();
 
-            //var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
-            //{
-            //    Direction = System.Data.ParameterDirection.Output
-            //};
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
 
-            //result.Details = dbContext.Database.SqlQuery<BOAccountInfoDTO>("EXEC [dbo].[sp_BO_GetAccountInfo]  @AccountName,@SessionKey,@errorCode out",
-            //            new SqlParameter("AccountName", DB.SafeSQL(obj.UserName)),
-            //            new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-            //            errorCode).FirstOrDefault<BOAccountInfoDTO>();
-            //result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
-            //result.SetContentMsg();
+            dbContext.Database.SqlQuery<BOAccountInfoDTO>("EXEC [dbo].[sp_BO_UpdateAccountInfo]  @FullName,@AccountName,@Email,@Phone,@RenewalNo,@Note,@SessionKey,@errorCode out",
+                        new SqlParameter("FullName", DB.SafeSQL(obj.FullName)),
+                        new SqlParameter("AccountName", DB.SafeSQL(obj.UserName)),
+                        new SqlParameter("Email", DB.SafeSQL(obj.Email)),
+                        new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
+                        new SqlParameter("RenewalNo", obj.RenewalNo),
+                        new SqlParameter("Note", DB.SafeSQL(obj.Note)),
+                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                        errorCode).FirstOrDefault<BOAccountInfoDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
             return result;
-        }
+    }
 
         // No.14
         public static ResultDTO GetWithDrawallInfoByAccount(this IEntityBaseRepository<Admin> repository, RequestDTO obj)
@@ -709,7 +714,7 @@ namespace NextTech.ChaChing123.Data.Extensions
                 Direction = System.Data.ParameterDirection.Output
             };
 
-            result.Details = dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_ApprovetWithDrawalInfoByAccount] @UserName,@SessionKey,@errorCode out",
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_ApprovetWithDrawalInfoByAccount] @ContractNo,@AccountName,@SessionKey,@Status,@errorCode out",
                         new SqlParameter("ContractNo", DB.SafeSQL(obj.ContractNo)),
                         new SqlParameter("AccountName", DB.SafeSQL(obj.AccountName)),
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
@@ -2911,6 +2916,64 @@ namespace NextTech.ChaChing123.Data.Extensions
               new SqlParameter("Email", DB.SafeSQL(obj.Email)),
               new SqlParameter("Phone", DB.SafeSQL(obj.Phone)),
               new SqlParameter("Content", DB.SafeSQL(obj.Content)),
+              errorCode);
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.Details = ex.Message;
+            }
+
+            return result;
+        }
+
+
+        public static ResultDTO GetConfigValueByKeys(this IEntityBaseRepository<Admin> repository, RequestConfigDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            try
+            {
+                result.Details = dbContext.Database.SqlQuery<ResponeCofigDTO>("EXEC [dbo].[sp_BO_GetConfigValueByKeys] @Key, @SessionKey, @errorCode out",
+                    new SqlParameter("Key", DB.SafeSQL(obj.Key)),
+                    new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                    errorCode).ToList<ResponeCofigDTO>();
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.SetContentMsg();
+               
+            }
+            catch (Exception ex)
+            {
+                result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+                result.StatusMsg = ex.Message;
+            }
+
+            return result;
+        }
+
+        public static ResultDTO UpdateConfigValueByKey(this IEntityBaseRepository<Admin> repository, RequestConfigDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            try
+            {
+                dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_BO_UpdateConfigValueByKey] @Key,@Value,@SessionKey, @errorCode out",
+              new SqlParameter("Key", DB.SafeSQL(obj.Key)),
+              new SqlParameter("Value", DB.SafeSQL(obj.Value)),
+              new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
               errorCode);
                 result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
                 result.SetContentMsg();
