@@ -30,6 +30,16 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string GetData = "GetData";
 
     }
+
+    public class GetResponseConfig
+    {
+        public const string Url = "https://api.getresponse.com/v3/";
+        public const string CampaignsFunc = "campaigns";
+        public const string ContactsFunc = "contacts";
+        public const string HeaderApi = "api-key {0}";
+        
+    }
+
     public enum SubscriberStatus
     {
         subscribed,
@@ -118,7 +128,7 @@ namespace NextTech.ChaChing123.Common.Constants
         public const string ECS0031 = "Quản trị viên không được truy cập chức năng này.";
         public const string ECS0032 = "Chức năng này chỉ dành cho quản trị viên.";
         public const string ECS0033 = "Tài khoản đang bị khóa quyền đại sứ.";
-        public const string ECS0034 = "Dữ liệu hợp lệ";
+        public const string ECS0034 = "Dữ liệu không hợp lệ";
         public const string ECS9999 = "Lỗi không xác định.";
     }
 

@@ -513,7 +513,7 @@ namespace NextTech.ChaChing123.Data.Extensions
 
         #endregion
         
-        public static ResultDTO UpdateMailChimpInfoByAccount(this IEntityBaseRepository<Account> repository, MailChimpRequestDTO obj)
+        public static ResultDTO AddGetResponseInfoByAccount(this IEntityBaseRepository<Account> repository, GetResponseConfigRequestDTO obj)
         {
             var result = new ResultDTO();
             var dbContext = new ApplicationContext();
@@ -522,10 +522,10 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
-            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateMailChimpInfoByAccount] @DataCenter,@APIKey,@ListID,@SessionKey,@errorCode out",
-                       new SqlParameter("DataCenter", obj.DataCenter),
+            
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_AddGetResponseInfoByAccount] @APIKey,@CampaignName,@SessionKey,@errorCode out",
                        new SqlParameter("APIKey", obj.APIKey),
-                       new SqlParameter("ListID", obj.ListID),
+                       new SqlParameter("CampaignName", obj.CampaignName),
                        new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
                        errorCode);
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
@@ -533,7 +533,48 @@ namespace NextTech.ChaChing123.Data.Extensions
 
             return result;
         }
-        public static ResultDTO GetMailChimpInfoByAccount(this IEntityBaseRepository<Account> repository, RequestDTO obj)
+        public static ResultDTO UpdateGetResponseInfoByID(this IEntityBaseRepository<Account> repository, GetResponseConfigRequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_UpdateGetResponseInfoByID] @ID,@APIKey,@CampaignName,@SessionKey,@errorCode out",
+                       new SqlParameter("ID", obj.ID),
+                       new SqlParameter("APIKey", obj.APIKey),
+                       new SqlParameter("CampaignName", obj.CampaignName),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+        public static ResultDTO DeleteGetResponseInfoByID(this IEntityBaseRepository<Account> repository, GetResponseConfigRequestDTO obj)
+        {
+            var result = new ResultDTO();
+            var dbContext = new ApplicationContext();
+
+            var errorCode = new SqlParameter("ErrorCode", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            dbContext.Database.ExecuteSqlCommand("EXEC [dbo].[sp_DeleteGetResponseInfoByID] @ID,@SessionKey,@errorCode out",
+                       new SqlParameter("ID", obj.ID),
+                       new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
+                       errorCode);
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+
+            return result;
+        }
+
+        public static ResultDTO GetAllGetResponseInfoByAccount(this IEntityBaseRepository<Account> repository, RequestDTO obj)
         {
 
             var result = new ResultDTO();
@@ -543,10 +584,24 @@ namespace NextTech.ChaChing123.Data.Extensions
             {
                 Direction = System.Data.ParameterDirection.Output
             };
+            var count = new SqlParameter("Count", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+            BODataListDTO Items = new BODataListDTO();
 
-            result.Details = dbContext.Database.SqlQuery<MailChimpResponseDTO>("EXEC [dbo].[sp_GetMailChimpInfoByAccount] @SessionKey,@errorCode out",
+            Items.Items = dbContext.Database.SqlQuery<GetResponseConfigDTO>("EXEC [dbo].[sp_GetAllGetResponseInfoByAccount] @SessionKey,@Count out,@errorCode out",
                         new SqlParameter("SessionKey", DB.SafeSQL(obj.SessionKey)),
-                        errorCode).ToList<MailChimpResponseDTO>();
+                        count,
+                        errorCode).ToList<GetResponseConfigDTO>();
+            result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
+            result.SetContentMsg();
+            if (result.StatusCode == 0)
+            {
+                Items.Total = int.Parse(count.Value.ToString(), 0);
+                result.Details = Items;
+            }
+
             result.StatusCode = int.Parse(errorCode.Value.ToString(), 0);
             result.SetContentMsg();
             return result;

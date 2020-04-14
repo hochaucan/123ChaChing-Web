@@ -27,6 +27,8 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
     using Newtonsoft.Json.Linq;
     using System.Web.Script.Serialization;
     using System.Net.Http.Headers;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Class LandingPageController.
@@ -304,6 +306,19 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
         [HttpPost]
         public HttpResponseMessage RegisterLeadBySoloPage(HttpRequestMessage request, RegisterLeadBySoloPageDTO obj)
         {
+            if (string.IsNullOrEmpty(obj.Email))
+            {
+                ResultDTO result = new ResultDTO();
+                result.StatusCode = Common.ConvertErrorCodeToInt(RetCode.ECS0034);
+                result.SetContentMsg();
+
+                return CreateHttpResponse(request, () =>
+                {
+                    var response = request.CreateResponse(HttpStatusCode.OK, result);
+                    return response;
+                });
+            }
+
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
@@ -311,8 +326,14 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
                 ResultDTO result = _service.RegisterLeadBySoloPage(obj);
                 if (result.Details != null)
                 {
-                    MailChimpResponse1DTO objOlala = (MailChimpResponse1DTO)result.Details;
-                    AddSubscribe(objOlala.APIKey, objOlala.DataCenter, objOlala.ListID, obj.Email, objOlala.PageName, obj.Name,obj.Phone, obj.SessionKey);
+                    GetResponseConfigDTO objOlala = (GetResponseConfigDTO)result.Details;
+                    try {
+                        AddContract(objOlala.APIKey, objOlala.CampaignName, obj.Name, obj.Email);
+                    }
+                    catch(Exception ex) {
+                        Business.Utilities.AppLog.WriteLog(GetResponseConfig.ContactsFunc, ActionType.Add,ex.Message, obj.SessionKey);
+                    }
+                    
                     result.Details = string.Empty;
                 }
                 response = request.CreateResponse(HttpStatusCode.OK, result);
@@ -320,53 +341,47 @@ namespace NextTech.ChaChing123.Services.WebApi.Controllers
             });
 
         }
-        public void AddSubscribe(string apiKey, string dataCenter, string listID, string email, string PageName, string name,string phone, string sessionKey)
-        {
-            string content = apiKey + "/" + dataCenter + "/" + listID + "/" + email + "/" + PageName + "/" + name + ".";
-            Business.Utilities.AppLog.WriteLog("AddSubscribe", ActionType.Add, content, sessionKey);
-            if (string.IsNullOrEmpty(apiKey) ||
-                string.IsNullOrEmpty(dataCenter) ||
-                string.IsNullOrEmpty(listID) ||
-                string.IsNullOrEmpty(email)
-                ) {
-                return;
-            }
-            ResultDTO result = new ResultDTO();
-            
-            try
-            {
-                SubscribeClassCreatedByMe subscribeRequest = new SubscribeClassCreatedByMe();
-                subscribeRequest.email_address =email;
-                subscribeRequest.status = SubscriberStatus.subscribed.ToString();
-                subscribeRequest.merge_fields = new MergeFieldClassCreatedByMe();
-                subscribeRequest.merge_fields.FNAME = name;
-                subscribeRequest.merge_fields.LNAME = "-";
-                subscribeRequest.merge_fields.PHONE = phone;
 
-                using (HttpClient client = new HttpClient())
+        public void AddContract(string apiKey,string campaignName,string name, string email)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("X-Auth-Token", GetResponseConfig.HeaderApi.Replace("{0}", apiKey) );
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.BaseAddress = new Uri(GetResponseConfig.Url);
+
+                HttpResponseMessage olala = client.GetAsync(GetResponseConfig.CampaignsFunc).Result;
+                if ((!olala.IsSuccessStatusCode))
                 {
-                    var uri = "https://" + dataCenter + ".api.mailchimp.com/";
-                    var endpoint = "3.0/lists/" + listID + "/members";
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.Default.GetBytes("anystring" + ":" + apiKey)));
-                    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-                    client.BaseAddress = new Uri(uri);
-                    
-                    HttpResponseMessage response = client.PostAsJsonAsync(endpoint, subscribeRequest).Result;
-                    if ((!response.IsSuccessStatusCode))
+                    Business.Utilities.AppLog.WriteLog(GetResponseConfig.CampaignsFunc, ActionType.Add, olala.Content.ReadAsStringAsync().Result, string.Empty);
+                }
+                else
+                {
+                    List<CampaignsDTO> Items = JsonConvert.DeserializeObject<List<CampaignsDTO>>(olala.Content.ReadAsStringAsync().Result);
+                    if (Items != null)
                     {
-                        Business.Utilities.AppLog.WriteLog("AddSubscribe", ActionType.Add, response.Content.ReadAsStringAsync().Result,string.Empty);
+                        var campaignId = Items.Where(p => p.description == campaignName).FirstOrDefault().campaignId;
+                        Campaign campaignObj = new Campaign
+                        {
+                            campaignId = campaignId
+                        };
+                        ContactOfGetResponse contract = new ContactOfGetResponse()
+                        {
+                            name = name,
+                            email = email,
+                            campaign = campaignObj,
+                            dayOfCycle = "0"
+                        };
+                        HttpResponseMessage check = client.PostAsJsonAsync(GetResponseConfig.ContactsFunc, contract).Result;
+                        if ((!check.IsSuccessStatusCode))
+                        {
+                            Business.Utilities.AppLog.WriteLog(GetResponseConfig.ContactsFunc, ActionType.Add, check.Content.ReadAsStringAsync().Result, string.Empty);
+                        }
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                result.StatusCode = 9999;
-                result.Details = ex.Message;
-                result.SetContentMsg();
-                Business.Utilities.AppLog.WriteLog("Exception: AddSubscribe ", ActionType.Add, ex.Message, string.Empty);
-            }
         }
-
+        
         [AllowAnonymous]
         [Route("GetAllTitleTemplate")]
         [HttpPost]

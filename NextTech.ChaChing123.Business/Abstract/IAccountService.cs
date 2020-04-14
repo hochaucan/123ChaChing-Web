@@ -44,14 +44,17 @@ namespace NextTech.ChaChing123.Business
         ResultDTO GetAllLeadsByAccount(LeadsDTO obj);
         ResultDTO SummaryLeadsReportByAccount(SummaryRequestDTO obj);
         ResultDTO SummaryLeadsChartByAccount(SummaryRequestDTO obj);
-
-        ResultDTO UpdateMailChimpInfoByAccount(MailChimpRequestDTO obj);
-        ResultDTO GetMailChimpInfoByAccount(RequestDTO obj);
+        
         ResultDTO UpdateBanner(RequestUpdateDTO obj);
         ResultDTO GetBannerLink(RequestDTO obj);
         ResultDTO GetMerchantInfo(SubmitPaymentDTO obj);
         ResultDTO RegisterForgetPassword(ForgetPasswordModel obj);
         ResultDTO ActiveAccountByForgetPassword(ForgetPasswordModel obj);
+
+        ResultDTO GetAllGetResponseInfoByAccount(RequestDTO obj);
+        ResultDTO AddGetResponseInfoByAccount(GetResponseConfigRequestDTO obj);
+        ResultDTO UpdateGetResponseInfoByID(GetResponseConfigRequestDTO obj);
+        ResultDTO DeleteGetResponseInfoByID(GetResponseConfigRequestDTO obj);
         #endregion
     }
 }
