@@ -549,3 +549,65 @@ html {
 .iconQuick {
     padding: 0px 5px;
 }
+/* ---------------------------------------------------------------------- */
+/*  Top Navbar
+/* ---------------------------------------------------------------------- */
+.jumbotron {
+    background-color: #2b3946;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    padding-top: 30px;
+    /*background: radial-gradient(#36414E, #253241);*/
+}
+.jumbotron h1 {
+    font-size: 60px;
+    color: #ffffff !important;
+    font-weight: 400;
+    line-height: 60px;
+    text-shadow: 1px 1px black;
+}
+@media (min-width: 992px) {
+    .jumbo-back {
+        background: url(/Content/Resources/Images/d1.png?v=1) no-repeat bottom right;
+    }
+}
+.jumbo-back .sub-text {
+    font-weight: 400;
+    color: white;
+}
+.jumbotron .cta {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.features-section {
+    margin-top: 30px;
+}
+.cta-mobile-section {
+    background: #F7F8FB;
+    margin-top: 50px;
+}
+.cta-mobile-section .info {
+    margin-top: 30px;
+}
+.cta-mobile-section .info h3 {
+    font-weight: 400;
+    color: #616974;
+    font-size: 26px;
+}
+.container-fullw-custom {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border-bottom: 0px !important;
+}
+
+@media (max-width: 768px) {
+    .container-fullw-custom {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+.download-links {
+    background: #5E7A9B;
+    background: radial-gradient(#36414E, #253241);
+    padding: 60px 0px 30px 0px;
+}

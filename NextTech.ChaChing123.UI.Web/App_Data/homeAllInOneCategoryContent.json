@@ -1,0 +1,26 @@
+[
+  {
+    "ID": "9d9c91f3-8294-4122-b5da-b531e8d227a6",
+    "Content": "<h3 style=\"box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; line-height: 1.1; color: rgb(91, 91, 96); margin-top: 0px; margin-bottom: 10px; font-size: 24px;\">Làm một cách đơn giản. Không cần biết kỹ thuật</h3> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Tạo không giới hạn landing pages thân thiện với điện thoại thông minh với những mẫu có sẵn. Hệ thống thiết lập đơn giản giúp bạn tiết kiệm thời gian chỉnh sửa và tối ưu trang.</p> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Tùy chỉnh trang để phù hợp cho sản phẩm hoặc công việc kinh doanh của bạn bằng việc thêm hình ảnh, nội dung và video một cách dễ dàng.</p>",
+    "ImagePath": "https://api.123chaching.app/UploadFile/LandingPage/3266a1a5-cbd5-4e3f-86b9-cfaca64f02e9.png",
+    "CategoryID": "landing_page"
+  },
+  {
+    "ID": "a8b8465d-8978-4785-8385-90792629807d",
+    "Content": "<h3 style=\"box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; line-height: 1.1; color: rgb(91, 91, 96); margin-top: 0px; margin-bottom: 10px; font-size: 24px;\">Quản lý khách hàng của bạn mọi lúc, mọ nơi 24/7.</h3> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Vì khách hàng tiềm năng được tạo từ các landing pages của bạn vi vậy bạn dễ dàng quản lý chúng trong ứng dụng 123ChaChing. Nhận thông báo theo thời gian thực với mỗi khách hàng tiềm năng được tạo trực tiếp vào điện thoại của bạn.</p> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Quản lý và tự động hóa</p>",
+    "ImagePath": "https://api.123chaching.app/UploadFile/LandingPage/3266a1a5-cbd5-4e3f-86b9-cfaca64f02e9.png",
+    "CategoryID": "mobile_application"
+  },
+  {
+    "ID": "c3d40e71-0baf-439b-8a99-e9840beb409c",
+    "Content": "<h3 style=\"box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; line-height: 1.1; color: rgb(91, 91, 96); margin-top: 0px; margin-bottom: 10px; font-size: 24px;\">Kết nối để tự động hóa tiếp thị của bạn.</h3> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Làm cho phần mềm tiếp thị và bán hàng bạn đã sử dụng mạnh mẽ hơn bằng cách kết nối nó với 123Cha Ching.</p>",
+    "ImagePath": "https://api.123chaching.app/UploadFile/LandingPage/3266a1a5-cbd5-4e3f-86b9-cfaca64f02e9.png",
+    "CategoryID": "integration"
+  },
+  {
+    "ID": "94049e4b-c7cf-4556-bb46-e9796d88948b",
+    "Content": "<h3 style=\"box-sizing: border-box; font-family: Helvetica, Arial, sans-serif; line-height: 1.1; color: rgb(91, 91, 96); margin-top: 0px; margin-bottom: 10px; font-size: 24px;\">Chào. Chúng tôi là con người thực sự</h3> <p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(142, 142, 147); font-family: Raleway;\">Làm cho phần mềm tiếp thị và bán hàng bạn đã sử dụng mạnh mẽ hơn bằng cách kết nối nó với 123Cha Ching.</p>",
+    "ImagePath": "https://api.123chaching.app/UploadFile/LandingPage/3266a1a5-cbd5-4e3f-86b9-cfaca64f02e9.png",
+    "CategoryID": "support"
+  }
+]

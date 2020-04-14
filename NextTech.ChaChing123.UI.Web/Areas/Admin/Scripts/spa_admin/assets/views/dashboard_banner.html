@@ -1,0 +1,85 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle">Quản Lý Banner Trang Chủ</h1>
+            </div>
+            <div ncy-breadcrumb=""></div>
+        </div>
+    </section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                <div class="panel panel-white ng-scope" ng-controller="HomeBannerManagerCtrl">
+                    <div class="panel-heading">
+                        <p>
+                            <button class="btn btn-primary" ng-click="addDocument(0)">
+                                Thêm Mới Nội Dung Trang Chủ
+                            </button>
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nội Dung</th>
+                                    <th>Loại Nội Dung</th>
+                                    <th>Hoạt Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="document in documents">
+                                    <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;">
+                                        <div ng-bind-html="document.Content"></div>
+                                    </td>
+                                    <td data-title="&#39;Loại Danh Mục&#39;">{{getCategoryTypeName(document.CategoryID)}}</td>
+                                    <td class="center">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            <a href="#/app/dashboard/edit/{{document.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Description}}|{{document.Order}}|{{document.Type}}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa" data="{{document.ID}}">
+                                                <i class="fa fa-times fa fa-white"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <script type="text/ng-template" id="myModalDeleteHomeAllInOne.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Xóa Nội Dung Trang Chủ</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="documentID" name="documentID" value="">
+                                    <p>Bạn muốn xóa nội dung trang chủ này không?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">Đồng ý! Tôi muốn xóa</button>
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không!. Tôi muốn giữ lại</button>
+                            </div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body>
+</html>

@@ -35,13 +35,20 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             abstract: true
         }).state('app.home', {
             url: "/home",
-            templateUrl: "Scripts/spa_portal/assets/views/dashboard.html",
-            resolve: loadSequence('chartjs', 'tc.chartjs', 'leadDetailsCtrl'),
+            templateUrl: "Scripts/spa_portal/assets/views/home.html",
             title: 'Home',
             ncyBreadcrumb: {
                 label: 'Home'
             }
-            // Login routes
+        }).state('app.dashboard', {
+            url: "/dashboard",
+            templateUrl: "Scripts/spa_portal/assets/views/dashboard.html",
+            resolve: loadSequence('chartjs', 'tc.chartjs', 'leadDetailsCtrl'),
+            title: 'Dashboard',
+            ncyBreadcrumb: {
+                label: 'Dashboard'
+            }
+            //resolve: { isAuthenticated: isAuthenticated }
         }).state('app.aboutus', {
             url: '/aboutus',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"

@@ -4,8 +4,93 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 </head>
 <body>
-    <!-- start: THIRD SECTION -->
-    
-    <!-- end: THIRD SECTION -->
+    <div class="jumbotron container-fluid container-fullw">
+        <div class="container">
+            <div class="row jumbo-back">
+                <div class="col-md-8" style="margin-bottom:30px">
+                    <h1 class="hero-text">Tăng <strong>Doanh Thu</strong> với 123ChaChing.</h1>
+                    <h2 class="sub-text">Công cụ thu hút danh sách khách hàng, thiết lập hệ thống marketing tự động, hệ thống telesale đã giúp gân 1,000 khách hàng xây dựng danh sách khách hàng, đơn hàng và dòng tiền.</h2>
+                    <div class="cta">
+                        <button type="button" class="btn btn-wide btn-dark-yellow">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid container-fullw bg-white">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <div class="panel no-radius">
+                        <div class="panel-heading">
+                            <h1 class="text-center">
+                                Với 123 ChaChing bạn sẽ bắt đầu tăng cường danh sách khách hàng Và Doanh Thu Cho Doanh Nghiệp Của Mình.
+                            </h1>
+                            <h5 class="text-center">
+                                Top Những Tính Năng All-In-One Giúp Doanh Nghiệp Của Bạn Phát Triển.
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                    <div class="col-md-12">
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                        <div ng-controller="AllInOneHomeController">
+                            <uib-tabset class="tabbable">
+                                <uib-tab ng-repeat="tab in AllInOneTabs" heading="{{tab.title}}" active="tab.active">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div ng-bind-html="tab.content"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="thumbnail">
+                                                <img ng-src="{{tab.imagePath}}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cta-mobile-section">
+        <div class="container">
+            <div class="row header" ng-controller="HomeMobileController">
+                <div class="col-md-12" ng-repeat="entity in mobileContents">
+                    <div class="col-md-6">
+                        <div ng-bind-html="entity.Content"></div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img ng-src="{{entity.ImagePath}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-links">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-3">
+                    <a href="https://itunes.apple.com/us/app/online-sales-pro/id931646630?mt=8" target="_blank">
+                        <img class="img-responsive download-button" src="/Content/Resources/Images/apple.png">
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="https://play.google.com/store/apps/details?id=com.onlinesalespro.OSP" target="_blank">
+                        <img class="img-responsive download-button" src="/Content/Resources/Images/google.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

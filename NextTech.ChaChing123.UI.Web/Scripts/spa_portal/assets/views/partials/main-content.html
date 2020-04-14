@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 </head>
 <body>
-    <div ui-view="" class="wrap-content container fade-in-up" id="container"></div>
+    <div ui-view="" class="wrap-content container fade-in-up" id="container" ng-if="userData.isUserLoggedIn"></div>
+    <div ui-view="" class="wrap-content fade-in-up" id="container" ng-if="!userData.isUserLoggedIn"></div>
     <!-- end: MAIN CONTENT -->
 </body>
 </html>

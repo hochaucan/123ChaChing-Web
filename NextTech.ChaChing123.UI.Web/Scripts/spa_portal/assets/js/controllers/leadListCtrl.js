@@ -29,37 +29,72 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
         $scope.leadID = 0;
         $scope.TotalLeadRecordCount = 0;
 
-        function loadLeads(filterType) {
+        function loadLeads(filter) {
             $scope.members = {};
 
+            const name = document.getElementById('txtName');
+            const age = document.getElementById('txtAge');
+            const email = document.getElementById('txtEmail');
+            const country = document.getElementById('selCountry');
+            const msg = document.getElementById('msg');
+
+            // This variable stores all the data.
+            let data =
+                '\r Name: ' + name.value + ' \r\n ' +
+                'Age: ' + age.value + ' \r\n ' +
+                'Email: ' + email.value + ' \r\n ' +
+                'Country: ' + country.value + ' \r\n ' +
+                'Message: ' + msg.value;
+
+            // Convert the text to BLOB.
+            const textToBLOB = new Blob([data], { type: 'text/plain' });
+            const sFileName = 'formData.txt';	   // The file to save the data.
+
+
+            $scope.showSpinner = true;
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page
                 count: 10 // count per page
             }, {
                     getData: function ($defer, params) {
-                        var memberObj = {};
+                        //memberObj = {
+                        //    "LeadType": filterType > 0 ? filterType.toString() : "-1",
+                        //    "PageIndex": params.page(),
+                        //    "PageCount": params.count(),
+                        //    "SessionKey": sessionKey
+                        //};
+                        var filterObj = {};
+                        var keyword = "";
+                        var leadType = "";
 
-                        memberObj = {
-                            "LeadType": filterType > 0 ? filterType.toString() : "-1",
+                        if (filter !== undefined) {
+                            keyword = filter.KeyWord && filter.KeyWord.length > 0 ? filter.KeyWord : "";
+                            leadType = filter.LeadType ? filter.LeadType : "-1";
+                        }
+
+                        filterObj = {
+                            "KeyWord": keyword,
+                            "LeadType": leadType,
                             "PageIndex": params.page(),
                             "PageCount": params.count(),
                             "SessionKey": sessionKey
                         };
 
+
                         // Load the data from the API
-                        leadService.GetAllLeadsByAccount(memberObj, function (result) {
-                            if (result.data && result.data.StatusCode == 17) {
+                        leadService.GetAllLeadsByAccount(filterObj, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
 
-                            if (result.data && result.data.StatusCode == 0) {
+                            if (result.data && result.data.StatusCode === 0) {
                                 //var data = result.data.Details.Items;
                                 $scope.leads = result.data.Details.Items;
                                 var totalRecordCount = result.data.Details.Total;
                                 $scope.TotalLeadRecordCount = totalRecordCount;
 
                                 // Tell ngTable how many records we have (so it can set up paging)
-                                params.total($scope.leads);
+                                params.total(totalRecordCount);
 
                                 $scope.getClassForLeadsType = function (LeadStatus) {
                                     if (LeadStatus == 0) // NA
@@ -72,7 +107,11 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                                         return "badge badge-danger";
                                 };
                                 // Return the customers to ngTable
-                                $defer.resolve(result.data.Details.Items);
+                                $defer.resolve($scope.leads);
+
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;
@@ -111,11 +150,52 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
         };
 
         $scope.filterLead = function (typeId) {
-            loadLeads(typeId);
+            var filter = {
+                "LeadType": typeId
+            };
+
+            loadLeads(filter);
+
         };
+
+        function doSearching() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var filter = {
+                            "KeyWord": $scope.lead.KeyWord
+                        };
+
+                        loadLeads(filter);
+                    }
+                }
+            };
+        }
 
         $scope.LeadManager = {
             init: function () {
+                doSearching();
                 loadLeads();
             }
         };

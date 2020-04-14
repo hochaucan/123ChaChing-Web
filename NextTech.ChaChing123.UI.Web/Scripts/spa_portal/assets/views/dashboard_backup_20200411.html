@@ -1,0 +1,341 @@
+﻿<!--<!-- saved from url=(0091)/assets/views/dashboard.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <section id="page-title" class="ng-scope">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="mainTitle ng-scope" translate="sidebar.nav.utilities.PRICING">Pricing Table</h1>
+            </div>
+        </div>
+    </section>
+    <div ng-if="userData.isUserLoggedIn">
+        <!-- start: FIRST SECTION -->
+        <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="row">
+                        <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                        <div ng-controller="manageMyPagesCtrl">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h5 class="panel-title text-left">Tạo Trang</h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p class="text-center">
+                                            <span class="text-bold text-uppercase">3 Bước Đơn Giản</span>
+                                        </p>
+                                        <p>
+                                            <button class="btn btn-primary btn-block" ng-click="createSoloPage()">
+                                                Bắt Đầu Ngay
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-white no-radius">
+                                    <div class="panel-heading border-light">
+                                        <h5 class="panel-title text-left">Danh Sách Các Trang</h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p class="text-center">
+                                            <span class="text-bold text-uppercase">Danh Sách Trang</span>
+                                        </p>
+                                        <p>
+                                            <button class="btn btn-primary btn-block" ng-click="manageSoloPage()">
+                                                Xem Thêm
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
+                    <div class="panel panel-white no-radius" id="visits">
+                        <div class="col-sm-12">
+                            <div ng-controller="LeadHistoryCtrl" class="height-350">
+                                <canvas class="tc-chart" tc-chartjs-line="" chart-options="options" chart-data="data" chart-legend="lineChart1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: FIRST SECTION -->
+        <!-- start: SECOND SECTION -->
+        <div class="container-fluid container-fullw bg-white ng-scope" ng-controller="AffiliateDashboardWalletCtrl">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-white">
+                        <div class="panel-heading border-light">
+                            <h5 class="panel-title text-left">Tháng 1</h5>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-sm-4">
+                                        <div class="panel no-radius text-center">
+                                            <div class="panel-body">
+                                                <h3>Đã Giới Thiệu</h3>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AffiliateApproved}}</span></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="panel no-radius text-center">
+                                            <div class="panel-body">
+                                                <h3>Đang Duyệt</h3>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AmountPending | number}} Đ</span></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="panel no-radius text-center">
+                                            <div class="panel-body">
+                                                <h3>Đã Duyệt</h3>
+                                                <h2><span class="text-bold">{{affiliateWalletInfo.AmountApproved | number}} Đ</span></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: SECOND SECTION -->
+        <!-- start: THIRD SECTION -->
+        <div class="container-fluid container-fullw bg-white ng-scope">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                        <div ng-controller="">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h5 class="panel-title text-left">Kiến Thức Marketing &Aacute; Sales</h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p class="text-center">
+                                            <span class="text-bold text-uppercase">Tài Liệu</span>
+                                        </p>
+                                        <p>
+                                            <button class="btn btn-primary btn-block">
+                                                Xem Thêm
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                        <div ng-controller="">
+                            <div class="col-md-12">
+                                <div class="panel panel-white">
+                                    <div class="panel-heading border-light">
+                                        <h5 class="panel-title text-left">Thống Kê Tiếp Thị Liên Kết</h5>
+                                    </div>
+                                    <div class="panel-body" ng-controller="DashBoardGoToAffiliateCtrl">
+                                        <p class="text-center">
+                                            <span class="text-bold text-uppercase">Affiliate</span>
+                                        </p>
+                                        <p>
+                                            <a class="btn btn-primary btn-block" ui-sref="app.affiliate" href="#/app/affiliate">Xem Thêm</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: THIRD SECTION -->
+    <div class="container-fluid container-fullw bg-white ng-scope pricing-3-options-section" ng-controller="UserSignUpPackageCtrl" ng-if="!userData.isUserLoggedIn">
+        <div class="row charts">
+            <div class="col-md-12">
+                <div class="pricing-table">
+                    <div class="col-md-5 col-md-offset-1">
+                        <div class="chart featured">
+                            <div class="plan-name">Cơ Bản</div>
+                            <div class="plan-desc text-capitalize">Bắt đầu ngay với gói cơ bản của 123ChaChing</div>
+                            <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
+
+                            <div class="quantity">
+                                <span class="dollar">VND</span>
+                                <span id="ePrice" class="price">5,997,000</span>
+                                <span class="period">/tháng</span>
+                                <div class="annual-text">Billed Annually</div>
+
+                                <a id="signupEssential" class="btn-signup button-orange hidden" ng-click="registerBasicPackage()">
+                                    <span>Mua Gới Cơ Bản</span>
+                                </a>
+                                <br>
+
+                            </div>
+                            <div class="specs">
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    <span class="variable">Không Giới Hạn</span>
+                                    landing pages
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                                    123ChaChing <span class="variable">Mobile App</span>
+                                    cho iPhone and Android
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                                    Nhận thông báo <span class="variable">thời gian thực</span>
+                                    24/7
+                                </div>
+                                <div class="spec aff">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Chiết khấu <span class="variable">50%</span>
+                                    Hoa Hồng Đại Sứ (tính trên giá gói cơ bản)
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Được <span class="variable">Huấn Luyện Online</span>
+                                    và Hỗ Trợ
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Truy cập cộng đồng <span class="variable">Facebook Group</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="chart featured">
+                            <img src="/Scripts/spa_portal/assets/images/ribbon.png" class="popular" alt="ribbon">
+                            <div class="plan-name">Nâng Cao</div>
+                            <div class="plan-desc text-capitalize">Bắt đầu ngay với gói nâng cao của 123ChaChing</div>
+                            <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
+                            <div class="quantity">
+                                <span class="dollar">VND</span>
+                                <span id="cPrice" class="price">8,997,000</span>
+                                <span class="period">/tháng</span>
+                                <div class="annual-text">Billed Annually</div>
+                                <a id="signupComplete" class="btn-signup button-orange2 hidden" ng-click="registerAdvacedPackage()">
+                                    <span>Mua Gói Nâng Cao</span>
+                                </a>
+                                <br>
+                            </div>
+                            <div class="specs">
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Được truy cập <span class="variable">123ChaChing</span>
+                                    Facebook Groups
+                                </div>
+                                <div class="spec aff">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Chiết khấu <span class="variable">50%</span>
+                                    Hoa Hồng Đại Sứ
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    <span class="variable">Không Giới Hạn</span>
+                                    landing pages
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                                    123ChaChing <span class="variable">Mobile App</span>
+                                    cho iPhone and Android
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    Được <span class="variable">Huấn Luyện Online</span>
+                                    và Hỗ Trợ
+                                </div>
+                                <div class="spec">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                                    Nhận thông báo <span class="variable">thời gian thực</span>
+                                    24/7
+                                </div>
+                                <a id="signupComplete" class="btn-signup button-orange2 hidden" ng-click="registerAdvacedPackage()">
+                                    <span>Đăng ký gói nâng cao</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row message">
+                        <p>
+                            <!-- Online Sales Pro has a 30-Day Money-Back Guarantee. -->
+                            <img class="guarantee-img" style="max-width:200px; margin-top:20px" src="/Scripts/spa_portal/assets/images/moneyback14.png">
+
+                        </p>
+                    </div>
+                    <div class="testimonials-section" style="margin-top: 10px;">
+
+
+
+                        <div class="row faq" style="padding-left: 20px; padding-right: 20px">
+                            <div class="col-md-12">
+                                <div class="row header">
+                                    <div class="col-md-12">
+                                        <h3 style="margin-bottom: 15px;"><span class="text-capitalize">Câu hỏi thường gặp</span></h3>
+                                    </div>
+                                </div>
+                                <div class="row questions">
+                                    <div class="col-md-6">
+                                        <div class="question">
+                                            <strong>123ChaChing là gì?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            </p>
+                                        </div>
+                                        <div class="question">
+                                            <strong>123ChaChing có giá bao nhiêu?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="question">
+                                            <strong>123ChaChing có đảm bảo gì không?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            </p>
+                                        </div>
+                                        <div class="question">
+                                            <strong>123ChaChing có chương trình tiếp thị không?</strong>
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                            </p>
+                                        </div>
+                                        <!--                 <div class="question">
+                                          <img class="guarantee-img" src="/corporate/images/icons/moneyback.png">
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
