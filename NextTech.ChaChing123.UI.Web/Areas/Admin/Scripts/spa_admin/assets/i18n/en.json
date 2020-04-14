@@ -95,6 +95,11 @@
       "mailchip": {
         "MAIN": "Mail Chip"
       },
+      "homemanage": {
+        "BANNER": "Quản Lý Banner",
+        "ALLINONE": "Quản Lý Top Những Tính Năng",
+        "MOBILEAPPLICATION": "Quản Lý Ứng Dụng Di Động"
+      },
       "element": {
         "MAIN": "UI Elements",
         "ELEMENTS": "Elements",

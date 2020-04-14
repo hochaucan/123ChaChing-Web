@@ -103,6 +103,11 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                         return;
 
                     } else {
+                        if ($scope.member.Password === undefined || $scope.member.Password.length === 0) {
+                            notificationService.displayWarning('Bạn chưa nhập mật khẩu mới');
+                            return;
+                        }
+
                         var entity = {
                             "AccountName": username,
                             "NewPassword": $scope.member.Password,

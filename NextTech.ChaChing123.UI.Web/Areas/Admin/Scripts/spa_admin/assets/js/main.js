@@ -39,7 +39,8 @@ app.run(['$rootScope', '$state', '$stateParams',
             picture: virtualDirectory + 'Areas/Admin/Scripts/spa_admin/assets/images/default-user.png'
         };
         $rootScope.baseUrl = {
-            url: virtualDirectory
+            url: virtualDirectory,
+            urlWebApi: 'https://api.123chaching.app'
         };
     }]);
 // translate config

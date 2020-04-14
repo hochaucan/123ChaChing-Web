@@ -30,20 +30,20 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                         var keyword = "";
                         var leadType = "";
                         var leadStatus = "";
-                        var affiliateAccount = "";
+                        var leadName = "";
 
                         if (filter !== undefined) {
                             keyword = (filter.KeyWord && filter.KeyWord.length > 0) ? filter.KeyWord : "";
                             leadType = (filter.LeadType && filter.LeadType.length > 0) ? filter.LeadType : "";
                             leadStatus = (filter.LeadStatus && filter.LeadStatus.length > 0) ? filter.LeadStatus : "";
-                            affiliateAccount = (filter.AffiliateAccount && filter.AffiliateAccount.length > 0) ? filter.AffiliateAccount : "";
+                            //leadName = (filter.Name && filter.Name.length > 0) ? filter.Name : "";
                         }
 
                         filterObj = {
                             "KeyWord": keyword,
                             "LeadType": leadType,
                             "LeadStatus": leadStatus,
-                            "AffiliateAccount": affiliateAccount,
+                            "AffiliateAccount": "",
                             "PageIndex": params.page(),
                             "PageCount": params.count(),
                             "SessionKey": sessionKey
@@ -138,8 +138,8 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
         $scope.doFilterOrder = function () {
             var filter = {
                 "LeadType": $scope.lead.LeadType,
-                "AffiliateAccount": $scope.lead.AffiliateAccount,
-                "LeadStatus": $scope.lead.LeadStatus,
+                "KeyWord": $scope.lead.Name,
+                "LeadStatus": $scope.lead.LeadStatus
             };
 
             loadLeads(filter);
@@ -157,6 +157,8 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
             $scope.showSpinner = true;
 
             var entity = {
+                "PageIndex": "1",
+                "PageCount": "9999",
                 "SessionKey": sessionKey
             };
 
@@ -171,19 +173,16 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                     var leadArr = [];
 
                     angular.forEach(leads, function (item, index) {
-                        if (item.AffialateName.length > 0) {
+                        if (item.Name.length > 0) {
                             var lead = {
-                                AffialateID: item.AffialateName,
-                                AffialateName: item.AffialateName
+                                ID: item.ID,
+                                Name: item.Name
                             };
                             leadArr.push(lead);
                         }
                     });
 
-                    console.log(leadArr);
-                    var leadArrResult = removeDuplicates(leadArr, 'AffialateName');
-                    console.log(leadArrResult);
-                    $scope.affiliates = leadArrResult;
+                    $scope.affiliates = removeDuplicates(leadArr, 'Name');
 
                     $timeout(function () {
                         $scope.showSpinner = false;

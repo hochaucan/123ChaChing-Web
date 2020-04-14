@@ -45,7 +45,7 @@
                                     if ($rootScope.previousState && $rootScope.previousState != '/app/login/signin')
                                         $location.path($rootScope.previousState);
                                     else
-                                        $location.path('/app/home');
+                                        $location.path('/app/dashboard');
                                 } else {
                                     $timeout(function () {
                                         $scope.showSpinner = false;
@@ -96,7 +96,7 @@
                                 if ($rootScope.previousState && $rootScope.previousState !== '/app/login/signin')
                                     $location.path($rootScope.previousState);
                                 else
-                                    $location.path('/app/home');
+                                    $location.path('/app/dashboard');
                             } else {
                                 $timeout(function () {
                                     $scope.showSpinner = false;

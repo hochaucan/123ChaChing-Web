@@ -1490,11 +1490,11 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
   min-height: 100%;
   position: relative;
 }
-.main-content .container {
+/*.main-content .container {
   max-width: none !important;
   width: 100% !important;
   display: inline-block;
-}
+}*/
 .main-content > .container {
   padding-bottom: 50px;
 }

@@ -35,14 +35,66 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             resolve: loadSequence('modernizr', 'moment', 'angularMoment', 'uiSwitch', 'perfect-scrollbar-plugin', 'toaster', 'ngAside', 'vAccordion', 'sweet-alert', 'chartjs', 'tc.chartjs', 'oitozero.ngSweetAlert', 'chatCtrl', 'truncate', 'htmlToPlaintext', 'angular-notification-icons'),
             abstract: true
         }).state('app.dashboard', {
-            url: "/dashboard",
-            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard.html",
-            resolve: loadSequence('jquery-sparkline', 'dashboardCtrl'),
+            url: '/dashboard',
+            template: '<div ui-view class="fade-in-up"></div>',
             title: 'Dashboard',
             ncyBreadcrumb: {
                 label: 'Dashboard'
             },
-            //resolve: { isAuthenticated: isAuthenticated }
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.dashboard.banner', {
+            url: "/banner",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_banner.html",
+            title: 'Quản Lý Dashboard',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Dashboard'
+            }
+        }).state('app.dashboard.manage', {
+            url: "/manage",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard.html",
+            title: 'Quản Lý Dashboard',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Dashboard'
+            }
+        }).state('app.dashboard.add', {
+            url: "/add",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_add_new.html",
+            title: 'Thêm Mới Nội Dung Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Thêm Mới Nội Dung Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+        }).state('app.dashboard.edit', {
+            url: "/edit/:id",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_add_new.html",
+            title: 'Cập Nhật Nội Dung Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Cập Nhật Nội Dung Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+        }).state('app.dashboard.mobile', {
+            url: "/mobile",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_mobile.html",
+            title: 'Quản Lý Ứng Dụng Di Động',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Ứng Dụng Di Động'
+            }
+        }).state('app.dashboard.mobileadd', {
+            url: "/mobileadd",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_mobile_add_new_update.html",
+            title: 'Thêm Mới Nội Dung Quản Lý Di Động Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Thêm Mới Nội Dung Quản Lý Di Động Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+        }).state('app.dashboard.mobileedit', {
+            url: "/mobileedit/:id",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_mobile_add_new_update.html",
+            title: 'Cập Nhật Nội Dung Quản Lý Di Động Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Cập Nhật Nội Dung Quản Lý Di Động Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',

@@ -87,6 +87,27 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                                         membershipService.checkMemberAuthorization();
                                     }
 
+//                                    const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
+
+//                                    export default (async function sendPushNotification(pushToken, data, sound, title, body) {
+
+//                                        // POST the token to our backend so we can use it to send pushes from there
+//                                        return fetch(PUSH_ENDPOINT, {
+//                                            method: 'POST',
+//                                            headers: {
+//                                                Accept: 'application/json',
+//                                                Content-Type': 'application / json',
+//},
+//                                            body: JSON.stringify({
+//                                                to: pushToken,
+//                                                data: data,//{ "screen": "ProfileScreen", "params": { "name": "can", "age": "35" } },
+//                                                sound: sound,//"default",
+//                                                title: title,//"Nhabaola",
+//                                                body: body//"HO CHAU CAN"
+//                                            }),
+//                                        });
+//                                    });
+
                                     if (result.data && result.data.StatusCode === 0) {
                                         notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
                                         $timeout(function () {

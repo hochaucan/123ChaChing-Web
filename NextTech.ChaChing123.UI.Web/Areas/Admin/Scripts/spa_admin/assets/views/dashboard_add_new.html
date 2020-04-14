@@ -1,0 +1,93 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div ng-controller="HomeAllInOneAddNewEditManagerCtrl">
+        <section id="page-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="mainTitle">{{documentHeading}}</h1>
+                </div>
+                <ol class="breadcrumb ng-isolate-scope">
+                    <li class="ng-scope"><a href="#/app/dashboard/manage" class="ng-binding ng-scope">Dashboard</a></li>
+                    <li class="ng-scope active"><span class="ng-binding ng-scope">{{documentHeading}}</span></li>
+                </ol>
+            </div>
+        </section>
+        <!-- end: PAGE TITLE -->
+        <!-- start: INLINE EDIT EXAMPLE -->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                    <div class="panel panel-white ng-scope">
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormAddEditDocumentCategory" id="FormAddEditDocumentCategory" novalidate="" ng-submit="form.submit(FormAddEditDocumentCategory)">
+                                <div class="modal-body">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.Content.$dirty && FormAddEditDocumentCategory.Content.$invalid, 'has-success':FormAddEditDocumentCategory.Content.$valid}">
+                                        <label for="Description">
+                                            Nội Dung <span class="symbol required"></span>
+                                        </label>
+                                        <div ng-controller="CkeditorCtrl">
+                                            <div ckeditor="options" ng-model="entity.Content" ready="onReady()"></div>
+                                            <span class="error text-small block" ng-if="FormAddEditDocumentCategory.Content.$dirty && FormAddEditDocumentCategory.Content.$invalid">Nội dung là bắt buộc.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.CategoryID.$dirty && FormAddEditDocumentCategory.CategoryID.$invalid, 'has-success':FormAddEditDocumentCategory.CategoryID.$valid}">
+                                        <label for="Type">
+                                            Loại Danh Mục Hiển Thị <span class="symbol required"></span>
+                                        </label>
+                                        <select id="CategoryID" name="CategoryID" ng-model="entity.CategoryID" class="form-control black" ng-options="option.ID as option.Title for option in documentCategories" required="">
+                                            <option value="" disabled="">Chọn Loại Danh Mục Hiển Thị</option>
+                                        </select>
+                                        <input type="hidden" name="ID" ng-value="entity.ID" />
+                                        <span class="error text-small block" ng-if="FormAddEditDocumentCategory.CategoryID.$dirty && FormAddEditDocumentCategory.CategoryID.$invalid">Danh Mục là bắt buộc.</span>
+                                    </div>
+                                    <!--START IMAGE UPLOADING-->
+                                    <div class="form-group">
+                                        <div class="row" ng-controller="ImageUploaderCtrl">
+                                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                            <div class="col-md-6">
+                                                <h5>Upload Hình Ảnh</h5>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <span class="btn btn-primary btn-o btn-file">
+                                                            Chọn Hình Ảnh Upload
+                                                            <!--<input type="file" nv-file-select="" uploader="uploader">-->
+                                                            <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="user-image">
+                                                            <div class="thumbnail">
+                                                                <img ng-src="{{imagePath}}" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END IMAGE UPLOADING-->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: INLINE EDIT EXAMPLE -->
+    </div>
+</body>
+</html>

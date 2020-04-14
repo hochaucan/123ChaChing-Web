@@ -51,7 +51,7 @@
                                     if ($rootScope.previousState && $rootScope.previousState != '/login/signin')
                                         $location.path($rootScope.previousState);
                                     else
-                                        $location.path('/app/dashboard');
+                                        $location.path('/app/dashboard/manage');
                                 } else {
                                     //$scope.isLoading = false;
 

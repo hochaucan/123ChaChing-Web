@@ -233,6 +233,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\css.css" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\plugins.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\styles.chaching.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\styles.css" />
@@ -268,6 +271,8 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\config\config-xeditable.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\asideCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\bootstrapCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeMobileManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeAllInOneManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\revenueCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chatCtrl.js" />
@@ -329,6 +334,8 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeMobileService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeAllInOneService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\noticeService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\mailChipService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\revenueService.js" />
@@ -347,7 +354,12 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration_mailchip.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\charts.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_mobile_add_new_update.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_banner.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_mobile.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_add_new.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\home_allinone_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\member_details.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
@@ -448,6 +460,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\contents.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\lang\en.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\editor.css" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\icons.png" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\icons_hidpi.png" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\styles.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\components-modernizr\modernizr.js" />
@@ -482,6 +495,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\angular-spinkit\css\angular-spinkit.min.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\angular-spinkit\js\angular-spinkit.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\bootstrap\js\ui-bootstrap-tpls-0.12.0.min.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\vendors\ckeditor\ckeditor.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\css\toastr.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\js\angucomplete-alt.min.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\vendors\js\angular-base64.js" />
@@ -509,7 +523,12 @@
     <Content Include="Content\Document\UserManual\2.png" />
     <Content Include="Content\Document\UserManual\3-kinh-doanh-online-dot-pha.png" />
     <Content Include="Content\Resources\Images\1.png" />
+    <Content Include="Content\Resources\Images\3266a1a5-cbd5-4e3f-86b9-cfaca64f02e9.png" />
     <Content Include="Content\Resources\Images\35013-quick9.png" />
+    <Content Include="Content\Resources\Images\apple.png" />
+    <Content Include="Content\Resources\Images\app_1.png" />
+    <Content Include="Content\Resources\Images\d1.png" />
+    <Content Include="Content\Resources\Images\google.png" />
     <Content Include="Content\Resources\Images\lifestyle95.jpg" />
     <Content Include="Content\Resources\Images\pool.jpg" />
     <Content Include="Content\Site.css" />
@@ -526,11 +545,60 @@
     <Content Include="Areas\Admin\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwIYqWqhPAMif.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwIYqWqZPAA.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwJYtWqhPAMif.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwJYtWqZPAA.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwN4rWqhPAMif.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwN4rWqZPAA.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwPIsWqhPAMif.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptrg8zYS_SKggPNwPIsWqZPAA.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptug8zYS_SKggPNyC0ITw.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\1Ptug8zYS_SKggPNyCMIT5lu.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\55xqey1sJNPjPiv1ZZZrxK1-4bHoLlxN.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\55xqey1sJNPjPiv1ZZZrxK1-4b_oLg.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u8w4BMUTPHjxsAUi-qJCY.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u8w4BMUTPHjxsAXC-q.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u9w4BMUTPHh6UVSwaPGR_p.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u9w4BMUTPHh6UVSwiPGQ.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u9w4BMUTPHh7USSwaPGR_p.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6u9w4BMUTPHh7USSwiPGQ.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6uyw4BMUTPHjx4wXg.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\S6uyw4BMUTPHjxAwXjeu.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Bold.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Bold.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-It.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-It.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Light.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Light.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-LightIt.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-LightIt.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Regular.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Regular.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Semibold.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-Semibold.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-SemiboldIt.woff" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\css\fonts\SourceSansPro-SemiboldIt.woff2" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\i18n\homeAllInOneCategory.json" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\i18n\homeAllInOneCategoryContent.json" />
+    <Content Include="App_Data\homeAllInOneCategory.json" />
+    <Content Include="App_Data\homeAllInOneCategoryContent.json" />
+    <Content Include="App_Data\homeMobileCategoryContent.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\spa_portal\assets\css\all.css" />
+    <Content Include="Scripts\spa_portal\assets\css\css.css" />
     <Content Include="Scripts\spa_portal\assets\css\landers.css" />
     <Content Include="Scripts\spa_portal\assets\css\quickeditor.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.solo.page.css" />
@@ -540,6 +608,7 @@
     <Content Include="Scripts\spa_portal\assets\images\default-user.png" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mailChipCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
@@ -548,6 +617,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationSystemCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationAllCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\homeAllInOneCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentMasterCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentGeneralMarketingCtrl.js" />
@@ -570,6 +640,8 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\userProfileCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseNowCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\homeAllInOneService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\homeMobileService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\noticeService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\responseService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\documentService.js" />
@@ -578,6 +650,11 @@
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
     <Content Include="Scripts\spa_portal\assets\views\charts.html" />
+    <Content Include="Scripts\spa_portal\assets\views\dashboard_backup_20200411.html" />
+    <Content Include="Scripts\spa_portal\assets\views\home_support.html" />
+    <Content Include="Scripts\spa_portal\assets\views\home_integration.html" />
+    <Content Include="Scripts\spa_portal\assets\views\home_mobile_app.html" />
+    <Content Include="Scripts\spa_portal\assets\views\home_landing_page.html" />
     <Content Include="Scripts\spa_portal\assets\views\lead_details.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />
@@ -858,6 +935,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DashboardMobileController.cs" />
     <Compile Include="Controllers\Sys\HomeController.cs" />
     <Compile Include="Controllers\Sys\APF\ApplicationController.cs" />
     <Compile Include="Controllers\Sys\APF\SysReportController.cs" />
@@ -870,6 +949,7 @@
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Models\HomeInOneCategoryContentModel.cs" />
     <Compile Include="Models\ApplicationViewModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
@@ -935,6 +1015,26 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\themify-icons\fonts\themify.eot" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\themify-icons\fonts\themify.ttf" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\themify-icons\fonts\themify.woff" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\55xqey1sJNPjPiv1ZZZrxK1-4bHoLlxN.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\55xqey1sJNPjPiv1ZZZrxK1-4b_oLg.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u8w4BMUTPHjxsAUi-qJCY.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwIYqWqhPAMif.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwIYqWqZPAA.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwJYtWqhPAMif.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwJYtWqZPAA.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwN4rWqhPAMif.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwN4rWqZPAA.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwPIsWqhPAMif.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptrg8zYS_SKggPNwPIsWqZPAA.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptug8zYS_SKggPNyC0ITw.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\1Ptug8zYS_SKggPNyCMIT5lu.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u8w4BMUTPHjxsAXC-q.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u9w4BMUTPHh6UVSwaPGR_p.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u9w4BMUTPHh6UVSwiPGQ.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u9w4BMUTPHh7USSwaPGR_p.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6u9w4BMUTPHh7USSwiPGQ.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6uyw4BMUTPHjx4wXg.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\S6uyw4BMUTPHjxAwXjeu.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -965,7 +1065,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Infrastructure\MessageHandlers\" />
     <Folder Include="Infrastructure\Validators\" />
