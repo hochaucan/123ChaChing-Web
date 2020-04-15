@@ -49,6 +49,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             ncyBreadcrumb: {
                 label: 'Quản Lý Dashboard'
             }
+        }).state('app.dashboard.banneradd', {
+            url: "/banneradd",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_banner_add_new_update.html",
+            title: 'Thêm Mới Banner Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Thêm Mới Banner Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+        }).state('app.dashboard.banneredit', {
+            url: "/banneredit/:id",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_banner_add_new_update.html",
+            title: 'Cập Nhật Banner Trang Chủ',
+            ncyBreadcrumb: {
+                label: 'Cập Nhật Banner Trang Chủ'
+            },
+            resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
         }).state('app.dashboard.manage', {
             url: "/manage",
             templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard.html",

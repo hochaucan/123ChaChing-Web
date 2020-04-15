@@ -39,12 +39,6 @@
 <body ng-controller="AppCtrl">
     @Html.AntiForgeryToken()
     <input id="__virtualDirectory" name="__virtualDirectory" type="hidden" value="@ViewBag.__virtualDirectory" />
-    <input id="__operationUnit" name="__operationUnit" type="hidden" value="@ViewBag.__operationUnit" />
-    <input id="__userProfile" name="__userProfile" type="hidden" value="@ViewBag.__userProfile" />
-    <input id="__localServerDate" name="__localServerDate" type="hidden" value="@ViewBag.__localServerDate" />
-    <input id="__localTimeZoneOffset" name="__localTimeZoneOffset" type="hidden" value="@ViewBag.__localTimeZoneOffset" />
-    <input id="__isCurrentDate" name="__isCurrentDate" type="hidden" value="@ViewBag.__isCurrentDate" />
-    <input id="__lastLoginDate" name="__lastLoginDate" type="hidden" value="@ViewBag.__lastLoginDate" />   <!-- 20170815 - last login date-->
     <!-- 20170815 - last login date-->
     @RenderBody()
 
@@ -103,6 +97,7 @@
     <script src="~/Scripts/spa_portal/assets/js/config.constant.js"></script>
     <script src="~/Scripts/spa_portal/assets/js/config.router.js"></script>
     <script src="~/Scripts/spa_portal/assets/js/services/apiService.js"></script>
+    <script src="~/Scripts/spa_portal/assets/js/services/homeBannerService.js"></script>
     <script src="~/Scripts/spa_portal/assets/js/services/homeAllInOneService.js"></script>
     <script src="~/Scripts/spa_portal/assets/js/services/homeMobileService.js"></script>
     <script src="~/Scripts/spa_portal/assets/js/services/membershipService.js"></script>

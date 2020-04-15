@@ -21,7 +21,7 @@
                     <div class="panel-heading">
                         <p>
                             <button class="btn btn-primary" ng-click="addDocument(0)">
-                                Thêm Mới Nội Dung Trang Chủ
+                                Thêm Mới Banner Trang Chủ
                             </button>
                         </p>
                     </div>
@@ -31,21 +31,23 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Tiêu Đề</th>
                                     <th>Nội Dung</th>
-                                    <th>Loại Nội Dung</th>
                                     <th>Hoạt Động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="document in documents">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                    <td data-title="&#39;Tiêu Đề&#39;">
+                                        <div ng-bind-html="document.Title"></div>
+                                    </td>
                                     <td data-title="&#39;Nội Dung&#39;">
                                         <div ng-bind-html="document.Content"></div>
                                     </td>
-                                    <td data-title="&#39;Loại Danh Mục&#39;">{{getCategoryTypeName(document.CategoryID)}}</td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a href="#/app/dashboard/edit/{{document.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Description}}|{{document.Order}}|{{document.Type}}">
+                                            <a href="#/app/dashboard/banneredit/{{document.ID}}" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Description}}|{{document.Order}}|{{document.Type}}">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                             <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa" data="{{document.ID}}">
@@ -56,10 +58,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <script type="text/ng-template" id="myModalDeleteHomeAllInOne.html">
+                        <script type="text/ng-template" id="myModalDeleteHomeBanner.html">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <div class="modal-header">
-                                <span class="modal-title text-bold">Xóa Nội Dung Trang Chủ</span>
+                                <span class="modal-title text-bold">Xóa Banner Trang Chủ</span>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -67,7 +69,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" id="documentID" name="documentID" value="">
-                                    <p>Bạn muốn xóa nội dung trang chủ này không?</p>
+                                    <p>Bạn muốn xóa Banner trang chủ này không?</p>
                                 </div>
                             </div>
                             <div class="modal-footer">
