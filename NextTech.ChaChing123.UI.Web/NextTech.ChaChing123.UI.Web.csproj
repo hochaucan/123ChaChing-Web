@@ -60,26 +60,6 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="BTMU.APF.AspNetIdentity, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BTMU.APF.AspNetIdentity.dll</HintPath>
-    </Reference>
-    <Reference Include="BTMU.APF.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BTMU.APF.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="BTMU.APF.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BTMU.APF.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="BTMU.APF.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BTMU.APF.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="BTMU.APF.Utilities.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\BTMU.APF.Utilities.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -271,6 +251,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\config\config-xeditable.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\asideCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\bootstrapCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeBannerManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeAllInOneManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\revenueCtrl.js" />
@@ -334,6 +315,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeBannerService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeMobileService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeAllInOneService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\noticeService.js" />
@@ -354,6 +336,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration_mailchip.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\charts.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_banner_add_new_update.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_mobile_add_new_update.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_banner.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_mobile.html" />
@@ -459,9 +442,23 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\config.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\contents.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\lang\en.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\dialog.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\editor.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\plugins\icons.png" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\editor__.css" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\ckeditor\styles.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\components-modernizr\modernizr.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\bower_components\fastclick\lib\fastclick.js" />
@@ -593,6 +590,7 @@
     <Content Include="App_Data\homeAllInOneCategory.json" />
     <Content Include="App_Data\homeAllInOneCategoryContent.json" />
     <Content Include="App_Data\homeMobileCategoryContent.json" />
+    <Content Include="App_Data\homeBannerCategoryContent.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -641,6 +639,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseNowCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeAllInOneService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\homeBannerService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeMobileService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\noticeService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\responseService.js" />
@@ -934,13 +933,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DashboardBannerController.cs" />
     <Compile Include="Controllers\DashboardMobileController.cs" />
-    <Compile Include="Controllers\Sys\HomeController.cs" />
-    <Compile Include="Controllers\Sys\APF\ApplicationController.cs" />
-    <Compile Include="Controllers\Sys\APF\SysReportController.cs" />
-    <Compile Include="Controllers\Sys\APF\UsersController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -949,6 +945,7 @@
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Models\HomeBannerCategoryContentModel.cs" />
     <Compile Include="Models\HomeInOneCategoryContentModel.cs" />
     <Compile Include="Models\ApplicationViewModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
@@ -1041,28 +1038,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NextTech.ChaChing123.Business\NextTech.ChaChing123.Business.csproj">
-      <Project>{2b0131ab-cd43-47fe-8d0e-2c80ee069762}</Project>
-      <Name>NextTech.ChaChing123.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Common\NextTech.ChaChing123.Common.csproj">
-      <Project>{97b5fa6e-355a-4a67-989f-40ce08376bde}</Project>
-      <Name>NextTech.ChaChing123.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Entities\NextTech.ChaChing123.Entities.csproj">
-      <Project>{3E8BB046-05BD-4D27-94A7-C13AD4F3E192}</Project>
-      <Name>NextTech.ChaChing123.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.Data\NextTech.ChaChing123.Data.csproj">
-      <Project>{fdb8609c-3fa4-425c-ba71-4a71a7c43ec6}</Project>
-      <Name>NextTech.ChaChing123.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NextTech.ChaChing123.UI.Process\NextTech.ChaChing123.UI.Process.csproj">
-      <Project>{c2dca188-a643-4c3f-9c2e-dd782cbbc8f2}</Project>
-      <Name>NextTech.ChaChing123.UI.Process</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

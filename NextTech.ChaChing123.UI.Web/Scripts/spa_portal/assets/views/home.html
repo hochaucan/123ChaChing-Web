@@ -6,14 +6,28 @@
 <body>
     <div class="jumbotron container-fluid container-fullw">
         <div class="container">
-            <div class="row jumbo-back">
-                <div class="col-md-8" style="margin-bottom:30px">
-                    <h1 class="hero-text">Tăng <strong>Doanh Thu</strong> với 123ChaChing.</h1>
-                    <h2 class="sub-text">Công cụ thu hút danh sách khách hàng, thiết lập hệ thống marketing tự động, hệ thống telesale đã giúp gân 1,000 khách hàng xây dựng danh sách khách hàng, đơn hàng và dòng tiền.</h2>
-                    <div class="cta">
-                        <button type="button" class="btn btn-wide btn-dark-yellow">
-                            Bắt đầu
-                        </button>
+            <div class="row jumbo-back" ng-controller="HomeBannerController">
+                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                <div class="col-md-10">
+                    <div class="panel panel-transparent" ng-repeat="banner in bannerContents">
+                        <div class="panel-body">
+                            <div class="media">
+                                <div class="media-body">
+                                    <!--<h1 class="hero-text">Tăng <strong>Doanh Thu</strong> với 123ChaChing.</h1>
+                                    <h2 class="sub-text">Công cụ thu hút danh sách khách hàng, thiết lập hệ thống marketing tự động, hệ thống telesale đã giúp gân 1,000 khách hàng xây dựng danh sách khách hàng, đơn hàng và dòng tiền.</h2>-->
+                                    <h1 class="hero-text" ng-bind-html="banner.Title"></h1>
+                                    <h2 class="sub-text">{{banner.Content}}</h2>
+                                    <div class="cta">
+                                        <button type="button" class="btn btn-wide btn-dark-yellow">
+                                            Bắt đầu
+                                        </button>
+                                    </div>
+                                </div>
+                                <a class="media-left" href="#">
+                                    <img ng-src="{{banner.ImagePath}}" alt="" class="media-object">
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

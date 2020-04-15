@@ -559,7 +559,7 @@ html {
     padding-top: 30px;
     /*background: radial-gradient(#36414E, #253241);*/
 }
-.jumbotron h1 {
+.jumbotron h1, .jumbotron h1 p {
     font-size: 60px;
     color: #ffffff !important;
     font-weight: 400;
@@ -568,12 +568,16 @@ html {
 }
 @media (min-width: 992px) {
     .jumbo-back {
-        background: url(/Content/Resources/Images/d1.png?v=1) no-repeat bottom right;
+        /*background: url(/Content/Resources/Images/d1.png?v=1) no-repeat bottom right;*/
     }
 }
 .jumbo-back .sub-text {
     font-weight: 400;
     color: white;
+    font-style: normal !important;
+}
+.jumbo-back .media .media-left {
+    vertical-align: bottom !important;
 }
 .jumbotron .cta {
     margin-top: 20px;
@@ -610,4 +614,10 @@ html {
     background: #5E7A9B;
     background: radial-gradient(#36414E, #253241);
     padding: 60px 0px 30px 0px;
+}
+@media (min-width: 992px) {
+    .navbar .navbar-right {
+        position: relative;
+        margin: 0px 15px 0 0;
+    }
 }

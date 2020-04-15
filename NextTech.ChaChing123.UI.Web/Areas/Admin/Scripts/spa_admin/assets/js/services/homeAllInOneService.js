@@ -8,8 +8,11 @@
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
         //var baseUrl = 'https://api.123chaching.app/api/Admin/';
-        var baseUrl = 'http://localhost:1484/api/dashboard';
+        //var baseUrl = 'http://localhost:1484/api/dashboard';
         //var baseUrl = 'http://localhost:8002';
+        var baseUrl = $rootScope.baseUrl.url + 'api/dashboard';
+        console.log('homeAllInOneService');
+        console.log(baseUrl);
 
         var service = {
             getall: getall,

@@ -32,25 +32,6 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
         function loadLeads(filter) {
             $scope.members = {};
 
-            const name = document.getElementById('txtName');
-            const age = document.getElementById('txtAge');
-            const email = document.getElementById('txtEmail');
-            const country = document.getElementById('selCountry');
-            const msg = document.getElementById('msg');
-
-            // This variable stores all the data.
-            let data =
-                '\r Name: ' + name.value + ' \r\n ' +
-                'Age: ' + age.value + ' \r\n ' +
-                'Email: ' + email.value + ' \r\n ' +
-                'Country: ' + country.value + ' \r\n ' +
-                'Message: ' + msg.value;
-
-            // Convert the text to BLOB.
-            const textToBLOB = new Blob([data], { type: 'text/plain' });
-            const sFileName = 'formData.txt';	   // The file to save the data.
-
-
             $scope.showSpinner = true;
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page

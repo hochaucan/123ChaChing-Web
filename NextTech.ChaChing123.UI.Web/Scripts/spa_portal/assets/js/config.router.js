@@ -49,7 +49,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Dashboard'
             }
             //resolve: { isAuthenticated: isAuthenticated }
-        }).state('app.aboutus', {
+        }).state('app.contactus', {
             url: '/aboutus',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
         }).state('app.login', {

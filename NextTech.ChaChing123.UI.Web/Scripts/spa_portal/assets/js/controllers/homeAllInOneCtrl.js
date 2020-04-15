@@ -8,6 +8,42 @@ var resourcePath = "";
 var baseUrl = 'https://api.123chaching.app';
 //var baseUrl = 'http://localhost:1494';
 
+app.controller('HomeBannerController', ["$scope", "$state", "$window", "$location", "$localStorage", "$timeout", "homeBannerService", "notificationService",
+    function ($scope, $state, $window, $location, $localStorage, $timeout, homeBannerService, notificationService) {
+        $scope.bannerContents = {};
+
+        function loadContent() {
+            var entity = {};
+
+            // Load the data from the API
+            $scope.showSpinner = true;
+            homeBannerService.getall(entity, function (result) {
+                if (result.status === 200) {
+                    //var data = result.data.Details.Items;
+                    $scope.bannerContents = result.data;
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                    notificationService.displayError('Đã có lỗi xả ra trong quá trình tải nội dúng');
+                }
+            });
+        }
+
+        $scope.HomeBannerManager = {
+            init: function () {
+                loadContent();
+            }
+        };
+
+        $scope.HomeBannerManager.init();
+
+    }]);
+
 app.controller('AllInOneHomeController', ["$scope", "$state", "$window", "$location", "$localStorage", "$timeout", "homeAllInOneService", "notificationService",
     function ($scope, $state, $window, $location, $localStorage, $timeout, homeAllInOneService, notificationService) {
         $scope.active = false;
