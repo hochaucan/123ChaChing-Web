@@ -1,0 +1,91 @@
+﻿<!--<!-- saved from url=(0091)/assets/views/dashboard.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <!-- start: FIRST SECTION -->
+    <div class="container-fluid container-fullw bg-white contact-us-info maging-top-30" ng-controller="MasterContactUsCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 message" ng-controller="ContactUsCtrl">
+                    <h3>Liên hệ chúng tôi. Chúng tôi muốn nghe từ bạn</h3>
+                    <p>
+                        Chúng tôi đang ở đây để trả lời bất kỳ câu hỏi nào của bạn về 123ChaChing.
+                        <br> Chúng tôi sẵn sàng giúp đỡ bạn từ thứ 2 đến thứ 6, 9:00 AM - 5:00 PM Việt Nam
+                        <br>. LiveChat, gọi điện, hoặc điền vào mẫu dưới đây.
+                    </p>
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="panel">
+                        <form class="form-contact-us" name="FormContactUs" id="FormContactUs" novalidate="" ng-submit="form.submit(FormContactUs)">
+                            <div class="panel-body">
+                                <div class="form-group" ng-class="{'has-error':FormContactUs.Name.$dirty && FormContactUs.Name.$invalid, 'has-success':FormContactUs.Name.$valid}">
+                                    <label for="Name">
+                                        Tên của bạn
+                                    </label>
+                                    <input type="text" class="form-control" id="Name" name="Name" ng-model="contact.Name" placeholder="Vui lòng nhập tên của bạn" required="">
+                                    <span class="error text-small block" ng-if="FormContactUs.Name.$dirty && FormContactUs.Name.$invalid">Tên là bắt buộc.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormContactUs.Email.$dirty && FormContactUs.Email.$invalid, 'has-success':FormContactUs.Email.$valid}">
+                                    <label for="ContactEmail">
+                                        Email <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="ContactEmail" name="Email" ng-model="contact.Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Vu long nhập email" required="">
+                                    <span class="error text-small block" ng-if="FormContactUs.Email.$dirty && FormContactUs.Email.$invalid">Email là bắt buộc.</span>
+                                    <span class="error text-small block" ng-if="FormContactUs.Email.$error.pattern">Vui lòng cung cấp một địa chỉ email hợp lệ.!</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormContactUs.Phone.$dirty && FormContactUs.Phone.$invalid, 'has-success':FormContactUs.Phone.$valid}">
+                                    <label for="ContactPhone">
+                                        Số Điện Thoại <span class="symbol required"></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="ContactPhone" name="Phone" ng-model="contact.Phone" placeholder="Vui lòng nhập điện thoại của bạn" ng-pattern="/^[0-9]*$/" required="">
+                                    <span class="error text-small block" ng-if="FormContactUs.Phone.$dirty && FormContactUs.Phone.$invalid">Số Điện Thoại là bắt buộc và phải là số.</span>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error':FormContactUs.Message.$dirty && FormContactUs.Message.$invalid, 'has-success':FormContactUs.Message.$valid}">
+                                    <label for="ContactMessage">
+                                        Tin nhắn của bạn <span class="symbol required"></span>
+                                    </label>
+                                    <textarea class="page-element form-control ng-pristine ng-empty ng-invalid ng-invalid-required ng-touched" 
+                                              id="ContactMessage" 
+                                              name="Message" 
+                                              rows="6"
+                                              ng-model="contact.Message" 
+                                              required="" 
+                                              placeholder="Nhắn tin cho tôi" style="">
+                                    </textarea>
+
+                                    <span class="error text-small block" ng-if="FormContactUs.Message.$dirty && FormContactUs.Message.$invalid">Nội Dung tin nhắn là bắt buộc.</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Gửi tin nhắn
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-4 contact">
+                    <div class="address">
+                        <h3>Địa chỉ của chúng tôi</h3>
+                        <p>
+                            27 Nguyễn Hữu Thọ, Phường Tân Hưng, Quận 7, TpHCM
+                        </p>
+                    </div>
+                    <div class="phone">
+                        <h3>Hotline</h3>
+                        <p>
+                            0356-15-7676
+                        </p>
+                    </div>
+                    <div class="phone">
+                        <h3>Email hỗ trợ</h3>
+                        <p>
+                            <a target="_blank" href="https://123chaching.app/#/app/home">support.123chaching.app</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: FIRST SECTION -->
+</body>
+</html>

@@ -621,3 +621,28 @@ html {
         margin: 0px 15px 0 0;
     }
 }
+.contact-us-info .message h3 {
+    color: #444;
+    font-size: 24px;
+    font-weight: 500;
+}
+.contact-us-info .message p {
+    font-size: 15px;
+    font-weight: 400;
+    color: #777;
+}
+.contact-us-info .message form {
+    margin-top: 35px;
+    width: 80%;
+}
+.contact-us-info .contact .address {
+    margin-bottom: 30px;
+}
+.contact-us-info .contact h3 {
+    color: #444;
+    font-size: 18px;
+    font-weight: 500;
+}
+#app > footer .footer-inner p {
+    line-height: 20px;
+}

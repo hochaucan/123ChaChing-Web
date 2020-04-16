@@ -124,25 +124,26 @@
                     </ul>
                 </li>
                 <!-- end: USER OPTIONS DROPDOWN -->
-                <!-- START: Home page -->
+                <!-- START: Pricing page -->
                 <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="!userData.isUserLoggedIn">
-                    <a class="dropdown-toggle" ui-sref="app.home" uib-dropdown-toggle="">
+                    <a class="dropdown-toggle" ui-sref="app.pricing" uib-dropdown-toggle="">
                         <div class="item-content">
                             <div class="item-icon">
-                                <i class="fa fa-home"></i>
+                                <i class="fa ti-money"></i>
                             </div>
                             <div class="item-label">
-                                <span class="title ng-scope" translate="topbar.nav.HOME">Trang chủ</span>
+                                <span class="title ng-scope" translate="topbar.nav.PRICING">Bảng giá</span>
                             </div>
                         </div>
                     </a>
                 </li>
-                <!-- END: Home page -->
+                <!-- END: Pricing page -->
+                <!-- START: Contact Us page -->
                 <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="!userData.isUserLoggedIn">
                     <a class="dropdown-toggle" ui-sref="app.contactus" uib-dropdown-toggle="">
                         <div class="item-content">
                             <div class="item-icon">
-                                <i class="fa ti-pencil-alt"></i>
+                                <i class="fa fa-phone"></i>
                             </div>
                             <div class="item-label">
                                 <span class="title ng-scope" translate="topbar.nav.CONTACTUS">Liên Hệ</span>
@@ -150,7 +151,7 @@
                         </div>
                     </a>
                 </li>
-                <!-- end: USER OPTIONS DROPDOWN -->
+                <!-- END: Contact Us page -->
                 <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-if="!userData.isUserLoggedIn">
                     <a class="dropdown-toggle" ui-sref="app.login.signin" uib-dropdown-toggle="">
                         <div class="item-content">

@@ -34,6 +34,10 @@ app.controller('HomeBannerController', ["$scope", "$state", "$window", "$locatio
             });
         }
 
+        $scope.getStartedNow = function () {
+            $location.path('/app/pricing');
+        };
+
         $scope.HomeBannerManager = {
             init: function () {
                 loadContent();

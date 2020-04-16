@@ -50,7 +50,10 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             }
             //resolve: { isAuthenticated: isAuthenticated }
         }).state('app.contactus', {
-            url: '/aboutus',
+            url: '/contactus',
+            templateUrl: "Scripts/spa_portal/assets/views/contactus.html"
+        }).state('app.pricing', {
+            url: '/pricing',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
         }).state('app.login', {
             url: '/login',
