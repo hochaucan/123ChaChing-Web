@@ -1,0 +1,39 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Quản Lý Yêu Cầu Liên Hệ</h1>
+        </div>
+        <div ncy-breadcrumb=""></div>
+    </div>
+</section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                <div class="panel panel-white ng-scope" ng-controller="ContactUsCtrl">
+                    <div class="panel-body">
+                        <table ng-table="tableParams" class="table table-striped">
+                            <tbody>
+                                <tr ng-repeat="contact in $data">
+                                    <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                    <td data-title="&#39;Tên&#39;">{{contact.Name}}</td>
+                                    <td data-title="&#39;Email&#39;" width="50%">{{contact.Email}}</td>
+                                    <td data-title="&#39;Số Điện Thoại&#39;">{{contact.Phone}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;">{{contact.Content}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body></html>

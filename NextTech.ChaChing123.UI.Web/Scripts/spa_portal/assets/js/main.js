@@ -40,7 +40,7 @@ app.run(['$rootScope', '$state', '$stateParams',
         };
         $rootScope.baseUrl = {
             url: virtualDirectory,
-            urlWebApi: 'https://api.123chaching.app'
+            urlWebApi: 'https://api.123chaching.app/'
         };
     }]);
 // translate config

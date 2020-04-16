@@ -89,6 +89,9 @@
       "notification": {
         "MAIN": "Thông Báo"
       },
+      "contact_us": {
+        "MAIN": "Quản Lý Yêu Cầu Liên Hệ"
+      },
       "configurations": {
         "MAIN": "Cấu hình"
       },

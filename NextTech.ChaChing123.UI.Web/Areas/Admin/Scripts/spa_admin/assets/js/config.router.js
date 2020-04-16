@@ -417,6 +417,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Thông Báo'
             },
             resolve: loadSequence('ngTable', 'ngTableNotificationManagerCtrl')
+        }).state('app.contact', {
+            url: '/contact',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Liên Hệ',
+            ncyBreadcrumb: {
+                label: 'Liên Hệ'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.contact.list', {
+            url: '/list',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/contact_us.html",
+            title: 'Quản Lý Yêu Cầu Liên Hệ',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Yêu Cầu Liên Hệ'
+            },
+            resolve: loadSequence('ngTable', 'ngTableContactUsCtrl')
         }).state('app.configuration', {
             url: '/configuration',
             template: '<div ui-view class="fade-in-up"></div>',

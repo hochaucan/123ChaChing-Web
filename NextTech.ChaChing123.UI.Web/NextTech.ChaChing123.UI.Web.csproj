@@ -254,6 +254,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeBannerManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeAllInOneManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\contactUsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\revenueCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chatCtrl.js" />
@@ -315,6 +316,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\authentication.service.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\contactUsService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeBannerService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeMobileService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeAllInOneService.js" />
@@ -345,6 +347,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\home_allinone_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\member_details.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\contact_us.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\notification_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_script_manager.html" />
@@ -607,6 +610,7 @@
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\homeMobileManagerCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\contactUsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mailChipCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
@@ -641,6 +645,7 @@
     <Content Include="Scripts\spa_portal\assets\js\services\homeAllInOneService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeBannerService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeMobileService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\contactUsService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\noticeService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\responseService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\documentService.js" />
@@ -649,6 +654,8 @@
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
     <Content Include="Scripts\spa_portal\assets\views\charts.html" />
+    <Content Include="Scripts\spa_portal\assets\views\partials\footer_bk_20200416.html" />
+    <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\dashboard_backup_20200411.html" />
     <Content Include="Scripts\spa_portal\assets\views\home_support.html" />
     <Content Include="Scripts\spa_portal\assets\views\home_integration.html" />
@@ -659,6 +666,7 @@
     <Content Include="Scripts\spa_portal\assets\views\notification_newlead.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_system.html" />
     <Content Include="Scripts\spa_portal\assets\views\notification_all.html" />
+    <Content Include="Scripts\spa_portal\assets\views\contactus.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_rebuttal.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_script.html" />
     <Content Include="Scripts\spa_portal\assets\views\response_now.html" />
@@ -803,7 +811,6 @@
     <Content Include="Scripts\spa_portal\assets\views\partials\settings.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\sidebar.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\top-navbar.html" />
-    <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_basic.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_data.html" />
     <Content Include="Scripts\spa_portal\assets\views\table_dynamic.html" />
