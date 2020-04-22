@@ -21,7 +21,8 @@ app.controller('EditorSoloFunnelPagesController', ["$scope", "$state", "$window"
             { heading: "Tạo Trang", route: "app.editor2.solo.add", active: false },
             { heading: "Quản Lý Trang", route: "app.editor2.solo.manage", active: false },
             { heading: "Tạo Trang Funnel", route: "app.editor2.funnels.add", active: true },
-            { heading: "Quản Lý Trang Funnel", route: "app.editor2.funnels.manage", active: false }
+            { heading: "Quản Lý Trang Funnel", route: "app.editor2.funnels.manage", active: false },
+            { heading: "Quản Lý AUTORESPONDER", route: "app.editor2.autoresponder.manage", active: false }
         ];
 
         $scope.go = function (route) {

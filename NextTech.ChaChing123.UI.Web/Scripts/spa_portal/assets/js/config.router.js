@@ -39,7 +39,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             title: 'Home',
             ncyBreadcrumb: {
                 label: 'Home'
-            }
+            },
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.dashboard', {
             url: "/dashboard",
             templateUrl: "Scripts/spa_portal/assets/views/dashboard.html",
@@ -55,7 +56,23 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.pricing', {
             url: '/pricing',
             templateUrl: "Scripts/spa_portal/assets/views/pricing.html"
-        }).state('app.login', {
+        }).state('app.checkout', {
+            url: '/checkout',
+            templateUrl: "Scripts/spa_portal/assets/views/checkout.html"
+            })
+
+            .state('checkoutpayment', {
+                url: '/checkoutpayment',
+                template: '<div ui-view class="fade-in-up"></div>'
+            }).state('checkoutpayment.success', {
+                url: '/success',
+                templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_success.html"
+            }).state('checkoutpayment.error', {
+                url: '/error',
+                templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_error.html"
+            })
+
+            .state('app.login', {
             url: '/login',
             template: '<div ui-view class="fade-in-up"></div>',
             title: 'Đăng Nhập',
@@ -229,6 +246,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
             templateUrl: "Scripts/spa_portal/assets/views/lead_add_edit.html",
             title: 'Sửa Khách Hàng',
             resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.autoresponder', {
+            url: '/autoresponder',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'AUTORESPONDER',
+            ncyBreadcrumb: {
+                label: 'AUTORESPONDER'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.editor2.autoresponder.manage', {
+            url: '/manage',
+            templateUrl: "Scripts/spa_portal/assets/views/autoresponder_manager.html",
+            title: 'Quản Lý AUTORESPONDER',
+            ncyBreadcrumb: {
+                label: 'Quản AUTORESPONDER'
+            },
+            resolve: loadSequence('ngTable', 'ngTableAutoResponderCtrl')
         }).state('app.documents', {
             url: '/documents',
             templateUrl: "Scripts/spa_portal/assets/views/document.html",

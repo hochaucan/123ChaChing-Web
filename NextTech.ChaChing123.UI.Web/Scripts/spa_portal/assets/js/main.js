@@ -13,7 +13,7 @@ app.run(['$rootScope', '$state', '$stateParams',
         // set below basic information
         $rootScope.app = {
             name: '123ChaChing', // name of your project
-            author: '123 ChaChing', // author's name or company name
+            author: '123ChaChing', // author's name or company name
             description: 'Angular Bootstrap Admin Template', // brief description
             version: '2.0', // current version
             year: ((new Date()).getFullYear()), // automatic current year (for copyright information)

@@ -8,8 +8,8 @@
 
     angular
         .module('ChaChingApp')
-        .controller('UserRegistrationCtrl', ['$scope', '$window', '$location', '$timeout', '$localStorage', 'membershipService', 'notificationService',
-            function ($scope, $window, $location, $timeout, $localStorage, membershipService, notificationService) {
+        .controller('UserRegistrationCtrl', ['$scope', '$rootScope', '$window', '$location', '$timeout', '$localStorage', 'membershipService', 'notificationService',
+            function ($scope, $rootScope, $window, $location, $timeout, $localStorage, membershipService, notificationService) {
                 $scope.master = $scope.user;
                 $scope.showSpinner = false;
                 $scope.form = {
@@ -51,12 +51,16 @@
 
                             $scope.showSpinner = true;
                             membershipService.register(userRegistration, function (result) {
-                                if (result.data && result.data.StatusCode == 0) {
+                                if (result.data && result.data.StatusCode === 0) {
+                                    membershipService.saveUserRegistration(userRegistration, result.data.Details);
                                     $timeout(function () {
                                         $scope.showSpinner = false;
+                                        var baseUrl = $rootScope.baseUrl.url;
+                                        var checkoutUrl = baseUrl + '#/app/checkout';
+
+                                        $window.location.href = checkoutUrl;
                                     }, 2000);
                                     notificationService.displaySuccess('Đăng ký thành công');
-                                    $location.path('/app/home');
                                 }
                                 else {
                                     $timeout(function () {

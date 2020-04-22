@@ -15,7 +15,9 @@
             login: login,
             register: register,
             saveCredentials: saveCredentials,
+            saveUserRegistration: saveUserRegistration,
             removeCredentials: removeCredentials,
+            removeUserRegistration: removeUserRegistration,
             isUserLoggedIn: isUserLoggedIn,
             isAuthenticated: isAuthenticated,
             checkMemberAuthorization: checkMemberAuthorization,
@@ -66,9 +68,27 @@
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
         }
+
+        function saveUserRegistration(user, sessionKey) {
+            $localStorage.currentUserRegistration = {
+                fullname: user.fullname,
+                email: user.email,
+                phone: user.phone,
+                accountType: user.accounttype,
+                token: sessionKey 
+            };
+            // add jwt token to auth header for all requests made by the $http service
+            $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
+        }
+
         
         function removeCredentials() {
             delete $localStorage.currentUser;
+            $http.defaults.headers.common.Authorization = '';
+        }
+
+        function removeUserRegistration() {
+            delete $localStorage.currentUserRegistration;
             $http.defaults.headers.common.Authorization = '';
         }
 

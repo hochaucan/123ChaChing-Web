@@ -48,6 +48,7 @@
                             //1. Initialize a tab array
                             var pane = [];
                             //2. Build pane content
+                            pane.id = item.ID;
                             pane.header = item.Title;
                             pane.content = item.Content;
                             $scope.panes.push(pane);
@@ -65,20 +66,15 @@
                 });
             }
 
-            $scope.updateRebuttalContent = function (size) {
-                var modalInstance = $uibModal.open({
-                    templateUrl: 'myModalupdateRebuttalContent.html',
-                    controller: 'ModalUpdateRebuttalContentCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            return $scope.items;
-                        }
-                    }
-                });
-            };
-
             $scope.showLead = function (size) {
+                var _subject = document.getElementById('responseSubject' + size).value;
+                var _content = document.getElementById('responseContent' + size).value;
+
+                $scope.items = {
+                    'subject': _subject ? _subject : '',
+                    'content': _content ? _content : ''
+                };
+
                 var modalInstance = $uibModal.open({
                     templateUrl: 'myModalShowLead.html',
                     controller: 'ModalShowRebuttalLeadCtrl',
@@ -101,98 +97,14 @@
         }]);
 })(angular);
 
-app.controller('ModalUpdateRebuttalContentCtrl', ["$scope", "$window", "$location", "$timeout", "$localStorage", "$uibModalInstance", "items", "leadService", "membershipService", "notificationService",
-    function ($scope, $window, $location, $timeout, $localStorage, $uibModalInstance, items, leadService, membershipService, notificationService) {
-        $scope.leads = {};
-
-        $scope.ok = function () {
-
-        };
-
-        $scope.showSpinner = false;
-        $scope.form = {
-            submit: function (form) {
-                var firstError = null;
-                if (form.$invalid) {
-
-                    var field = null, firstError = null;
-                    for (field in form) {
-                        if (field[0] != '$') {
-                            if (firstError === null && !form[field].$valid) {
-                                firstError = form[field].$name;
-                            }
-
-                            if (form[field].$pristine) {
-                                form[field].$dirty = true;
-                            }
-                        }
-                    }
-
-                    angular.element('.ng-invalid[name=' + firstError + ']').focus();
-                    //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
-
-                    return;
-
-                } else {
-                    var lead = {};
-                    var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-                    var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-
-                    lead = {
-                        "Name": $scope.lead.Name,
-                        "Email": $scope.lead.Email,
-                        "Phone": $scope.lead.Phone,
-                        "LeadsType": $scope.lead.LeadsType,
-                        "Notes": $scope.lead.Notes,
-                        "SessionKey": sessionkey
-                    };
-
-                    $scope.showSpinner = true;
-                    // Load the data from the API
-                    leadService.AddLeadsByAccount(lead, function (result) {
-                        if (result.data && result.data.StatusCode == 17) {
-                            membershipService.checkMemberAuthorization();
-                        }
-
-                        if (result.data && result.data.StatusCode == 0) {
-                            notificationService.displaySuccess(result.data.StatusMsg);
-                            $window.location.reload();
-                        } else {
-                            notificationService.displayError(result.data.StatusMsg);
-                            $timeout(function () {
-                                $scope.showSpinner = false;
-                            }, 1000);
-                        }
-                        $uibModalInstance.dismiss('cancel');
-                    });
-                }
-            }
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        function loadLeadsType() {
-            $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-        }
-
-        $scope.LeadsManager = {
-            init: function () {
-                loadLeadsType();
-            }
-        };
-
-        $scope.LeadsManager.init();
-    }]);
-
 (function (angular) {
-    app.controller('ModalShowRebuttalLeadCtrl', ["$scope", "$localStorage", "$timeout", "responseService", "leadService", "membershipService", "notificationService",
-        function ($scope, $localStorage, $timeout, responseService, leadService, membershipService, notificationService) {
+    app.controller('ModalShowRebuttalLeadCtrl', ["$scope", "$localStorage", "$timeout", "$uibModalInstance", "items", "responseService", "leadService", "membershipService", "notificationService",
+        function ($scope, $localStorage, $timeout, $uibModalInstance, items, responseService, leadService, membershipService, notificationService) {
             var sessionKey = $localStorage.currentUser ? $localStorage.currentUser.token : "";
             $scope.coldLeads = [];
             $scope.warmLeads = [];
             $scope.hotLeads = [];
+            $scope.emailContent = items;
 
             function loadAllLeadByAccount() {
                 // Load the data from the API
@@ -227,10 +139,6 @@ app.controller('ModalUpdateRebuttalContentCtrl', ["$scope", "$window", "$locatio
                                 $scope.hotLeads.push(item);
                         });
 
-                        console.log($scope.coldLeads);
-                        console.log($scope.warmLeads);
-                        console.log($scope.hotLeads);
-
                         $timeout(function () {
                             $scope.showSpinner = false;
                         }, 1000);
@@ -242,6 +150,24 @@ app.controller('ModalUpdateRebuttalContentCtrl', ["$scope", "$window", "$locatio
                     }
                 });
             }
+
+            $scope.sendEmailToLead = function (size) {
+                var to = "";
+                var emailSubject = "";
+                var emailContent = "";
+
+                //var emailInfo = $scope.emailContent ? $scope.emailContent : "";
+                var emailInfo = size.currentTarget.attributes.data.value;
+
+                var emailSplit = emailInfo.split('|');
+                if (emailSplit.length > 0) {
+                    to = emailSplit[0];
+                    emailSubject = emailSplit[1];
+                    emailContent = emailSplit[2];
+                }
+
+                window.location.href = "mailto:" + to + "?subject=" + emailSubject + "&body=" + emailContent;
+            };
 
             $scope.ResponseManager = {
                 init: function () {

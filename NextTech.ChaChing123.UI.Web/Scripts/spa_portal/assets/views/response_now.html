@@ -21,7 +21,9 @@
                                         {{ pane.content }}
                                     </p>
                                     <p>
-                                        <a ng-click="showLead()" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                        <a ng-click="showLead(pane.id)" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                        <input type="hidden" name="responseSubject" id="responseSubject{{pane.id}}" ng-model="responseSubject" value="{{pane.header}}" />
+                                        <input type="hidden" name="responseContent" id="responseContent{{pane.id}}" ng-model="responseContent" value="{{pane.content}}" />
                                     </p>
                                 </v-pane-content>
                             </v-pane>
@@ -34,7 +36,7 @@
                                 <!-- start: Lead -->
                                 <uib-tabset class="tabbable">
                                     <!-- start: TAB COLD -->
-                                    <uib-tab heading="Lạnh">
+                                    <uib-tab heading="Lạnh" ng-if="coldLeads !== undefined && coldLeads.length > 0">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="panel panel-white">
@@ -52,7 +54,9 @@
                                                                         <p>{{lead.CreatedDate}}</p>
                                                                     </td>
                                                                     <td>
-                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                        <a ng-click="sendEmailToLead($event)" data="{{lead.Email}}|{{emailContent.subject}}|{{emailContent.content}}" class="btn btn-primary btn-o btn-wide">
+                                                                            <i class=" ti-email"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -64,7 +68,7 @@
                                     </uib-tab>
                                     <!-- end: TAB COLD -->
                                     <!-- start: TAB WARM -->
-                                    <uib-tab heading="Ấm">
+                                    <uib-tab heading="Ấm" ng-if="warmLeads !== undefined && warmLeads.length > 0">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="panel panel-white">
@@ -82,7 +86,9 @@
                                                                         <p>{{lead.CreatedDate}}</p>
                                                                     </td>
                                                                     <td>
-                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                        <a ng-click="sendEmailToLead($event)" data="{{lead.Email}}|{{emailContent.subject}}|{{emailContent.content}}" class="btn btn-primary btn-o btn-wide">
+                                                                            <i class=" ti-email"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -94,7 +100,7 @@
                                     </uib-tab>
                                     <!-- end: TAB WARM -->
                                     <!-- start: TAB HOT -->
-                                    <uib-tab heading="Nóng">
+                                    <uib-tab heading="Nóng" ng-if="hotLeads !== undefined && hotLeads.length > 0">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="panel panel-white">
@@ -112,7 +118,9 @@
                                                                         <p>{{lead.CreatedDate}}</p>
                                                                     </td>
                                                                     <td>
-                                                                        <a ng-href="mailto:{{ lead.Email }}" target="_blank" class="btn btn-primary btn-o btn-wide"><i class=" ti-email"></i></a>
+                                                                        <a ng-click="sendEmailToLead($event)" data="{{lead.Email}}|{{emailContent.subject}}|{{emailContent.content}}" class="btn btn-primary btn-o btn-wide">
+                                                                            <i class=" ti-email"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
