@@ -7,9 +7,10 @@
 
     function Service(apiService, $window, $http, $rootScope, $localStorage, notificationService) {
 
-        var baseUrl = 'https://api.123chaching.app/api/Admin';
+        //var baseUrl = 'https://api.123chaching.app/api/Admin';
         //var baseUrl = 'http://localhost:1494';
         //var baseUrl = 'http://localhost:8002';
+        var baseUrl = $rootScope.baseUrl.urlWebApi + '/api/Admin'; 
 
         var service = {
             Login: Login,
@@ -23,11 +24,18 @@
             GetAffiliateList: GetAffiliateList,
             GetWithDrawallInfoByAccount: GetWithDrawallInfoByAccount,
             SetPasswodForAccount: SetPasswodForAccount,
+            UpdateAccountInfo: UpdateAccountInfo,
             LockAccount: LockAccount,
             LockAffialate: LockAffialate,
             ChangeAccountType: ChangeAccountType,
             ApprovetWithDrawallInfoByAccount: ApprovetWithDrawallInfoByAccount
         };
+
+        function UpdateAccountInfo(memberObj, completed) {
+            apiService.post(baseUrl + '/UpdateAccountInfo/', memberObj,
+                completed,
+                entityFailed);
+        }
 
         function ApprovetWithDrawallInfoByAccount(memberObj, completed) {
             apiService.post(baseUrl + '/ApprovetWithDrawallInfoByAccount/', memberObj,

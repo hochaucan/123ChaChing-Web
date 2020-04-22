@@ -646,3 +646,29 @@ html {
 #app > footer .footer-inner p {
     line-height: 20px;
 }
+.page-success {
+    text-align: center;
+}
+.success-full-page .page-success {
+    margin-top: 60px;
+}
+.page-success .success-number {
+    display: block;
+    font-size: 158px;
+    font-weight: 300;
+    letter-spacing: -10px;
+    line-height: 128px;
+    margin-top: 0;
+    text-align: center;
+}
+.page-success .success-details {
+    display: block;
+    padding-top: 0;
+    text-align: center;
+}
+.page-success .success-number img {
+
+}
+.page-success .success-details {
+    padding-top: 20px;
+}

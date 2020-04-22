@@ -1,0 +1,297 @@
+﻿<!--<!-- saved from url=(0091)/assets/views/dashboard.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div class="container">
+        <section id="page-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="mainTitle">Phương Thức Thanh Toán</h1>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- start: FIRST SECTION -->
+    <div class="container-fluid container-fullw bg-white contact-us-info maging-top-30" ng-controller="MasterCheckoutPaymentMethodCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8" ng-controller="CheckoutPaymentMethodCtrl">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="panel">
+                        <div class="panel-heading">
+                            Chọn Phương Thức Thanh Toán
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-contact-us" name="FormPaymentMethod" id="FormPaymentMethod" novalidate="" ng-submit="form.submit(FormPaymentMethod)">
+                                <div class="panel-body">
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="option_payment_NL_Pocket" name="option_payment" ng-model="payment_method.option_payment" value="1" ng-change="changePaymentMethod(1)">
+                                        <label for="option_payment_NL_Pocket">
+                                            Thanh toán bằng Ví điện tử NgânLượng
+                                        </label>
+                                    </div>
+                                    <div class="form-group" ng-if="isNLPocketShown">
+                                        <div class="boxContent">
+                                            <p>
+                                                Thanh toán trực tuyến AN TOÀN và ĐƯỢC BẢO VỆ, sử dụng thẻ ngân hàng trong và ngoài nước hoặc nhiều hình thức tiện lợi khác.
+                                                Được bảo hộ & cấp phép bởi NGÂN HÀNG NHÀ NƯỚC, ví điện tử duy nhất được cộng đồng ƯA THÍCH NHẤT 2 năm liên tiếp, Bộ Thông tin Truyền thông trao giải thưởng Sao Khuê
+                                                <br />Giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="option_payment_domestic_bank_card" name="option_payment" ng-model="payment_method.option_payment" value="2" ng-change="changePaymentMethod(2)">
+                                        <label for="option_payment_domestic_bank_card">
+                                            Thanh toán online bằng thẻ ngân hàng nội địa
+                                        </label>
+                                    </div>
+                                    <div class="form-group list-content" ng-if="isDomesticBankCardShow">
+                                        <div class="boxContent">
+                                            <p>
+                                                <i>
+                                                    <span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.
+                                                </i>
+                                            </p>
+                                            <ul class="cardList clearfix">
+                                                <li class="bank-online-methods ">
+                                                    <label for="vcb_ck_on">
+                                                        <i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i>
+                                                        <input id="VCB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="VCB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="vnbc_ck_on">
+                                                        <i class="DAB" title="Ngân hàng Đông Á"></i>
+                                                        <input id="DAB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="DAB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="tcb_ck_on">
+                                                        <i class="TCB" title="Ngân hàng Kỹ Thương"></i>
+                                                        <input id="TCB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="TCB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_mb_ck_on">
+                                                        <i class="MB" title="Ngân hàng Quân Đội"></i>
+                                                        <input id="MB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="MB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="shb_ck_on">
+                                                        <i class="SHB" title="Ngân hàng Sài Gòn - Hà Nội"></i>
+                                                        <input id="SHB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="SHB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_vib_ck_on">
+                                                        <i class="VIB" title="Ngân hàng Quốc tế"></i>
+                                                        <input id="VIB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="VIB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_vtb_ck_on">
+                                                        <i class="ICB" title="Ngân hàng Công Thương Việt Nam"></i>
+                                                        <input id="ICB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="ICB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_exb_ck_on">
+                                                        <i class="EXB" title="Ngân hàng Xuất Nhập Khẩu"></i>
+                                                        <input id="EXB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="EXB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_acb_ck_on">
+                                                        <i class="ACB" title="Ngân hàng Á Châu"></i>
+                                                        <input id="ACB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="ACB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_hdb_ck_on">
+                                                        <i class="HDB" title="Ngân hàng Phát triển Nhà TPHCM"></i>
+                                                        <input id="HDB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="HDB">
+                                                    </label>
+                                                </li>
+
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_msb_ck_on">
+                                                        <i class="MSB" title="Ngân hàng Hàng Hải"></i>
+                                                        <input id="MSB" type="radio" name="bankcode" value="MSB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_nvb_ck_on">
+                                                        <i class="NVB" title="Ngân hàng Nam Việt"></i>
+                                                        <input id="NVB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="NVB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_vab_ck_on">
+                                                        <i class="VAB" title="Ngân hàng Việt Á"></i>
+                                                        <input id="VAB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="VAB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_vpb_ck_on">
+                                                        <i class="VPB" title="Ngân Hàng Việt Nam Thịnh Vượng"></i>
+                                                        <input id="VPB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="VPB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_scb_ck_on">
+                                                        <i class="SCB" title="Ngân hàng Sài Gòn Thương tín"></i>
+                                                        <input id="SCB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="SCB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="ojb_ck_on">
+                                                        <i class="OJB" title="Ngân hàng Đại Dương"></i>
+                                                        <input id="OJB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="OJB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="bnt_atm_pgb_ck_on">
+                                                        <i class="PGB" title="Ngân hàng Xăng dầu Petrolimex"></i>
+                                                        <input id="PGB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="PGB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="bnt_atm_gpb_ck_on">
+                                                        <i class="GPB" title="Ngân hàng TMCP Dầu khí Toàn Cầu"></i>
+                                                        <input id="GPB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="GPB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="bnt_atm_agb_ck_on">
+                                                        <i class="AGB" title="Ngân hàng Nông nghiệp &amp; Phát triển nông thôn"></i>
+                                                        <input id="AGB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="AGB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="bnt_atm_sgb_ck_on">
+                                                        <i class="SGB" title="Ngân hàng Sài Gòn Công Thương"></i>
+                                                        <input id="SGB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="SGB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="bnt_atm_nab_ck_on">
+                                                        <i class="NAB" title="Ngân hàng Nam Á"></i>
+                                                        <input id="NAB" type="radio" name="bankcode" ng-model="payment_method.bankcode" value="NAB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_bab_ck_on">
+                                                        <i class="BAB" title="Ngân hàng Bắc Á"></i>
+                                                        <input id="BAB" type="radio" name="bankcode" value="BAB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_bidv_ck_on">
+                                                        <i class="BIDV" title="Ngân hàng TMCP Đầu tư & Phát triển Việt Nam"></i>
+                                                        <input id="BIDV" type="radio" name="bankcode" value="BIDV">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_TPB_ck_on">
+                                                        <i class="TPB" title="Ngân hàng Thương mại Cổ phần Tiên Phong"></i>
+                                                        <input id="TPB" type="radio" name="bankcode" value="TPB">
+                                                    </label>
+                                                </li>
+                                                <!--<li class="bank-online-methods ">
+                                                    <label for="sml_atm_ABB_ck_on">
+                                                        <i class="ABB" title="Ngân hàng TMCP An Bình"></i>
+                                                        <input id="ABB" type="radio" name="bankcode" value="ABB">
+                                                    </label>
+                                                </li>
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_OCB_ck_on">
+                                                        <i class="OCB" title="Ngân hàng TMCP Phương Đông"></i>
+                                                        <input id="OCB" type="radio" name="bankcode" value="OCB">
+                                                    </label>
+                                                </li>-->
+                                                <li class="bank-online-methods ">
+                                                    <label for="sml_atm_SEA_ck_on">
+                                                        <i class="SEA" title="Ngân hàng TMCP Đông Nam Á"></i>
+                                                        <input id="SEA" type="radio" name="bankcode" value="SEA">
+                                                    </label>
+                                                </li>
+                                                <!--<li class="bank-online-methods ">
+                                                    <label for="sml_atm_LVB_ck_on">
+                                                        <i class="LVB" title="Ngân Hàng TMCP Bưu Điện Liên Việt"></i>
+                                                        <input id="LVB" type="radio" name="bankcode" value="LVB">
+                                                    </label>
+                                                </li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="option_payment_visa_master" name="option_payment" ng-model="payment_method.option_payment" value="3" ng-change="changePaymentMethod(3)">
+                                        <label for="option_payment_visa_master">
+                                            Thanh toán bằng thẻ Visa hoặc MasterCard
+                                        </label>
+                                    </div>
+                                    <div class="form-group" ng-if="isViasMasterCardShow">
+
+                                    </div>
+                                </div>
+                                <div class="panel panel-white no-radius">
+                                    <div class="panel-heading">
+                                        <h3><span class="text-red">Lưu ý</span>: Bạn nhập đầy đủ thông tin sau</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Name.$dirty && FormPaymentMethod.Name.$invalid, 'has-success':FormPaymentMethod.Name.$valid}">
+                                                <label for="CheckoutName">
+                                                    Tên của bạn
+                                                </label>
+                                                <input type="text" class="form-control" id="CheckoutName" name="Name" ng-model="payment_method.Name" placeholder="Vui lòng nhập tên của bạn" required="">
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Name.$dirty && FormPaymentMethod.Name.$invalid">Tên là bắt buộc.</span>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Email.$dirty && FormPaymentMethod.Email.$invalid, 'has-success':FormPaymentMethod.Email.$valid}">
+                                                <label for="CheckoutEmail">
+                                                    Email <span class="symbol required"></span>
+                                                </label>
+                                                <input type="text" class="form-control" id="CheckoutEmail" name="Email" ng-model="payment_method.Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" placeholder="Vu long nhập email" required="">
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Email.$dirty && FormPaymentMethod.Email.$invalid">Email là bắt buộc.</span>
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Email.$error.pattern">Vui lòng cung cấp một địa chỉ email hợp lệ.!</span>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Phone.$dirty && FormPaymentMethod.Phone.$invalid, 'has-success':FormPaymentMethod.Phone.$valid}">
+                                                <label for="CheckoutPhone">
+                                                    Số Điện Thoại <span class="symbol required"></span>
+                                                </label>
+                                                <input type="text" class="form-control" id="CheckoutPhone" name="Phone" ng-model="payment_method.Phone" placeholder="Vui lòng nhập điện thoại của bạn" ng-pattern="/^[0-9]*$/" required="">
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Phone.$dirty && FormPaymentMethod.Phone.$invalid">Số Điện Thoại là bắt buộc và phải là số.</span>
+                                            </div>
+                                            <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Amount.$dirty && FormPaymentMethod.Amount.$invalid, 'has-success':FormPaymentMethod.Amount.$valid}">
+                                                <label for="CheckoutAmount">
+                                                    Số tiền
+                                                </label>
+                                                <input type="text" class="form-control" id="CheckoutAmount" name="Amount" ng-model="payment_method.Amount" placeholder="Số Tiền" ng-pattern="/^[0-9]*$/" required="">
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Amount.$dirty && FormPaymentMethod.Amount.$invalid">Số Tiền là bắt buộc và phải là số.</span>
+                                            </div>                                            
+                                            <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Description.$dirty && FormPaymentMethod.Description.$invalid, 'has-success':FormPaymentMethod.Description.$valid}">
+                                                <label for="CheckoutDescription">
+                                                    Nội dung chuyển tiền
+                                                </label>
+                                                <input type="text" class="form-control" id="CheckoutDescription" name="Description" ng-model="payment_method.Description" placeholder="Nội Dung Chuyển Tiền" required="">
+                                                <span class="error text-small block" ng-if="FormPaymentMethod.Description.$dirty && FormPaymentMethod.Description.$invalid">Nội dung chuyển tiền là bắt buộc.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Thanh Toán
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: FIRST SECTION -->
+</body>
+</html>

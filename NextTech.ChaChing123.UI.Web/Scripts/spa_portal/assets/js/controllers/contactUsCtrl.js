@@ -72,14 +72,13 @@ app.controller('ContactUsCtrl', ["$scope", "$rootScope", "$location", "$window",
                             }
 
                             if (result.data && result.data.StatusCode === 0) {
-                                notificationService.displaySuccess(result.data.StatusMsg);
-
+                                notificationService.displaySuccess('Cảm ơn bạn đã liên hệ. Chúng tôi sẽ liên lạc bạn trong thời gian sớm nhất');
                                 // TODO: Reset contact us form
 
                                 $timeout(function () {
                                     $scope.showSpinner = false;
                                     $window.location.reload();
-                                }, 1000);
+                                }, 2000);
                             } else {
                                 notificationService.displayError(result.data.StatusMsg);
                                 $timeout(function () {

@@ -103,37 +103,76 @@ app.controller('MemberDetailsCtrl', ["$scope", "$rootScope", "$window", "$localS
                         return;
 
                     } else {
-                        if ($scope.member.Password === undefined || $scope.member.Password.length === 0) {
-                            notificationService.displayWarning('Bạn chưa nhập mật khẩu mới');
-                            return;
+                        //1. Proceed to update notes
+                        if ($scope.member.Note.length > 0) {
+                            var memberInfo = {
+                                "FullName": $scope.member.FullName,
+                                "UserName": $scope.member.UserName,
+                                "Email": $scope.member.Email,
+                                "Phone": $scope.member.Phone,
+                                "RenewalNo": $scope.member.RenewalNo,
+                                "Note": $scope.member.Note,
+                                "SessionKey": sessionKey
+                            };
+
+                            $scope.showSpinner = true;
+                            // Load the data from the API
+                            membershipService.UpdateAccountInfo(memberInfo, function (result) {
+                                if (result.data && result.data.StatusCode === 17) {
+                                    membershipService.checkMemberAuthorization();
+                                }
+
+                                if (result.data && result.data.StatusCode === 0) {
+                                    notificationService.displaySuccess('Cập nhật ghi chú ' + result.data.StatusMsg);
+
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                        $window.location.reload();
+                                    }, 2000);
+                                } else {
+                                    notificationService.displayError(result.data.StatusMsg);
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 1000);
+                                }
+                            });
                         }
 
-                        var entity = {
-                            "AccountName": username,
-                            "NewPassword": $scope.member.Password,
-                            "SessionKey": sessionKey
-                        };
+                        //2. Proceed to update new password
+                        //if ($scope.member.Password === undefined || $scope.member.Password.length === 0) {
+                        //    notificationService.displayWarning('Bạn chưa nhập mật khẩu mới');
+                        //    return;
+                        //}
 
-                        $scope.showSpinner = true;
-                        // Load the data from the API
-                        membershipService.SetPasswodForAccount(entity, function (result) {
-                            if (result.data && result.data.StatusCode === 17) {
-                                membershipService.checkMemberAuthorization();
-                            }
+                        if ($scope.member.Password.length > 0) {
+                            var entity = {
+                                "AccountName": username,
+                                "NewPassword": $scope.member.Password,
+                                "SessionKey": sessionKey
+                            };
 
-                            if (result.data && result.data.StatusCode === 0) {
-                                notificationService.displaySuccess(result.data.StatusMsg);
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                    $window.location.reload();
-                                }, 1000);
-                            } else {
-                                notificationService.displayError(result.data.StatusMsg);
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 1000);
-                            }
-                        });
+                            $scope.showSpinner = true;
+                            // Load the data from the API
+                            membershipService.SetPasswodForAccount(entity, function (result) {
+                                if (result.data && result.data.StatusCode === 17) {
+                                    membershipService.checkMemberAuthorization();
+                                }
+
+                                if (result.data && result.data.StatusCode === 0) {
+                                    notificationService.displaySuccess('Cập nhật mật khẩu mới ' + result.data.StatusMsg);
+
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                        $window.location.reload();
+                                    }, 2000);
+                                } else {
+                                    notificationService.displayError(result.data.StatusMsg);
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 1000);
+                                }
+                            });
+                        }
                     }
                 }
             };

@@ -5,6 +5,7 @@
 <body>
     <div ng-controller="MasterMemberDetailsCtrl">
         <div ng-controller="MemberDetailsCtrl">
+            <circle-spinner ng-show="showSpinner"></circle-spinner>
             <section id="page-title">
                 <div class="row">
                     <div class="col-sm-8">
@@ -67,7 +68,6 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                                     <form class="form-register" name="MemberInfoForm" id="MemberInfoForm" novalidate="" ng-submit="form.submit(MemberInfoForm)">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -93,7 +93,7 @@
                                                     <label class="control-label" for="RenewalNo">
                                                         Số Lần Tái Tục
                                                     </label>
-                                                    <input type="text" class="form-control" id="RenewalNo" name="RenewalNo" ng-model="member.RenewalNo" placeholder="Số lần tái tục" readonly>
+                                                    <input type="text" class="form-control" id="RenewalNo" name="RenewalNo" ng-model="member.RenewalNo" placeholder="Số lần tái tục">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -224,6 +224,7 @@
                                                                 <td data-title="&#39;Lượt Giới Thiệu&#39;">{{entity.CashTypeName}}</td>
                                                                 <td data-title="&#39;Tái Tục&#39;">{{entity.RenewalNo}}</td>
                                                                 <td data-title="&#39;Hoa Hồng&#39;">{{entity.Amount | number}} Đ</td>
+                                                                <td data-title="&#39;Ghi chú từ Admin&#39;"><a>{{entity.Notes !== undefined && entity.Notes.length > 0 ? entity.Notes : ""}}</a></td>
                                                                 <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
                                                                 <td class="left">
                                                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -313,6 +314,12 @@
                                                                 Tên Đăng Nhập Đại Sứ
                                                             </label>
                                                             <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="order.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="Notes">
+                                                                Ghi chú từ Admin
+                                                            </label>
+                                                            <input type="text" class="form-control" id="Notes" name="Notes" ng-model="order.Notes" placeholder="Ghi chú từ Admin">
                                                         </div>
                                                         <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
                                                             <label for="AffiliateStatus">

@@ -528,9 +528,11 @@
     <Content Include="Content\Resources\Images\apple.png" />
     <Content Include="Content\Resources\Images\app_1.png" />
     <Content Include="Content\Resources\Images\d1.png" />
+    <Content Include="Content\Resources\Images\error-transparent.png" />
     <Content Include="Content\Resources\Images\google.png" />
     <Content Include="Content\Resources\Images\lifestyle95.jpg" />
     <Content Include="Content\Resources\Images\pool.jpg" />
+    <Content Include="Content\Resources\Images\payment-checkout-success.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -602,6 +604,7 @@
     <Content Include="Scripts\spa_portal\assets\css\css.css" />
     <Content Include="Scripts\spa_portal\assets\css\landers.css" />
     <Content Include="Scripts\spa_portal\assets\css\quickeditor.css" />
+    <Content Include="Scripts\spa_portal\assets\css\styles.chaching.payment.method.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.solo.page.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.chaching.solo.page.mypage.css" />
     <Content Include="Scripts\spa_portal\assets\css\styles.osp.css" />
@@ -609,10 +612,12 @@
     <Content Include="Scripts\spa_portal\assets\images\default-user.png" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\checkoutCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\contactUsCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mailChipCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\autoResponderManagerCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentCourseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentAdvancedMarketingCtrl.js" />
@@ -642,10 +647,12 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\userProfileCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseNowCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\checkoutService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeAllInOneService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeBannerService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeMobileService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\contactUsService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\autoResponderService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\noticeService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\responseService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\documentService.js" />
@@ -654,6 +661,9 @@
     <Content Include="Scripts\spa_portal\assets\js\services\soloPageService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\editorService.js" />
     <Content Include="Scripts\spa_portal\assets\views\charts.html" />
+    <Content Include="Scripts\spa_portal\assets\views\checkout.html" />
+    <Content Include="Scripts\spa_portal\assets\views\autoresponder_manager.html" />
+    <Content Include="Scripts\spa_portal\assets\views\checkout_payment_error.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\footer_bk_20200416.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\dashboard_backup_20200411.html" />
@@ -689,6 +699,7 @@
     <Content Include="Scripts\spa_portal\assets\views\funnel_public_page.html" />
     <Content Include="Scripts\spa_portal\assets\views\pages_user_profile.html" />
     <Content Include="Scripts\spa_portal\assets\views\solo_page.html" />
+    <Content Include="Scripts\spa_portal\assets\views\checkout_payment_success.html" />
     <Content Include="Scripts\spa_portal\assets\views\utility_404.html" />
     <Content Include="Scripts\spa_portal\bower_components\angular-translate-loader-static-files\angular-translate-loader-static-files.min.js" />
     <Content Include="Scripts\spa_portal\bower_components\ngclipboard\clipboard.min.js" />

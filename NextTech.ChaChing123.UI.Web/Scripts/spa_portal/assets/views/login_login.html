@@ -58,12 +58,15 @@
                                         <input type="text" class="form-control" id="boxRegisterFullName" name="fullname" ng-model="userReg.fullname" placeholder="Tên đầy đủ" required="">
                                         <span class="error text-small block" ng-if="FormRegistration.fullname.$dirty && FormRegistration.fullname.$invalid">Họ và tên là bắt buộc.</span>
                                     </div>
+                                    <!--https://stackoverflow.com/questions/41385842/angularjs-email-or-phone-number-validation-->
+                                    <!--https://stackoverflow.com/questions/32776182/validation-for-email-or-phone-number-for-same-text-field-in-angularjs/32776361-->
                                     <div class="form-group" ng-class="{'has-error':FormRegistration.username.$dirty && FormRegistration.username.$invalid, 'has-success':FormRegistration.username.$valid}">
                                         <label class="control-label" for="UserName">
                                             Tên Đăng Nhập <span class="symbol required"></span>
                                         </label>
-                                        <input type="text" class="form-control" id="boxRegisterUserName" name="username" ng-model="userReg.username" placeholder="Số Điện Thoại hoặc Email" required="">
+                                        <input type="text" class="form-control" id="boxRegisterUserName" name="username" ng-model="userReg.username" placeholder="Số Điện Thoại hoặc Email" ng-pattern="/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|(\d+$)$/" required="">
                                         <span class="error text-small block" ng-if="FormRegistration.username.$dirty && FormRegistration.username.$invalid">Tên Đăng Nhập là bắt buộc.</span>
+                                        <span class="error text-small block" ng-if="FormRegistration.username.$error.pattern">Tên Đăng Nhập phải là một địa chỉ email hoặc số điện thoại hợp lệ .!</span>
                                     </div>
                                     <div class="form-group" ng-class="{'has-error':FormRegistration.password.$dirty && FormRegistration.password.$invalid, 'has-success':FormRegistration.password.$valid}">
                                         <label class="control-label" for="boxRegisterPassword">
@@ -87,11 +90,13 @@
                                         <input type="email" class="form-control" id="boxRegisterEmail" name="email" ng-model="userReg.email" placeholder="Địa chỉ email" required="">
                                         <span class="error text-small block" ng-if="FormRegistration.email.$dirty && FormRegistration.email.$invalid">Email là bắt buộc.</span>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" ng-class="{'has-error':FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid, 'has-success':FormRegistration.refcode.$valid}">
                                         <label class="control-label" for="boxRegisterRefCode">
-                                            Mã giới thiệu
+                                            Mã giới thiệu <span class="symbol required"></span>
                                         </label>
                                         <input type="text" class="form-control" id="boxRegisterRefCode" name="refcode" ng-model="userReg.refcode" readonly required="">
+                                        <span class="error text-small block" ng-if="FormRegistration.refcode.$dirty && FormRegistration.refcode.$invalid">Bạn phải có mã người giới thiệu để hoàn tất quá trình đăng ký mới.</span>
+
                                     </div>
                                     <div class="form-group" ng-class="{'has-error':FormRegistration.phone.$dirty && FormRegistration.phone.$invalid, 'has-success':FormRegistration.phone.$valid}">
                                         <label class="control-label" for="boxRegisterPhone">
@@ -127,7 +132,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- end: LOGIN -->
 </body>
 </html>

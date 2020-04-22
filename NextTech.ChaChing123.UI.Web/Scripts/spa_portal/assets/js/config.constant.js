@@ -38,6 +38,7 @@ app.constant('JS_REQUIRES', {
         'ngTableAffiliateCtrl': 'Scripts/spa_portal/assets/js/controllers/ngTableAffiliateCtrl.js',
         'ngTableLeadListCtrl': 'Scripts/spa_portal/assets/js/controllers/leadListCtrl.js',
         'ngTableSoloPageListCtrl': 'Scripts/spa_portal/assets/js/controllers/editorSoloPageListCtrl.js',
+        'ngTableAutoResponderCtrl': 'Scripts/spa_portal/assets/js/controllers/autoResponderManagerCtrl.js',
         'cropCtrl': 'Scripts/spa_portal/assets/js/controllers/cropCtrl.js',
         'asideCtrl': 'Scripts/spa_portal/assets/js/controllers/asideCtrl.js',
         'toasterCtrl': 'Scripts/spa_portal/assets/js/controllers/toasterCtrl.js',
