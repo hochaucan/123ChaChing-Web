@@ -612,6 +612,7 @@
     <Content Include="Scripts\spa_portal\assets\images\default-user.png" />
     <Content Include="Scripts\spa_portal\assets\images\favicon-96x96.png" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\chartsCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\checkoutPaymentConfirmationCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\checkoutCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\contactUsCtrl.js" />
@@ -664,6 +665,7 @@
     <Content Include="Scripts\spa_portal\assets\views\checkout.html" />
     <Content Include="Scripts\spa_portal\assets\views\autoresponder_manager.html" />
     <Content Include="Scripts\spa_portal\assets\views\checkout_payment_error.html" />
+    <Content Include="Scripts\spa_portal\assets\views\checkout_payment_response.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\footer_bk_20200416.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\dashboard_backup_20200411.html" />
