@@ -4,25 +4,6 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-var leadID = "";
-var sessionKey = "";
-
-app.controller('MasterCheckoutPaymentMethodCtrl', ["$scope", "$localStorage", "$location", "$timeout",
-    function ($scope, $localStorage, $location, $timeout) {
-        function initCommonInfoProcessing() {
-            sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-        }
-
-        $scope.MemberDetailsManager = {
-            init: function () {
-                initCommonInfoProcessing();
-            }
-        };
-
-        $scope.MemberDetailsManager.init();
-
-    }]);
-
 app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "$uibModal", "checkoutService", "membershipService", "notificationService",
     function ($scope, $rootScope, $location, $window, $localStorage, $timeout, $uibModal, checkoutService, membershipService, notificationService) {
         $scope.payment_method = {};
@@ -100,7 +81,7 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
                                 notificationService.displaySuccess(result.data.StatusMsg);
 
                                 // Remove localStorage for user registration
-                                membershipService.removeUserRegistration();
+                                //membershipService.removeUserRegistration();
 
                                 $timeout(function () {
                                     $scope.showSpinner = false;

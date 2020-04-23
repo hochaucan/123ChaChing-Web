@@ -59,20 +59,19 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.checkout', {
             url: '/checkout',
             templateUrl: "Scripts/spa_portal/assets/views/checkout.html"
-            })
-
-            .state('checkoutpayment', {
-                url: '/checkoutpayment',
-                template: '<div ui-view class="fade-in-up"></div>'
-            }).state('checkoutpayment.success', {
-                url: '/success',
-                templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_success.html"
-            }).state('checkoutpayment.error', {
-                url: '/error',
-                templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_error.html"
-            })
-
-            .state('app.login', {
+        }).state('checkoutpayment', {
+            url: '/checkoutpayment',
+            template: '<div ui-view class="fade-in-up"></div>'
+        }).state('checkoutpayment.getResponseNL', {
+            url: '/getResponseNL',
+            templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_response.html"
+        }).state('checkoutpayment.success', {
+            url: '/success',
+            templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_success.html"
+        }).state('checkoutpayment.error', {
+            url: '/error',
+            templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_error.html"
+        }).state('app.login', {
             url: '/login',
             template: '<div ui-view class="fade-in-up"></div>',
             title: 'Đăng Nhập',
