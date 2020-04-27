@@ -178,6 +178,10 @@
                 }
             };
 
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+
             $scope.ResponseManager.init();
         }]);
 })(angular);

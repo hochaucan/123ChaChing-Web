@@ -735,6 +735,7 @@ app.controller('ModalRequestWithDrawalCtrl', ["$scope", "$window", "$localStorag
                             "ContractNo": $scope.ContractNo,
                             "AccountName": $scope.AffiliateAccount,
                             "Status": $scope.member.AffiliateStatus,
+                            "Noted": $scope.member.Notes,
                             "SessionKey": sessionKey
                         };
 

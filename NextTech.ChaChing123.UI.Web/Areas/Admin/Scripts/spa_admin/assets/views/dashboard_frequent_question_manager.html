@@ -1,0 +1,113 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+<section id="page-title">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Quản Lý Câu Hỏi Thường Gặp</h1>
+        </div>
+        <div ncy-breadcrumb=""></div>
+    </div>
+</section>
+    <!-- end: PAGE TITLE -->
+    <!-- start: INLINE EDIT EXAMPLE -->
+    <div class="container-fluid container-fullw">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                <div class="panel panel-white ng-scope" ng-controller="FrequentQuestionManagerCtrl">
+                    <div class="panel-heading">
+                        <p>
+                            <button class="btn btn-primary" ng-click="addDocument(0)">
+                                Thêm Mới
+                            </button>
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <table ng-table="tableParams" class="table table-striped">
+                            <tbody>
+                                <tr ng-repeat="document in $data">
+                                    <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                    <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
+                                    <td data-title="&#39;Nội Dung&#39;" width="50%">{{document.Content}}</td>
+                                    <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
+                                    <td class="center">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                            <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.Order}}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa" data="{{document.ID}}">
+                                                <i class="fa fa-times fa fa-white"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <script type="text/ng-template" id="myModalAddEditFrequentQuestion.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormAddEditDocument" id="FormAddEditDocument" novalidate="" ng-submit="form.submit(FormAddEditDocument)">
+                                <div class="modal-header">
+                                    <span class="modal-title text-bold">{{documentHeading}}</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Title.$dirty && FormAddEditDocument.Title.$invalid, 'has-success':FormAddEditDocument.Title.$valid}">
+                                        <label for="Title">
+                                            Tiêu Đề <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Title" name="Title" ng-model="entity.Title" placeholder="Tiêu Đề" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Title.$dirty && FormAddEditDocument.Title.$invalid">Tiêu đề là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Content.$dirty && FormAddEditDocument.Content.$invalid, 'has-success':FormAddEditDocument.Content.$valid}">
+                                        <label for="Content">
+                                            Nội Dung <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Content" name="Content" ng-model="entity.Content" placeholder="Nội Dung" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Content.$dirty && FormAddEditDocument.Content.$invalid">Nội dung là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid, 'has-success':FormAddEditDocument.Order.$valid}">
+                                        <label for="Content">
+                                            Thứ Tự Hiển Thị <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Order" name="Order" ng-model="entity.Order" placeholder="Thứ Tự Hiển Thị" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocument.Order.$dirty && FormAddEditDocument.Order.$invalid">Thứ tự hiển thị là bắt buộc.</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </script>
+                        <script type="text/ng-template" id="myModalDeleteFrequentQuestion.html">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <div class="modal-header">
+                                <span class="modal-title text-bold">Xóa Câu Hỏi Thường Gặp</span>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="documentID" name="documentID" value="">
+                                    <p>Bạn muốn xóa câu hỏi này không?</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="ok()">Đồng ý! Tôi muốn xóa</button>
+                                <button class="btn btn-primary btn-o" ng-click="cancel()">Không!. Tôi muốn giữ lại</button>
+                            </div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: INLINE EDIT EXAMPLE -->
+</body></html>

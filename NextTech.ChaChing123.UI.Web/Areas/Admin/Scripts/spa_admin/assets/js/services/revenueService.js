@@ -7,9 +7,10 @@
 
     function Service(apiService, $http, $rootScope, $localStorage, notificationService) {
 
-        var baseUrl = 'https://api.123chaching.app/api/Admin';
+        //var baseUrl = 'https://api.123chaching.app/api/Admin';
         //var baseUrl = 'http://localhost:1494';
         //var baseUrl = 'http://localhost:8002';
+        var baseUrl = $rootScope.baseUrl.urlWebApi + '/api/Admin'; 
 
         var service = {
             GetOrderList: GetOrderList,
@@ -22,8 +23,15 @@
             GetAffialateList: GetAffialateList,
 
             SummaryRevenueReport: SummaryRevenueReport,
-            SummaryCommissionReport: SummaryCommissionReport
+            SummaryCommissionReport: SummaryCommissionReport,
+            GetSummaryReport: GetSummaryReport
         };
+
+        function GetSummaryReport(orderObj, completed) {
+            apiService.post(baseUrl + '/GetSummaryReport/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
 
         function SummaryCommissionReport(orderObj, completed) {
             apiService.post(baseUrl + '/SummaryCommissionReport/', orderObj,

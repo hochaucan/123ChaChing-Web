@@ -672,3 +672,9 @@ html {
 .page-success .success-details {
     padding-top: 20px;
 }
+.form-group-with-no-margin {
+    margin-top: 0px !important;
+}
+.user-image img {
+    max-width: 120px;
+}

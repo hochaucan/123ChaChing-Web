@@ -111,6 +111,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Cập Nhật Nội Dung Quản Lý Di Động Trang Chủ'
             },
             resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+        }).state('app.dashboard.frequentquestion', {
+            url: "/frequentquestion",
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_frequent_question_manager.html",
+            title: 'Quản Lý Câu Hỏi Thường Gặp',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Câu Hỏi Thường Gặp'
+            },
+            resolve: loadSequence('ngTable', 'ngTableFrequentQuestionManagerCtrl')
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -345,6 +353,38 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Tài Liệu'
             },
             resolve: loadSequence('ngTable', 'ngTableDocumentManagerCtrl')
+        }).state('app.affiliatelink', {
+            url: '/affiliatelink',
+            template: '<div ui-view class="fade-in-up"></div>',
+            title: 'Danh Mục Affiliate Link',
+            ncyBreadcrumb: {
+                label: 'Danh Mục Affiliate Link'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
+        }).state('app.affiliatelink.category', {
+            url: '/category',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/affiliatelink_category_manager.html",
+            title: 'Quản Lý Danh Mục Affiliate Link',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Danh Mục Affiliate Link'
+            },
+            resolve: loadSequence('ngTable', 'ngTableAffiliateLinkCategoryManagerCtrl')
+        }).state('app.affiliatelink.link', {
+            url: '/link',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/affiliatelink_link_manager.html",
+            title: 'Quản Lý Affiliate Link',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Affiliate Link'
+            },
+            resolve: loadSequence('ngTable', 'ngTableAffiliateLinkManagerCtrl')
+        }).state('app.affiliatelink.banner', {
+            url: '/banner',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/affiliatelink_banner_manager.html",
+            title: 'Quản Lý Affiliate Link',
+            ncyBreadcrumb: {
+                label: 'Quản Lý Affiliate Link'
+            },
+            resolve: loadSequence('ngTable', 'ngTableAffiliateLinkBannerManagerCtrl')
         }).state('app.response', {
             url: '/response',
             template: '<div ui-view class="fade-in-up"></div>',

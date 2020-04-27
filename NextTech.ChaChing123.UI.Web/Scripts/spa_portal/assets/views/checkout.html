@@ -14,7 +14,7 @@
         </section>
     </div>
     <!-- start: FIRST SECTION -->
-    <div class="container-fluid container-fullw bg-white contact-us-info maging-top-30" ng-controller="MasterCheckoutPaymentMethodCtrl">
+    <div class="container-fluid container-fullw bg-white contact-us-info maging-top-30">
         <div class="container">
             <div class="row">
                 <div class="col-md-8" ng-controller="CheckoutPaymentMethodCtrl">
@@ -27,7 +27,7 @@
                             <form class="form-contact-us" name="FormPaymentMethod" id="FormPaymentMethod" novalidate="" ng-submit="form.submit(FormPaymentMethod)">
                                 <div class="panel-body">
                                     <div class="radio clip-radio radio-primary">
-                                        <input type="radio" id="option_payment_NL_Pocket" name="option_payment" ng-model="payment_method.option_payment" value="1" ng-change="changePaymentMethod(1)">
+                                        <input type="radio" id="option_payment_NL_Pocket" name="option_payment" ng-model="payment_method.option_payment" value="NL" ng-change="changePaymentMethod('NL')">
                                         <label for="option_payment_NL_Pocket">
                                             Thanh toán bằng Ví điện tử NgânLượng
                                         </label>
@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="radio clip-radio radio-primary">
-                                        <input type="radio" id="option_payment_domestic_bank_card" name="option_payment" ng-model="payment_method.option_payment" value="2" ng-change="changePaymentMethod(2)">
+                                        <input type="radio" id="option_payment_domestic_bank_card" name="option_payment" ng-model="payment_method.option_payment" value="ATM_ONLINE" ng-change="changePaymentMethod('ATM_ONLINE')">
                                         <label for="option_payment_domestic_bank_card">
                                             Thanh toán online bằng thẻ ngân hàng nội địa
                                         </label>
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                     <div class="radio clip-radio radio-primary">
-                                        <input type="radio" id="option_payment_visa_master" name="option_payment" ng-model="payment_method.option_payment" value="3" ng-change="changePaymentMethod(3)">
+                                        <input type="radio" id="option_payment_visa_master" name="option_payment" ng-model="payment_method.option_payment" value="VISA" ng-change="changePaymentMethod('VISA')">
                                         <label for="option_payment_visa_master">
                                             Thanh toán bằng thẻ Visa hoặc MasterCard
                                         </label>
@@ -269,7 +269,7 @@
                                                 <label for="CheckoutAmount">
                                                     Số tiền
                                                 </label>
-                                                <input type="text" class="form-control" id="CheckoutAmount" name="Amount" ng-model="payment_method.Amount" placeholder="Số Tiền" ng-pattern="/^[0-9]*$/" required="">
+                                                <input type="text" class="form-control" id="CheckoutAmount" name="Amount" ng-model="payment_method.Amount" placeholder="Số Tiền" ng-pattern="/^[0-9]*$/" required="" readonly>
                                                 <span class="error text-small block" ng-if="FormPaymentMethod.Amount.$dirty && FormPaymentMethod.Amount.$invalid">Số Tiền là bắt buộc và phải là số.</span>
                                             </div>                                            
                                             <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Description.$dirty && FormPaymentMethod.Description.$invalid, 'has-success':FormPaymentMethod.Description.$valid}">

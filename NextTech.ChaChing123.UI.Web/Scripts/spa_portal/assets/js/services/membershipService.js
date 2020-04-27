@@ -23,8 +23,22 @@
             checkMemberAuthorization: checkMemberAuthorization,
             EditAccount: EditAccount,
             GetAccountInfo: GetAccountInfo,
-            SetDefautAccount: SetDefautAccount
+            SetDefautAccount: SetDefautAccount,
+            RegisterForgetPassword: RegisterForgetPassword,
+            ActiveAccountByForgetPassword: ActiveAccountByForgetPassword
         };
+
+        function RegisterForgetPassword(user, completed) {
+            apiService.post(baseUrl + '/api/Account/RegisterForgetPassword/', user,
+                completed,
+                loginFailed);
+        }
+
+        function ActiveAccountByForgetPassword(user, completed) {
+            apiService.post(baseUrl + '/api/Account/ActiveAccountByForgetPassword/', user,
+                completed,
+                loginFailed);
+        }
 
         function SetDefautAccount(user, completed) {
             apiService.post(baseUrl + '/api/Admin/SetDefautAccount/', user,
@@ -69,13 +83,13 @@
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;
         }
 
-        function saveUserRegistration(user, sessionKey) {
+        function saveUserRegistration(user) {
             $localStorage.currentUserRegistration = {
                 fullname: user.fullname,
                 email: user.email,
                 phone: user.phone,
                 accountType: user.accounttype,
-                token: sessionKey 
+                token: user.token 
             };
             // add jwt token to auth header for all requests made by the $http service
             $http.defaults.headers.common.Authorization = 'Bearer ' + user.SessionKey;

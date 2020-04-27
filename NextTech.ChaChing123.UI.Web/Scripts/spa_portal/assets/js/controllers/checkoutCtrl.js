@@ -13,17 +13,17 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
 
         $scope.changePaymentMethod = function (paymentTypeID) {
             switch (paymentTypeID) {
-                case 1:
+                case 'NL':
                     $scope.isNLPocketShown = true;
                     $scope.isDomesticBankCardShow = false;
                     $scope.isViasMasterCardShow = false;
                     break;
-                case 2:
+                case 'ATM_ONLINE':
                     $scope.isNLPocketShown = false;
                     $scope.isDomesticBankCardShow = true;
                     $scope.isViasMasterCardShow = false;
                     break;
-                case 3:
+                case 'VISA':
                     $scope.isNLPocketShown = false;
                     $scope.isDomesticBankCardShow = false;
                     $scope.isViasMasterCardShow = true;
@@ -61,7 +61,7 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
 
                         var payment_option = {
                             "OptionPayment": $scope.payment_method.option_payment,
-                            "BankCode": $scope.payment_method.bankcode,
+                            "BankCode": ($scope.payment_method.option_payment === 'NL' || $scope.payment_method.option_payment === 'VISA') ? "" : $scope.payment_method.bankcode,
                             "FullName": $scope.payment_method.Name,
                             "Email": $scope.payment_method.Email,
                             "Phone": $scope.payment_method.Phone,
@@ -83,13 +83,23 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
                                 // Remove localStorage for user registration
                                 //membershipService.removeUserRegistration();
 
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                    $window.location.reload();
-                                }, 1000);
+                                var checkoutUrl = "";
+                                if (result.data.Details !== undefined && result.data.Details.ErrorCode === "00") {
+                                    checkoutUrl = result.data.Details.Description;
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                        if (checkoutUrl.length > 0) {
+                                            $window.open(checkoutUrl + '/', '_blank');
+                                        }
+                                    }, 2000);
+                                } else {
+                                    notificationService.displayError(result.data.Details.Description);
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                    }, 1000);
+                                }
                             } else {
                                 notificationService.displayError(result.data.StatusMsg);
-                                membershipService.removeUserRegistration();
                                 $timeout(function () {
                                     $scope.showSpinner = false;
                                 }, 1000);
@@ -104,16 +114,14 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
             var userReg = $localStorage.currentUserRegistration;
             var accountType = $localStorage.currentUserRegistration ? $localStorage.currentUserRegistration.accountType : "";
             var amount = 0;
-            if (accountType.length > 0) {
-                switch (accountType) {
-                    case "1":
-                        amount = 5997000;
-                        break;
-                    case "2":
-                        amount = 8997000;
-                        break;
-                    default:
-                }
+            switch (accountType.toString()) {
+                case "1":
+                    amount = 5997000;
+                    break;
+                case "2":
+                    amount = 8997000;
+                    break;
+                default:
             }
 
             if (userReg !== undefined) {

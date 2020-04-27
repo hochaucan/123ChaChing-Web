@@ -5,6 +5,8 @@
 */
 
 var sessionKey = "";
+var _startDate = "";
+var _endDate = "";
 
 app.controller('masterRevenueReport', ["$scope", "$localStorage",
     function ($scope, $localStorage) {
@@ -22,66 +24,274 @@ app.controller('masterRevenueReport', ["$scope", "$localStorage",
 
     }]);
 
-app.controller('BarChartRevenueCtrl', ["$scope", function ($scope) {
+app.controller('BarChartRevenueCtrl', ["$scope", "$localStorage", "$timeout", "revenueService", "membershipService", "notificationService",
+    function ($scope, $localStorage, $timeout, revenueService, membershipService, notificationService) {
 
-    // Chart.js Data
-    $scope.data = {
-        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-        datasets: [
-          {
-              label: 'My First dataset',
-              fillColor: 'rgba(220,220,220,0.5)',
-              strokeColor: 'rgba(220,220,220,0.8)',
-              highlightFill: 'rgba(220,220,220,0.75)',
-              highlightStroke: 'rgba(220,220,220,1)',
-              data: [65, 59, 80, 81, 56, 55, 40, 100, 120, 82, 35, 90]
-          },
-          {
-              label: 'My Second dataset',
-              fillColor: 'rgba(0,194,254,0.5)',
-              strokeColor: 'rgba(0,194,254,0.8)',
-              highlightFill: 'rgba(0,194,254,0.75)',
-              highlightStroke: 'rgba(0,194,254,1)',
-              data: [28, 48, 40, 19, 86, 27, 90, 200, 100, 300, 76, 50]
-          }
-        ]
-    };
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-    // Chart.js Options
-    $scope.options = {
+        function loadBarChartRevenue(filter) {
+            var entity = {};
+            var revenueAmount = [];
+            var commissionAmount = [];
+            var dateRangeReport = [];
 
-        // Sets the chart to be responsive
-        responsive: true,
+            if (filter === undefined) {
+                entity = {
+                    "StartDate": "20200115",
+                    "EndDate": "20200119",
+                    "SessionKey": sessionKey
+                };
+            } else {
+                entity = {
+                    "StartDate": filter.StartDate.toString(),
+                    "EndDate": filter.EndDate.toString(),
+                    "SessionKey": sessionKey
+                };
+            }
 
-        //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-        scaleBeginAtZero: true,
+            $scope.showSpinner = true;
+            revenueService.GetSummaryReport(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
 
-        //Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
+                if (result.data && result.data.StatusCode === 0) {
+                    //$scope.titles = result.data.Details;
+                    var itemRecords = result.data.Details;
 
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
+                    // build labels
+                    angular.forEach(itemRecords, function (item, index) {
+                        dateRangeReport.push(item.Date);
+                    });
 
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
+                    // build data for revenue
+                    angular.forEach(itemRecords, function (item, index) {
+                        revenueAmount.push(item.RevenueAmount);
+                    });
 
-        //Boolean - If there is a stroke on each bar
-        barShowStroke: true,
+                    // build data for commssion
+                    angular.forEach(itemRecords, function (item, index) {
+                        commissionAmount.push(item.CommissionAmount);
+                    });
 
-        //Number - Pixel width of the bar stroke
-        barStrokeWidth: 2,
+                    // Chart.js Data
+                    $scope.data = {
+                        labels: dateRangeReport, //['Tháng 1','Tháng 2','Tháng 3','Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+                        datasets: [
+                            {
+                                label: 'Doanh Thu',
+                                fillColor: 'rgba(0,194,254,0.5)',
+                                strokeColor: 'rgba(0,194,254,0.8)',
+                                highlightFill: 'rgba(0,194,254,0.75)',
+                                highlightStroke: 'rgba(0,194,254,1)',
+                                data: revenueAmount //[65, 59, 80, 81, 56, 55, 40, 100, 120, 82, 35, 90]
+                            },
+                            {
+                                label: 'Hoa Hồng',
+                                fillColor: 'rgba(220,220,220,0.5)',
+                                strokeColor: 'rgba(220,220,220,0.8)',
+                                highlightFill: 'rgba(220,220,220,0.75)',
+                                highlightStroke: 'rgba(220,220,220,1)',
+                                data: commissionAmount //[28, 48, 40, 19, 86, 27, 90, 200, 100, 300, 76, 50]
+                            }
+                        ]
+                    };
 
-        //Number - Spacing between each of the X value sets
-        barValueSpacing: 5,
+                    // Chart.js Options
+                    $scope.options = {
 
-        //Number - Spacing between data sets within X values
-        barDatasetSpacing: 1,
+                        // Sets the chart to be responsive
+                        responsive: true,
 
-        //String - A legend template
-        legendTemplate: '<ul class="tc-chart-js-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
-    };
+                        //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+                        scaleBeginAtZero: true,
 
-}]);
+                        //Boolean - Whether grid lines are shown across the chart
+                        scaleShowGridLines: true,
+
+                        //String - Colour of the grid lines
+                        scaleGridLineColor: "rgba(0,0,0,.05)",
+
+                        //Number - Width of the grid lines
+                        scaleGridLineWidth: 1,
+
+                        //Boolean - If there is a stroke on each bar
+                        barShowStroke: true,
+
+                        //Number - Pixel width of the bar stroke
+                        barStrokeWidth: 2,
+
+                        //Number - Spacing between each of the X value sets
+                        barValueSpacing: 5,
+
+                        //Number - Spacing between data sets within X values
+                        barDatasetSpacing: 1,
+
+                        //String - A legend template
+                        legendTemplate: '<ul class="tc-chart-js-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
+                    };
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+                else {
+                    notificationService.displayError(result.data.StatusMsg);
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
+        }
+
+        function initForm() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        if (_startDate.length > 0 && _endDate.length > 0) {
+                            var filter = {
+                                "StartDate": _startDate,
+                                "EndDate": _endDate,
+                                "SessionKey": sessionKey
+                            };
+
+                            loadBarChartRevenue(filter);
+                        }
+                    }
+                }
+            };
+        }
+
+        $scope.changed = function (date) {
+            // here you will get updated date
+            console.log(date);
+        };
+
+        $scope.BarChartRevenueManager = {
+            init: function () {
+                initForm();
+                loadBarChartRevenue();
+            }
+        };
+
+        $scope.BarChartRevenueManager.init();
+
+    }]);
+
+app.controller('DatepickerChaChingCtrl', ["$scope", "$log",
+    function ($scope, $log) {
+        //$scope.today = function () {
+        //    $scope.dt = new Date();
+        //};
+        //$scope.today();
+        //$scope.start = $scope.minDate;
+        //$scope.end = $scope.maxDate;
+
+        //$scope.clear = function () {
+        //    $scope.dt = null;
+        //};
+        //$scope.datepickerOptions = {
+        //    showWeeks: false,
+        //    startingDay: 1
+        //};
+        //$scope.dateDisabledOptions = {
+        //    dateDisabled: disabled,
+        //    showWeeks: false,
+        //    startingDay: 1
+        //};
+        $scope.startOptions = {
+            showWeeks: false,
+            startingDay: 1,
+            minDate: $scope.minDate,
+            maxDate: $scope.maxDate
+        };
+        $scope.endOptions = {
+            showWeeks: false,
+            startingDay: 1,
+            minDate: $scope.minDate,
+            maxDate: $scope.maxDate
+        };
+
+        $scope.open = function () {
+            $scope.opened = !$scope.opened;
+        };
+
+
+        $scope.endOpen = function () {
+            $scope.endOptions.minDate = $scope.start;
+            $scope.startOpened = false;
+            $scope.endOpened = !$scope.endOpened;
+        };
+        $scope.startOpen = function () {
+            $scope.startOptions.maxDate = $scope.end;
+            $scope.endOpened = false;
+            $scope.startOpened = !$scope.startOpened;
+        };
+
+        $scope.changed = function (date) {
+            $log.log('Time changed to: ' + $scope.date);
+        };
+
+        $scope.selectStartDate = function (startDate) {
+            //$log.log('Time changed to: ' + $scope.date);
+            var startDateTime = startDate;
+            var currentYear = startDateTime.getFullYear();
+            var currentMonth = startDateTime.getMonth() + 1;
+            var currentDay = startDateTime.getDate();
+
+            if (currentMonth <= 9)
+                currentMonth = '0' + currentMonth;
+
+            if (currentDay <= 9)
+                currentDay = '0' + currentDay;
+
+            _startDate = currentYear + '' + currentMonth + '' + currentDay;
+        };
+
+        $scope.selectEndDate = function (endDate) {
+            var endDateTime = endDate;
+            var currentYear = endDateTime.getFullYear();
+            var currentMonth = endDateTime.getMonth() + 1;
+            var currentDay = endDateTime.getDate();
+
+            if (currentMonth <= 9)
+                currentMonth = '0' + currentMonth;
+
+            if (currentDay <= 9)
+                currentDay = '0' + currentDay;
+
+            _endDate = currentYear + '' + currentMonth + '' + currentDay;
+        };
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+    }]);
 
 app.controller('ngTableRevenueReportCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "revenueService", "orderService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, revenueService, orderService, membershipService, notificationService) {
@@ -488,7 +698,7 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
         $scope.totalAffiliateAmount = 0; // total amount
         $scope.pendingAffiliateAmount = 0; // the amount that is waiting for approval
         $scope.mustReturnAffilateAmount = 0; // the amount that is already approved
-        
+
         function loadComissionReport() {
             $scope.tableParams = new ngTableParams({
                 page: 1, // show first page

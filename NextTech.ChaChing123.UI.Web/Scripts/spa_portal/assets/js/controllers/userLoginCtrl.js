@@ -6,8 +6,8 @@
 (function () {
     'use strict';
     //var myApp = angular.module('ChaChingApp', ['angular-spinkit']);
-    angular.module('ChaChingApp').controller('UserLoginCtrl', ['$scope', '$rootScope', '$localStorage', '$location', '$timeout', 'membershipService', 'notificationService',
-        function ($scope, $rootScope, $localStorage, $location, $timeout, membershipService, notificationService) {
+    angular.module('ChaChingApp').controller('UserLoginCtrl', ['$scope', '$rootScope', '$window', '$localStorage', '$location', '$timeout', 'membershipService', 'notificationService',
+        function ($scope, $rootScope, $window, $localStorage, $location, $timeout, membershipService, notificationService) {
             function doLogin() {
                 $scope.showSpinner = false;
                 $scope.form = {
@@ -46,6 +46,24 @@
                                         $location.path($rootScope.previousState);
                                     else
                                         $location.path('/app/dashboard');
+                                } else if (result.data && result.data.StatusCode === 35 && result.data.Details !== undefined) {
+                                    var userCheckout = {
+                                        "fullname": result.data.Details.FullName,
+                                        "email": result.data.Details.Email,
+                                        "phone": result.data.Details.Phone,
+                                        "accounttype": result.data.Details.AccountType,
+                                        "token": result.data.Details.SessionKey
+                                    };
+
+                                    membershipService.saveUserRegistration(userCheckout);
+
+                                    $timeout(function () {
+                                        $scope.showSpinner = false;
+                                        var baseUrl = $rootScope.baseUrl.url;
+                                        var checkoutUrl = baseUrl + '#/app/checkout';
+
+                                        $window.location.href = checkoutUrl;
+                                    }, 2000);
                                 } else {
                                     $timeout(function () {
                                         $scope.showSpinner = false;
