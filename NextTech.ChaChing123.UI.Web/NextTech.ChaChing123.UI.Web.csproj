@@ -680,6 +680,7 @@
     <Content Include="Scripts\spa_portal\assets\views\autoresponder_manager.html" />
     <Content Include="Scripts\spa_portal\assets\views\checkout_payment_error.html" />
     <Content Include="Scripts\spa_portal\assets\views\checkout_payment_response.html" />
+    <Content Include="Scripts\spa_portal\assets\views\email_reset_password_template.html" />
     <Content Include="Scripts\spa_portal\assets\views\login_forgot_reset.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\footer_bk_20200416.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
