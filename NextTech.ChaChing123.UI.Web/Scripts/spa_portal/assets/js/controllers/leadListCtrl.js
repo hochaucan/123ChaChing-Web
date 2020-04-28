@@ -38,12 +38,6 @@ app.controller('ngTableLeadListCtrl', ["$scope", "$uibModal", "$window", "$locat
                 count: 10 // count per page
             }, {
                     getData: function ($defer, params) {
-                        //memberObj = {
-                        //    "LeadType": filterType > 0 ? filterType.toString() : "-1",
-                        //    "PageIndex": params.page(),
-                        //    "PageCount": params.count(),
-                        //    "SessionKey": sessionKey
-                        //};
                         var filterObj = {};
                         var keyword = "";
                         var leadType = "";

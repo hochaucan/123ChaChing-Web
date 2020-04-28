@@ -3,6 +3,12 @@
   * controller for Validation Form example
 */
 
+app.controller('UserProfileMasterCtrl', ["$scope",
+    function ($scope) {
+        $scope.imageUploaderPath = "";
+        $scope.showSpinner = true;
+    }]);
+
 (function () {
     'use strict';
     //var myApp = angular.module('ChaChingApp', ['angular-spinkit']);
@@ -19,8 +25,6 @@
                     $scope.removeImage = function () {
                         $scope.noImage = true;
                     };
-
-                    $scope.imageUploaderPath = "";
 
                     $scope.userInfo = {
                         firstName: 'Chi',
@@ -68,12 +72,9 @@
                                 $scope.imageUploaderPath = imageSource;
                             }
 
-                            console.log($scope.imageUploaderPath);
-
                             $timeout(function () {
-                                $scope.imageUploaderPath = imageSource;
                                 $scope.showSpinner = false;
-                            }, 2000);
+                            }, 1000);
                         } else {
 
                             $timeout(function () {
@@ -158,9 +159,9 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
     function ($scope, $rootScope, $timeout, $localStorage, editorService, notificationService) {
         // GET THE FILE INFORMATION.
         $scope.myavatar = "";
-        $scope.imageUploaderPath = "";
 
         $scope.getFileDetails = function (e) {
+            $scope.showSpinner = true;
 
             $scope.files = [];
             $scope.$apply(function () {
@@ -213,7 +214,7 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
                     $scope.showSpinner = false;
                     $scope.myavatar = result.Details;
                     $localStorage.currentUser.myavatar = result.Details;
-                    $scope.userData.displayUserInfo();
+                    //$scope.userData.displayUserInfo();
                 }, 1000);
             }
             else {

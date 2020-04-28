@@ -4,48 +4,9 @@
 */
 app.controller('AffiliateCtrl', ["$scope", "$localStorage", "membershipService", "affiliateService", "notificationService",
     function ($scope, $localStorage, membershipService, affiliateService, notificationService) {
-        $scope.getaffiliateComissions = function () {
-            var affiliate = {};
-            var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
-            var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
-            $scope.loadingAffiliateSummaryReportByAccount = true;
-            $scope.loadingAffiliateListByAccount = true;
-
-            affiliate = {
-                "username": username,
-                "sessionkey": sessionkey,
-                "yearlist": "2020"
-            };
-
-            $scope.affiliateComissionsReport = {};
-
-            // Load the data from the API
-            affiliateService.GetSummaryReportByAccount(affiliate, function (result) {
-                if (result.data && result.data.StatusCode == 17) {
-                    membershipService.checkMemberAuthorization();
-                }
-
-                if (result.data && result.data.StatusCode == 0) {
-                    $scope.affiliateComissionsReport = result.data.Details;
-                    $scope.loadingAffiliateSummaryReportByAccount = false;
-                } else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $scope.loadingAffiliateSummaryReportByAccount = false;
-                }
-            });
-
-            //2. Load GetAfiliateListByAccount from the API
-            affiliateService.GetAfiliateListByAccount(affiliate, function (result) {
-                if (result.data && result.data.StatusCode == 0) {
-                    $scope.affiliateListByAccount = result.data.Details;
-                    $scope.loadingAffiliateListByAccount = false;
-                } else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $scope.loadingAffiliateListByAccount = false;
-                }
-            });
-        };
+        
     }]);
+
 app.controller('AffiliateAccountCtrl', ["$scope", "$localStorage", function ($scope, $localStorage) {
     $scope.removeImage = function () {
         $scope.noImage = true;
@@ -169,6 +130,138 @@ app.controller('SummaryReportByAccountForAffiliateAccountTabCtrl', ["$scope", "$
         //$scope.affiliateComissionsReportForAffiliateAccountTab = dataCom;
         //$scope.loadingAffiliateComissionsReportForAffiliateAccountTab = false;
 
+    }]);
+
+app.controller('AffiliateComissionsCtrl', ["$scope", "$window", "$location", "$localStorage", "$timeout", "affiliateService", "membershipService", "notificationService",
+    function ($scope, $window, $location, $localStorage, $timeout, affiliateService, membershipService, notificationService) {
+        var username = ($localStorage.currentUser) ? $localStorage.currentUser.username : "";
+        var sessionkey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+        var dateObj = new Date();
+        var currentYear = dateObj.getFullYear();
+
+        $scope.affiliateCommission = {
+            KeyWord: currentYear
+        };
+
+        $scope.affiliateCommissionYear = {
+            "currentYear": currentYear
+        };
+
+        var affiliate = {
+            "username": username,
+            "sessionkey": sessionkey,
+            "yearlist": currentYear
+        };
+
+        $scope.affiliateComissionsReport = {};
+
+        // Load the data from the API
+        function loadSummaryReportByAccount(filter) {
+            var keyword = "";
+
+            if (filter !== undefined) {
+                keyword = filter.KeyWord !== undefined && filter.KeyWord.length > 0 ? filter.KeyWord : currentYear;
+            }
+
+            affiliate = {
+                "username": username,
+                "sessionkey": sessionkey,
+                "yearlist": keyword
+            };
+
+
+            $scope.showSpinner = false;
+            affiliateService.GetSummaryReportByAccount(affiliate, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.affiliateComissionsReport = result.data.Details;
+
+                    console.log(keyword);
+                    $scope.affiliateCommissionYear = {
+                        "currentYear": keyword.length > 0 ? keyword : currentYear
+                    };
+
+                    console.log($scope.affiliateCommissionYear.currentYear);
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
+        } 
+
+        function loadAfiliateListByAccount() {
+            //2. Load GetAfiliateListByAccount from the API
+            $scope.showSpinner = false;
+            affiliateService.GetAfiliateListByAccount(affiliate, function (result) {
+                if (result.data && result.data.StatusCode == 0) {
+                    $scope.affiliateListByAccount = result.data.Details;
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
+        }
+
+        function doSearching() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var filter = {
+                            "KeyWord": $scope.affiliateCommission.KeyWord
+                        };
+
+                        loadSummaryReportByAccount(filter);
+                    }
+                }
+            };
+        }
+
+        $scope.AffilateComissionManager = {
+            init: function () {
+                doSearching();
+                loadSummaryReportByAccount();
+                loadAfiliateListByAccount();
+            }
+        };
+
+        $scope.AffilateComissionManager.init();
     }]);
 
 app.controller('RequestWithdrawalCtrl', ["$scope", "$uibModal", "affiliateService", "notificationService", function ($scope, $uibModal, affiliateService, notificationService) {

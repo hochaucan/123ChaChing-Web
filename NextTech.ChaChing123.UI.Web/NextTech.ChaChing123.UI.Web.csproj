@@ -251,10 +251,13 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\config\config-xeditable.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\asideCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\bootstrapCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\affiliatelinkCategoryManagerCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\affiliatelinkManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeBannerManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeMobileManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\homeAllInOneManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\contactUsCtrl.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\frequentQuestionManagerCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\revenueCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chartsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\chatCtrl.js" />
@@ -317,9 +320,12 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\common.services.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\commonfunction.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\contactUsService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\affiliatelinkCategoryService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\affiliatelinkService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeBannerService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeMobileService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\homeAllInOneService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\frequentQuestionService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\noticeService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\mailChipService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\revenueService.js" />
@@ -333,6 +339,7 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\orderService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\membershipService.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\services\notificationService.js" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\affiliatelink_banner_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\app.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\app_utilities_pricing.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\configuration_mailchip.html" />
@@ -344,10 +351,14 @@
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_mobile.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_add_new.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\affiliatelink_category_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\affiliatelink_link_manager.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager - Copy.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\home_allinone_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\documentcategory_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\member_details.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\contact_us.html" />
+    <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\dashboard_frequent_question_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_rebuttal_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\notification_manager.html" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\views\response_script_manager.html" />
@@ -619,6 +630,7 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\leadDetailsCtrl.js" />
     <Content Include="Areas\Admin\Scripts\spa_admin\assets\js\controllers\mailChipCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\autoResponderManagerCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\frequentQuestionCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\notificationNewLeadCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentCourseCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\documentAdvancedMarketingCtrl.js" />
@@ -647,8 +659,10 @@
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseScriptCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\userProfileCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\controllers\responseNowCtrl.js" />
+    <Content Include="Scripts\spa_portal\assets\js\controllers\userForgotPasswordCtrl.js" />
     <Content Include="Scripts\spa_portal\assets\js\directives\ngclipboard.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\checkoutService.js" />
+    <Content Include="Scripts\spa_portal\assets\js\services\frequentQuestionService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeAllInOneService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeBannerService.js" />
     <Content Include="Scripts\spa_portal\assets\js\services\homeMobileService.js" />
@@ -666,6 +680,7 @@
     <Content Include="Scripts\spa_portal\assets\views\autoresponder_manager.html" />
     <Content Include="Scripts\spa_portal\assets\views\checkout_payment_error.html" />
     <Content Include="Scripts\spa_portal\assets\views\checkout_payment_response.html" />
+    <Content Include="Scripts\spa_portal\assets\views\login_forgot_reset.html" />
     <Content Include="Scripts\spa_portal\assets\views\partials\footer_bk_20200416.html" />
     <Content Include="Scripts\spa_portal\assets\views\pricing.html" />
     <Content Include="Scripts\spa_portal\assets\views\dashboard_backup_20200411.html" />
@@ -1052,6 +1067,7 @@
     <Content Include="Scripts\spa_portal\assets\css\fonts\S6u9w4BMUTPHh7USSwiPGQ.woff2" />
     <Content Include="Scripts\spa_portal\assets\css\fonts\S6uyw4BMUTPHjx4wXg.woff2" />
     <Content Include="Scripts\spa_portal\assets\css\fonts\S6uyw4BMUTPHjxAwXjeu.woff2" />
+    <Content Include="Scripts\spa_portal\assets\css\fonts\v16\S6u9w4BMUTPHh7USSwaPGR_p.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

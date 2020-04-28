@@ -169,6 +169,10 @@
                 window.location.href = "mailto:" + to + "?subject=" + emailSubject + "&body=" + emailContent;
             };
 
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+
             $scope.ResponseManager = {
                 init: function () {
                     loadAllLeadByAccount();

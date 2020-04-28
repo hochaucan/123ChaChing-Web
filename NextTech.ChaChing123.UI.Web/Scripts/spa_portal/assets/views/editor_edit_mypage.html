@@ -18,7 +18,7 @@
         <div class="container-fluid container-fullw bg-white">
             <div class="row">
                 <div class="col-md-12">
-                    <div id="editor" class="row">
+                    <div id="editor" class="row" ng-controller="EditMyPageMasterCtrl">
                         <div class="col-md-12">
                             <div class="box box-info">
                                 <div class="box-header with-border">
@@ -188,24 +188,29 @@
                                                             <br>
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getBackgroundFileDetails(this)" />
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-body">
+                                                                            <div class="form-group">
+                                                                                <input type="file" id="file" class="btn btn-primary btn-s form-control" name="file" multiple onchange="angular.element(this).scope().getBackgroundFileDetails(this)" />
+                                                                                <!--<input type="file" id="file" class="btn btn-primary btn-s form-control" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />-->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <!--<div class="col-md-6">
-                                                                    <button type="button" class="btn btn-primary  pull-right" ng-click="uploadFiles()">
-                                                                        <span class="glyphicon glyphicon-upload"></span> Upload Hình Nền
-                                                                    </button>
-                                                                </div>-->
+                                                                <div class="col-md-6">
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-body">
+                                                                            <div class="user-image">
+                                                                                <div class="thumbnail">
+                                                                                    <img ng-src="{{imageBackgroundPath}}" alt="">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <!--ADD A PROGRESS BAR ELEMENT.-->
-                                                            <!--<p><progress id="pro" value="0"></progress></p>-->
-                                                            <br>
-                                                            <!-- The global progress bar -->
-                                                            <!--<div id="progress" class="progress"><div class="progress-bar progress-bar-success"></div></div>-->
-                                                            <!-- The container for the uploaded files -->
-                                                            <!--<div id="files" class="files"><p>UPLOAD COMPLETE!</p></div>-->
                                                         </div>
                                                     </div>
-
                                                     <!-- resource area -->
                                                     <div id="backgroundArea" class="row">
                                                         <div class="col-md-12">
@@ -240,7 +245,24 @@
                                                                     <circle-spinner ng-show="showSpinner"></circle-spinner>
                                                                     <div class="col-md-12">
                                                                         <div class="col-md-6">
-                                                                            <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-body">
+                                                                                    <div class="form-group">
+                                                                                        <input type="file" id="file" class="btn btn-primary btn-s form-control" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="panel panel-default">
+                                                                                <div class="panel-body">
+                                                                                    <div class="user-image">
+                                                                                        <div class="thumbnail">
+                                                                                            <img ng-src="{{imageResourcePath}}" alt="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -261,7 +283,10 @@
                                                                     <div class="panel-body">
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Danh Sách Autoresponder</label>
-                                                                            <input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">
+                                                                            <!--<input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">-->
+                                                                            <select class="form-control black" ng-options="option.APIKey as option.CampaignName for option in autoresponders" ng-model="editor.AutoresponderCodes" id="AutoresponderCodes" name="AutoresponderCodes">
+                                                                                <option value="">Select</option>
+                                                                            </select>
                                                                             <small class="form-text text-muted"><strong>Chú ý:</strong> Khi sử dụng MailChimp, hãy điền <strong>MailChimp List ID.</strong></small><br>
                                                                             <small id="small" class="form-text text-muted"><strong>Nhắc nhở.</strong> Hãy kết nối API với công cụ Email Marketing của bạn <a href="https://onlinesalespro.com/ARV2" target="_blank">tại đây.</a></small>
                                                                         </div>

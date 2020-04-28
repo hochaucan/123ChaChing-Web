@@ -126,7 +126,8 @@
 
                             </p>
                         </div>
-                        <div class="testimonials-section" style="margin-top: 10px;">
+                        <div class="testimonials-section" style="margin-top: 10px;" ng-controller="FrequentQuestionCtrl">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <div class="row faq" style="padding-left: 20px; padding-right: 20px">
                                 <div class="col-md-12">
                                     <div class="row header">
@@ -135,32 +136,10 @@
                                         </div>
                                     </div>
                                     <div class="row questions">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" ng-repeat="q in frequentQuestions">
                                             <div class="question">
-                                                <strong>123ChaChing là gì?</strong>
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                                </p>
-                                            </div>
-                                            <div class="question">
-                                                <strong>123ChaChing có giá bao nhiêu?</strong>
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="question">
-                                                <strong>123ChaChing có đảm bảo gì không?</strong>
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                                </p>
-                                            </div>
-                                            <div class="question">
-                                                <strong>123ChaChing có chương trình tiếp thị không?</strong>
-                                                <p>
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                                </p>
+                                                <strong>{{q.Title}}</strong>
+                                                <p>{{q.Content}}</p>
                                             </div>
                                         </div>
                                     </div>

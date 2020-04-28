@@ -277,58 +277,72 @@
 					</uib-tab>
 					<!-- end: TAB EDIT ACCOUNT -->
 					<!-- start: TAB PROJECTS -->
-                    <uib-tab heading="Hoa Hồng" id="affiliateComissions" ng-click="getaffiliateComissions()">
-                        <div class="panel panel-white">
-                            <div class="panel-heading">
-                                <h3>Hoa Hồng</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover" ng-if="!loadingAffiliateSummaryReportByAccount">
-                                        <thead>
-                                            <tr>
-                                                <th>Tháng</th>
-                                                <th>Hoa Hồng</th>
-                                                <th>Hoa Hồng Cảm Ơn</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="data in affiliateComissionsReport">
-                                                <td>{{data.Month}}/2020</td>
-                                                <td>{{data.Commission | number}} Đ</td>
-                                                <td>{{data.CommissionThanks | number}} Đ</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                    <uib-tab heading="Hoa Hồng" id="affiliateComissions">
+                        <div ng-controller="AffiliateComissionsCtrl">
+                            <div class="panel panel-white">
+                                <div class="panel-heading">
+                                    <h3>Hoa Hồng</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="ng-pristine ng-valid" name="FormAffiliateComissionsSearching" id="FormAffiliateComissionsSearching" novalidate="" ng-submit="form.submit(FormAffiliateComissionsSearching)">
+                                        <div class="input-group well">
+                                            <input type="text" class="form-control" id="KeyWord" name="KeyWord" ng-model="affiliateCommission.KeyWord" ng-pattern="/^[0-9]*$/" placeholder="Hoa Hồng Theo Năm">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fa fa-search"></i> Tìm Kiếm
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive">
+                                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tháng</th>
+                                                    <th>Hoa Hồng</th>
+                                                    <th>Hoa Hồng Cảm Ơn</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="data in affiliateComissionsReport">
+                                                    <td>{{data.Month}}/{{affiliateCommissionYear.currentYear}}</td>
+                                                    <td>{{data.Commission | number}} Đ</td>
+                                                    <td>{{data.CommissionThanks | number}} Đ</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel panel-white">
-                            <div class="panel-heading">
-                                <h3>Danh Sách Khách Hàng</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover" ng-if="!loadingAffiliateListByAccount">
-                                        <thead>
-                                            <tr>
-                                                <th>Ngày Đăng Ký</th>
-                                                <th>Tên</th>
-                                                <th>KH Gián Tiếp Giới Thiệu Bởi</th>
-                                                <th>Gói</th>
-                                                <th>Tình Trạng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="data in affiliateListByAccount">
-                                                <td>{{data.CreatedDate}}</td>
-                                                <td>{{data.FullName}}</td>
-                                                <td>{{data.AffiliateName}}</td>
-                                                <td>{{data.AccountType === 1 ? "Cơ bản" : "Nâng cao"}}</td>
-                                                <td>{{data.StatusName}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="panel panel-white">
+                                <div class="panel-heading">
+                                    <h3>Danh Sách Khách Hàng</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <circle-spinner ng-show="showSpinner"></circle-spinner>
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ngày Đăng Ký</th>
+                                                    <th>Tên</th>
+                                                    <th>KH Gián Tiếp Giới Thiệu Bởi</th>
+                                                    <th>Gói</th>
+                                                    <th>Tình Trạng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="data in affiliateListByAccount">
+                                                    <td>{{data.CreatedDate}}</td>
+                                                    <td>{{data.FullName}}</td>
+                                                    <td>{{data.AffiliateName}}</td>
+                                                    <td>{{data.AccountType === 1 ? "Cơ bản" : "Nâng cao"}}</td>
+                                                    <td>{{data.StatusName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

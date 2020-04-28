@@ -1,0 +1,63 @@
+﻿<!-- saved from url=(0094)http://www.cliptheme.com/demo/clip-two/AngularJs-Admin/STANDARD/assets/views/login_forgot.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div class="row">
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+            <!-- start: FORGOT BOX -->
+            <div class="box-forgot" ng-controller="UserForgotFinishPasswordCtrl">
+                <circle-spinner ng-show="showSpinner"></circle-spinner>
+                <form class="form-forgot" name="FormForgotFinishPassword" id="FormForgotFinishPassword" novalidate="" ng-submit="form.submit(FormForgotFinishPassword)">
+                    <fieldset>
+                        <legend>
+                            Quên Mật Khẩu?
+                        </legend>
+                        <p>
+                            Điền thông tin mật khẩu mới của bạn.
+                        </p>
+                        <div class="form-group" ng-class="{'has-error':FormForgotFinishPassword.username.$dirty && FormForgotFinishPassword.username.$invalid, 'has-success':FormForgotFinishPassword.username.$valid}">
+                            <label class="control-label" for="boxForgotFinishPasswordUsername">
+                                Tên đăng nhập <span class="symbol required"></span>
+                            </label>
+                            <input type="text" class="form-control" id="boxForgotFinishPasswordUsername" name="username" ng-model="userForgotPassword.username" placeholder="Số Điện Thoại hoặc Email" ng-pattern="/^([_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,5}))|(\d+$)$/" required="">
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.username.$dirty && FormForgotFinishPassword.username.$invalid">Tên Đăng Nhập là bắt buộc.</span>
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.username.$error.pattern">Tên Đăng Nhập phải là một địa chỉ email hoặc số điện thoại hợp lệ .!</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':FormForgotFinishPassword.activatekey.$dirty && FormForgotFinishPassword.activatekey.$invalid, 'has-success':FormForgotFinishPassword.activatekey.$valid}">
+                            <label class="control-label" for="boxForgotFinishPasswordActivateKey">
+                                Mã kích hoạt <span class="symbol required"></span>
+                            </label>
+                            <input type="text" class="form-control" id="boxForgotFinishPasswordActivateKey" name="activatekey" ng-model="userForgotPassword.activatekey" placeholder="Mã Kích Hoạt" required="">
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.activatekey.$dirty && FormForgotFinishPassword.activatekey.$invalid">Mã kích hoạt là bắt buộc.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':FormForgotFinishPassword.password.$dirty && FormForgotFinishPassword.password.$invalid, 'has-success':FormForgotFinishPassword.password.$valid}">
+                            <label class="control-label" for="boxForgotFinishPassword">
+                                Mật Khẩu <span class="symbol required"></span>
+                            </label>
+                            <input type="password" class="form-control" id="boxForgotFinishPassword" name="password" ng-model="userForgotPassword.password" placeholder="Mật Khẩu" required="">
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.password.$dirty && FormForgotFinishPassword.password.$invalid">Mật Khẩu là bắt buộc.</span>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':FormForgotFinishPassword.repassword.$dirty && FormForgotFinishPassword.repassword.$invalid, 'has-success':FormForgotFinishPassword.repassword.$valid}">
+                            <label class="control-label" for="boxForgotFinishRePassword">
+                                Nhập Lại Mật Khẩu <span class="symbol required"></span>
+                            </label>
+                            <input type="password" class="form-control" id="boxForgotFinishRePassword" name="repassword" ng-model="userForgotPassword.repassword" compare-to="userForgotPassword.password" placeholder="Nhập lại mật khẩu" required="">
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.repassword.$dirty && FormForgotFinishPassword.repassword.$error.required">Nhập lại mật Khẩu là bắt buộc.</span>
+                            <span class="error text-small block" ng-if="FormForgotFinishPassword.repassword.$dirty && FormForgotFinishPassword.repassword.$error.compareTo">Mật khẩu nhập lại không đúng!</span>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary pull-right">
+                                Tạo mật khẩu mới <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- end: FORGOT BOX -->
+        </div>
+    </div>
+    <!-- end: FORGOT -->
+</body>
+</html>

@@ -224,7 +224,7 @@
                                                                 <td data-title="&#39;Lượt Giới Thiệu&#39;">{{entity.CashTypeName}}</td>
                                                                 <td data-title="&#39;Tái Tục&#39;">{{entity.RenewalNo}}</td>
                                                                 <td data-title="&#39;Hoa Hồng&#39;">{{entity.Amount | number}} Đ</td>
-                                                                <td data-title="&#39;Ghi chú từ Admin&#39;"><a>{{entity.Notes !== undefined && entity.Notes.length > 0 ? entity.Notes : ""}}</a></td>
+                                                                <!--<td data-title="&#39;Ghi chú từ Admin&#39;"><a>{{entity.Notes !== undefined && entity.Notes.length > 0 ? entity.Notes : ""}}</a></td>-->
                                                                 <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
                                                                 <td class="left">
                                                                     <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -315,12 +315,6 @@
                                                             </label>
                                                             <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="order.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="Notes">
-                                                                Ghi chú từ Admin
-                                                            </label>
-                                                            <input type="text" class="form-control" id="Notes" name="Notes" ng-model="order.Notes" placeholder="Ghi chú từ Admin">
-                                                        </div>
                                                         <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
                                                             <label for="AffiliateStatus">
                                                                 Phê Duyệt Tình Trạng Thanh Toán <span class="symbol required"></span>
@@ -399,6 +393,12 @@
                                                 Tên Đăng Nhập Đại Sứ
                                             </label>
                                             <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="member.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Notes">
+                                                Ghi chú từ Admin
+                                            </label>
+                                            <input type="text" class="form-control" id="Notes" name="Notes" ng-model="member.Notes" placeholder="Ghi chú từ Admin">
                                         </div>
                                         <div class="form-group" ng-class="{'has-error':FormEditOrder.AffiliateStatus.$dirty && FormEditOrder.AffiliateStatus.$invalid, 'has-success':FormEditOrder.AffiliateStatus.$valid}">
                                             <label for="AffiliateStatus">

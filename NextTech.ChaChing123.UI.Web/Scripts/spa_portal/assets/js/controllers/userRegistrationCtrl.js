@@ -52,7 +52,17 @@
                             $scope.showSpinner = true;
                             membershipService.register(userRegistration, function (result) {
                                 if (result.data && result.data.StatusCode === 0) {
-                                    membershipService.saveUserRegistration(userRegistration, result.data.Details);
+
+                                    var userCheckout = {
+                                        "fullname": $scope.userReg.fullname,
+                                        "email": $scope.userReg.email,
+                                        "phone": $scope.userReg.phone,
+                                        "accounttype": $scope.userReg.accounttype,
+                                        "token": result.data.Details !== undefined ? result.data.Details : ""
+                                    };
+
+                                    membershipService.saveUserRegistration(userCheckout);
+
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         var baseUrl = $rootScope.baseUrl.url;

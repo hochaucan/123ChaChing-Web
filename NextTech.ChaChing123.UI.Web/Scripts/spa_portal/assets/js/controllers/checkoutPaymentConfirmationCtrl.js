@@ -83,11 +83,30 @@ app.controller('CheckoutPaymentConfirmationCtrl', ["$scope", "$rootScope", "$loc
                         // Remove localStorage for user registration
                         membershipService.removeUserRegistration();
 
-                        var baseUrl = $rootScope.baseUrl.url;
-                        $timeout(function () {
+                        //var baseUrl = $rootScope.baseUrl.url;
+                        //$timeout(function () {
+                        //    $scope.showSpinner = false;
+                        //    $window.location.href = baseUrl;
+                        //}, 3000);
+
+                        if (result.data.Details !== undefined) {
+                            membershipService.saveCredentials(result.data.Details);
+                            notificationService.displaySuccess('Đăng nhập thành công. Xin chào ' + result.data.Details.FullName);
+                            $scope.userData.displayUserInfo();
+
                             $scope.showSpinner = false;
-                            $window.location.href = baseUrl;
-                        }, 3000);
+                            var baseUrl = $rootScope.baseUrl.url;
+                            var dashboardUrl = baseUrl + '#/app/dashboard';
+
+                            if ($rootScope.previousState && $rootScope.previousState != '/app/login/signin') {
+                                $location.path($rootScope.previousState);
+                                //$window.location.href = dashboard;
+                            }
+                            else {
+                                //$location.path('/app/dashboard');
+                                $window.location.href = dashboardUrl;
+                            }
+                        }
                     } else {
                         notificationService.displayError(result.data.StatusMsg);
                         membershipService.removeUserRegistration();

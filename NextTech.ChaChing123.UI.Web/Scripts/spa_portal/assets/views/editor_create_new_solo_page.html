@@ -258,7 +258,10 @@
                                                                     <div class="panel-body">
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Danh Sách Autoresponder</label>
-                                                                            <input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">
+                                                                            <!--<input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">-->
+                                                                            <select class="form-control black" ng-options="option.APIKey as option.CampaignName for option in autoresponders" ng-model="editor.AutoresponderCodes" id="AutoresponderCodes" name="AutoresponderCodes">
+                                                                                <option value="">Select</option>
+                                                                            </select>
                                                                             <small class="form-text text-muted"><strong>Chú ý:</strong> Khi sử dụng MailChimp, hãy điền <strong>MailChimp List ID.</strong></small><br>
                                                                             <small id="small" class="form-text text-muted"><strong>Nhắc nhở.</strong> Hãy kết nối API với công cụ Email Marketing của bạn <a href="https://onlinesalespro.com/ARV2" target="_blank">tại đây.</a></small>
                                                                         </div>

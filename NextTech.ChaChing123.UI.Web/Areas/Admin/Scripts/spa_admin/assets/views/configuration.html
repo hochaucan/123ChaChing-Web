@@ -20,9 +20,46 @@
                 <div class="col-sm-12">
                     <div class="row">
                         <!-- /// controller:  'ChartCtrl2' -  localtion: assets/js/controllers/chartsCtrl.js /// -->
+                        <circle-spinner ng-show="showSpinner"></circle-spinner>
                         <div ng-controller="BarChartRevenueCtrl">
                             <div class="col-md-8">
                                 <canvas class="tc-chart" tc-chartjs-bar="" chart-options="options" chart-data="data" chart-legend="lineChart2"></canvas>
+                            </div>
+                            <div class="col-md-4">                                
+                                <div class="form-group">
+                                    <form class="form-forgot" name="FormBarChartRevenue" id="FormBarChartRevenue" novalidate="" ng-submit="form.submit(FormBarChartRevenue)">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="input-group range-picker" ng-controller="DatepickerChaChingCtrl">
+                                                    <div class="start-date">
+                                                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" datepicker-options="startOptions" ng-model="start" is-open="startOpened" ng-init="startOpened = false" ng-required="true" close-text="Close" ng-click="startOpen()" ng-change="selectStartDate(start)">
+                                                    </div>
+                                                    <span class="input-group-addon">to</span>
+                                                    <div class="end-date">
+                                                        <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" datepicker-options="endOptions" ng-model="end" is-open="endOpened" ng-init="endOpened = false" ng-required="true" close-text="Close" ng-click="endOpen()" ng-change="selectEndDate(end)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-primary pull-right">
+                                                        Thống kê <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <p>
+                                            <span class="label label-default"> Doanh Thu</span>
+                                        </p>
+                                        <p>
+                                            <span class="label label-inverse" style="background-color: #ebebeb; color: #5b5b60"> Hoa Hồng</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

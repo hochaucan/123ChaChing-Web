@@ -71,6 +71,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('checkoutpayment.error', {
             url: '/error',
             templateUrl: "Scripts/spa_portal/assets/views/checkout_payment_error.html"
+        }).state('app.forgot', {
+            url: '/forgot',
+            templateUrl: "Scripts/spa_portal/assets/views/login_forgot.html"
+        }).state('app.forgot_finish', {
+            url: '/forgot_finish',
+            templateUrl: "Scripts/spa_portal/assets/views/login_forgot_reset.html"
         }).state('app.login', {
             url: '/login',
             template: '<div ui-view class="fade-in-up"></div>',
@@ -86,9 +92,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         }).state('app.dologin', {
             url: '/dologin/:username/:sessionkey',
             templateUrl: "Scripts/spa_portal/assets/views/login_login.html"
-        }).state('app.login.forgot', {
-            url: '/forgot',
-            templateUrl: "Scripts/spa_portal/assets/views/login_forgot.html"
         }).state('app.login.registration', {
             url: '/registration',
             templateUrl: "Scripts/spa_portal/assets/views/login_registration.html",
