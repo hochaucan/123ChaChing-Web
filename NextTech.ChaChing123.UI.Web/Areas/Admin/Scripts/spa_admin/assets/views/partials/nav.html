@@ -39,6 +39,35 @@
                 </li>
             </ul>
         </li>
+        <li ng-class="{&#39;active open&#39;:$state.includes(&#39;app.dashboard&#39;)}">
+            <a href="javascript:void(0)">
+                <div class="item-content">
+                    <div class="item-media">
+                        <i class="ti-link"></i>
+                    </div>
+                    <div class="item-inner">
+                        <span class="title"> Affiliate Link </span><i class="icon-arrow"></i>
+                    </div>
+                </div>
+            </a>
+            <ul class="sub-menu">
+                <li ui-sref-active="active">
+                    <a ui-sref="app.affiliatelink.category">
+                        <span class="title">Quản Lý Danh Mục Affiliate Link</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.affiliatelink.link">
+                        <span class="title">Quản Lý Affiliate Link</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="app.affiliatelink.banner">
+                        <span class="title">Quản Lý Banner</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li ui-sref-active="active">
             <a ui-sref="app.member.list">
                 <div class="item-content">
@@ -75,38 +104,18 @@
                 </div>
             </a>
         </li>
-
-
-        <li ng-class="{&#39;active open&#39;:$state.includes(&#39;app.dashboard&#39;)}">
-            <a href="javascript:void(0)">
+        <li ui-sref-active="active">
+            <a ui-sref="app.withdrawrequest.list">
                 <div class="item-content">
                     <div class="item-media">
-                        <i class="ti-link"></i>
+                        <i class="fa fa-gavel"></i>
                     </div>
                     <div class="item-inner">
-                        <span class="title"> Affiliate Link </span><i class="icon-arrow"></i>
+                        <span class="title"> Yêu Cầu Rút Tiền </span>
                     </div>
                 </div>
             </a>
-            <ul class="sub-menu">
-                <li ui-sref-active="active">
-                    <a ui-sref="app.affiliatelink.category">
-                        <span class="title">Quản Lý Danh Mục Affiliate Link</span>
-                    </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="app.affiliatelink.link">
-                        <span class="title">Quản Lý Affiliate Link</span>
-                    </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="app.affiliatelink.banner">
-                        <span class="title">Quản Lý Banner</span>
-                    </a>
-                </li>
-            </ul>
         </li>
-
         <li ui-sref-active="active">
             <a ui-sref="app.title.list">
                 <div class="item-content">

@@ -17,6 +17,15 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
         $scope.lead = {};
         var destinationURL = "";
 
+        var _leadName = "";
+        var _leadEmail = "";
+        var _leadPhone = "";
+        var _leadBody = "";
+        var _soloPageName = "";
+
+        $scope.pushToken = "";
+        $scope.soloPageName = "";
+
         // /app/funnel/preview/58/183
         // locationURL[2] = preview OR public
         // locationURL[3] = ID
@@ -75,6 +84,29 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
                         //your code for submit
                         //notificationService.displayInfo('You are submitting the form');
 
+                        var bodyBuilder = "";
+                        _leadName = ($scope.lead.name) ? $scope.lead.name : "";
+                        _leadEmail = ($scope.lead.email) ? $scope.lead.email : "";
+                        _leadPhone = ($scope.lead.phone) ? $scope.lead.phone : "";
+                        _soloPageName = $scope.soloPageName;
+
+                        if (_leadName.length > 0)
+                            bodyBuilder += _leadName + ', ';
+
+                        if (_leadEmail.length > 0)
+                            bodyBuilder += _leadEmail + ', ';
+
+                        if (_leadPhone.length > 0)
+                            bodyBuilder += _leadPhone;
+
+                        var indexCommaChar = bodyBuilder.indexOf(', ');
+                        var isHasCommaChar = indexCommaChar !== -1;
+                        if (isHasCommaChar)
+                            _leadBody = bodyBuilder.substring(0, indexCommaChar) + ' da dang ky Solo Page';
+
+                        if (_soloPageName.length > 0)
+                            _leadBody = _leadBody + ' ' + _soloPageName;
+
                         var leadRes = {
                             "Name": ($scope.lead.name) ? $scope.lead.name : "",
                             "Email": ($scope.lead.email) ? $scope.lead.email : "",
@@ -103,6 +135,35 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
 
                                 if (result.data && result.data.StatusCode == 0) {
                                     notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
+
+                                    // push notification if lead has registrated successfully on SOLO page
+                                    var pushToken = $scope.pushToken;
+                                    var title = "*** Chuc mung ban! ***";
+                                    var sound = "default";
+                                    var body = _leadBody;
+
+                                    // Load the data from the API
+                                    if (pushToken.length > 0) {
+                                        const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
+                                        let data = {
+                                            "to": pushToken,
+                                            "title": title,
+                                            "body": body,
+                                            "sound": sound,
+                                            "priority": 'high'
+                                        };
+
+                                        fetch(PUSH_ENDPOINT, {
+                                            'mode': 'no-cors',
+                                            'method': 'POST',
+                                            'headers': {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify(data)
+                                        }).catch(err => console.log(err));
+                                    }
+
                                     $timeout(function () {
                                         $scope.showSpinner = false;
                                         if (destinationURL && destinationURL.length > 0) {
@@ -146,6 +207,8 @@ app.controller('FunnelPreviewPublicPageCtrl', ["$scope", "$sce", "$window", "$lo
                     $scope.SubTitle = $scope.soloPageDetails.SubTitle;
                     $scope.ButtonName = $scope.soloPageDetails.ButtonName;
                     $scope.ButtonColor = $scope.soloPageDetails.ButtonColor;
+                    $scope.pushToken = $scope.soloPageDetails.PushToken;
+                    $scope.soloPageName = $scope.soloPageDetails.PageName;
 
                     var findWatchIndex = -1;
                     var fullResourcePath = "";

@@ -5,6 +5,7 @@
  */
 var baseUrl = 'https://api.123chaching.app';
 var imageUploaderPath = "";
+var imageUploaderPathPrev = "";
 
 app.controller('AffiliateLinkManagerCtrl', ["$scope", "$uibModal", "$localStorage", "$timeout", "ngTableParams", "affiliatelinkService", "membershipService", "notificationService",
     function ($scope, $uibModal, $localStorage, $timeout, ngTableParams, affiliatelinkService, membershipService, notificationService) {
@@ -14,44 +15,26 @@ app.controller('AffiliateLinkManagerCtrl', ["$scope", "$uibModal", "$localStorag
         $scope.documentCategoryID = 0;
 
         function loadAffiliateLinkWithNgTable() {
-            $scope.tableParams = new ngTableParams({
-                page: 1, // show first page
-                count: 10 // count per page
-            }, {
-                    getData: function ($defer, params) {
-                        var entity = {};
+            var entity = {
+                "ID": "-1",
+                "SessionKey": sessionKey
+            };
+            // Load the data from the API
+            $scope.showSpinner = true;
+            affiliatelinkService.GetAllAffiliateLink(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
 
-                        entity = {
-                            "PageIndex": params.page(),
-                            "PageCount": params.count(),
-                            "SessionKey": sessionKey
-                        };
-
-                        // Load the data from the API
-                        affiliatelinkService.GetAllAffiliateLink(entity, function (result) {
-                            if (result.data && result.data.StatusCode === 17) {
-                                membershipService.checkMemberAuthorization();
-                            }
-
-                            if (result.data && result.data.StatusCode === 0) {
-                                $scope.documents = result.data.Details.Items;
-
-                                var totalRecordCount = result.data.Details.Total;
-
-                                // Tell ngTable how many records we have (so it can set up paging)
-                                params.total(totalRecordCount);
-
-                                // Return the customers to ngTable
-                                $defer.resolve($scope.documents);
-                            } else {
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 1000);
-                                notificationService.displayError(result.data.StatusMsg);
-                            }
-                        });
-                    }
-                });
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.documents = result.data.Details.Items;
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                    notificationService.displayError(result.data.StatusMsg);
+                }
+            });
         }
 
         function manageAffiliateLinkActions() {
@@ -121,7 +104,7 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
         var documentID = 0;
         var documentTitle = "";
         var documentDescription = "";
-        var documentCategoryName = "";
+        var documentCategoryID = "";
         var documentLink = "";
         var documentOrder = "";
         var documentThumbnailImage = "";
@@ -134,7 +117,7 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
                 documentID = parts[0];
                 documentTitle = parts[1];
                 documentDescription = parts[2];
-                documentCategoryName = parts[3];
+                documentCategoryID = parts[3];
                 documentLink = parts[4];
                 documentOrder = parts[5];
                 documentThumbnailImage = parts[6];
@@ -181,13 +164,13 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
                     } else {
                         if (documentID > 0) {
                             $scope.entity = {
-                                "ID": $scope.documentID,
+                                "ID": documentID,
                                 "Title": $scope.entity.Title,
                                 "Content": $scope.entity.Content,
-                                "AffiliateLinksID": $scope.entity.AffiliateLinksID,
-                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
-                                "Order": $scope.entity.Order,
                                 "ThumbnailImage": imageUploaderPath,
+                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
+                                "AffiliateLinksID": $scope.entity.AffiliateLinksID,
+                                "Order": $scope.entity.Order,
                                 "SessionKey": sessionKey
                             };
 
@@ -219,10 +202,10 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
                             $scope.entity = {
                                 "Title": $scope.entity.Title,
                                 "Content": $scope.entity.Content,
-                                "AffiliateLinksID": $scope.entity.AffiliateLinksID,
-                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
-                                "Order": $scope.entity.Order,
                                 "ThumbnailImage": imageUploaderPath,
+                                "Link": $scope.entity.Link === undefined ? "" : $scope.entity.Link,
+                                "AffiliateLinksID": $scope.entity.AffiliateLinksID,
+                                "Order": $scope.entity.Order,
                                 "SessionKey": sessionKey
                             };
 
@@ -268,7 +251,6 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
                 }
 
                 if (result.data && result.data.StatusCode === 0) {
-                    //$scope.titles = result.data.Details;
                     $scope.documentCategories = result.data.Details.Items;
 
                     // LOAD DOCUMENT DETAILS
@@ -291,49 +273,19 @@ app.controller('ModalAddEditAffiliateLinkCtrl', ["$scope", "$window", "$localSto
         }
 
         function loadDocumentDetails() {
-            //if (documentID > 0) {
-            //    $scope.entity = {
-            //        ID: documentID,
-            //        Title: documentTitle,
-            //        Content: documentDescription,
-            //        Link: documentLink,
-            //        Order: documentOrder,
-            //        imagePath: documentThumbnailImage.length > 0 ? documentThumbnailImage : ""
-            //    };
-            //}
-            var entity = {
-                ID: documentID,
-                SessionKey: sessionKey
-            };
-
-            $scope.showSpinner = true;
-            affiliatelinkService.GetAffiliateLinkInfoByID(entity, function (result) {
-                if (result.data && result.data.StatusCode === 17) {
-                    membershipService.checkMemberAuthorization();
-                }
-
-                if (result.data && result.data.StatusCode === 0) {
-                    $scope.entity = result.data.Details;
-
-                    // display thumbnail image on UI
-                    var imageSource = $scope.entity.ThumbnailImage;
-                    if (imageSource.length > 0) {
-                        $scope.imagePath = imageSource;
-                        imageUploaderPath = imageSource;
-                    }
-
-                    $scope.AffiliateLinksID = result.data.Details.AffiliateLinksID;
-
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 2000);
-                } else {
-                    notificationService.displayError(result.data.StatusMsg);
-                    $timeout(function () {
-                        $scope.showSpinner = false;
-                    }, 1000);
-                }
-            });
+            if (documentID > 0) {
+                $scope.entity = {
+                    ID: documentID,
+                    Title: documentTitle,
+                    Content: documentDescription,
+                    AffiliateLinksID: (documentCategoryID.length > 0) ? parseInt(documentCategoryID) : 0,
+                    Link: documentLink,
+                    Order: documentOrder,
+                    ThumbnailImage: documentThumbnailImage.length > 0 ? documentThumbnailImage : ""
+                };
+                imageUploaderPathPrev = documentThumbnailImage.length > 0 ? documentThumbnailImage : "";
+                $scope.imagePath = documentThumbnailImage.length > 0 ? documentThumbnailImage : "";
+            }
         }
 
         $scope.ModalAddEditDocumentManager = {
@@ -413,6 +365,8 @@ app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "not
             data.append("uploadedFile", $scope.files[i]);
             if ($scope.files[i].name) {
                 data.append("SessionKey", SessionKey);
+                if (imageUploaderPathPrev.length > 0)
+                    data.append("OldLink", imageUploaderPathPrev);
                 break;
             }
         }
@@ -424,7 +378,9 @@ app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "not
         objXhr.addEventListener("load", transferComplete, false);
 
         // SEND FILE DETAILS TO THE API.
-        objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+        // As Is Upload File
+        //objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
+        objXhr.open("POST", baseUrl + "/api/Admin/UploadFileAffiliateLink/");
         objXhr.send(data);
     };
 
@@ -445,6 +401,8 @@ app.controller('ImageUploaderCtrl', ["$scope", "$timeout", "$localStorage", "not
             $scope.imagePath = result.Details;
             $scope.isCompletedImageUpload = true;
             notificationService.displaySuccess("Upload hình ảnh thành công");
+            // Reset the previous image to be empty because it's been already removed away from server
+            imageUploaderPathPrev = result.Details;
 
             $timeout(function () {
                 $scope.showSpinner = false;

@@ -24,8 +24,22 @@
 
             SummaryRevenueReport: SummaryRevenueReport,
             SummaryCommissionReport: SummaryCommissionReport,
-            GetSummaryReport: GetSummaryReport
+            GetSummaryReport: GetSummaryReport,
+            GetConfigValueByKeys: GetConfigValueByKeys,
+            UpdateConfigValueByKey: UpdateConfigValueByKey
         };
+
+        function GetConfigValueByKeys(orderObj, completed) {
+            apiService.post(baseUrl + '/GetConfigValueByKeys/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
+
+        function UpdateConfigValueByKey(orderObj, completed) {
+            apiService.post(baseUrl + '/UpdateConfigValueByKey/', orderObj,
+                completed,
+                getOrderListFailed);
+        }
 
         function GetSummaryReport(orderObj, completed) {
             apiService.post(baseUrl + '/GetSummaryReport/', orderObj,

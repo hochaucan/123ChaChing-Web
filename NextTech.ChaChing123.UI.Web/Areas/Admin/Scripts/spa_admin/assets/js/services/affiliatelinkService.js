@@ -14,19 +14,12 @@
             GetAllAffiliateLink: GetAllAffiliateLink, // Get all document categories
             AddAffiliateLink: AddAffiliateLink,
             UpdateAffiliateLinkByID: UpdateAffiliateLinkByID,
-            DeleteAffiliateLinkByID: DeleteAffiliateLinkByID,
-            GetAffiliateLinkInfoByID: GetAffiliateLinkInfoByID
+            DeleteAffiliateLinkByID: DeleteAffiliateLinkByID
+            //GetAffiliateLinkInfoByID: GetAffiliateLinkInfoByID
         };
 
         function GetAllAffiliateLink(entity, completed) {
             apiService.post(baseUrl + '/GetAllAffiliateLink/', entity,
-                completed,
-                entityFailed
-            );
-        }
-
-        function GetAffiliateLinkInfoByID(entity, completed) {
-            apiService.post(baseUrl + '/GetAffiliateLinkInfoByID/', entity,
                 completed,
                 entityFailed
             );

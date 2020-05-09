@@ -15,6 +15,15 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
         $scope.isShowVideoSource = false;
         $scope.isShowImageSource = false;
 
+        var _leadName = "";
+        var _leadEmail = "";
+        var _leadPhone = "";
+        var _leadBody = "";
+        var _soloPageName = "";
+
+        $scope.pushToken = "";
+        $scope.soloPageName = "";
+
         $scope.lead = {};
         var soloPageObj = {};
 
@@ -61,6 +70,29 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                             //your code for submit
                             //notificationService.displayInfo('You are submitting the form');
 
+                            var bodyBuilder = "";
+                            _leadName = ($scope.lead.name) ? $scope.lead.name : "";
+                            _leadEmail = ($scope.lead.email) ? $scope.lead.email : "";
+                            _leadPhone = ($scope.lead.phone) ? $scope.lead.phone : "";
+                            _soloPageName = $scope.soloPageName;
+
+                            if (_leadName.length > 0)
+                                bodyBuilder += _leadName + ', ';
+
+                            if (_leadEmail.length > 0)
+                                bodyBuilder += _leadEmail + ', ';
+
+                            if (_leadPhone.length > 0)
+                                bodyBuilder += _leadPhone;                            
+
+                            var indexCommaChar = bodyBuilder.indexOf(', ');
+                            var isHasCommaChar = indexCommaChar !== -1;
+                            if (isHasCommaChar)
+                                _leadBody = bodyBuilder.substring(0, indexCommaChar) + ' da dang ky Solo Page';
+
+                            if (_soloPageName.length > 0)
+                                _leadBody = _leadBody + ' ' + _soloPageName;
+
                             var leadRes = {
                                 "Name": ($scope.lead.name) ? $scope.lead.name : "",
                                 "Email": ($scope.lead.email) ? $scope.lead.email : "",
@@ -87,29 +119,37 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                                         membershipService.checkMemberAuthorization();
                                     }
 
-//                                    const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
-
-//                                    export default (async function sendPushNotification(pushToken, data, sound, title, body) {
-
-//                                        // POST the token to our backend so we can use it to send pushes from there
-//                                        return fetch(PUSH_ENDPOINT, {
-//                                            method: 'POST',
-//                                            headers: {
-//                                                Accept: 'application/json',
-//                                                Content-Type': 'application / json',
-//},
-//                                            body: JSON.stringify({
-//                                                to: pushToken,
-//                                                data: data,//{ "screen": "ProfileScreen", "params": { "name": "can", "age": "35" } },
-//                                                sound: sound,//"default",
-//                                                title: title,//"Nhabaola",
-//                                                body: body//"HO CHAU CAN"
-//                                            }),
-//                                        });
-//                                    });
-
                                     if (result.data && result.data.StatusCode === 0) {
                                         notificationService.displaySuccess('Đăng ký thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất');
+
+                                        // push notification if lead has registrated successfully on SOLO page
+                                        var pushToken = $scope.pushToken;
+                                        var title = "*** Chuc mung ban! ***";
+                                        var sound = "default";
+                                        var body = _leadBody;                      
+
+                                        // Load the data from the API
+                                        if (pushToken.length > 0) {
+                                            const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send';
+                                            let data = {
+                                                "to": pushToken,
+                                                "title": title,
+                                                "body": body,
+                                                "sound": sound,
+                                                "priority": 'high'
+                                            };
+
+                                            fetch(PUSH_ENDPOINT, {
+                                                'mode': 'no-cors',
+                                                'method': 'POST',
+                                                'headers': {
+                                                    'Accept': 'application/json',
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(data)
+                                            }).catch(err => console.log(err));
+                                        }
+
                                         $timeout(function () {
                                             $scope.showSpinner = false;
                                             if (destinationURL && destinationURL.length > 0) {
@@ -215,6 +255,8 @@ app.controller('editorSoloPageCtrl', ["$scope", "$sce", "$window", "$location", 
                         $scope.SubTitle = result.data.Details.SubTitle;
                         $scope.ButtonName = result.data.Details.ButtonName;
                         $scope.ButtonColor = result.data.Details.ButtonColor;
+                        $scope.pushToken = result.data.Details.PushToken;
+                        $scope.soloPageName = $scope.soloPageDetails.PageName;
 
                         fullResourcePath = result.data.Details.ResourcePath;
                         if (fullResourcePath.length > 0) {

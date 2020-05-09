@@ -20,8 +20,16 @@
             loadTitles: loadTitles,
             loadSubTitles: loadSubTitles,
             RegisterLeadBySoloPage: RegisterLeadBySoloPage,
+            sendPushNotification: sendPushNotification,
             uploadFile: uploadFile
         };
+
+        function sendPushNotification(editor, completed) {
+            apiService.post('https://exp.host/--/api/v2/push/send', editor,
+                completed,
+                affiliateFailed
+            );
+        }
 
         function createSoloPage(editor, completed) {
             apiService.post(baseUrl + '/api/LandingPage/AddSoloPage/', editor,
