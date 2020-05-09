@@ -187,10 +187,10 @@
                                             <td>{{affiliate.Month}}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{affiliate.Commission | number}} Đ</td>
+                                            <td>{{affiliate.Commission | number}}</td>
                                         </tr>
                                         <tr>
-                                            <td>{{affiliate.CommissionThanks | number}} Đ</td>
+                                            <td>{{affiliate.CommissionThanks | number}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -202,73 +202,109 @@
 					<uib-tab heading="Link" active="editActive">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="panel panel-white" id="panel1">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title text-primary">123 ChaChing Webinar</h4>
-                                        <ct-paneltool class="panel-tools" tool-collapse="tool-collapse"></ct-paneltool>
-                                    </div>
-                                    <div uib-collapse="panel1" ng-init="panel1=false" class="panel-wrapper">
+                                <div ng-controller="AffiliateLinkvAccordionCtrl">
+                                    <div class="panel panel-white no-radius">
                                         <div class="panel-body">
-                                            <table class="table ng-scope" id="projects">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>123 ChaChing Webinar Opt-in</td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Xem Trước</a></td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Chia xẻ</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="#" ng-click="">Xem</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>123 ChaChing Webinar Opt-in</td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Xem Trước</a></td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Chia xẻ</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="#" ng-click="">Xem</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="partition-light-grey padding-15 margin-bottom-20">
+                                                <h4 class="no-margin">Affiliate Links</h4>
+                                            </div>
+                                            <v-accordion class="vAccordion--default" control="firstAccordionControl">
+                                                <!-- add expanded attribute to open first section -->
+                                                <v-pane ng-repeat="pane in affiliateLinksPanes" expanded="$first">
+                                                    <v-pane-header>
+                                                        <h5>{{ pane.header }}</h5>
+                                                    </v-pane-header>
+                                                    <v-pane-content>
+                                                        <table class="table margin-bottom-0">
+                                                            <tbody>
+                                                                <tr ng-repeat="link in pane.content">
+                                                                    <td width="70%">{{link.header}}</td>
+                                                                    <td class="center" width="10%">
+                                                                        <div class="panel panel-transparent" style="margin-bottom: 0px;">
+                                                                            <div class="panel-body">
+                                                                                <a class="btn btn-wide btn-o btn-primary" data="{{link.affiliateLinkID}}|{{link.thumbnail}}" ng-click="changeImage($event)">
+                                                                                        <i class="fa fa-picture-o"></i> Xem Trước
+                                                                                </a>
+                                                                                <script type="text/ng-template" id="myModalImagePreview.html">
+                                                                                        <div class="modal-header">
+                                                                                            <span class="modal-title text-bold">Xem Trước</span>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <div class="form-group">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-12">
+                                                                                                        <a href="#" class="thumbnail">
+                                                                                                            <img src="{{imgPreview}}" alt="">
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button class="btn btn-primary btn-o" ng-click="cancel()">Đóng</button>
+                                                                                        </div>
+                                                                                    </script>
+                                                                                <!--<p>
+                                                                                    <button popover="I appeared on mouse enter!" popover-title="The title." popover-trigger="mouseenter" class="btn btn-o btn-primary btn-wide">
+                                                                                        Mouseenter
+                                                                                    </button>
+                                                                                    <button popover-animation="true" popover="I fade in and out!" popover-title="The title." class="btn btn-o btn-primary btn-wide">
+                                                                                        fading
+                                                                                    </button>
+                                                                                    <div class="popover top in fade" ng-class="{ in: isOpen(), fade: animation() }" popover-popup="" title="The title." content="I fade in and out!" placement="top" animation="animation" is-open="isOpen" style="display: block;top: 21px;left: 129.5px;">
+                                                                                        <div class="arrow"></div>
+                                                                                        <div class="popover-inner">
+                                                                                            <div class="popover-content ng-binding" ng-bind="content">
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </p>-->
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td class="center" width="10%">
+                                                                        <a class="btn btn-wide btn-o btn-primary" ng-click="shareAffiliateLink(link.affiliateLinkID)">
+                                                                            <i class="fa fa-share"></i> Chia Sẻ
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="center" width="10%">
+                                                                        <a class="btn btn-wide btn-o btn-primary" ng-click="viewAffiliateLink(link.link)">
+                                                                            <i class="fa fa-external-link"></i> Xem
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </v-pane-content>
+                                                </v-pane>
+                                            </v-accordion>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="panel panel-white" id="panel5">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title text-primary">123 ChaChing Webinar</h4>
-                                        <ct-paneltool class="panel-tools" tool-collapse="tool-collapse" tool-refresh="load1"></ct-paneltool>
-                                    </div>
-                                    <div uib-collapse="panel5" ng-init="panel5=true" class="panel-wrapper">
+                                <div ng-controller="AffiliateLinkBannerManagerCtrl">
+                                    <div class="panel panel-white no-radius">
                                         <div class="panel-body">
-                                            <table class="table ng-scope" id="projects">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>123 ChaChing Webinar Opt-in</td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Xem Trước</a></td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Chia xẻ</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="#" ng-click="">Xem</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>123 ChaChing Webinar Opt-in</td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Xem Trước</a></td>
-                                                        <td><a class="btn btn-primary btn-o btn-wide" href="#" ng-click="">Chia xẻ</a></td>
-                                                        <td><a class="btn btn-primary btn-block" href="#" ng-click="">Xem</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="partition-light-grey padding-15 margin-bottom-20">
+                                                <h4 class="no-margin">123ChaChing Banners</h4>
+                                            </div>
+                                            <ol>
+                                                <li>
+                                                    Tải xuống Banners - <a href="{{bannerDownloadLink}}" target="_blank">Bấm Vào Đây</a>
+                                                </li>
+                                                <li>
+                                                    Gắn link affilate của bạn vào đây
+                                                </li>
+                                                <li>
+                                                    Phân phối banner đó - Cha-ching
+                                                </li>
+                                            </ol>
                                         </div>
                                     </div>
                                 </div>

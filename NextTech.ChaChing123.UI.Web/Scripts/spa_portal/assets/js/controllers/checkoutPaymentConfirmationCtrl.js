@@ -20,7 +20,7 @@ app.controller('CheckoutPaymentConfirmationCtrl', ["$scope", "$rootScope", "$loc
         };
 
         if (locationSplit.length > 0) {
-            isCheckoutPaymentPage = locationSplit[0].indexOf('checkoutpayment') === 1;
+            isCheckoutPaymentPage = locationSplit[0].indexOf('checkoutpayment') !== -1;
             if (isCheckoutPaymentPage) {
                 var pairResponseValues = locationSplit[1]; // pairResponseValues = "error_code=00&token=45035840353jflkdjfsd&order_code=545934095&order_id=534534"
                 // find value from list keys

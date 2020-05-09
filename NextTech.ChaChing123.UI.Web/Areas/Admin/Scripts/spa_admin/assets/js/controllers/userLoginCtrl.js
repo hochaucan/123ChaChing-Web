@@ -48,10 +48,10 @@
                                     $scope.userData.displayUserInfo();
 
                                     $scope.showSpinner = false;
-                                    if ($rootScope.previousState && $rootScope.previousState != '/login/signin')
+                                    if ($rootScope.previousState)
                                         $location.path($rootScope.previousState);
                                     else
-                                        $location.path('/app/dashboard/manage');
+                                        $location.path('/app/member/list');
                                 } else {
                                     //$scope.isLoading = false;
 

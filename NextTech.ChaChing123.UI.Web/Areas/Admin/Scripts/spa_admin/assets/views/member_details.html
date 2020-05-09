@@ -352,7 +352,7 @@
                                     <table ng-table="tableParams" class="table table-striped">
                                         <tbody>
                                             <tr ng-repeat="entity in $data">
-                                                <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
+                                                <td data-title="&#39;#&#39;"> {{entity.CreatedDate}}</td>
                                                 <td data-title="&#39;Tên Đăng Nhập&#39;"><a>{{entity.UserName}}</a></td>
                                                 <td data-title="&#39;Tên&#39;">{{entity.FullName}}</td>
                                                 <td data-title="&#39;Tên Ngân Hàng&#39;">{{entity.BeneBankName}}</td>
@@ -394,7 +394,7 @@
                                             </label>
                                             <input type="text" class="form-control" id="AffiliateAccount" name="AffiliateAccount" ng-model="member.AffiliateAccount" placeholder="Tên Đăng Nhập" readonly>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group hidden">
                                             <label for="Notes">
                                                 Ghi chú từ Admin
                                             </label>

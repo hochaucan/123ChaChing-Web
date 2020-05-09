@@ -289,7 +289,27 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Khách Hàng'
             },
             resolve: loadSequence('ngTable', 'ngTableLeadListCtrl')
-        }).state('app.title', {
+            })
+
+            .state('app.withdrawrequest', {
+                url: '/withdrawrequest',
+                template: '<div ui-view class="fade-in-up"></div>',
+                title: 'Yêu Cầu Rút Tiền',
+                ncyBreadcrumb: {
+                    label: 'Yêu Cầu Rút Tiền'
+                },
+                resolve: { isAuthenticated: isAuthenticated }
+            }).state('app.withdrawrequest.list', {
+                url: '/list',
+                templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/withdraw_request.html",
+                title: 'Quản Lý Yêu Cầu Rút Tiền',
+                ncyBreadcrumb: {
+                    label: 'Quản Lý Yêu Cầu Rút Tiền'
+                },
+                resolve: loadSequence('ngTable', 'ngTableWithDrawRequestCtrl')
+            })
+
+            .state('app.title', {
             url: '/title',
             template: '<div ui-view class="fade-in-up"></div>',
             title: 'Mẫu Tiêu Đề',

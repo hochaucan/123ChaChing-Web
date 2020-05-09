@@ -768,7 +768,7 @@ app.controller('ngTableCommissionReportCtrl', ["$scope", "$rootScope", "$window"
                 size: size,
                 resolve: {
                     items: function () {
-                        return size.target.attributes.data.value;
+                        return size.currentTarget.attributes.data.value;
                     }
                 }
             });
@@ -1039,4 +1039,142 @@ app.controller('ModalRequestWithDrawalRevenueReportCtrl', ["$scope", "$window", 
 
         $scope.ModalRequestWithDrawRevenuReportManager.init();
         $scope.ModalRequestWithDrawRevenuReportManager.edit();
+    }]);
+
+app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "revenueService", "membershipService", "notificationService",
+    function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, revenueService, membershipService, notificationService) {
+        var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
+        $scope.member = {};
+        $scope.affiliates = {};
+        $scope.totalAffiliateAmount = 0; // total amount
+        $scope.pendingAffiliateAmount = 0; // the amount that is waiting for approval
+        $scope.mustReturnAffilateAmount = 0; // the amount that is already approved
+
+        $scope.config = {};
+        $scope.config.disCountCommission = "";
+        $scope.config.cookieStoragePeriod = "";
+
+        function getDiscountCommissionAndCookieStorage() {
+            var entity = {
+                "SessionKey": sessionKey
+            };
+
+
+            $scope.showSpinner = true;
+            // Load the data from the API
+            revenueService.GetConfigValueByKeys(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    var configs = result.data.Details;
+                    if (configs.length > 0) {
+                        $scope.config.disCountCommission = configs[0].Value;
+                        $scope.config.cookieStoragePeriod = configs[1].Value;
+                    }
+
+                    notificationService.displaySuccess(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    notificationService.displayError(result.data.StatusMsg);
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+            });
+        }
+
+        function updateDiscountCommissionAndCookieStorage() {
+            $scope.form = {
+                submit: function (form) {
+                    var firstError = null;
+                    if (form.$invalid) {
+
+                        var field = null, firstError = null;
+                        for (field in form) {
+                            if (field[0] != '$') {
+                                if (firstError === null && !form[field].$valid) {
+                                    firstError = form[field].$name;
+                                }
+
+                                if (form[field].$pristine) {
+                                    form[field].$dirty = true;
+                                }
+                            }
+                        }
+
+                        angular.element('.ng-invalid[name=' + firstError + ']').focus();
+                        //SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+
+                        return;
+
+                    } else {
+                        var entityDiscount = {
+                            "Key": "ConfigFee",
+                            "Value": $scope.config.disCountCommission,
+                            "SessionKey": sessionKey
+                        };
+
+                        var entityCookie = {
+                            "Key": "CookieTime",
+                            "Value": $scope.config.cookieStoragePeriod,
+                            "SessionKey": sessionKey
+                        };
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        revenueService.UpdateConfigValueByKey(entityDiscount, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            }
+                        });
+
+                        $scope.showSpinner = true;
+                        // Load the data from the API
+                        revenueService.UpdateConfigValueByKey(entityCookie, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                notificationService.displaySuccess(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            }
+                        });
+                    }
+                }
+            };
+        }
+
+        $scope.DiscountComissionReportManager = {
+            init: function () {
+                getDiscountCommissionAndCookieStorage();
+                updateDiscountCommissionAndCookieStorage();
+            }
+        };
+
+        $scope.DiscountComissionReportManager.init();
+
     }]);

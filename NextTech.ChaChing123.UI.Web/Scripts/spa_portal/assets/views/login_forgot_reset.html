@@ -29,7 +29,7 @@
                             <label class="control-label" for="boxForgotFinishPasswordActivateKey">
                                 Mã kích hoạt <span class="symbol required"></span>
                             </label>
-                            <input type="text" class="form-control" id="boxForgotFinishPasswordActivateKey" name="activatekey" ng-model="userForgotPassword.activatekey" placeholder="Mã Kích Hoạt" required="">
+                            <input type="text" class="form-control" id="boxForgotFinishPasswordActivateKey" name="activatekey" ng-model="userForgotPassword.activatekey" placeholder="Mã Kích Hoạt" required="" readonly>
                             <span class="error text-small block" ng-if="FormForgotFinishPassword.activatekey.$dirty && FormForgotFinishPassword.activatekey.$invalid">Mã kích hoạt là bắt buộc.</span>
                         </div>
                         <div class="form-group" ng-class="{'has-error':FormForgotFinishPassword.password.$dirty && FormForgotFinishPassword.password.$invalid, 'has-success':FormForgotFinishPassword.password.$valid}">

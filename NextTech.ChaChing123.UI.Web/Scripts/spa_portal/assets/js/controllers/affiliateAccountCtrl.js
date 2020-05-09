@@ -179,12 +179,9 @@ app.controller('AffiliateComissionsCtrl', ["$scope", "$window", "$location", "$l
                 if (result.data && result.data.StatusCode === 0) {
                     $scope.affiliateComissionsReport = result.data.Details;
 
-                    console.log(keyword);
                     $scope.affiliateCommissionYear = {
                         "currentYear": keyword.length > 0 ? keyword : currentYear
                     };
-
-                    console.log($scope.affiliateCommissionYear.currentYear);
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -485,4 +482,185 @@ app.controller('ModalInstanceCtrl2', ["$scope", "$localStorage", "$uibModalInsta
 
         $scope.initGetLinkAffiliate.init();
 
+    }]);
+
+app.controller('AffiliateLinkvAccordionCtrl', ["$scope", "$window", "$location", "$timeout", "$localStorage", "$uibModal", "affiliatelinkService", "commonService", "membershipService", "notificationService",
+    function ($scope, $window, $location, $timeout, $localStorage, $uibModal, affiliatelinkService, commonService, membershipService, notificationService) {
+        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+
+        $scope.showSpinner = false;
+        $scope.affiliateLinksPanes = [];
+
+        function loadAffiliateLinks() {
+            $scope.affiliateLinks = {};
+            $scope.showSpinner = true;
+            // Load the data from the API
+            var lead = {
+                "SessionKey": sessionKey
+            };
+
+            $scope.firstAccordionControl = {
+                onExpand: function (expandedPaneIndex) {
+                    console.log('expanded:', expandedPaneIndex);
+                },
+                onCollapse: function (collapsedPaneIndex) {
+                    console.log('collapsed:', collapsedPaneIndex);
+                }
+            };
+
+            var entity = {
+                "ID": "-1",
+                "SessionKey": sessionKey
+            };
+            // Load the data from the API
+            $scope.showSpinner = true;
+            affiliatelinkService.GetAllAffiliateLink(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.documents = result.data.Details.Items;
+
+                    var groupbyItems = commonService.groupBy($scope.documents, 'AffiliateLinksID');
+                    var distinctItemsByCategoryName = commonService.removeDuplicates($scope.documents, 'AffiliateLinksName');
+
+                    angular.forEach(distinctItemsByCategoryName, function (link, index) {
+                        var affiliateLinkHeader = "";
+                        var affiliateLinkContent = [];
+                        var affiliateLink = {};
+
+                        var _affLinkCateID = link.AffiliateLinksID;
+                        affiliateLinkHeader = link.AffiliateLinksName;
+                        // group item by category id
+                        if (_affLinkCateID > 0) {
+                            var affiliateLinkByCategoryID = groupbyItems[_affLinkCateID];
+                            angular.forEach(affiliateLinkByCategoryID, function (l, i) {
+                                var content = {
+                                    'affiliateLinkID': l.ID,
+                                    'affiliateLinkCategoryID': l.AffiliateLinksID,
+                                    'header': l.Title,
+                                    'content': l.Content,
+                                    'link': l.Link,
+                                    'thumbnail': l.ThumbnailImage
+                                };
+                                affiliateLinkContent.push(content);
+                            });
+
+                            affiliateLink = {
+                                header: affiliateLinkHeader,
+                                content: affiliateLinkContent
+                            };
+
+                            $scope.affiliateLinksPanes.push(affiliateLink);
+                        }
+                    });
+
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                    notificationService.displayError(result.data.StatusMsg);
+                }
+            });
+            
+        }
+
+        $scope.changeImage = function (size) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'myModalImagePreview.html',
+                controller: 'ModalImagePreviewCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return size.currentTarget.attributes.data.value;
+                    }
+                }
+            });
+        };
+
+        $scope.previewAffiliateLink = function (affiliateLinkID, thumbnailImg) {
+
+        };
+
+        $scope.shareAffiliateLink = function (affiliateLinkID) {
+
+        };
+
+        $scope.viewAffiliateLink = function (link) {
+            if (link !== undefined && link.length > 0) {
+                $window.open(link, '_blank');
+            }
+            return;
+        };
+
+        $scope.AffiliateLinkManager = {
+            init: function () {
+                loadAffiliateLinks();
+            }
+        };
+
+        $scope.AffiliateLinkManager.init();
+    }]);
+
+app.controller('ModalImagePreviewCtrl', ["$scope", "$window", "$localStorage", "$timeout", "$uibModalInstance", "items", "membershipService", "notificationService",
+    function ($scope, $window, $localStorage, $timeout, $uibModalInstance, items, membershipService, notificationService) {
+        var affiliateLinkID = "";
+        var affiliateLinkImg = "";
+        $scope.imgPreview = "";
+
+        var affiliateLinkInfo = items ? items : "";
+        var affiliateLinkSplit = affiliateLinkInfo.split('|');
+        if (affiliateLinkSplit.length > 0) {
+            affiliateLinkID = affiliateLinkSplit[0];
+            affiliateLinkImg = affiliateLinkSplit[1];
+        }
+
+        if (affiliateLinkImg.length > 0) {
+            $scope.imgPreview = affiliateLinkImg;
+        }
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }]);
+
+app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$localStorage", "$timeout", "affiliatelinkBannerService", "membershipService", "notificationService",
+    function ($scope, $rootScope, $localStorage, $timeout, affiliatelinkBannerService, membershipService, notificationService) {
+        var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+        $scope.bannerDownloadLink = "";
+
+        function loadBanners() {
+            var entity = {
+                "SessionKey": sessionKey
+            };
+            // Load the data from the API
+            $scope.showSpinner = true;
+            affiliatelinkBannerService.GetBannerLink(entity, function (result) {
+                if (result.data && result.data.StatusCode === 17) {
+                    membershipService.checkMemberAuthorization();
+                }
+
+                if (result.data && result.data.StatusCode === 0) {
+                    $scope.bannerDownloadLink = result.data.Details;
+                    
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                } else {
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                    notificationService.displayError(result.data.StatusMsg);
+                }
+            });
+        }
+
+        $scope.AffiliateLinkBannerManager = {
+            init: function () {
+                loadBanners();
+            }
+        };
+
+        $scope.AffiliateLinkBannerManager.init();
     }]);

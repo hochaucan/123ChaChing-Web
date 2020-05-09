@@ -21,22 +21,22 @@
                     <div class="panel-heading">
                         <p>
                             <button class="btn btn-primary" ng-click="addDocument(0)">
-                                Thêm Mới Tài Liệu
+                                Thêm Mới Affiliate Link
                             </button>
                         </p>
                     </div>
                     <div class="panel-body">
                         <table ng-table="tableParams" class="table table-striped">
                             <tbody>
-                                <tr ng-repeat="document in $data">
+                                <tr ng-repeat="document in documents">
                                     <td data-title="&#39;#&#39;"> {{$index + 1}}</td>
                                     <td data-title="&#39;Tiêu Đề&#39;">{{document.Title}}</td>
                                     <td data-title="&#39;Nội Dung&#39;">{{document.Content}}</td>
-                                    <td data-title="&#39;Tên Danh Mục&#39;">{{document.CategoryName}}</td>
+                                    <td data-title="&#39;Tên Danh Mục&#39;">{{document.AffiliateLinksName}}</td>
                                     <td data-title="&#39;Thứ Tự&#39;">{{document.Order}}</td>
                                     <td data-title="&#39;Hành Động&#39;" class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                            <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.CategoryName}}|{{document.Link}}|{{document.Order}}|{{document.ThumbnailImage}}">
+                                            <a ng-click="editDocument($event)" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Cập Nhật" data="{{document.ID}}|{{document.Title}}|{{document.Content}}|{{document.AffiliateLinksID}}|{{document.Link}}|{{document.Order}}|{{document.ThumbnailImage}}">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                             <a ng-click="deleteDocument($event)" class="btn btn-transparent btn-xs tooltips" tooltip-placement="top" uib-tooltip="Xóa" data="{{document.ID}}">
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="Content">
-                                            Link Đích
+                                            Link Solo Page
                                         </label>
                                         <input type="text" class="form-control" id="Link" name="Link" ng-model="entity.Link" placeholder="Điền Link Đích Tại Đây">
                                     </div>

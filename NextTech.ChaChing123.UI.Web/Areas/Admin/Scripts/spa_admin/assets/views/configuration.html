@@ -256,11 +256,11 @@
                                             <td data-title="&#39;Tình Trạng&#39;"><span ng-class="[getClass(entity.Status), 'b']">{{entity.StatusName}}</span></td>
                                             <td class="center">
                                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                    <a class="label label-success" ng-if="entity.Status === 0">
-                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Hoạt Động
+                                                    <a class="label label-success" ng-if="entity.Status === 0" data="{{entity.Account}}|{{entity.Status}}" ng-click="lockOrUnlockAffiliateAccount($event)">
+                                                        <i class="fa fa-unlock-alt"></i> Hoạt Động
                                                     </a>
-                                                    <a class="label label-danger" ng-if="entity.Status === 1">
-                                                        <i class="fa fa-unlock-alt" ng-click="lockOrUnlockAffiliateAccount($event)" data="{{entity.Account}}|{{entity.Status}}"></i> Không Hoạt Động
+                                                    <a class="label label-danger" ng-if="entity.Status === 1" data="{{entity.Account}}|{{entity.Status}}" ng-click="lockOrUnlockAffiliateAccount($event)">
+                                                        <i class="fa fa-unlock-alt"></i> Không Hoạt Động
                                                     </a>
                                                 </div>
                                             </td>
@@ -361,6 +361,35 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="panel panel-transparent">
+                                <div class="panel-body">
+                                    <div ng-controller="DisCountCommissionAndCookieStoragePriod">
+                                        <form role="form" class="form-horizontal" name="FormDisCountCommissionAndCookieStoragePriod" id="FormDisCountCommissionAndCookieStoragePriod" novalidate="" ng-submit="form.submit(FormDisCountCommissionAndCookieStoragePriod)">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="inputEmail3">
+                                                    CHIẾT KHẤU HOA HỒNG (%)
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" placeholder="Chiết khấu hoa hồng" id="inputDisCountCommission" ng-model="config.disCountCommission" class="form-control underline">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="inputPassword3">
+                                                    THỜI GIAN LƯU TRỮ COOKIE (NGÀY)
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" placeholder="Thời gian lưu trữ cookie" id="inputCookieStoragePeriod" ng-model="config.cookieStoragePeriod" class="form-control underline">
+                                                </div>
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Cập nhật
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <script type="text/ng-template" id="myModalRequestWithDrawalRevenueReport.html">

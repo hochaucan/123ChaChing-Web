@@ -131,6 +131,14 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
             angular.element('#' + idBuilder + '').addClass("color-select");
         };
 
+        $scope.manageAutoResponder = function () {
+            $location.path('app/editor2/autoresponder/manage');
+            //var baseUrl = $rootScope.baseUrl.url;
+            //var checkoutUrl = baseUrl + '#/app/editor2/autoresponder/manage';
+
+            //$window.location.href = checkoutUrl;
+        };
+
         $scope.form = {
             submit: function (form) {
                 var firstError = null;
