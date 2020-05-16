@@ -1,9 +1,9 @@
-'use strict';
+﻿'use strict';
 /**
  * Clip-Two Main Controller
  */
-app.controller('AppCtrl', ['$rootScope', '$scope', '$location', '$http', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', 'cfpLoadingBar', 'membershipService',
-    function ($rootScope, $scope, $location, $http, $state, $translate, $localStorage, $window, $document, $timeout, cfpLoadingBar, membershipService) {
+app.controller('AppCtrl', ['$rootScope', '$scope', '$location', '$http', '$state', '$translate', '$localStorage', '$window', '$document', '$timeout', 'cfpLoadingBar', 'notificationService', 'membershipService',
+    function ($rootScope, $scope, $location, $http, $state, $translate, $localStorage, $window, $document, $timeout, cfpLoadingBar, notificationService, membershipService) {
 
         // Loading bar transition
         // -----------------------------------
@@ -174,14 +174,43 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$location', '$http', '$state
                 function displayUserInfo() {
                     $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
                     if ($scope.userData.isUserLoggedIn) {
-                        $scope.username = 'admin';
+                        $scope.username = $localStorage.currentUserAdmin.username;
                     }
                 }
 
                 function logout() {
-                    membershipService.removeCredentials();
-                    $scope.userData.displayUserInfo();
-                    $location.path('/login/signin');
+                    if ($localStorage.currentUserAdmin === undefined ||
+                        ($localStorage.currentUserAdmin !== undefined && $localStorage.currentUserAdmin.token.length === 0)) {
+                        membershipService.removeCredentials();
+                        $scope.userData.displayUserInfo();
+                        $location.path('/login/signin');
+                        return;
+                    }
+
+                    var userLogin = {
+                        "UserName": $localStorage.currentUserAdmin.username,
+                        "SessionKey": $localStorage.currentUserAdmin.token
+                    };
+
+                    $scope.showSpinner = true;
+                    membershipService.LogOut(userLogin, function (result) {
+                        if (result.data && result.data.StatusCode === 0) {
+                            membershipService.removeCredentials();
+                            $scope.userData.displayUserInfo();
+                            notificationService.displaySuccess('Logout thành công');
+
+                            $timeout(function () {
+                                $scope.showSpinner = false;
+                                $location.path('/login/signin');
+                            }, 1000);
+                        } else {
+                            $timeout(function () {
+                                $scope.showSpinner = false;
+                            }, 2000);
+
+                            notificationService.displayError(result.data.StatusMsg);
+                        }
+                    });
                 }
 
                 $scope.userData.displayUserInfo();

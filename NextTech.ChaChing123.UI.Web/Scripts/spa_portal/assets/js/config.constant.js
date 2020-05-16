@@ -8,6 +8,7 @@ app.constant('APP_MEDIAQUERY', {
     'desktop': 992,
     'tablet': 768,
     'mobile': 480
+
 });
 app.constant('JS_REQUIRES', {
     //*** Scripts

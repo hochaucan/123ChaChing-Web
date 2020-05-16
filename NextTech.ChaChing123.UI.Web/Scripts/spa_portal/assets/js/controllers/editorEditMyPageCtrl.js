@@ -5,12 +5,14 @@
 
 var baseUrl = 'https://api.123chaching.app';
 var backgroundPath = "";
+var backgroundImageUploadFullFileName = "";
 var resourceUploadImageFullFileName = "";
 var _imageResourcePath = "";
 //var baseUrl = 'http://localhost:1494';
 
 app.controller('EditMyPageMasterCtrl', ["$scope", function ($scope) {
-        $scope.imageResourcePath = "";
+    $scope.imageResourcePath = "";
+    $scope.imageBackgroundPath = "";
 }]);
 
 app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window", "$localStorage", "$timeout", "autoResponderService", "membershipService", "editorService", "notificationService",
@@ -44,8 +46,6 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.titles = {};
         $scope.subtitles = {};
         $scope.autoresponders = {};
-        $scope.imageBackgroundPath = "";
-        //$scope.imageResourcePath = "";
 
         var userObj = {
             ID: ID,
@@ -214,11 +214,11 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         }
                     }
 
-                    if (backgroundPath && backgroundPath.length > 0 && $scope.isUploadFileDetails) {
-                        $scope.manageSoloPages.uploadBackgroundFileDetailsAndEditSoloPage(editor);
-                    } else {
-                        $scope.manageSoloPages.editSoloPage(editor);
+                    if (backgroundImageUploadFullFileName && backgroundImageUploadFullFileName.length > 0) {
+                        editor.BackgroundPath = backgroundImageUploadFullFileName;
                     }
+
+                    $scope.manageSoloPages.editSoloPage(editor);
                 }
 
             }
@@ -354,64 +354,6 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
             loadAutoresponders: function () {
                 loadAutoresponders();
             },
-            getBackgroundFileDetails: function () {
-                $scope.getBackgroundFileDetails = function (e) {
-
-                    $scope.backgroundFiles = [];
-                    $scope.$apply(function () {
-                        // STORE THE FILE OBJECT IN AN ARRAY.
-                        for (var i = 0; i < e.files.length; i++) {
-                            $scope.backgroundFiles.push(e.files[i]);
-                            backgroundPath = e.files[i].name;
-                            $scope.isUploadFileDetails = true;
-                        }
-                    });
-                };
-            },
-            uploadBackgroundFileDetailsAndEditSoloPage: function (editor) {
-                // NOW UPLOAD THE FILES.
-                //FILL FormData WITH FILE DETAILS.
-                var data = new FormData();
-
-                for (var i in $scope.backgroundFiles) {
-                    data.append("uploadedFile", $scope.backgroundFiles[i]);
-                    if ($scope.backgroundFiles[i].name) {
-                        data.append("SessionKey", sessionKey);
-                        break;
-                    }
-                }
-
-                // ADD LISTENERS.
-                var objXhr = new XMLHttpRequest();
-                objXhr.addEventListener("progress", updateProgress, false);
-                objXhr.addEventListener("load", transferComplete, false);
-
-                // SEND FILE DETAILS TO THE API.
-                objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-                objXhr.send(data);
-
-                // UPDATE PROGRESS BAR.
-                function updateProgress(e) {
-                    if (e.lengthComputable) {
-                        //document.getElementById('pro').setAttribute('value', e.loaded);
-                        //document.getElementById('pro').setAttribute('max', e.total);
-                    }
-                }
-
-                // CONFIRMATION.
-                function transferComplete(e) {
-                    var result = JSON.parse(e.target.response);
-                    if (result.StatusCode == 0) {
-                        editor.BackgroundPath = result.Details;
-                        $scope.manageSoloPages.editSoloPage(editor);
-                        $scope.isUploadFileDetails = false;
-                    }
-                    else {
-                        notificationService.displaySuccess(result.StatusMsg);
-                        $scope.isUploadFileDetails = false;
-                    }
-                }
-            },
             editSoloPage: function (editor) {
                 editorService.editSoloPage(editor, function (result) {
                     if (result.data && result.data.StatusCode == 17) {
@@ -427,7 +369,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                             $scope.showSpinner = false;
                             $timeout(function () {
                                 $window.open(soloPageUrlBuilder, '_blank');
-                                $window.location.reload();
+                                //$window.location.reload();
                             }, 1000);
                         }
 
@@ -448,6 +390,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         }
 
                         backgroundPath = "";
+                        backgroundImageUploadFullFileName = "";
                         resourceUploadImageFullFileName = "";
                     }
                     else {
@@ -456,6 +399,7 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
                         }, 2000);
                         notificationService.displayError(result.data.StatusMsg);
                         backgroundPath = "";
+                        backgroundImageUploadFullFileName = "";
                         resourceUploadImageFullFileName = "";
                     }
                 });
@@ -467,7 +411,6 @@ app.controller('EditMyPageCtrl', ["$scope", "$rootScope", "$location", "$window"
         $scope.manageSoloPages.loadTitles();
         $scope.manageSoloPages.loadSubTitles();
         $scope.manageSoloPages.loadAutoresponders();
-        $scope.manageSoloPages.getBackgroundFileDetails();
     }]);
 
 app.controller('ResourceUploadImageFile', ["$scope", "$timeout", "$localStorage", "editorService", "notificationService",
@@ -533,4 +476,75 @@ app.controller('ResourceUploadImageFile', ["$scope", "$timeout", "$localStorage"
                 $scope.showSpinner = false;
             }
         }
+    }]);
+
+app.controller('BackgroundImageUploadImageFile', ["$scope", "$rootScope", "$timeout", "$localStorage", "notificationService",
+    function ($scope, $rootScope, $timeout, $localStorage, notificationService) {
+        var baseUrl = $rootScope.baseUrl.urlWebApi;
+        // GET THE FILE INFORMATION.
+        $scope.getFileDetails = function (e) {
+            $scope.showSpinner = true;
+            $scope.files = [];
+            $scope.$apply(function () {
+
+                // STORE THE FILE OBJECT IN AN ARRAY.
+                for (var i = 0; i < e.files.length; i++) {
+                    $scope.files.push(e.files[i]);
+                }
+            });
+
+            //FILL FormData WITH FILE DETAILS.
+            var SessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
+            var data = new FormData();
+
+            for (var i in $scope.files) {
+                data.append("uploadedFile", $scope.files[i]);
+                if ($scope.files[i].name) {
+                    data.append("SessionKey", SessionKey);
+                    break;
+                }
+            }
+
+            $scope.showSpinner = false;
+            // ADD LISTENERS.
+            var objXhr = new XMLHttpRequest();
+            objXhr.addEventListener("progress", updateProgress, false);
+            objXhr.addEventListener("load", transferComplete, false);
+
+            // SEND FILE DETAILS TO THE API.
+            objXhr.open("POST", baseUrl + "api/LandingPage/UploadFile/");
+            objXhr.send(data);
+
+            // UPDATE PROGRESS BAR.
+            function updateProgress(e) {
+                if (e.lengthComputable) {
+                    //document.getElementById('pro').setAttribute('value', e.loaded);
+                    //document.getElementById('pro').setAttribute('max', e.total);
+                }
+            }
+
+            // CONFIRMATION.
+            function transferComplete(e) {
+                //notificationService.displaySuccess("Upload file thành công");
+                var result = JSON.parse(e.target.response);
+                if (result.StatusCode === 0) {
+                    backgroundImageUploadFullFileName = result.Details;
+                    $scope.imageBackgroundPath = backgroundImageUploadFullFileName;
+                    notificationService.displaySuccess("Upload hình nền thành công");
+
+                    $timeout(function () {
+                        $scope.showSpinner = false;
+                    }, 1000);
+                }
+                else {
+                    notificationService.displaySuccess(result.StatusMsg);
+                    $scope.showSpinner = false;
+                }
+            }
+
+            //console.log('1. before uploading image: ' + backgroundImageUploadFullFileName);
+            //uploadImageResourceService.upload(data, $scope, backgroundImageUploadFullFileName);
+            //console.log('2. after uploading image: ' + backgroundImageUploadFullFileName);
+            //$scope.imageBackgroundPath = backgroundImageUploadFullFileName;
+        };
     }]);

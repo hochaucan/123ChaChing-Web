@@ -39,41 +39,55 @@
                         <div class="panel panel-white">
                             <circle-spinner ng-show="showSpinner"></circle-spinner>
                             <div class="panel-body">
-                                <div class="col-md-3 col-md-12">
-                                    <div class="form-group">
-                                        <label for="PaymentStatus">
-                                            Thanh Toán
-                                        </label>
-                                        <select class="form-control black" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatus" ng-options="payment.PaymentStatus as payment.PaymentStatusName for payment in PaymentStatusList">
-                                            <option value="">Tất Cả</option>
-                                        </select>
+                                <div class="col-md-10">
+                                    <div class="col-md-3 col-md-12">
+                                        <div class="form-group">
+                                            <label for="PaymentStatus">
+                                                Thanh Toán
+                                            </label>
+                                            <select class="form-control black" id="PaymentStatus" name="PaymentStatus" ng-model="order.PaymentStatus" ng-options="payment.PaymentStatus as payment.PaymentStatusName for payment in PaymentStatusList">
+                                                <option value="">Tất Cả</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-12">
+                                        <div class="form-group">
+                                            <label for="Affiliates">
+                                                Đại Sứ
+                                            </label>
+                                            <select class="form-control black" id="Affiliates" name="Affiliates" ng-model="order.UserName" ng-options="affiliate.UserName as affiliate.FullName for affiliate in Affiliates">
+                                                <option value="">Tất Cả</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-12">
+                                        <div class="form-group">
+                                            <label for="AffiliateStatus">
+                                                Tình Trạng
+                                            </label>
+                                            <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="order.AffiliateStatus" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
+                                                <option value="">Tất Cả</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-12">
+                                        <div class="form-group">
+                                            <label for="CommissionPayOff">
+                                                Trả Tiền Hoa Hồng
+                                            </label>
+                                            <select class="form-control black" id="CommissionPayOff" name="CommissionPayOff" ng-model="order.CommissionPayOff" ng-options="option.CommissionPayOffID as option.CommissionPayOffName for option in CommissionPayOffs">
+                                                <option value="">Tất Cả</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-md-12">
-                                    <div class="form-group">
-                                        <label for="Affiliates">
-                                            Đại Sứ
-                                        </label>
-                                        <select class="form-control black" id="Affiliates" name="Affiliates" ng-model="order.UserName" ng-options="affiliate.UserName as affiliate.FullName for affiliate in Affiliates">
-                                            <option value="">Tất Cả</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-md-12">
-                                    <div class="form-group">
-                                        <label for="AffiliateStatus">
-                                            Tình Trạng
-                                        </label>
-                                        <select class="form-control black" id="AffiliateStatus" name="AffiliateStatus" ng-model="order.AffiliateStatus" ng-options="affiliate.AffiliateStatus as affiliate.AffiliateStatusName for affiliate in AffiliateStatusList">
-                                            <option value="">Tất Cả</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-md-12">
-                                    <div class="form-group text-right margin-top-30">
-                                        <label for="">
-                                        </label>
-                                        <a class="btn btn-wide btn-primary" ng-click="doFilterOrder()"><i class="ti-filter"></i> Áp Dụng Bộ Lọc</a>
+                                <div class="col-md-2">
+                                    <div class="col-md-3 col-md-12">
+                                        <div class="form-group text-right margin-top-30">
+                                            <label for="">
+                                            </label>
+                                            <a class="btn btn-wide btn-primary" ng-click="doFilterOrder()"><i class="ti-filter"></i> Áp Dụng Bộ Lọc</a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

@@ -23,6 +23,7 @@
                     </div>
                 </div>
                 <div class="col-md-5">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-class="{'t-box':soloPageDetails.Title.length == 0 && soloPageDetails.SubTitle.length == 0}">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
@@ -55,10 +56,10 @@
                     </div>
                 </div>
                 <div class="col-md-5">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-class="{'t-box':soloPageDetails.Title.length == 0 && soloPageDetails.SubTitle.length == 0}">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
-
                         <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
                             <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
                                 <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">
@@ -91,10 +92,10 @@
                     </div>
                 </div>
                 <div class="col-md-5">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-class="{'t-box':soloPageDetails.Title.length == 0 && soloPageDetails.SubTitle.length == 0}">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>
-
                         <form class="form-withdrawal-request" name="SoLoPageForm" id="SoLoPageForm" novalidate="" ng-submit="form.submit(SoLoPageForm)">
                             <div class="form-group" ng-class="{'has-error':SoLoPageForm.name.$dirty && SoLoPageForm.name.$invalid, 'has-success':SoLoPageForm.name.$valid}">
                                 <input type="text" class="form-control t-input field-border color-border" id="name" name="name" ng-model="lead.name" placeholder="Name" required="">
@@ -131,6 +132,7 @@
                     </div>
                 </div>
                 <div class="col-md-5">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
                     <div ng-class="{'t-box':soloPageDetails.Title.length == 0 && soloPageDetails.SubTitle.length == 0}">
                         <div id="text_1" class="editable-headline t-text-1">{{soloPageDetails.Title}}</div>
                         <div id="text_2" class="editable-subheadline t-text-2">{{soloPageDetails.SubTitle}}</div>

@@ -27,11 +27,11 @@ body {
 .t-text-1{
 	text-align: center;
 	font-size: 36px;
-  color:white;
+    color:white;
   /*margin-top:100px;*/
   /*margin-bottom:30px;*/
-      text-shadow: 1px 1px 15px rgba(0, 0, 0, .51);
-
+    text-shadow: 1px 1px 15px rgba(0, 0, 0, .51);
+    word-break: break-all;
 }
 
 .padding-top{
@@ -54,7 +54,8 @@ body {
 	text-align: center;
 	font-size: 22px;
 	margin: 5px 0 10px 0;
-  color:white;
+    color:white;
+    word-break: break-all;
   /*margin-top:60px;*/
 }
 

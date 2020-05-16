@@ -185,6 +185,33 @@ app.controller('AppCtrl', ['$rootScope', '$scope', '$state', '$translate', '$loc
                     membershipService.removeCredentials();
                     $scope.userData.displayUserInfo();
                     $location.path('/app/login/signin');
+
+                    //var userLogin = {
+                    //    "UserName": $localStorage.currentUser,
+                    //    "SessionKey": $localStorage.token
+                    //};
+                    //$scope.showSpinner = true;
+                    //membershipService.Logout(userLogin, function (result) {
+                    //    if (result.data && result.data.StatusCode === 0) {
+                    //        membershipService.removeCredentials();
+                    //        $scope.userData.displayUserInfo();
+                    //        notificationService.displaySuccess('Logout thành công');
+
+                    //        $timeout(function () {
+                    //            $scope.showSpinner = false;
+                    //            $location.path('/login/signin');
+                    //        }, 1000);
+
+                    //    } else {
+                    //        //$scope.isLoading = false;
+
+                    //        $timeout(function () {
+                    //            $scope.showSpinner = false;
+                    //        }, 2000);
+
+                    //        notificationService.displayError(result.data.StatusMsg);
+                    //    }
+                    //});
                 }
 
                 $scope.userData.displayUserInfo();

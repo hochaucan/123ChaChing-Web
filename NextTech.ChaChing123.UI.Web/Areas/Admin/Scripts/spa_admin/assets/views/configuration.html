@@ -364,10 +364,11 @@
                             </div>
                             <div class="panel panel-transparent">
                                 <div class="panel-body">
-                                    <div ng-controller="DisCountCommissionAndCookieStoragePriod">
+                                    <div ng-controller="DisCountCommissionAndCookieStoragePriodCtrl">
+                                        <circle-spinner ng-show="showSpinner"></circle-spinner>
                                         <form role="form" class="form-horizontal" name="FormDisCountCommissionAndCookieStoragePriod" id="FormDisCountCommissionAndCookieStoragePriod" novalidate="" ng-submit="form.submit(FormDisCountCommissionAndCookieStoragePriod)">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="inputEmail3">
+                                                <label class="col-sm-2 control-label" for="inputDisCountCommission">
                                                     CHIẾT KHẤU HOA HỒNG (%)
                                                 </label>
                                                 <div class="col-sm-10">
@@ -375,11 +376,27 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="inputPassword3">
+                                                <label class="col-sm-2 control-label" for="inputCookieStoragePeriod">
                                                     THỜI GIAN LƯU TRỮ COOKIE (NGÀY)
                                                 </label>
                                                 <div class="col-sm-10">
                                                     <input type="text" placeholder="Thời gian lưu trữ cookie" id="inputCookieStoragePeriod" ng-model="config.cookieStoragePeriod" class="form-control underline">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="inputBasicPricing">
+                                                    GIÁ GÓI CƠ BẢN
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" placeholder="Giá Gói Cơ Bản" id="inputBasicPricing" ng-model="config.basicPricing" class="form-control underline">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="inputAdvancedPricing">
+                                                    GIÁ GÓI NÂNG CAO
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" placeholder="Giá Gói Nâng Cao" id="inputAdvancedPricing" ng-model="config.advancedPricing" class="form-control underline">
                                                 </div>
                                             </div>
                                             <div class="form-group text-right">

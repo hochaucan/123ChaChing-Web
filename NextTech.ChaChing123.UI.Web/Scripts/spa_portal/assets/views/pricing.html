@@ -10,143 +10,62 @@
             <div class="row charts">
                 <div class="col-md-12">
                     <div class="pricing-table">
-                        <div class="col-md-5 col-md-offset-1">
-                            <div class="chart featured">
-                                <div class="plan-name">Cơ Bản</div>
-                                <div class="plan-desc text-capitalize">Bắt đầu ngay với gói cơ bản của 123ChaChing</div>
-                                <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
+                        <div ng-controller="HomePricingManagerCtrl">
+                            <div ng-repeat="price in pricing" ng-class="{'col-md-5 col-md-offset-1': price.Title !== undefined && price.Title.indexOf('Cơ Bản') !== -1, 'col-md-5': price.Title !== undefined && price.Title.indexOf('Nâng Cao') !== -1}">
+                                <div class="chart featured">
+                                    <img src="/Scripts/spa_portal/assets/images/ribbon.png" class="popular" alt="ribbon" ng-if="price.Title !== undefined && price.Title.indexOf('Nâng Cao') !== -1">
+                                    <div class="plan-name">{{price.Title}}</div>
+                                    <div class="plan-desc text-capitalize">{{price.BriefTitle}}</div>
+                                    <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
 
-                                <div class="quantity">
-                                    <span class="dollar">VND</span>
-                                    <span id="ePrice" class="price">5,997,000</span>
-                                    <span class="period">/tháng</span>
-                                    <div class="annual-text">Billed Annually</div>
+                                    <div class="quantity">
+                                        <span class="dollar">VND</span>
+                                        <span id="ePrice" class="price">{{price.Price}}</span>
+                                        <span class="period">/tháng</span>
+                                    </div>
+                                    <div class="specs">
+                                        <div class="spec">
+                                            <div ng-bind-html="price.Content"></div>
+                                        </div>
+                                    </div>
 
-                                    <a id="signupEssential" class="btn-signup button-orange hidden" ng-click="registerBasicPackage()">
-                                        <span>Mua Gới Cơ Bản</span>
-                                    </a>
-                                    <br>
-
-                                </div>
-                                <div class="specs">
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        <span class="variable">Không Giới Hạn</span>
-                                        landing pages
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-
-                                        123ChaChing <span class="variable">Mobile App</span>
-                                        cho iPhone and Android
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-
-                                        Nhận thông báo <span class="variable">thời gian thực</span>
-                                        24/7
-                                    </div>
-                                    <div class="spec aff">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Chiết khấu <span class="variable">50%</span>
-                                        Hoa Hồng Đại Sứ (tính trên giá gói cơ bản)
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Được <span class="variable">Huấn Luyện Online</span>
-                                        và Hỗ Trợ
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Truy cập cộng đồng <span class="variable">Facebook Group</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="chart featured">
-                                <img src="/Scripts/spa_portal/assets/images/ribbon.png" class="popular" alt="ribbon">
-                                <div class="plan-name">Nâng Cao</div>
-                                <div class="plan-desc text-capitalize">Bắt đầu ngay với gói nâng cao của 123ChaChing</div>
-                                <img class="plan-icon" src="/Scripts/spa_portal/assets/images/logo.jpg">
-                                <div class="quantity">
-                                    <span class="dollar">VND</span>
-                                    <span id="cPrice" class="price">8,997,000</span>
-                                    <span class="period">/tháng</span>
-                                    <div class="annual-text">Billed Annually</div>
-                                    <a id="signupComplete" class="btn-signup button-orange2 hidden" ng-click="registerAdvacedPackage()">
-                                        <span>Mua Gói Nâng Cao</span>
-                                    </a>
-                                    <br>
-                                </div>
-                                <div class="specs">
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Được truy cập <span class="variable">123ChaChing</span>
-                                        Facebook Groups
-                                    </div>
-                                    <div class="spec aff">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Chiết khấu <span class="variable">50%</span>
-                                        Hoa Hồng Đại Sứ
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        <span class="variable">Không Giới Hạn</span>
-                                        landing pages
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-
-                                        123ChaChing <span class="variable">Mobile App</span>
-                                        cho iPhone and Android
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Được <span class="variable">Huấn Luyện Online</span>
-                                        và Hỗ Trợ
-                                    </div>
-                                    <div class="spec">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-
-                                        Nhận thông báo <span class="variable">thời gian thực</span>
-                                        24/7
-                                    </div>
-                                    <a id="signupComplete" class="btn-signup button-orange2 hidden" ng-click="registerAdvacedPackage()">
-                                        <span>Đăng ký gói nâng cao</span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="row message">
-                            <p>
-                                <!-- Online Sales Pro has a 30-Day Money-Back Guarantee. -->
-                                <img class="guarantee-img" style="max-width:200px; margin-top:20px" src="/Scripts/spa_portal/assets/images/moneyback14.png">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center margin-top-20">
+                    <div class="row">
+                        <p>
+                            <!-- Online Sales Pro has a 30-Day Money-Back Guarantee. -->
+                            <img class="guarantee-img" style="max-width:200px; margin-top:20px" src="/Scripts/spa_portal/assets/images/moneyback14.png">
 
-                            </p>
-                        </div>
-                        <div class="testimonials-section" style="margin-top: 10px;" ng-controller="FrequentQuestionCtrl">
-                            <circle-spinner ng-show="showSpinner"></circle-spinner>
-                            <div class="row faq" style="padding-left: 20px; padding-right: 20px">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-offset-1">
+                <div class="testimonials-section" style="margin-top: 10px;" ng-controller="FrequentQuestionCtrl">
+                    <circle-spinner ng-show="showSpinner"></circle-spinner>
+                    <div class="faq" style="padding-left: 20px; padding-right: 20px">
+                        <div class="col-md-12">
+                            <div class="row header">
                                 <div class="col-md-12">
-                                    <div class="row header">
-                                        <div class="col-md-12">
-                                            <h3 style="margin-bottom: 15px;"><span class="text-capitalize">Câu hỏi thường gặp</span></h3>
-                                        </div>
-                                    </div>
-                                    <div class="row questions">
-                                        <div class="col-md-6" ng-repeat="q in frequentQuestions">
-                                            <div class="question">
-                                                <strong>{{q.Title}}</strong>
-                                                <p>{{q.Content}}</p>
-                                            </div>
-                                        </div>
+                                    <h3 style="margin-bottom: 15px;"><span class="text-capitalize">Câu hỏi thường gặp</span></h3>
+                                </div>
+                            </div>
+                            <div class="row questions">
+                                <div class="col-md-6" ng-repeat="q in frequentQuestions">
+                                    <div class="question">
+                                        <strong>{{q.Title}}</strong>
+                                        <p>{{q.Content}}</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

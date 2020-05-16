@@ -4,8 +4,8 @@
  * Simple table with sorting and filtering on AngularJS
  */
 
-app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$localStorage", "$timeout", "affiliatelinkBannerService", "membershipService", "notificationService",
-    function ($scope, $rootScope, $localStorage, $timeout, affiliatelinkBannerService, membershipService, notificationService) {
+app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "affiliatelinkBannerService", "membershipService", "notificationService",
+    function ($scope, $rootScope, $window, $localStorage, $timeout, affiliatelinkBannerService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         var imageUploaderPathPrev = "";
         $scope.imagePath = "";
@@ -24,9 +24,7 @@ app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$loca
 
                 if (result.data && result.data.StatusCode === 0) {
                     $scope.imagePath = result.data.Details;
-                    // TODO -  current this api doesn't work properly so need to put the variable as empty
-                    //imageUploaderPathPrev = result.data.Details;
-                    imageUploaderPathPrev = "";
+                    imageUploaderPathPrev = result.data.Details;
 
                     $timeout(function () {
                         $scope.showSpinner = false;
@@ -75,7 +73,7 @@ app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$loca
                 // SEND FILE DETAILS TO THE API.
                 // As Is Upload File
                 //objXhr.open("POST", baseUrl + "/api/LandingPage/UploadFile/");
-                objXhr.open("POST", baseUrl + "/api/Admin/UploadFileAffiliateLink/");
+                objXhr.open("POST", baseUrl + "/api/Account/UpdateBanner/");
                 objXhr.send(data);
             };
 
@@ -95,7 +93,7 @@ app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$loca
                     imageUploaderPath = result.Details;
                     
                     $scope.isCompletedImageUpload = true;
-                    notificationService.displaySuccess("Upload hình ảnh thành công");
+                    notificationService.displaySuccess("Upload file thành công");
                     // Reset the previous image to be empty because it's been already removed away from server
                     imageUploaderPathPrev = result.Details;
 
@@ -110,6 +108,12 @@ app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$loca
                 }
             }
         }
+
+        $scope.downloadBanner = function (bannerLink) {
+            if (bannerLink !== undefined && bannerLink.length > 0) {
+                $window.open(bannerLink, '_blank');
+            }
+        };
 
         $scope.AffiliateLinkBannerManager = {
             init: function () {

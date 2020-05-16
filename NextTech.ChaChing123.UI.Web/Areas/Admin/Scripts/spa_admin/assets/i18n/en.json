@@ -101,7 +101,8 @@
       "homemanage": {
         "BANNER": "Quản Lý Banner",
         "ALLINONE": "Quản Lý Top Những Tính Năng",
-        "MOBILEAPPLICATION": "Quản Lý Ứng Dụng Di Động"
+        "MOBILEAPPLICATION": "Quản Lý Ứng Dụng Di Động",
+        "PRICING": "Quản Lý Bảng Giá"
       },
       "element": {
         "MAIN": "UI Elements",

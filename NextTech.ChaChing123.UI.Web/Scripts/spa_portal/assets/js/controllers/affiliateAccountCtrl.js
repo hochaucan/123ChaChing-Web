@@ -625,8 +625,8 @@ app.controller('ModalImagePreviewCtrl', ["$scope", "$window", "$localStorage", "
         };
     }]);
 
-app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$localStorage", "$timeout", "affiliatelinkBannerService", "membershipService", "notificationService",
-    function ($scope, $rootScope, $localStorage, $timeout, affiliatelinkBannerService, membershipService, notificationService) {
+app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$http", "$rootScope", "$window", "$localStorage", "$timeout", "affiliatelinkBannerService", "membershipService", "notificationService",
+    function ($scope, $http, $rootScope, $window, $localStorage, $timeout, affiliatelinkBannerService, membershipService, notificationService) {
         var sessionKey = ($localStorage.currentUser) ? $localStorage.currentUser.token : "";
         $scope.bannerDownloadLink = "";
 
@@ -660,6 +660,46 @@ app.controller('AffiliateLinkBannerManagerCtrl', ["$scope", "$rootScope", "$loca
             init: function () {
                 loadBanners();
             }
+        };
+
+        $scope.downloadBanner = function (bannerLink) {
+            if (bannerLink !== undefined && bannerLink.length > 0) {
+                $window.open(bannerLink, '_blank');
+            }
+        };
+
+        $scope.downloadFile = function (name) {
+            $http({
+                method: 'GET',
+                url: 'https://123chaching.app/api/downloadresource/download',
+                params: { name: name },
+                responseType: 'arraybuffer'
+            }).success(function (data, status, headers) {
+                headers = headers();
+
+                var filename = headers['x-filename'];
+                var contentType = headers['content-type'];
+
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", filename);
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            }).error(function (data) {
+                console.log(data);
+            });
         };
 
         $scope.AffiliateLinkBannerManager.init();
