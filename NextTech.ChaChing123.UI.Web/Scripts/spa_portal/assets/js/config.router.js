@@ -14,6 +14,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
     app.constant = $provide.constant;
     app.value = $provide.value;
 
+
     // LAZY MODULES
 
     $ocLazyLoadProvider.config({

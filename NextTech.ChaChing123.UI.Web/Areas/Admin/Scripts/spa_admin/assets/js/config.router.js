@@ -26,7 +26,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
         // APPLICATION ROUTES
         // -----------------------------------
         // For any unmatched url, redirect to /app/dashboard
-        $urlRouterProvider.otherwise("/app/dashboard");
+        $urlRouterProvider.otherwise("/app/member/list");
         //
         // Set up the states
         $stateProvider.state('app', {
@@ -88,7 +88,44 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Cập Nhật Nội Dung Trang Chủ'
             },
             resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
-        }).state('app.dashboard.mobile', {
+            })
+
+            .state('app.dashboard.pricing', {
+                url: '/pricing',
+                template: '<div ui-view class="fade-in-up"></div>',
+                title: 'Quản Lý Bảng Giá',
+                ncyBreadcrumb: {
+                    label: 'Quản Lý Bảng Giá'
+                },
+                resolve: { isAuthenticated: isAuthenticated }
+            })
+            .state('app.dashboard.pricing.manage', {
+                url: "/manage",
+                templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_pricing.html",
+                title: 'Quản Lý Bảng Giá',
+                ncyBreadcrumb: {
+                    label: 'Quản Lý Bảng Giá'
+                }
+            }).state('app.dashboard.pricing.add', {
+                url: "/add",
+                templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_pricing_add_new.html",
+                title: 'Thêm Mới Nội Dung Bảng Giá Trang Chủ',
+                ncyBreadcrumb: {
+                    label: 'Thêm Mới Nội Dung Bảng Giá Trang Chủ'
+                },
+                resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+            }).state('app.dashboard.pricing.edit', {
+                url: "/edit/:id",
+                templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_pricing_add_new.html",
+                title: 'Cập Nhật Nội Dung Bảng Giá Trang Chủ',
+                ncyBreadcrumb: {
+                    label: 'Cập Nhật Nội Dung Bảng Giá Trang Chủ'
+                },
+                resolve: loadSequence('ckeditor-plugin', 'ckeditor', 'ckeditorCtrl')
+            })
+
+
+            .state('app.dashboard.mobile', {
             url: "/mobile",
             templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/dashboard_mobile.html",
             title: 'Quản Lý Ứng Dụng Di Động',
@@ -119,6 +156,14 @@ app.config(['$stateProvider', '$urlRouterProvider', '$controllerProvider', '$com
                 label: 'Quản Lý Câu Hỏi Thường Gặp'
             },
             resolve: loadSequence('ngTable', 'ngTableFrequentQuestionManagerCtrl')
+        }).state('app.myprofile', {
+            url: '/myprofile',
+            templateUrl: virtualDirectory + "Areas/Admin/Scripts/spa_admin/assets/views/pages_user_profile.html",
+            title: 'Tài Khoản Của Tôi',
+            ncyBreadcrumb: {
+                label: 'Tài Khoản Của Tôi'
+            },
+            resolve: { isAuthenticated: isAuthenticated }
         }).state('app.ui', {
             url: '/ui',
             template: '<div ui-view class="fade-in-up"></div>',

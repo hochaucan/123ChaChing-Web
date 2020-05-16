@@ -1041,7 +1041,7 @@ app.controller('ModalRequestWithDrawalRevenueReportCtrl', ["$scope", "$window", 
         $scope.ModalRequestWithDrawRevenuReportManager.edit();
     }]);
 
-app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "revenueService", "membershipService", "notificationService",
+app.controller('DisCountCommissionAndCookieStoragePriodCtrl', ["$scope", "$rootScope", "$window", "$localStorage", "$timeout", "$uibModal", "ngTableParams", "revenueService", "membershipService", "notificationService",
     function ($scope, $rootScope, $window, $localStorage, $timeout, $uibModal, ngTableParams, revenueService, membershipService, notificationService) {
         var sessionKey = $localStorage.currentUserAdmin ? $localStorage.currentUserAdmin.token : "";
         $scope.member = {};
@@ -1070,8 +1070,27 @@ app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope
                 if (result.data && result.data.StatusCode === 0) {
                     var configs = result.data.Details;
                     if (configs.length > 0) {
-                        $scope.config.disCountCommission = configs[0].Value;
-                        $scope.config.cookieStoragePeriod = configs[1].Value;
+                        //$scope.config.disCountCommission = configs[0].Value;
+                        //$scope.config.cookieStoragePeriod = configs[1].Value;
+                        //$scope.config.basicPricing = configs[2].Value;
+                        //$scope.config.advancedPricing = configs[3].Value;
+                        angular.forEach(configs, function (config, index) {
+                            var configKeyName = config.Key;
+                            switch (configKeyName) {
+                                case 'ConfigFee':
+                                    $scope.config.disCountCommission = config.Value;
+                                    break;
+                                case 'CookieTime':
+                                    $scope.config.cookieStoragePeriod = config.Value;
+                                    break;
+                                case 'PriceOfAccBasic':
+                                    $scope.config.basicPricing = config.Value;
+                                    break;
+                                case 'PriceOfAccAdvance':
+                                    $scope.config.advancedPricing = config.Value;
+                                    break;
+                            }
+                        });
                     }
 
                     notificationService.displaySuccess(result.data.StatusMsg);
@@ -1124,6 +1143,18 @@ app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope
                             "SessionKey": sessionKey
                         };
 
+                        var entityBasicPricing = {
+                            "Key": "PriceOfAccBasic",
+                            "Value": $scope.config.basicPricing,
+                            "SessionKey": sessionKey
+                        };
+
+                        var entityAdvancedPricing = {
+                            "Key": "PriceOfAccAdvance",
+                            "Value": $scope.config.advancedPricing,
+                            "SessionKey": sessionKey
+                        };
+
                         $scope.showSpinner = true;
                         // Load the data from the API
                         revenueService.UpdateConfigValueByKey(entityDiscount, function (result) {
@@ -1132,10 +1163,10 @@ app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope
                             }
 
                             if (result.data && result.data.StatusCode === 0) {
-                                notificationService.displaySuccess(result.data.StatusMsg);
-                                $timeout(function () {
-                                    $scope.showSpinner = false;
-                                }, 1000);
+                                //notificationService.displaySuccess(result.data.StatusMsg);
+                                //$timeout(function () {
+                                //    $scope.showSpinner = false;
+                                //}, 1000);
                             } else {
                                 notificationService.displayError(result.data.StatusMsg);
                                 $timeout(function () {
@@ -1144,9 +1175,49 @@ app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope
                             }
                         });
 
-                        $scope.showSpinner = true;
+                        //$scope.showSpinner = true;
                         // Load the data from the API
                         revenueService.UpdateConfigValueByKey(entityCookie, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                //notificationService.displaySuccess(result.data.StatusMsg);
+                                //$timeout(function () {
+                                //    $scope.showSpinner = false;
+                                //}, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            }
+                        });
+
+                        //$scope.showSpinner = true;
+                        // Load the data from the API
+                        revenueService.UpdateConfigValueByKey(entityBasicPricing, function (result) {
+                            if (result.data && result.data.StatusCode === 17) {
+                                membershipService.checkMemberAuthorization();
+                            }
+
+                            if (result.data && result.data.StatusCode === 0) {
+                                //notificationService.displaySuccess(result.data.StatusMsg);
+                                //$timeout(function () {
+                                //    $scope.showSpinner = false;
+                                //}, 1000);
+                            } else {
+                                notificationService.displayError(result.data.StatusMsg);
+                                $timeout(function () {
+                                    $scope.showSpinner = false;
+                                }, 1000);
+                            }
+                        });
+
+                        //$scope.showSpinner = true;
+                        // Load the data from the API
+                        revenueService.UpdateConfigValueByKey(entityAdvancedPricing, function (result) {
                             if (result.data && result.data.StatusCode === 17) {
                                 membershipService.checkMemberAuthorization();
                             }
@@ -1155,7 +1226,7 @@ app.controller('DisCountCommissionAndCookieStoragePriod', ["$scope", "$rootScope
                                 notificationService.displaySuccess(result.data.StatusMsg);
                                 $timeout(function () {
                                     $scope.showSpinner = false;
-                                }, 1000);
+                                }, 2000);
                             } else {
                                 notificationService.displayError(result.data.StatusMsg);
                                 $timeout(function () {

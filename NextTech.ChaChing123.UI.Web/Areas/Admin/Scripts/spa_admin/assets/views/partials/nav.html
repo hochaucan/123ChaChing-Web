@@ -5,7 +5,7 @@
 <body>
     <!-- start: MAIN NAVIGATION MENU -->
     <ul class="main-navigation-menu">
-        <li ng-class="{&#39;active open&#39;:$state.includes(&#39;app.dashboard&#39;)}">
+        <li ng-class="{&#39;active&#39;:$state.includes(&#39;app.dashboard&#39;)}">
             <a href="javascript:void(0)">
                 <div class="item-content">
                     <div class="item-media">
@@ -33,13 +33,18 @@
                     </a>
                 </li>
                 <li ui-sref-active="active">
+                    <a ui-sref="app.dashboard.pricing.manage">
+                        <span class="title" translate="sidebar.nav.homemanage.PRICING">Quản Lý Bảng Giá</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
                     <a ui-sref="app.dashboard.frequentquestion">
                         <span class="title">Quản Lý Câu Hỏi Thường Gặp</span>
                     </a>
                 </li>
             </ul>
         </li>
-        <li ng-class="{&#39;active open&#39;:$state.includes(&#39;app.dashboard&#39;)}">
+        <li ng-class="{&#39;active&#39;:$state.includes(&#39;app.affiliatelink&#39;)}">
             <a href="javascript:void(0)">
                 <div class="item-content">
                     <div class="item-media">

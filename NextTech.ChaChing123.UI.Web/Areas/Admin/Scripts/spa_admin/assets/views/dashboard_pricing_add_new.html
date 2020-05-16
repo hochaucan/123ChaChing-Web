@@ -1,0 +1,74 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+<body>
+    <div ng-controller="HomePricingAddNewEditManagerCtrl">
+        <section id="page-title">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="mainTitle">{{documentHeading}}</h1>
+                </div>
+                <ol class="breadcrumb ng-isolate-scope">
+                    <li class="ng-scope"><a href="#/app/dashboard/pricing/manage" class="ng-binding ng-scope">Dashboard</a></li>
+                    <li class="ng-scope active"><span class="ng-binding ng-scope">{{documentHeading}}</span></li>
+                </ol>
+            </div>
+        </section>
+        <!-- end: PAGE TITLE -->
+        <!-- start: INLINE EDIT EXAMPLE -->
+        <div class="container-fluid container-fullw">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- /// controller:  'ngTableCtrl6' -  localtion: assets/js/controllers/ngTableTitleTemplateListCtrl.js /// -->
+                    <div class="panel panel-white ng-scope">
+                        <div class="panel-body">
+                            <circle-spinner ng-show="showSpinner"></circle-spinner>
+                            <form class="form-addnewlead-request" name="FormAddEditDocumentCategory" id="FormAddEditDocumentCategory" novalidate="" ng-submit="form.submit(FormAddEditDocumentCategory)">
+                                <div class="modal-body">
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.Title.$dirty && FormAddEditDocumentCategory.Title.$invalid, 'has-success':FormAddEditDocumentCategory.Title.$valid}">
+                                        <label for="Title">
+                                            Tiêu Đề <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Title" name="Title" ng-model="entity.Title" placeholder="Tiêu Đề" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocumentCategory.Title.$dirty && FormAddEditDocumentCategory.Title.$invalid">Tiêu đề là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.BriefTitle.$dirty && FormAddEditDocumentCategory.BriefTitle.$invalid, 'has-success':FormAddEditDocumentCategory.BriefTitle.$valid}">
+                                        <label for="BriefTitle">
+                                            Miêu tả ngắn gọn <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="BriefTitle" name="BriefTitle" ng-model="entity.BriefTitle" placeholder="Mô tả ngắn gọn" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocumentCategory.BriefTitle.$dirty && FormAddEditDocumentCategory.BriefTitle.$invalid">Miêu tả ngắn gọn là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.Price.$dirty && FormAddEditDocumentCategory.Price.$invalid, 'has-success':FormAddEditDocumentCategory.Price.$valid}">
+                                        <label for="Price">
+                                            Giá sản gói phẩm <span class="symbol required"></span>
+                                        </label>
+                                        <input type="text" class="form-control" id="Price" name="Price" ng-model="entity.Price" placeholder="Giá sản gói phẩm" required="">
+                                        <span class="error text-small block" ng-if="FormAddEditDocumentCategory.Price.$dirty && FormAddEditDocumentCategory.Price.$invalid">Giá sản gói phẩm là bắt buộc.</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error':FormAddEditDocumentCategory.Content.$dirty && FormAddEditDocumentCategory.Content.$invalid, 'has-success':FormAddEditDocumentCategory.Content.$valid}">
+                                        <label for="Description">
+                                            Nội Dung <span class="symbol required"></span>
+                                        </label>
+                                        <div ng-controller="CkeditorCtrl">
+                                            <div ckeditor="options" ng-model="entity.Content" ready="onReady()"></div>
+                                            <span class="error text-small block" ng-if="FormAddEditDocumentCategory.Content.$dirty && FormAddEditDocumentCategory.Content.$invalid">Nội dung là bắt buộc.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Hoàn Tất
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: INLINE EDIT EXAMPLE -->
+    </div>
+</body>
+</html>

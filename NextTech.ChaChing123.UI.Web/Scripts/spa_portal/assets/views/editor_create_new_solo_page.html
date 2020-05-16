@@ -182,14 +182,13 @@
                                                 <h3 ng-if="isShareCodeHidden">Bước 3: Upload Hình Ảnh/ Video</h3>
                                                 <!-- background area -->
                                                 <div ng-if="isShareCodeHidden">
-                                                    <div id="backgroundArea" style="">
+                                                    <div id="backgroundArea" style="" ng-controller="BackgroundImageUploadImageFile">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Hình Nền</label>
-                                                            <br>
+                                                            <small class="form-text">(<strong> Kích thước chuẩn:</strong> 1920 x 1080 pixels và <strong>tỷ lệ lý tưởng là:</strong> 16:9 )</small><br>
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <!--<input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />-->
-                                                                    <input type="file" id="file" class="btn btn-primary btn-s" name="file" multiple onchange="angular.element(this).scope().getBackgroundFileDetails(this)" />
+                                                                    <input type="file" id="backgroundImageFile" class="btn btn-primary btn-s form-control" name="file" multiple onchange="angular.element(this).scope().getFileDetails(this)" />
                                                                 </div>
                                                             </div>
                                                             <!--ADD A PROGRESS BAR ELEMENT.-->
@@ -259,7 +258,7 @@
                                                                         <div class="form-group">
                                                                             <label for="exampleInputEmail1">Danh Sách Autoresponder</label>
                                                                             <!--<input type="text" class="page-element form-control" id="list" name="AutoresponderCodes" ng-model="editor.AutoresponderCodes" aria-describedby="emailHelp" placeholder="Autoresponder List Name">-->
-                                                                            <select class="form-control black" ng-options="option.APIKey as option.CampaignName for option in autoresponders" ng-model="editor.AutoresponderCodes" id="AutoresponderCodes" name="AutoresponderCodes">
+                                                                            <select class="form-control black" ng-options="option.CampaignName as option.CampaignName for option in autoresponders" ng-model="editor.AutoresponderCodes" id="AutoresponderCodes" name="AutoresponderCodes">
                                                                                 <option value="">Select</option>
                                                                             </select>
                                                                             <small class="form-text text-muted"><strong>Chú ý:</strong> Khi sử dụng MailChimp, hãy điền <strong>MailChimp List ID.</strong></small><br>

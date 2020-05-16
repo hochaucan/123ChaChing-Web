@@ -14,6 +14,7 @@
 
         var service = {
             Login: Login,
+            LogOut: LogOut,
             register: register,
             saveCredentials: saveCredentials,
             removeCredentials: removeCredentials,
@@ -28,8 +29,15 @@
             LockAccount: LockAccount,
             LockAffialate: LockAffialate,
             ChangeAccountType: ChangeAccountType,
-            ApprovetWithDrawallInfoByAccount: ApprovetWithDrawallInfoByAccount
+            ApprovetWithDrawallInfoByAccount: ApprovetWithDrawallInfoByAccount,
+            ChangePassword: ChangePassword
         };
+
+        function ChangePassword(memberObj, completed) {
+            apiService.post(baseUrl + '/ChangePassword/', memberObj,
+                completed,
+                entityFailed);
+        }
 
         function UpdateAccountInfo(memberObj, completed) {
             apiService.post(baseUrl + '/UpdateAccountInfo/', memberObj,
@@ -99,18 +107,25 @@
             entityFailed);
         }
 
+        function LogOut(user, completed) {
+            apiService.post(baseUrl + '/LogOut/', user,
+                completed,
+                entityFailed);
+        }
+
         function register(user, completed) {
             apiService.post(baseUrl + '/Account/register', user,
             completed,
             registrationFailed);
         }
 
-        function saveCredentials(user) {
+        function saveCredentials(token, user) {
             $localStorage.currentUserAdmin = {
-                token: user
+                username: user.username,
+                token: token
             };
             // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = 'Bearer ' + user;
+            $http.defaults.headers.common.Authorization = 'Bearer ' + token;
         }
 
         function removeCredentials() {

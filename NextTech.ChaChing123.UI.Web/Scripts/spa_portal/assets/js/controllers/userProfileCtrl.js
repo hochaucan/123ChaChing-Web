@@ -155,8 +155,8 @@ app.controller('UserProfileMasterCtrl', ["$scope",
             }]);
 })();
 
-app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$localStorage", "editorService", "notificationService",
-    function ($scope, $rootScope, $timeout, $localStorage, editorService, notificationService) {
+app.controller('UploadMyProfileCtrl', ["$scope", "$window", "$rootScope", "$timeout", "$localStorage", "editorService", "notificationService",
+    function ($scope, $window, $rootScope, $timeout, $localStorage, editorService, notificationService) {
         // GET THE FILE INFORMATION.
         $scope.myavatar = "";
 
@@ -214,6 +214,7 @@ app.controller('UploadMyProfileCtrl', ["$scope", "$rootScope", "$timeout", "$loc
                     $scope.showSpinner = false;
                     $scope.myavatar = result.Details;
                     $localStorage.currentUser.myavatar = result.Details;
+                    $window.location.reload();
                     //$scope.userData.displayUserInfo();
                 }, 1000);
             }

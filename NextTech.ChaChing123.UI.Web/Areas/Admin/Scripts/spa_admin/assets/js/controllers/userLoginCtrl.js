@@ -43,7 +43,7 @@
 
                                 if (result.data && result.data.StatusCode == 0) {
                                     //$scope.isLoading = false;
-                                    membershipService.saveCredentials(result.data.Details);
+                                    membershipService.saveCredentials(result.data.Details, $scope.userLogin);
                                     notificationService.displaySuccess('Đăng nhập thành công');
                                     $scope.userData.displayUserInfo();
 

@@ -11,6 +11,7 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
         $scope.PaymentStatusList = {};
         $scope.Affiliates = {};
         $scope.AffiliateStatusList = {};
+        $scope.CommissionPayOffs = {};
 
         $scope.orderID = 0;
 
@@ -25,12 +26,14 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                         var paymentStatus = "";
                         var affiliate = "";
                         var affiliateStatus = "";
+                        var affiliateCommissionPayOff = "";
 
                         if (filter !== undefined) {
                             keyword = (filter.KeyWord && filter.KeyWord.length > 0) ? filter.KeyWord : "";
                             paymentStatus = (filter.PaymentStatus && filter.PaymentStatus.length > 0) ? filter.PaymentStatus : "";
                             affiliate = (filter.UserName && filter.UserName.length > 0) ? filter.UserName : "";
                             affiliateStatus = (filter.AffiliateStatus && filter.AffiliateStatus.length > 0) ? filter.AffiliateStatus : "";
+                            affiliateCommissionPayOff = (filter.CommissionPayOff && parseInt(filter.CommissionPayOff) > 0) ? filter.CommissionPayOff : "0";
                         }
 
                         filterObj = {
@@ -40,6 +43,7 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                             "PaymentState": paymentStatus,
                             "AffiliateState": affiliateStatus,
                             "AffiliateAccount": affiliate,
+                            "GreaterThanDay": affiliateCommissionPayOff,
                             "SessionKey": sessionKey
                         };
 
@@ -135,7 +139,8 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                 var filter = {
                     "PaymentStatus": $scope.order.PaymentStatus,
                     "UserName": $scope.order.UserName,
-                    "AffiliateStatus": $scope.order.AffiliateStatus
+                    "AffiliateStatus": $scope.order.AffiliateStatus,
+                    "CommissionPayOff": $scope.order.CommissionPayOff
                 };
 
                 loadOrderList(filter);
@@ -181,6 +186,7 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
             loadPaymentStatus();
             loadAffiliates();
             loadAffiliateStatus();
+            loadCommissionPayOff();
         }
 
         function loadPaymentStatus() {
@@ -188,6 +194,12 @@ app.controller('ngTableOrderListCtrl', ["$scope", "$uibModal", "$localStorage", 
                 { PaymentStatus: "1", PaymentStatusName: 'Chưa thanh toán' },
                 { PaymentStatus: "2", PaymentStatusName: 'Ðã thanh toán' },
                 { PaymentStatus: "3", PaymentStatusName: 'Hoàn Tiền' }
+            ];
+        }
+
+        function loadCommissionPayOff() {
+            $scope.CommissionPayOffs = [
+                { CommissionPayOffID: "7", CommissionPayOffName: '7 ngày' }
             ];
         }
 

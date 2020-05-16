@@ -10,6 +10,8 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
         $scope.isNLPocketShown = false;
         $scope.isDomesticBankCardShow = false;
         $scope.isViasMasterCardShow = false;
+        $scope.isDirectPaymentShown = false;
+        $scope.IsPanelPaymentMethodShown = true;
 
         $scope.changePaymentMethod = function (paymentTypeID) {
             switch (paymentTypeID) {
@@ -17,16 +19,29 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
                     $scope.isNLPocketShown = true;
                     $scope.isDomesticBankCardShow = false;
                     $scope.isViasMasterCardShow = false;
+                    $scope.isDirectPaymentShown = false;
+                    $scope.IsPanelPaymentMethodShown = true;
                     break;
                 case 'ATM_ONLINE':
                     $scope.isNLPocketShown = false;
                     $scope.isDomesticBankCardShow = true;
                     $scope.isViasMasterCardShow = false;
+                    $scope.isDirectPaymentShown = false;
+                    $scope.IsPanelPaymentMethodShown = true;
                     break;
                 case 'VISA':
                     $scope.isNLPocketShown = false;
                     $scope.isDomesticBankCardShow = false;
                     $scope.isViasMasterCardShow = true;
+                    $scope.isDirectPaymentShown = false;
+                    $scope.IsPanelPaymentMethodShown = true;
+                    break;
+                case 'DIRECT':
+                    $scope.isNLPocketShown = false;
+                    $scope.isDomesticBankCardShow = false;
+                    $scope.isViasMasterCardShow = false;
+                    $scope.isDirectPaymentShown = true;
+                    $scope.IsPanelPaymentMethodShown = false;
                     break;
                 default:
             }
@@ -59,9 +74,16 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
                     } else {
                         var sessionkey = $localStorage.currentUserRegistration ? $localStorage.currentUserRegistration.token : "";
 
+                        var bankCodeSetup = $scope.payment_method.bankcode;
+                        if ($scope.payment_method.option_payment === 'NL' ||
+                            $scope.payment_method.option_payment === 'VISA' ||
+                            $scope.payment_method.option_payment === 'DIRECT') {
+                            bankCodeSetup = "";
+                        }
+
                         var payment_option = {
                             "OptionPayment": $scope.payment_method.option_payment,
-                            "BankCode": ($scope.payment_method.option_payment === 'NL' || $scope.payment_method.option_payment === 'VISA') ? "" : $scope.payment_method.bankcode,
+                            "BankCode": bankCodeSetup,
                             "FullName": $scope.payment_method.Name,
                             "Email": $scope.payment_method.Email,
                             "Phone": $scope.payment_method.Phone,
@@ -114,6 +136,7 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
             var userReg = $localStorage.currentUserRegistration;
             var accountType = $localStorage.currentUserRegistration ? $localStorage.currentUserRegistration.accountType : "";
             var amount = 0;
+
             switch (accountType.toString()) {
                 case "1":
                     amount = 5997000;
@@ -129,7 +152,8 @@ app.controller('CheckoutPaymentMethodCtrl', ["$scope", "$rootScope", "$location"
                     "Name": userReg.fullname,
                     "Email": userReg.email,
                     "Phone": userReg.phone,
-                    "Amount": amount
+                    "Amount": amount,
+                    "Description": "Thanh Toan ChaChing_" + userReg.phone
                 };
             }
         }

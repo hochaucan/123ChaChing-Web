@@ -201,17 +201,17 @@
                                                     </label>
                                                 </li>
                                                 <!--<li class="bank-online-methods ">
-                                                    <label for="sml_atm_ABB_ck_on">
-                                                        <i class="ABB" title="Ngân hàng TMCP An Bình"></i>
-                                                        <input id="ABB" type="radio" name="bankcode" value="ABB">
-                                                    </label>
-                                                </li>
-                                                <li class="bank-online-methods ">
-                                                    <label for="sml_atm_OCB_ck_on">
-                                                        <i class="OCB" title="Ngân hàng TMCP Phương Đông"></i>
-                                                        <input id="OCB" type="radio" name="bankcode" value="OCB">
-                                                    </label>
-                                                </li>-->
+                    <label for="sml_atm_ABB_ck_on">
+                        <i class="ABB" title="Ngân hàng TMCP An Bình"></i>
+                        <input id="ABB" type="radio" name="bankcode" value="ABB">
+                    </label>
+                </li>
+                <li class="bank-online-methods ">
+                    <label for="sml_atm_OCB_ck_on">
+                        <i class="OCB" title="Ngân hàng TMCP Phương Đông"></i>
+                        <input id="OCB" type="radio" name="bankcode" value="OCB">
+                    </label>
+                </li>-->
                                                 <li class="bank-online-methods ">
                                                     <label for="sml_atm_SEA_ck_on">
                                                         <i class="SEA" title="Ngân hàng TMCP Đông Nam Á"></i>
@@ -219,11 +219,11 @@
                                                     </label>
                                                 </li>
                                                 <!--<li class="bank-online-methods ">
-                                                    <label for="sml_atm_LVB_ck_on">
-                                                        <i class="LVB" title="Ngân Hàng TMCP Bưu Điện Liên Việt"></i>
-                                                        <input id="LVB" type="radio" name="bankcode" value="LVB">
-                                                    </label>
-                                                </li>-->
+                    <label for="sml_atm_LVB_ck_on">
+                        <i class="LVB" title="Ngân Hàng TMCP Bưu Điện Liên Việt"></i>
+                        <input id="LVB" type="radio" name="bankcode" value="LVB">
+                    </label>
+                </li>-->
                                             </ul>
                                         </div>
                                     </div>
@@ -236,8 +236,79 @@
                                     <div class="form-group" ng-if="isViasMasterCardShow">
 
                                     </div>
+                                    <div class="radio clip-radio radio-primary">
+                                        <input type="radio" id="option_payment_Direct_Payment" name="option_payment" ng-model="payment_method.option_payment" value="DIRECT" ng-change="changePaymentMethod('DIRECT')">
+                                        <label for="option_payment_Direct_Payment">
+                                            Chuyển Khoản Trực Tiếp
+                                        </label>
+                                    </div>
+                                    <div class="form-group" ng-if="isDirectPaymentShown">
+                                        <div class="boxContent">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <h4>Ngân hàng Vietcombank</h4>
+                                                    <ul class="list-unstyled invoice-details padding-bottom-30 padding-top-10 text-dark">
+                                                        <li>
+                                                            <strong>Tên chủ TK:</strong> Trần Khoa Nguyên
+                                                        </li>
+                                                        <li>
+                                                            <strong>Số TK:</strong> 678967898
+                                                        </li>
+                                                        <li>
+                                                            Chi nhánh Phạm Ngọc Thạch, Hồ Chí Minh
+                                                        </li>
+                                                        <li>
+                                                            Ngân hàng Vietcombank
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4>Ngân hàng Techcombank</h4>
+                                                    <ul class="list-unstyled invoice-details padding-bottom-30 padding-top-10 text-dark">
+                                                        <li>
+                                                            <strong>Tên chủ TK:</strong> Trần Khoa Nguyên
+                                                        </li>
+                                                        <li>
+                                                            <strong>Số TK:</strong> 007.1000.908.990
+                                                        </li>
+                                                        <li>
+                                                            Chi nhánh HCM
+                                                        </li>
+                                                        <li>
+                                                            Ngân hàng Techcombank
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4>Ví điện tử MOMO</h4>
+                                                    <ul class="list-unstyled invoice-details padding-bottom-30 padding-top-10 text-dark">
+                                                        <li>
+                                                            <strong>Tên chủ TK:</strong> Trần Khoa Nguyên
+                                                        </li>
+                                                        <li>
+                                                            <strong>Số TK:</strong> 190.310.151.850.19
+                                                        </li>
+                                                        <li>
+                                                            Chi nhánh Quận 5, TPHCM
+                                                        </li>
+                                                        <li>
+                                                            MOMO: 0981.108.891
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4>VIETTEL PAY</h4>
+                                                    <ul class="list-unstyled invoice-details padding-bottom-30 padding-top-10 text-dark">
+                                                        <li>
+                                                            <strong>VIETTEL PAY:</strong> 0981.108.891
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="panel panel-white no-radius">
+                                <div class="panel panel-white no-radius" ng-if="IsPanelPaymentMethodShown">
                                     <div class="panel-heading">
                                         <h3><span class="text-red">Lưu ý</span>: Bạn nhập đầy đủ thông tin sau</h3>
                                     </div>
@@ -271,7 +342,7 @@
                                                 </label>
                                                 <input type="text" class="form-control" id="CheckoutAmount" name="Amount" ng-model="payment_method.Amount" placeholder="Số Tiền" ng-pattern="/^[0-9]*$/" required="" readonly>
                                                 <span class="error text-small block" ng-if="FormPaymentMethod.Amount.$dirty && FormPaymentMethod.Amount.$invalid">Số Tiền là bắt buộc và phải là số.</span>
-                                            </div>                                            
+                                            </div>
                                             <div class="form-group" ng-class="{'has-error':FormPaymentMethod.Description.$dirty && FormPaymentMethod.Description.$invalid, 'has-success':FormPaymentMethod.Description.$valid}">
                                                 <label for="CheckoutDescription">
                                                     Nội dung chuyển tiền
@@ -281,10 +352,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="panel-footer">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Thanh Toán
+                                        </button>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block">
-                                    Thanh Toán
-                                </button>
                             </form>
                         </div>
                     </div>
